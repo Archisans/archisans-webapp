@@ -38,35 +38,16 @@ const TermsModal = ({ open, onClose }) => {
                 boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
                 // keep outer box non-scrollable
                 maxHeight: `calc(80vh - ${theme.spacing(8)})`,
-                overflow: "hidden",
+                overflowY: "auto",
+                overflowX: "hidden",
+
+                // Hide scrollbar
+                scrollbarWidth: "none", // Firefox
+                "&::-webkit-scrollbar": { display: "none" }, // Chrome, Safari
               }}
             >
               <Box
-                sx={{
-                  // inner scroll area
-                  maxHeight: `calc(80vh - ${theme.spacing(8)})`,
-                  overflow: "auto",
-
-                  // create space on the RIGHT side of the scrollbar (inside the box)
-                  marginInlineEnd: theme.spacing(2), // moves scrollbar left
-                  // keep content away from the scrollbar
-                  paddingInlineEnd: `calc(${theme.spacing(3)} + 10px)`,
-
-                  scrollbarGutter: "stable",
-                  // Firefox
-                  scrollbarWidth: "thin",
-                  scrollbarColor: "rgba(0,0,0,0.3) transparent",
-                  // WebKit
-                  "&::-webkit-scrollbar": { width: 8 },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "rgba(0,0,0,0.3)",
-                    borderRadius: 9999,
-                  },
-                  "&::-webkit-scrollbar-thumb:hover": {
-                    backgroundColor: "rgba(0,0,0,0.45)",
-                  },
-                  "&::-webkit-scrollbar-track": { background: "transparent" },
-                }}
+                
               >
               <Box
                 sx={{
