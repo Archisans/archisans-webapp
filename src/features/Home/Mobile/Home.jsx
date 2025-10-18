@@ -6,6 +6,7 @@ import {
   Stack,
   IconButton,
   Avatar,
+  useTheme,
 } from "@mui/material";
 import { KeyboardArrowDownOutlined } from "@mui/icons-material";
 import AdvertisementCarousel from "./Components/AdvertisementCarousal";
