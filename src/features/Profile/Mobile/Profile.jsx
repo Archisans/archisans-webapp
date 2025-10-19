@@ -41,21 +41,21 @@ const Profile = () => {
     <Box sx={{ width: "100%", bgcolor: "#ffffffff" }}>
       <Grid container direction="column" sx={{ color: "#0b134a" }}>
         <Grid container>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                px:1,
-                mb:2
-              }}
-            >
-              {/* Avatar */}
-              <Avatar
-                src={profile.imageUrl}
-                alt={profile.fullName}
-                sx={{ width: 80, height: 80 }}
-              />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              px: 1,
+              mb: 2,
+            }}
+          >
+            {/* Avatar */}
+            <Avatar
+              src={profile.imageUrl}
+              alt={profile.fullName}
+              sx={{ width: 80, height: 80 }}
+            />
 
             {/* User Info */}
             <Box>
@@ -67,20 +67,17 @@ const Profile = () => {
                   mb: 0.5,
                 }}
               >
-                {user?.fullName || "Full Name"}
+                {profile.fullName || profile.phoneNumber}
               </Typography>
 
-                {profile?.fullName && (
-                  <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
-                    {profile.phoneNumber}
-                  </Typography>
-                )}
-              </Box>
+              {profile.fullName && (
+                <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
+                  {profile.phoneNumber}
+                </Typography>
+              )}
             </Box>
           </Box>
-
         </Grid>
-
 
         <Grid>
           <List sx={{ width: "100%", p: 0 }}>
@@ -165,8 +162,8 @@ const Profile = () => {
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
-                to={RouteProvider.USER_ABOUT} // make sure this route exists
-                sx={{ px: 2, }}
+                to={RouteProvider.USER_ABOUT}
+                sx={{ px: 2 }}
               >
                 <InfoIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
                 <ListItemText
@@ -189,7 +186,7 @@ const Profile = () => {
               <ListItemButton
                 component={Link}
                 to={RouteProvider.USER_TERMS}
-                sx={{ px: 2, pb: 1, }}
+                sx={{ px: 2, pb: 1 }}
               >
                 <GavelIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
                 <ListItemText
@@ -212,7 +209,9 @@ const Profile = () => {
                 component={Link}
                 to={RouteProvider.USER_PRIVACY_POLICY}
               >
-                <PrivacyTipIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <PrivacyTipIcon
+                  sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }}
+                />
                 <ListItemText
                   primary="Privacy Policy"
                   slotProps={{
@@ -227,7 +226,6 @@ const Profile = () => {
                 />
               </ListItemButton>
             </ListItem>
-
 
             <Divider sx={{ mx: 2, borderColor: "rgba(0, 0, 0, 0.3)" }} />
 
