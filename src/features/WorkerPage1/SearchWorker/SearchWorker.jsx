@@ -5,7 +5,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import WorkerCard from "@/features/WorkerPage1/SearchWorker/WorkerCard";
 import { WORKERS } from "@/features/WorkerPage1/SearchWorker/constants";
 import AlertMessage from "@/components/Desktop/BookingAlert";
@@ -15,6 +15,8 @@ const DesktopSearchWorker = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
+  const { slug } = useParams();
+  const workers = WORKERS(slug);
 
   return (
     <Box sx={{ bgcolor: "#f8fafc", minHeight: "100vh" }}>
@@ -33,11 +35,14 @@ const DesktopSearchWorker = () => {
           }}
         >
           <Typography variant="h4" fontWeight={700} mb={1} color="#1e293b">
-            Available Workers
+            {`Available ${slug ? slug
+  .replace(/-/g, " ")
+  .replace(/\b\w/g, c => c.toUpperCase()) : "Professionals"}`}
+
           </Typography>
-          <Typography color="text.secondary" fontSize={16}>
+          {/* <Typography color="text.secondary" fontSize={16}>
             {WORKERS.length} skilled professionals ready to help with your projects
-          </Typography>
+          </Typography> */}
         </Paper>
 
         {/* Worker Grid - Perfect horizontal gaps */}
@@ -49,9 +54,14 @@ const DesktopSearchWorker = () => {
     px: 3,              
   }}
 >
-  {WORKERS.map((worker, idx) => (
-    <WorkerCard key={idx} worker={worker} navigate={navigate} setOpen={setOpen} />
-  ))}
+  {workers.map((worker, idx) => (
+      <WorkerCard 
+        key={idx} 
+        worker={worker} 
+        navigate={navigate} 
+        setOpen={setOpen} 
+      /> 
+    ))}
 </Box>
         
       </Container>

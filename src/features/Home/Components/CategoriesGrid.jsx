@@ -8,7 +8,12 @@ const CategoriesGrid = ({ categories }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const handleClick = (category) => {
+  const handleClick = (category,index) => {
+    // Generate a sid starting from 1
+  const sid = index + 1;
+
+  // Store it in localStorage
+  localStorage.setItem("sid", sid);
     setSelectedCategory(category);
     setModalOpen(true);
   };
@@ -203,7 +208,7 @@ const CategoriesGrid = ({ categories }) => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <Box
-                    onClick={() => handleClick(cat)}
+                    onClick={() => handleClick(cat,idx)}
                     sx={{
                       background: "rgba(255,255,255,0.9)",
                       backdropFilter: "blur(15px)",

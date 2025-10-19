@@ -1,9 +1,9 @@
 import React from "react";
 import { Drawer, Box, Typography, IconButton, Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { workerLinks } from "@/features/WorkerPage1/Worker/constants";
+// import { workerLinks } from "@/features/WorkerPage1/Worker/constants";
 
-const WorkerBottomLinks = ({ open, onClose }) => {
+const WorkerBottomLinks = ({ worker,open, onClose }) => {
   return (
     <Drawer
       anchor="bottom"
@@ -27,7 +27,7 @@ const WorkerBottomLinks = ({ open, onClose }) => {
 
       {/* Links */}
       <Box display="flex" flexDirection="column" gap={2}>
-        {workerLinks.map((link) => (
+        {worker.workerLinks.map((link) => (
           <Box
             key={link.id}
             display="flex"
