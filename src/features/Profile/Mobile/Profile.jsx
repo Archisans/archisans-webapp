@@ -21,11 +21,11 @@ import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import { RouteProvider } from "@/config/RouteProvider";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@/hooks/UserContext";
 import LogoutPopup from "@/components/LogoutModal";
 
 const Profile = () => {
-  const { user } = useUser();
+  const { profile } = useUser();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
 
@@ -41,21 +41,21 @@ const Profile = () => {
     <Box sx={{ width: "100%", bgcolor: "#ffffffff" }}>
       <Grid container direction="column" sx={{ color: "#0b134a" }}>
         <Grid container>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-              px: 1,
-              mb: 2
-            }}
-          >
-            {/* Avatar */}
-            <Avatar
-              src={user?.imageUrl}
-              alt={user?.fullName}
-              sx={{ width: 80, height: 80 }}
-            />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                px:1,
+                mb:2
+              }}
+            >
+              {/* Avatar */}
+              <Avatar
+                src={profile.imageUrl}
+                alt={profile.fullName}
+                sx={{ width: 80, height: 80 }}
+              />
 
             {/* User Info */}
             <Box>
@@ -70,19 +70,12 @@ const Profile = () => {
                 {user?.fullName || "Full Name"}
               </Typography>
 
-              {user?.email && (
-                <Typography
-                  sx={{ fontSize: 14, color: "#4b4b6b", mb: 0.5 }}
-                >
-                  {user.email}
-                </Typography>
-              )}
-
-              {user?.primaryPhoneNumber?.phoneNumber && (
-                <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
-                  {user.primaryPhoneNumber.phoneNumber}
-                </Typography>
-              )}
+                {profile?.fullName && (
+                  <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
+                    {profile.phoneNumber}
+                  </Typography>
+                )}
+              </Box>
             </Box>
           </Box>
 
