@@ -10,38 +10,29 @@ import {
   Typography,
   CircularProgress,
   Alert,
+  Paper,
 } from "@mui/material";
 import MobHeading from "@/components/Mobile/mobileHeading";
-import { useProfileEdit } from "@/hooks/useProfileEdit";
+import { useUser } from "@/hooks/UserContext";
 
 export default function AccountInfo({ message }) {
   const {
     user,
-    isLoaded,
+    profile,
+    setProfile,
     edit,
     setEdit,
-    loading,
+    saving,
+    imageLoading,
     error,
     success,
-    imageLoading,
-    values,
-    setValues,
     handleImageUpload,
-    handleSave,
-  } = useProfileEdit();
+    handleSaveProfile,
+  } = useUser();
 
-  if (!isLoaded) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="50vh"
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
+  const handleSave = async () => {
+    await handleSaveProfile();
+  };
 
   if (!user) {
     return (
@@ -54,21 +45,19 @@ export default function AccountInfo({ message }) {
   return (
     <Grid
       container
-      direction={"column"}
-      size={12}
+      direction="column"
       sx={{ height: "fit-content" }}
       pt={0}
       pb={10}
     >
       <MobHeading Heading="Account Info" />
 
+      {/* Messages */}
       {message && (
         <Box p={2}>
           <Alert severity="error">{message}</Alert>
         </Box>
       )}
-
-      {/* Success/Error Messages */}
       {success && (
         <Box p={2}>
           <Alert severity="success">Profile updated successfully!</Alert>
@@ -80,84 +69,112 @@ export default function AccountInfo({ message }) {
         </Box>
       )}
 
-      {/* Avatar with name and edit button */}
-      <Grid
-        container
-        size={12}
-        alignItems={"center"}
-        sx={{ position: "relative" }}
+      {/* Avatar + Basic Info */}
+      <Paper
+        elevation={2}
+        sx={{
+          borderRadius: 3,
+          p: 3,
+          mx: 2,
+          mb: 3,
+          backgroundColor: "background.paper",
+        }}
       >
-        <Grid container size={4} justifyContent={"center"}>
-          <Badge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            badgeContent={
-              <IconButton
-                component="label"
-                size="small"
-                color="primary"
-                disabled={imageLoading}
-                sx={{
-                  bgcolor: "white",
-                  boxShadow: 1,
-                  height: "20px",
-                  width: "20px",
-                }}
-              >
-                {imageLoading ? (
-                  <CircularProgress size={12} />
-                ) : (
-                  <Edit fontSize={"inherit"} />
-                )}
-                <input
-                  type="file"
-                  hidden
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
-              </IconButton>
-            }
-          >
-            <Avatar
-              src={user.imageUrl}
-              sx={{ height: "70px", width: "70px" }}
+        <Grid
+          container
+          alignItems="center"
+          spacing={3}
+          sx={{ borderBottom: "1px solid #eee", pb: 3 }}
+        >
+          <Grid item>
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              badgeContent={
+                <IconButton
+                  component="label"
+                  size="small"
+                  color="primary"
+                  disabled={imageLoading}
+                  sx={{
+                    bgcolor: "white",
+                    boxShadow: 1,
+                    height: "28px",
+                    width: "28px",
+                  }}
+                >
+                  {imageLoading ? (
+                    <CircularProgress size={14} />
+                  ) : (
+                    <Edit fontSize="small" />
+                  )}
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                </IconButton>
+              }
+            >
+              <Avatar
+                src={profile.imageUrl || ""}
+                sx={{ height: "90px", width: "90px" }}
+              />
+            </Badge>
+          </Grid>
+
+          <Grid item xs>
+            <Typography sx={{ fontSize: "16px", fontWeight: 500, mb: 1 }}>
+              First Name
+            </Typography>
+            <Input
+              fullWidth
+              disabled={edit}
+              value={profile.firstName || ""}
+              onChange={(e) =>
+                setProfile((p) => ({ ...p, firstName: e.target.value }))
+              }
+              sx={{ fontSize: "14px", mb: 2 }}
             />
-          </Badge>
+            <Typography sx={{ fontSize: "16px", fontWeight: 500, mb: 1 }}>
+              Last Name
+            </Typography>
+            <Input
+              fullWidth
+              disabled={edit}
+              value={profile.lastName || ""}
+              onChange={(e) =>
+                setProfile((p) => ({ ...p, lastName: e.target.value }))
+              }
+              sx={{ fontSize: "14px" }}
+            />
+          </Grid>
         </Grid>
-        <Grid container direction={"column"} size={7.5}>
-          <Typography sx={{ fontSize: "16px" }}>First Name</Typography>
-          <Input
-            disabled={edit}
-            value={values.firstName}
-            onChange={(e) =>
-              setValues({ ...values, firstName: e.target.value })
-            }
-            sx={{ fontSize: "13px", mb: 2 }}
-          />
-          <Typography sx={{ fontSize: "16px" }}>Last Name</Typography>
-          <Input
-            disabled={edit}
-            value={values.lastName}
-            onChange={(e) => setValues({ ...values, lastName: e.target.value })}
-            sx={{ fontSize: "13px" }}
-          />
+
+        {/* Phone Number */}
+        <Grid container alignItems="center" spacing={2} sx={{ mt: 3 }}>
+          <Grid item xs={4}>
+            <Typography sx={{ fontSize: "15px", fontWeight: 500 }}>
+              Phone Number
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Input
+              fullWidth
+              disabled
+              value={profile.phoneNumber || ""}
+              sx={{ fontSize: "14px" }}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
 
-      {/* Phone Number */}
-      <Grid container direction={"column"} size={12} p={2} pt={2.5} pb={2}>
-        <Typography sx={{ fontSize: "16px" }}>Phone Number</Typography>
-        <Input
-          disabled={true}
-          value={values.phoneNumber}
-          sx={{ fontSize: "14px" }}
-        />
-      </Grid>
-
-      <Box p={5}>
+      {/* Save/Edit Button */}
+      <Box p={3}>
         <Button
           variant="contained"
-          sx={{ height: "3em" }}
+          sx={{ height: "3em", fontWeight: 600 }}
           fullWidth
           onClick={() => {
             if (edit) {
@@ -166,9 +183,9 @@ export default function AccountInfo({ message }) {
               handleSave();
             }
           }}
-          disabled={loading}
+          disabled={saving}
         >
-          {loading ? (
+          {saving ? (
             <CircularProgress size={24} color="inherit" />
           ) : edit ? (
             "Edit"

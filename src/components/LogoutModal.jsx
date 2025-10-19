@@ -9,20 +9,20 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { useClerk } from "@clerk/clerk-react";
+import { supabase } from "@/lib/supabaseClient";
 import { BREAKPOINTS } from "@/config/breakPoints";
 
 const LogoutModal = ({ open, onClose }) => {
-  const { signOut } = useClerk();
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);
 
   const handleLogout = async () => {
     try {
-      await signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
       onClose();
-    } catch (error) {
+    } catch (err) {
       if (process.env.NODE_ENV === "development") {
-        console.error(error);
+        console.error("SignOut error:", err.message);
       }
     }
   };
@@ -43,7 +43,6 @@ const LogoutModal = ({ open, onClose }) => {
         },
       }}
     >
-      {/* Close button (top-right) */}
       <IconButton
         onClick={onClose}
         sx={{
@@ -57,7 +56,6 @@ const LogoutModal = ({ open, onClose }) => {
       </IconButton>
 
       <DialogContent sx={{ textAlign: "center" }}>
-        {/* Title & Subtitle */}
         <Typography
           variant={isMobile ? "h6" : "h5"}
           sx={{ fontWeight: 700, mb: 1 }}
@@ -68,7 +66,6 @@ const LogoutModal = ({ open, onClose }) => {
           Are you sure you want to log out of your account?
         </Typography>
 
-        {/* Buttons */}
         <Box
           sx={{
             display: "flex",

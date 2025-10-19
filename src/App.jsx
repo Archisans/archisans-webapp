@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+import { RouteProvider } from "./config/RouteProvider";
+import { useUser } from "./hooks/UserContext";
+import { useBootstrapConfiguration } from "./hooks/useBootstrapConfiguration";
 import ScrollToTop from "@/utils/ScrollToTop/ScrollToTop";
 import AppLayout from "./layouts/AppLayout";
-import { RouteProvider } from "./config/RouteProvider";
 import Home from "./pages/Home";
 import SavedAddress from "./pages/address/saved/Address";
 import Profile from "./pages/profile/Profile";
@@ -25,23 +27,21 @@ import WorkerAvailability from "./pages/worker/availability/WorkerAvailability";
 import ServiceDetails from "./pages/worker/service/details/ServiceDetails";
 import AddAddress from "./pages/address/AddAddress";
 import Notification from "./pages/settings/notification/Notification";
-import { useBootstrapConfiguration } from "./hooks/useBootstrapConfiguration";
 import SplashScreen from "./components/SplashScreen";
 import Search from "./pages/search/Search";
 import Workers from "./pages/workers/Workers";
 import icon from "@/assets/Images/Archi.png";
 import SavedWorker from "./pages/savedworkers/SavedWorker";
 import WorkerRegister from "./pages/worker/register/WorkerRegister";
-import { useUser } from "@clerk/clerk-react";
 import NotFound from "@/error/404/NotFound";
 import ServerError from "@/error/500/ServerError";
 import AccessDenied from "@/error/403/AccessDenied";
 
 function App() {
-  const { isLoading, hasError } = useBootstrapConfiguration();
-  const { isLoaded } = useUser();
+  const { isLoading: configLoading, hasError } = useBootstrapConfiguration();
+  const { loading: userLoading } = useUser();
 
-  if (isLoading || hasError || !isLoaded) {
+  if (userLoading || configLoading || hasError) {
     return (
       <SplashScreen
         logo={<img src={icon} alt="App Logo" width={150} height={150} />}
