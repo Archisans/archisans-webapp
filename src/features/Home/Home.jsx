@@ -10,7 +10,7 @@ import Landing from "@/features/Home/Components/Landing";
 import WorkerBanner from "@/features/Home/Components/WorkerBanner";
 import CategoriesGrid from "./Components/CategoriesGrid";
 import Advertisements from "./Components/Advertisements";
-
+import Advertisments1 from "./Components/Advertisments1";
 export default function Home({ bootstrapConfiguration }) {
 
   const categoriesRef = useRef(null);
@@ -52,9 +52,11 @@ const scrollToCategories = () => {
       {/* Join as Worker Section */}
       <WorkerJoin />
 
-      <Advertisements
+       {/* <Advertisements
         advertisements={bootstrapConfiguration?.advertisements?.central}
-      />
+      />  */}
+
+      <Advertisments1/>
 
       {/*Instant Service */}
       <InstantService />

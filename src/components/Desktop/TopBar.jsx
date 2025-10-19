@@ -17,12 +17,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { navLinks } from "@/components/Desktop/Constants/topBar";
 import SideDrawer from "@/components/Desktop/SideDrawer";
 import LoginPopUpModal from "@/components/Desktop/LoginModal";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@/context/UserContext";
 
 const TopBar = ({ handleLocationClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, isSignedIn } = useUser();
+  const { profile, isSignedIn } = useUser();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
@@ -230,7 +230,7 @@ const TopBar = ({ handleLocationClick }) => {
                 <Avatar
                   onClick={() => setDrawerOpen(true)}
                   sx={{ width: 32, height: 32, cursor: "pointer" }}
-                  src={user.imageUrl}
+                  src={profile?.imageUrl}
                 />
               </Stack>
             </>

@@ -9,26 +9,23 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import GavelIcon from "@mui/icons-material/Gavel";
+import InfoIcon from "@mui/icons-material/Info";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import { RouteProvider } from "@/config/RouteProvider";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@/context/UserContext";
 import LogoutPopup from "@/components/LogoutModal";
 
 const Profile = () => {
-  const { user } = useUser();
+  const { profile } = useUser();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
 
@@ -44,53 +41,43 @@ const Profile = () => {
     <Box sx={{ width: "100%", bgcolor: "#ffffffff" }}>
       <Grid container direction="column" sx={{ color: "#0b134a" }}>
         <Grid container>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                px:1,
-                mb:2
-              }}
-            >
-              {/* Avatar */}
-              <Avatar
-                src={user?.imageUrl}
-                alt={user?.fullName}
-                sx={{ width: 80, height: 80 }}
-              />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              px: 1,
+              mb: 2,
+            }}
+          >
+            {/* Avatar */}
+            <Avatar
+              src={profile.imageUrl}
+              alt={profile.fullName}
+              sx={{ width: 80, height: 80 }}
+            />
 
-              {/* User Info */}
-              <Box>
-                <Typography
-                  sx={{
-                    fontSize: 20,
-                    fontWeight: 600,
-                    color: "#0b134a",
-                    mb: 0.5,
-                  }}
-                >
-                  {user?.fullName || "Full Name"}
+            {/* User Info */}
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 600,
+                  color: "#0b134a",
+                  mb: 0.5,
+                }}
+              >
+                {profile.fullName || profile.phoneNumber}
+              </Typography>
+
+              {profile.fullName && (
+                <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
+                  {profile.phoneNumber}
                 </Typography>
-
-                {user?.email && (
-                  <Typography
-                    sx={{ fontSize: 14, color: "#4b4b6b", mb: 0.5 }}
-                  >
-                    {user.email}
-                  </Typography>
-                )}
-
-                {user?.primaryPhoneNumber?.phoneNumber && (
-                  <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
-                    {user.primaryPhoneNumber.phoneNumber}
-                  </Typography>
-                )}
-              </Box>
+              )}
             </Box>
-        
+          </Box>
         </Grid>
-
 
         <Grid>
           <List sx={{ width: "100%", p: 0 }}>
@@ -171,12 +158,35 @@ const Profile = () => {
 
             <Divider sx={{ mx: 2, borderColor: "rgba(0, 0, 0, 0.3)" }} />
 
+            {/* About */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to={RouteProvider.USER_ABOUT}
+                sx={{ px: 2 }}
+              >
+                <InfoIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <ListItemText
+                  primary="About"
+                  slotProps={{
+                    primary: {
+                      sx: {
+                        color: "#0b134a",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                      },
+                    },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+
             {/* Terms and Condition */}
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to={RouteProvider.USER_TERMS}
-                sx={{ px: 2, py: 1, mt: 1.5 }}
+                sx={{ px: 2, pb: 1 }}
               >
                 <GavelIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
                 <ListItemText
@@ -199,7 +209,9 @@ const Profile = () => {
                 component={Link}
                 to={RouteProvider.USER_PRIVACY_POLICY}
               >
-                <PrivacyTipIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <PrivacyTipIcon
+                  sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }}
+                />
                 <ListItemText
                   primary="Privacy Policy"
                   slotProps={{
@@ -214,7 +226,6 @@ const Profile = () => {
                 />
               </ListItemButton>
             </ListItem>
-
 
             <Divider sx={{ mx: 2, borderColor: "rgba(0, 0, 0, 0.3)" }} />
 

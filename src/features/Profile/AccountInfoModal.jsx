@@ -13,50 +13,31 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import { useProfileEdit } from "@/hooks/useProfileEdit";
+import { useUser } from "@/context/UserContext";
 
 const AccountInfoModal = ({ open, onClose, message }) => {
   const {
     user,
-    isLoaded,
+    profile,
+    setProfile,
     edit,
     setEdit,
-    loading,
+    saving,
+    imageLoading,
     error,
     success,
-    imageLoading,
-    values,
-    setValues,
     handleImageUpload,
-    handleSave,
-  } = useProfileEdit();
+    handleSaveProfile,
+  } = useUser();
 
   const handleSaveAndClose = async () => {
-    await handleSave();
+    await handleSaveProfile();
     if (!error) {
       setTimeout(() => onClose(), 1000);
     }
   };
 
-  if (!isLoaded) {
-    return (
-      <Modal open={open} onClose={onClose}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      </Modal>
-    );
-  }
+  console.log(profile);
 
   if (!user) {
     return (
@@ -97,7 +78,7 @@ const AccountInfoModal = ({ open, onClose, message }) => {
             Account Info
           </Typography>
 
-          {/* Success/Error/Messages */}
+          {/* Messages */}
           {message && (
             <Box p={2}>
               <Alert severity="error">{message}</Alert>
@@ -153,7 +134,7 @@ const AccountInfoModal = ({ open, onClose, message }) => {
                 }
               >
                 <Avatar
-                  src={user.imageUrl}
+                  src={profile.imageUrl || ""}
                   sx={{ height: "90px", width: "90px" }}
                 />
               </Badge>
@@ -165,9 +146,9 @@ const AccountInfoModal = ({ open, onClose, message }) => {
               <Input
                 fullWidth
                 disabled={edit}
-                value={values.firstName}
+                value={profile.firstName}
                 onChange={(e) =>
-                  setValues({ ...values, firstName: e.target.value })
+                  setProfile((p) => ({ ...p, firstName: e.target.value }))
                 }
                 sx={{ fontSize: "14px", mb: 2 }}
               />
@@ -177,9 +158,9 @@ const AccountInfoModal = ({ open, onClose, message }) => {
               <Input
                 fullWidth
                 disabled={edit}
-                value={values.lastName}
+                value={profile.lastName}
                 onChange={(e) =>
-                  setValues({ ...values, lastName: e.target.value })
+                  setProfile((p) => ({ ...p, lastName: e.target.value }))
                 }
                 sx={{ fontSize: "14px" }}
               />
@@ -196,8 +177,8 @@ const AccountInfoModal = ({ open, onClose, message }) => {
             <Grid item xs={8} md={9}>
               <Input
                 fullWidth
-                disabled={true}
-                value={values.phoneNumber}
+                disabled
+                value={profile.phoneNumber}
                 sx={{ fontSize: "14px" }}
               />
             </Grid>
@@ -218,9 +199,9 @@ const AccountInfoModal = ({ open, onClose, message }) => {
                   handleSaveAndClose();
                 }
               }}
-              disabled={loading}
+              disabled={saving}
             >
-              {loading ? (
+              {saving ? (
                 <CircularProgress size={24} color="inherit" />
               ) : edit ? (
                 "Edit"

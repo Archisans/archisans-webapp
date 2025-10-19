@@ -122,42 +122,42 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
 
       {/* Info Section */}
       <Box sx={{ px: 1, py: 2 }}>
-      <Stack
-  direction="row"
-  justifyContent="space-between"
-  alignItems="flex-start"
->
-  <Stack
-    direction="row"
-    spacing={1}
-    alignItems="center"
-    sx={{ maxWidth: "65%", overflow: "hidden" }}
-  >
-    <Avatar src={worker.avatar} sx={{ height: 53, width: 53, flexShrink: 0 }} />
-    <Box sx={{ overflow: "hidden" }}>
-      <Typography
-        mb={0.4}
-        fontSize={18}
-        fontWeight={580}
-        color="black"
-        noWrap
-        sx={{ textOverflow: "ellipsis" }}
-      >
-        {worker.name}
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing={0.5}>
-        <MapPinIcon size={18} />
-        <Typography
-          color="#6c6868ff"
-          fontSize={14}
-          noWrap
-          sx={{ textOverflow: "ellipsis" }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="flex-start"
         >
-          {worker.location}
-        </Typography>
-      </Stack>
-    </Box>
-  </Stack>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{ maxWidth: "65%", overflow: "hidden" }}
+          >
+            <Avatar src={worker.avatar} sx={{ height: 53, width: 53, flexShrink: 0 }} />
+            <Box sx={{ overflow: "hidden" }}>
+              <Typography
+                mb={0.4}
+                fontSize={18}
+                fontWeight={580}
+                color="black"
+                noWrap
+                sx={{ textOverflow: "ellipsis" }}
+              >
+                {worker.name}
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <MapPinIcon size={18} />
+                <Typography
+                  color="#6c6868ff"
+                  fontSize={14}
+                  noWrap
+                  sx={{ textOverflow: "ellipsis" }}
+                >
+                  {worker.location}
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
 
   {/* Starts From */}
   {/* <Box
