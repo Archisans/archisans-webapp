@@ -18,7 +18,7 @@ import {
 } from "@/components/Desktop/Constants/SideDrawer";
 import AccountInfoModal from "@/features/Profile/AccountInfoModal";
 import HelpSupportModal from "@/components/Desktop/Footer/components/Help&Support";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 import LogoutModal from "../LogoutModal";
 
 const SideDrawer = ({ open, setOpen }) => {

@@ -13,7 +13,7 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 
 const AccountInfoModal = ({ open, onClose, message }) => {
   const {

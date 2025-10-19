@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { BellIcon } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
 import CategoriesCarousal from "./Components/CategoriesCarousal";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 import ProfileDrawer from "./Components/ProfileDrawer";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import Footer from "./Components/Footer";

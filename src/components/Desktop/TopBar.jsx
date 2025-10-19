@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { navLinks } from "@/components/Desktop/Constants/topBar";
 import SideDrawer from "@/components/Desktop/SideDrawer";
 import LoginPopUpModal from "@/components/Desktop/LoginModal";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 
 const TopBar = ({ handleLocationClick }) => {
   const navigate = useNavigate();

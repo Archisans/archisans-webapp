@@ -21,7 +21,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import { RouteProvider } from "@/config/RouteProvider";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 import LogoutPopup from "@/components/LogoutModal";
 
 const Profile = () => {
