@@ -177,7 +177,7 @@ export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
               }}
             >
               {/* Type of Work */}
-              <Box>
+              {/* <Box>
                 <Box
                   sx={{
                     display: "flex",
@@ -215,7 +215,7 @@ export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
                     ))}
                   </Select>
                 </FormControl>
-              </Box>
+              </Box> */}
 
               <Divider sx={{ my: 0.5 }} />
 

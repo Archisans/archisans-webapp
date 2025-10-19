@@ -25,7 +25,7 @@ import {
   StarIcon,
 } from "@phosphor-icons/react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import UserSpecificBooking from "@/features/Bookings/UserSpecificBooking";
 import { RouteProvider } from "@/config/RouteProvider";
 import { WORKERS } from "@/features/WorkerPage1/SearchWorker/constants";
@@ -36,6 +36,7 @@ import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButto
 
 const WorkerCard = ({ worker, navigate, setOpen }) => {
   const theme = useTheme();
+
 
   return (
     <Box
@@ -158,51 +159,67 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
             </Box>
           </Stack>
 
-          {/* Starts From */}
-          <Box
-            textAlign="right"
-            mr={1.5}
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            sx={{ flexShrink: 0 }}
-          >
-            <Typography fontSize={15.5} color="grey">
-              Starts from
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <Typography fontSize={18} fontWeight={500} color="black">
-                {worker.price}
-              </Typography>
-              <Typography color="grey"> /hr</Typography>
-            </Box>
-          </Box>
-        </Stack>
+  {/* Starts From */}
+  {/* <Box
+    textAlign="right"
+    mr={1.5}
+    display="flex"
+    flexDirection="column"
+    justifyContent="center"
+    sx={{ flexShrink: 0 }}
+  >
+    <Typography fontSize={15.5} color="grey">
+      Starts from
+    </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
+      <Typography fontSize={18} fontWeight={500} color="black">
+        {worker.price}
+      </Typography>
+      <Typography color="grey"> /hr</Typography>
+    </Box>
+  </Box> */}
+</Stack>
 
 
         {/* Roles */}
-        <Stack direction="row" spacing={1} mt={1} mb={1}>
-          {worker.roles.map((role, i) => (
-            <Chip
-              key={i}
-              label={role}
-              size="small"
-              sx={{
-                bgcolor: theme.palette.primary.main,
-                color: "white",
-                fontWeight: 400,
-                fontSize: 10,
-                px: 1,
-              }}
-            />
-          ))}
-        </Stack>
+        {/* Roles */}
+<Stack direction="row" spacing={1} mt={1} mb={1}>
+  {worker.roles.slice(0, 2).map((role, i) => (
+    <Chip
+      key={i}
+      label={role}
+      size="small"
+      sx={{
+        bgcolor: theme.palette.primary.main,
+        color: "white",
+        fontWeight: 400,
+        fontSize: 10,
+        px: 1,
+      }}
+    />
+  ))}
+
+  {worker.roles.length > 2 && (
+    <Chip
+      label={`+${worker.roles.length - 2}`}
+      size="small"
+      sx={{
+        bgcolor: theme.palette.primary.main,
+        color: "white",
+        fontWeight: 400,
+        fontSize: 10,
+        px: 1,
+      }}
+    />
+  )}
+</Stack>
+
 
         {/* Description */}
         <Typography fontSize={13} mb={1.7} ml={0.8}>
@@ -235,6 +252,8 @@ const MobSearchWorker = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState();
   const [isAlert, setIsAlert] = useState(false);
+    const { slug } = useParams(); // get slug from URL if using params
+const workerss = WORKERS(slug || "default-role"); // call WORKERS with slug
 
   return (
     <Box sx={{ pb: 8 }}>
@@ -317,15 +336,15 @@ const MobSearchWorker = () => {
       </Box>
 
       {/* Worker Cards */}
-      {WORKERS.map((worker, idx) => (
-        <WorkerCard
-          key={idx}
-          worker={worker}
-          navigate={navigate}
-          open={open}
-          setOpen={setOpen}
-        />
-      ))}
+      {workerss.map((worker, idx) => (
+  <WorkerCard
+    key={idx}
+    worker={worker}
+    navigate={navigate}
+    open={open}
+    setOpen={setOpen}
+  />
+))}
       <AlertMessage isAlert={isAlert} />
       <UserSpecificBooking open={open} setIsAlert={setIsAlert} setOpen={setOpen} />
     </Box>
