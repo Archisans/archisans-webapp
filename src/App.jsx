@@ -41,7 +41,7 @@ function App() {
   const { isLoading, hasError } = useBootstrapConfiguration();
   const { isLoaded } = useUser();
 
-  if (isLoading || hasError || !isLoaded) {
+  if (isLoading || hasError ) {
     return (
       <SplashScreen
         logo={<img src={icon} alt="App Logo" width={150} height={150} />}

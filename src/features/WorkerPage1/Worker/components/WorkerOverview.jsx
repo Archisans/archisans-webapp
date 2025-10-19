@@ -103,7 +103,7 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
         <Box sx={{ px: 2.5, pb: 2.5 }}>
           <Box sx={{ display: "flex", alignItems: "flex-end", mb: 2 }}>
             <Avatar
-              src={worker.img}
+              src={worker.avatar}
               sx={{
                 width: 100,
                 height: 100,

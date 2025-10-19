@@ -403,7 +403,12 @@ export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
                 variant="contained"
                 size="small"
                 onClick={() => {
-                  setNotAvailableOpen(true);
+                  setOpen(false);
+                setIsAlert(true);
+                setTimeout(() => {
+                  setIsAlert(false);
+                }, 2000);
+                  // setNotAvailableOpen(true);
                 }}
                 sx={{
                   borderRadius: 2,

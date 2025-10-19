@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -59,6 +60,9 @@ import {
   RATE_BASIS_OPTIONS,
 } from "./utils/constants";
 
+import { RouteProvider } from "@/config/RouteProvider"; // Example import
+
+
 const WorkerForm = ({
   formData,
   updateFormData,
@@ -80,6 +84,8 @@ const WorkerForm = ({
   const contactForm = useContactInfoForm(formData, updateFormData);
   const professionForm = useProfessionForm(formData, updateFormData);
   const experienceForm = useExperienceForm(formData);
+
+  const navigate = useNavigate();
 
   // Main validation hook for field-level validation
   const { touched, validateField, handleBlur, markAllTouched } =
@@ -359,6 +365,8 @@ const getSectionCompletionStatus = useMemo(() => {
     }
 
     onSubmit();
+    
+    navigate(RouteProvider.WORKER_PROFILE);
   }, [
     formData,
     isFormValid,
@@ -535,7 +543,7 @@ const getSectionCompletionStatus = useMemo(() => {
                 color: "#1e293b",
               }}
             >
-              Worker Registration
+              Register With Us
             </Typography>
             <Typography variant="body1" sx={{ color: "#64748b" }}>
               Please provide your details to complete the registration process
