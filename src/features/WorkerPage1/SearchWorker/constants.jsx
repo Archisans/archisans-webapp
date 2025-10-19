@@ -1,9 +1,39 @@
 // constants.jsx
 import { Instagram, Facebook, Linkedin, Globe } from "lucide-react";
 import pic1 from "@/assets/Images/Ad4.png";
+import a1 from "@/assets/Images/avatar/avatar1.jpg";
+import a2 from "@/assets/Images/avatar/avatar2.jpg";
+import a3 from "@/assets/Images/avatar/avatar3.jpg";
+import a4 from "@/assets/Images/avatar/avatar4.jpg";
+import a5 from "@/assets/Images/avatar/avatar5.jpg";
+import a6 from "@/assets/Images/avatar/avatar6.jpg";
+import a7 from "@/assets/Images/avatar/avatar7.jpg";
+import a8 from "@/assets/Images/avatar/avatar8.jpg";
+import a9 from "@/assets/Images/avatar/avatar9.jpg";
+
+import b1 from "@/assets/Images/bannerimages/banner1.jpg";
+import b2 from "@/assets/Images/bannerimages/banner2.jpg";
+import b3 from "@/assets/Images/bannerimages/banner3.jpg";
+import b4 from "@/assets/Images/bannerimages/banner4.jpg";
+import b5 from "@/assets/Images/bannerimages/banner5.jpg";
+import b6 from "@/assets/Images/bannerimages/banner6.jpg";
+import b7 from "@/assets/Images/bannerimages/banner7.jpg";
+import b8 from "@/assets/Images/bannerimages/banner8.jpg";
+
+import sl1 from "@/assets/Images/servicelicense/license1.png"
+
+import s1 from "@/assets/Images/services/service1.jpg";
+import s2 from "@/assets/Images/services/service2.jpg";
+import s3 from "@/assets/Images/services/service3.jpg";
+import s4 from "@/assets/Images/services/service4.jpg";
+import s5 from "@/assets/Images/services/service5.jpg";
+import s6 from "@/assets/Images/services/service6.jpg";
+import s7 from "@/assets/Images/services/service7.jpg";
+import s8 from "@/assets/Images/services/service8.jpg";
+
 
 const WORKER_TEMPLATE = {
-  roles: ["Architectural Designers"],
+  roles: ["Architectural Designers","Civil Engineer","Aluminium Fabricator"],
   price: "₹1,200",
   phone: "+91-XXXXXXXXXX",
   workerLinks: [
@@ -29,9 +59,9 @@ const WORKER_TEMPLATE = {
     price: 1200,
     type: "hour",
     notes: "Provides modern and functional home layouts, interior planning, and 3D renderings.",
-    licenseImg: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+    licenseImg: sl1,
     verified: true,
-    img: pic1
+    img: s4
   },
   {
     id: 2,
@@ -42,9 +72,9 @@ const WORKER_TEMPLATE = {
     price: 900,
     type: "day",
     notes: "Provides high-quality brickwork, stone masonry, and general construction support.",
-    licenseImg: "https://images.unsplash.com/photo-1599058917217-1f2d2dbb2c97",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1581091215368-6f6b1b8c3b2e"
+    img: s6
   },
   {
     id: 3,
@@ -55,9 +85,9 @@ const WORKER_TEMPLATE = {
     price: 1500,
     type: "hour",
     notes: "Provides solutions for water supply, irrigation, drainage systems, and sustainable water management.",
-    licenseImg: "https://images.unsplash.com/photo-1581091870620-5d4f4c77d1a1",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1590073242580-3b3b6c1f4e4c"
+    img: s2
   },
   {
     id: 4,
@@ -68,9 +98,9 @@ const WORKER_TEMPLATE = {
     price: 2000,
     type: "project",
     notes: "Provides safe and efficient demolition services for residential, commercial, and industrial buildings.",
-    licenseImg: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1598300058455-1d6f66a2f3f4"
+    img: s1
   },
   {
     id: 5,
@@ -81,9 +111,9 @@ const WORKER_TEMPLATE = {
     price: 1200,
     type: "hour",
     notes: "Provides fabrication and installation of aluminium windows, doors, partitions, and decorative structures.",
-    licenseImg: "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68"
+    img: s5
   },
   {
     id: 6,
@@ -94,9 +124,9 @@ const WORKER_TEMPLATE = {
     price: 1800,
     type: "hour",
     notes: "Provides installation and maintenance of CCTV cameras, alarm systems, and access control solutions for residential and commercial properties.",
-    licenseImg: "https://images.unsplash.com/photo-1591696331115-7a4a68d25f50",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1581091012184-1e6b6a2c8c4b"
+    img: s8
   },
   {
     id: 7,
@@ -107,9 +137,9 @@ const WORKER_TEMPLATE = {
     price: 500,
     type: "hour",
     notes: "Provides guidance on design projects, 3D modeling, rendering, and presentation for architecture students.",
-    licenseImg: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+    img: s7
   },
   {
     id: 8,
@@ -120,9 +150,9 @@ const WORKER_TEMPLATE = {
     price: 1000,
     type: "hour",
     notes: "Assists with obtaining building permits, legal approvals, and compliance documentation for residential and commercial projects.",
-    licenseImg: "https://images.unsplash.com/photo-1590073242580-3b3b6c1f4e4c",
+    licenseImg: sl1,
     verified: true,
-    img: "https://images.unsplash.com/photo-1581091870620-5d4f4c77d1a1"
+    img: s2
   }
   ],
   projects: [
@@ -134,8 +164,7 @@ const WORKER_TEMPLATE = {
     phnno: "65469271052",
     description: "Designed a modern residential home with functional layouts and sustainable features.",
     images: [
-      "https://images.unsplash.com/photo-1599423300746-b62533397364",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+      s3,s4
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -147,8 +176,7 @@ const WORKER_TEMPLATE = {
     phnno: "9876543210",
     description: "Executed high-quality brickwork and masonry for a commercial building.",
     images: [
-      "https://images.unsplash.com/photo-1581091215368-6f6b1b8c3b2e",
-      "https://images.unsplash.com/photo-1590073242580-3b3b6c1f4e4c"
+      s6
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -160,8 +188,7 @@ const WORKER_TEMPLATE = {
     phnno: "1234567890",
     description: "Developed an efficient irrigation and drainage system for a residential complex.",
     images: [
-      "https://images.unsplash.com/photo-1581091870620-5d4f4c77d1a1",
-      "https://images.unsplash.com/photo-1590073242580-3b3b6c1f4e4c"
+      s1
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -173,8 +200,7 @@ const WORKER_TEMPLATE = {
     phnno: "7896541230",
     description: "Performed safe and efficient demolition for a multi-storey building.",
     images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-      "https://images.unsplash.com/photo-1598300058455-1d6f66a2f3f4"
+      s1
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -186,8 +212,7 @@ const WORKER_TEMPLATE = {
     phnno: "4561237890",
     description: "Installed aluminium windows and doors with custom designs for a luxury villa.",
     images: [
-      "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
-      "https://images.unsplash.com/photo-1593642532973-d31b6557fa68"
+      s3
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -199,8 +224,7 @@ const WORKER_TEMPLATE = {
     phnno: "3216549870",
     description: "Installed CCTV cameras and access control systems for a commercial property.",
     images: [
-      "https://images.unsplash.com/photo-1591696331115-7a4a68d25f50",
-      "https://images.unsplash.com/photo-1581091012184-1e6b6a2c8c4b"
+      s8
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -212,8 +236,7 @@ const WORKER_TEMPLATE = {
     phnno: "6549873210",
     description: "Provided 3D modeling and design assistance for architecture students’ projects.",
     images: [
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+      s5,s7
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   },
@@ -225,8 +248,7 @@ const WORKER_TEMPLATE = {
     phnno: "7891234560",
     description: "Assisted a commercial project with building permits, approvals, and compliance documentation.",
     images: [
-      "https://images.unsplash.com/photo-1590073242580-3b3b6c1f4e4c",
-      "https://images.unsplash.com/photo-1581091870620-5d4f4c77d1a1"
+      s2,s4
     ],
     video: "https://www.w3schools.com/html/mov_bbb.mp4"
   }
@@ -269,7 +291,7 @@ const WORKER_TEMPLATE = {
   ]
 };
 
-const NAMES = ["Akhil Raj", "Rahul Menon", "Anjali Nair","Karun Nair","Revathy Nambiar","Jomon T","Manu Mathew"];
+const NAMES = ["Akhil Raj", "Rahul Menon", "Raghavan Nair","Kiran John","Gireesh Nambiar","Jomon T","Manu Mathew"];
 const DESCRIPTIONS = [
   "Dedicated to delivering innovative solutions that combine creativity with practical results.",
   "Committed to providing high-quality work tailored to meet client expectations.",
@@ -281,14 +303,10 @@ const LOCATIONS=["Thrissur","Kochi","Trivandrum","Palakkad","Kollam"];
 const RATINGS=["4.6","4.2","2.6","3.6",];
 const REVIEWS=["12","23","34","45"];
 const IMAGES = [
-  pic1, 
-  "https://images.unsplash.com/photo-1599423300746-b62533397364", 
-  "https://images.unsplash.com/photo-1572120360610-d971b9b639b2"  
+  b1,b2,b3,b4,b5,b6,b7,b8
 ];
 const AVATARS = [
-  "https://randomuser.me/api/portraits/men/81.jpg",
-  "https://randomuser.me/api/portraits/men/82.jpg",
-  "https://randomuser.me/api/portraits/women/79.jpg"
+  a1,a2,a3,a4,a5,a6,a7,a8,a9
 ];
 
 

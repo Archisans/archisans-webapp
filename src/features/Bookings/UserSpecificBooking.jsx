@@ -271,12 +271,12 @@ export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
                 textTransform: "none",
               }}
               onClick={() => {
-                // setOpen(false);
-                // setIsAlert(true);
-                // setTimeout(() => {
-                //   setIsAlert(false);
-                // }, 2000);
-                setNotAvailableOpen(true);
+                setOpen(false);
+                setIsAlert(true);
+                setTimeout(() => {
+                  setIsAlert(false);
+                }, 2000);
+                // setNotAvailableOpen(true);
               }}
             >
               Book now
