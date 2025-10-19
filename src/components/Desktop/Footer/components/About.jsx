@@ -33,6 +33,8 @@ const AboutModal = ({ open, onClose }) => {
                 overflow: "auto",
                 border: "1px solid rgba(255,255,255,0.3)",
                 boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
+                scrollbarWidth: "none", // Firefox
+                "&::-webkit-scrollbar": { display: "none" }, // Chrome, Safari
               }}
             >
               {/* Header */}

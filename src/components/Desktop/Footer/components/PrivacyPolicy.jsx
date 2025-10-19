@@ -24,49 +24,32 @@ const PrivacyPolicyModal = ({ open, onClose }) => {
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <Box
-              sx={{
-                background: "rgba(255,255,255,0.95)",
-                backdropFilter: "blur(20px)",
-                borderRadius: theme.mixins.borderRadius("xxs").borderRadius,
-                p: 1,
-                pl:4,
-                pt:4,
-                maxWidth: 700,
-                width: "90vw",
-                border: "1px solid rgba(255,255,255,0.3)",
-                boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                // keep outer box non-scrollable
-                maxHeight: `calc(80vh - ${theme.spacing(8)})`,
-                overflow: "hidden",
-              }}
-            >
               <Box
-                sx={{
-                  // inner scroll area
-                  maxHeight: `calc(80vh - ${theme.spacing(8)})`,
-                  overflow: "auto",
+  sx={{
+    background: "rgba(255,255,255,0.95)",
+    backdropFilter: "blur(20px)",
+    borderRadius: theme.mixins.borderRadius("xxs").borderRadius,
+    p: 1,
+    pl: 4,
+    pt: 4,
+    maxWidth: 700,
+    width: "90vw",
+    border: "1px solid rgba(255,255,255,0.3)",
+    boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
 
-                  // create space on the RIGHT side of the scrollbar (inside the box)
-                  marginInlineEnd: theme.spacing(2), // moves scrollbar left
-                  // keep content away from the scrollbar
-                  paddingInlineEnd: `calc(${theme.spacing(3)} + 10px)`,
+    maxHeight: `calc(80vh - ${theme.spacing(8)})`,
 
-                  scrollbarGutter: "stable",
-                  // Firefox
-                  scrollbarWidth: "thin",
-                  scrollbarColor: "rgba(0,0,0,0.3) transparent",
-                  // WebKit
-                  "&::-webkit-scrollbar": { width: 8 },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "rgba(0,0,0,0.3)",
-                    borderRadius: 9999,
-                  },
-                  "&::-webkit-scrollbar-thumb:hover": {
-                    backgroundColor: "rgba(0,0,0,0.45)",
-                  },
-                  "&::-webkit-scrollbar-track": { background: "transparent" },
-                }}
+    overflowY: "auto", // allow vertical scroll
+    overflowX: "hidden",
+
+    // hide scrollbars
+    scrollbarWidth: "none", // Firefox
+    "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
+  }}
+>
+
+              <Box
+                
               >
                 {/* Header */}
                 <Box
@@ -114,7 +97,7 @@ const PrivacyPolicyModal = ({ open, onClose }) => {
                     >
                       {section.heading}
                     </Typography>
-                    <Typography sx={{ mb: 2, color: "#555", lineHeight: 1.6 }}>
+                    <Typography sx={{ mb: 3, color: "#555", lineHeight: 1.6 }}>
                       {section.content}
                     </Typography>
                   </Box>
