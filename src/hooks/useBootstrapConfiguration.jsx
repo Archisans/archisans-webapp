@@ -1,14 +1,9 @@
-import { useServiceData } from "./useServiceData";
+import { bootStrapData } from "@/utils/bootStrap";
 
 export const useBootstrapConfiguration = () => {
-  const bootstrapConfiguration = useServiceData(
-    "bootstrap",
-    "getBootstrapConfiguration"
-  );
-
   return {
-    bootstrapConfiguration: bootstrapConfiguration?.data,
-    isLoading: bootstrapConfiguration.isLoading,
-    hasError: bootstrapConfiguration.error,
+    bootstrapConfiguration: bootStrapData,
+    isLoading: false,
+    hasError: false,
   };
 };
