@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
 import { useBootstrapConfiguration } from "@/hooks/useBootstrapConfiguration";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@/hooks/UserContext";
 import { useNavigate } from "react-router-dom";
 import WorkerForm1 from "@/features/WorkerRegistration/Mobile/workerForm1";
 import WorkerForm2 from "@/features/WorkerRegistration/Mobile/workerForm2";
@@ -12,7 +12,7 @@ import WorkerForm from "@/features/WorkerRegistration/WorkerForm";
 import SubmissionStatusSnackbar from "@/components/common/SubmissionStatusSnackbar";
 
 export default function WorkerRegister() {
-  const { user } = useUser();
+  const { profile } = useUser();
   const { bootstrapConfiguration } = useBootstrapConfiguration();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);
@@ -23,35 +23,35 @@ export default function WorkerRegister() {
   });
 
   useEffect(() => {
-    if (!user) return;
+    if (!profile) return;
 
-    const isProfileComplete = user.fullName && user.imageUrl;
+    const isProfileComplete = profile.fullName && profile.imageUrl;
 
     if (!isProfileComplete) {
       navigate("/profile", {
         state: { message: "Please complete your profile to continue" },
       });
     }
-  }, [user, navigate]);
+  }, [profile, navigate]);
 
-  if (!user?.fullName || !user?.imageUrl) {
+  if (!profile.fullName || !profile.imageUrl) {
     return null;
   }
 
   const [formData, setFormData] = useState({
     personal: {
-      fullName: user?.fullName || "",
+      fullName: profile.fullName || "",
       dob: "2002-02-02",
       gender: "MALE",
       aadhaar: "123456789012",
     },
     contact: {
-      phone: user?.primaryPhoneNumber?.phoneNumber || "",
+      phone: profile.phoneNumber || "",
       email: "xyz@gmail.com",
       address: "xyz 123",
     },
     professions: [],
-    uploadedImage: user?.imageUrl || null,
+    uploadedImage: profile.imageUrl || null,
   });
 
   const handleSubmit = async () => {

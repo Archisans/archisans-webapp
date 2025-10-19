@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { BellIcon } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
 import CategoriesCarousal from "./Components/CategoriesCarousal";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@/hooks/UserContext";
 import ProfileDrawer from "./Components/ProfileDrawer";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import Footer from "./Components/Footer";
@@ -28,7 +28,7 @@ import PopularServices from "./Components/PopularServices";
 
 const HomeMobile = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();
-  const { user, isSignedIn } = useUser();
+  const { profile, isSignedIn } = useUser();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -123,7 +123,7 @@ const HomeMobile = ({ bootstrapConfiguration }) => {
                     <Avatar
                       onClick={() => setDrawerOpen(true)}
                       sx={{ width: 32, height: 32 }}
-                      src={user.imageUrl}
+                      src={profile.imageUrl}
                     />
                   </Stack>
                 ) : (

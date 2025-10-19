@@ -24,11 +24,11 @@ import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import { RouteProvider } from "@/config/RouteProvider";
-import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@/hooks/UserContext";
 import LogoutPopup from "@/components/LogoutModal";
 
 const Profile = () => {
-  const { user } = useUser();
+  const { profile } = useUser();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
 
@@ -55,8 +55,8 @@ const Profile = () => {
             >
               {/* Avatar */}
               <Avatar
-                src={user?.imageUrl}
-                alt={user?.fullName}
+                src={profile.imageUrl}
+                alt={profile.fullName}
                 sx={{ width: 80, height: 80 }}
               />
 
@@ -70,20 +70,12 @@ const Profile = () => {
                     mb: 0.5,
                   }}
                 >
-                  {user?.fullName || "Full Name"}
+                  {profile.fullName || profile.phoneNumber }
                 </Typography>
 
-                {user?.email && (
-                  <Typography
-                    sx={{ fontSize: 14, color: "#4b4b6b", mb: 0.5 }}
-                  >
-                    {user.email}
-                  </Typography>
-                )}
-
-                {user?.primaryPhoneNumber?.phoneNumber && (
+                {profile?.fullName && (
                   <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
-                    {user.primaryPhoneNumber.phoneNumber}
+                    {profile.phoneNumber}
                   </Typography>
                 )}
               </Box>

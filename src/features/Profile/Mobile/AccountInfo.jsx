@@ -12,7 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 import MobHeading from "@/components/Mobile/mobileHeading";
-import { useProfileEdit } from "@/hooks/useProfileEdit";
+import { useProfileEdit } from "@/hooks/useProfile";
 
 export default function AccountInfo({ message }) {
   const {

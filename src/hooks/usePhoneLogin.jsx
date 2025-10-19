@@ -1,42 +1,38 @@
 import { useState, useRef } from "react";
-import { useSignIn } from "@clerk/clerk-react";
+import { supabase } from "../lib/supabaseClient";
 
 export const usePhoneLogin = (onLogin) => {
-  const { isLoaded, signIn, setActive } = useSignIn();
-  const [step, setStep] = useState(1); // 1=phone, 2=otp
+  const [step, setStep] = useState(1); // 1 = phone, 2 = otp
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const otpRefs = useRef([]);
 
   const handlePhoneSubmit = async () => {
-    if (!isLoaded || phoneNumber.length !== 10) return;
+    const cleanedPhone = phoneNumber.replace(/\D/g, "");
+    if (cleanedPhone.length !== 10) {
+      setError("Enter a valid 10-digit phone number.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
     try {
-      const fullPhoneNumber = `+91${phoneNumber}`;
-      const signInResponse = await signIn.create({
-        identifier: fullPhoneNumber,
+      const fullPhoneNumber = `+91${cleanedPhone}`;
+
+      const { error: signInError } = await supabase.auth.signInWithOtp({
+        phone: fullPhoneNumber,
       });
 
-      const phoneNumberId = signInResponse.supportedFirstFactors.find(
-        (factor) => factor.strategy === "phone_code"
-      )?.phoneNumberId;
-
-      if (!phoneNumberId) throw new Error("Phone number not configured");
-
-      await signIn.prepareFirstFactor({
-        strategy: "phone_code",
-        phoneNumberId,
-      });
+      if (signInError) throw signInError;
 
       setStep(2);
     } catch (err) {
-      console.error(err);
-      setError(err.errors?.[0]?.message || err.message || "Failed to send OTP");
+      console.error("Send OTP Error:", err);
+      setError(err.message || "Failed to send OTP. Try again.");
     } finally {
       setLoading(false);
     }
@@ -47,39 +43,65 @@ export const usePhoneLogin = (onLogin) => {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
+
     if (value && index < 5) otpRefs.current[index + 1]?.focus();
     if (!value && index > 0) otpRefs.current[index - 1]?.focus();
   };
 
   const handleOtpSubmit = async () => {
-    if (!isLoaded) return;
-
     const otpValue = otp.join("");
-    if (otpValue.length !== 6) return;
+    if (otpValue.length !== 6) {
+      setError("Enter the full 6-digit OTP.");
+      return;
+    }
 
     setLoading(true);
     setError("");
 
     try {
-      const signInAttempt = await signIn.attemptFirstFactor({
-        strategy: "phone_code",
-        code: otpValue,
+      const fullPhoneNumber = `+91${phoneNumber.replace(/\D/g, "")}`;
+
+      const { data, error: verifyError } = await supabase.auth.verifyOtp({
+        phone: fullPhoneNumber,
+        token: otpValue,
+        type: "sms",
       });
 
-      if (signInAttempt.status === "complete") {
-        await setActive({ session: signInAttempt.createdSessionId });
+      if (verifyError) throw verifyError;
 
-        setSuccess(true);
-        setTimeout(() => {
-          onLogin?.();
-        }, 1000);
-      } else {
-        setError("Verification incomplete. Try again.");
+      const userId = data?.session?.user?.id;
+      if (!userId) throw new Error("Unable to get user ID from session.");
+
+      try {
+        const { data: profileData, error: fetchError } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("id", userId)
+          .single();
+
+        if (fetchError && fetchError.code !== "PGRST116") throw fetchError;
+
+        if (!profileData) {
+          await supabase.from("profiles").upsert(
+            {
+              id: userId,
+              phone_number: fullPhoneNumber,
+              first_name: "",
+              last_name: "",
+            },
+            { onConflict: "id" }
+          );
+        }
+      } catch (err) {
+        console.error("Profile creation error:", err);
       }
+
+      setSuccess(true);
+      setTimeout(() => onLogin?.(), 1000);
     } catch (err) {
-      console.error("OTP Error:", err);
-      setError(err.errors?.[0]?.message || "Incorrect OTP. Try again.");
-      setOtp(["", "", "", "", "", ""]);
+      console.error("OTP Verification Error:", err);
+      setError(err.message || "Incorrect OTP. Try again.");
+      setOtp(Array(6).fill(""));
       otpRefs.current[0]?.focus();
     } finally {
       setLoading(false);
@@ -89,7 +111,7 @@ export const usePhoneLogin = (onLogin) => {
   const reset = () => {
     setStep(1);
     setPhoneNumber("");
-    setOtp(["", "", "", "", "", ""]);
+    setOtp(Array(6).fill(""));
     setError("");
     setSuccess(false);
     setLoading(false);
