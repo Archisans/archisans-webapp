@@ -13,7 +13,7 @@ import {
   Paper,
 } from "@mui/material";
 import MobHeading from "@/components/Mobile/mobileHeading";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 
 export default function AccountInfo({ message }) {
   const {

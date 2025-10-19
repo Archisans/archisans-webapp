@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
 import { useBootstrapConfiguration } from "@/hooks/useBootstrapConfiguration";
-import { useUser } from "@/hooks/UserContext";
+import { useUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import WorkerForm1 from "@/features/WorkerRegistration/Mobile/workerForm1";
 import WorkerForm2 from "@/features/WorkerRegistration/Mobile/workerForm2";

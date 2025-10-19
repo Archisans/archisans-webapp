@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { RouteProvider } from "./config/RouteProvider";
-import { useUser } from "./hooks/UserContext";
+import { useUser } from "./context/UserContext";
 import { useBootstrapConfiguration } from "./hooks/useBootstrapConfiguration";
 import ScrollToTop from "@/utils/ScrollToTop/ScrollToTop";
 import AppLayout from "./layouts/AppLayout";
