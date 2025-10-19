@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import { Phone } from "@mui/icons-material";
 import { MapPin as MapPinIcon, Share2 as ShareNetworkIcon } from "lucide-react";
-import { workerProfile } from "@/features/WorkerPage1/Worker/constants";
+// import { workerProfile } from "@/features/WorkerPage1/Worker/constants";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 
-const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
+const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
   const { aboutRef, servicesRef, portfolioRef, reviewsRef } = scrollToSectionRefs;
   const [isFav, setIsFav] = useState(false);
 
@@ -23,7 +23,7 @@ const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
   };
 
   const handleShare = () => {
-    const url = `${window.location.origin}/worker/${workerProfile.name}`;
+    const url = `${window.location.origin}/worker/${worker.name}`;
     navigator.clipboard.writeText(url).then(() => {
       alert("Link copied to clipboard!");
     });
@@ -44,7 +44,7 @@ const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
         {/* Cover Photo */}
         <Box sx={{ position: "relative", height: 160 }}>
           <img
-            src={workerProfile.bannerImage}
+            src={worker.bannerImage}
             alt="Cover"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -103,7 +103,7 @@ const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
         <Box sx={{ px: 2.5, pb: 2.5 }}>
           <Box sx={{ display: "flex", alignItems: "flex-end", mb: 2 }}>
             <Avatar
-              src={workerProfile.img}
+              src={worker.img}
               sx={{
                 width: 100,
                 height: 100,
@@ -116,7 +116,7 @@ const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
             <Box sx={{ flex: 1, pt: 2 }}>
               <Box display="flex" alignItems="center" gap={1} mb={0.5}>
                 <Typography variant="h5" fontWeight={700} color="#1a1a1a">
-                  {workerProfile.name}
+                  {worker.name}
                 </Typography>
               </Box>
 
@@ -124,25 +124,25 @@ const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <MapPinIcon size={16} color="#666" />
                   <Typography variant="body2" color="#666" fontWeight={500}>
-                    {workerProfile.location}
+                    {worker.location}
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <Phone sx={{ fontSize: 16, color: "#666" }} />
                   <Typography variant="body2" color="#666" fontWeight={500}>
-                    {workerProfile.phone}
+                    {worker.phone}
                   </Typography>
                 </Box>
               </Box>
 
               <Box display="flex" alignItems="center" gap={1.5}>
-                <Rating value={workerProfile.overallRating} precision={0.1} readOnly size="small" />
+                <Rating value={worker.overallRating} precision={0.1} readOnly size="small" />
                 <Typography variant="body2" color="#666" fontWeight={500}>
-                  {workerProfile.overallRating}{" "}
+                  {worker.overallRating}{" "}
                   <Box component="span" sx={{ mx: 0.5, color: "#999" }}>
                     •
                   </Box>{" "}
-                  {workerProfile.reviewCount} Reviews
+                  {worker.reviewCount} Reviews
                 </Typography>
 
                 <Chip
@@ -248,7 +248,7 @@ const WorkerOverview = ({ scrollToSectionRefs, setOpen }) => {
           About
         </Typography>
         <Typography variant="body2" color="#555" lineHeight={1.6}>
-          {workerProfile.about}
+          {worker.about}
         </Typography>
       </Paper>
     </Box>

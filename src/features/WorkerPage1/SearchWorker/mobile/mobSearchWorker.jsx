@@ -25,7 +25,7 @@ import {
   StarIcon,
 } from "@phosphor-icons/react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import UserSpecificBooking from "@/features/Bookings/UserSpecificBooking";
 import { RouteProvider } from "@/config/RouteProvider";
 import { WORKERS } from "@/features/WorkerPage1/SearchWorker/constants";
@@ -36,6 +36,7 @@ import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButto
 
 const WorkerCard = ({ worker, navigate, setOpen }) => {
   const theme = useTheme();
+
 
   return (
     <Box
@@ -121,45 +122,45 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
 
       {/* Info Section */}
       <Box sx={{ px: 1, py: 2 }}>
-      <Stack
-  direction="row"
-  justifyContent="space-between"
-  alignItems="flex-start"
->
-  <Stack
-    direction="row"
-    spacing={1}
-    alignItems="center"
-    sx={{ maxWidth: "65%", overflow: "hidden" }}
-  >
-    <Avatar src={worker.avatar} sx={{ height: 53, width: 53, flexShrink: 0 }} />
-    <Box sx={{ overflow: "hidden" }}>
-      <Typography
-        mb={0.4}
-        fontSize={18}
-        fontWeight={580}
-        color="black"
-        noWrap
-        sx={{ textOverflow: "ellipsis" }}
-      >
-        {worker.name}
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing={0.5}>
-        <MapPinIcon size={18} />
-        <Typography
-          color="#6c6868ff"
-          fontSize={14}
-          noWrap
-          sx={{ textOverflow: "ellipsis" }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="flex-start"
         >
-          {worker.location}
-        </Typography>
-      </Stack>
-    </Box>
-  </Stack>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{ maxWidth: "65%", overflow: "hidden" }}
+          >
+            <Avatar src={worker.avatar} sx={{ height: 53, width: 53, flexShrink: 0 }} />
+            <Box sx={{ overflow: "hidden" }}>
+              <Typography
+                mb={0.4}
+                fontSize={18}
+                fontWeight={580}
+                color="black"
+                noWrap
+                sx={{ textOverflow: "ellipsis" }}
+              >
+                {worker.name}
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <MapPinIcon size={18} />
+                <Typography
+                  color="#6c6868ff"
+                  fontSize={14}
+                  noWrap
+                  sx={{ textOverflow: "ellipsis" }}
+                >
+                  {worker.location}
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
 
   {/* Starts From */}
-  <Box
+  {/* <Box
     textAlign="right"
     mr={1.5}
     display="flex"
@@ -182,27 +183,43 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
       </Typography>
       <Typography color="grey"> /hr</Typography>
     </Box>
-  </Box>
+  </Box> */}
 </Stack>
 
 
         {/* Roles */}
-        <Stack direction="row" spacing={1} mt={1} mb={1}>
-          {worker.roles.map((role, i) => (
-            <Chip
-              key={i}
-              label={role}
-              size="small"
-              sx={{
-                bgcolor: theme.palette.primary.main,
-                color: "white",
-                fontWeight: 400,
-                fontSize: 10,
-                px: 1,
-              }}
-            />
-          ))}
-        </Stack>
+        {/* Roles */}
+<Stack direction="row" spacing={1} mt={1} mb={1}>
+  {worker.roles.slice(0, 2).map((role, i) => (
+    <Chip
+      key={i}
+      label={role}
+      size="small"
+      sx={{
+        bgcolor: theme.palette.primary.main,
+        color: "white",
+        fontWeight: 400,
+        fontSize: 10,
+        px: 1,
+      }}
+    />
+  ))}
+
+  {worker.roles.length > 2 && (
+    <Chip
+      label={`+${worker.roles.length - 2}`}
+      size="small"
+      sx={{
+        bgcolor: theme.palette.primary.main,
+        color: "white",
+        fontWeight: 400,
+        fontSize: 10,
+        px: 1,
+      }}
+    />
+  )}
+</Stack>
+
 
         {/* Description */}
         <Typography fontSize={13} mb={1.7} ml={0.8}>
@@ -235,6 +252,8 @@ const MobSearchWorker = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState();
   const [isAlert, setIsAlert] = useState(false);
+    const { slug } = useParams(); // get slug from URL if using params
+const workerss = WORKERS(slug || "default-role"); // call WORKERS with slug
 
   return (
     <Box sx={{ pb: 8 }}>
@@ -317,15 +336,15 @@ const MobSearchWorker = () => {
       </Box>
 
       {/* Worker Cards */}
-      {WORKERS.map((worker, idx) => (
-        <WorkerCard
-          key={idx}
-          worker={worker}
-          navigate={navigate}
-          open={open}
-          setOpen={setOpen}
-        />
-      ))}
+      {workerss.map((worker, idx) => (
+  <WorkerCard
+    key={idx}
+    worker={worker}
+    navigate={navigate}
+    open={open}
+    setOpen={setOpen}
+  />
+))}
       <AlertMessage isAlert={isAlert} />
       <UserSpecificBooking open={open} setIsAlert={setIsAlert} setOpen={setOpen} />
     </Box>

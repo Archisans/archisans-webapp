@@ -22,6 +22,8 @@ import WorkerOverview from "@/features/WorkerPage1/Worker/components/WorkerOverv
 import WorkerBusiness from "@/features/WorkerPage1/Worker/components/WorkerBusiness";
 import AlertMessage from "@/components/Desktop/BookingAlert";
 
+import { WORKERS_RAW } from "../SearchWorker/constants";
+
 const Workerpage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,13 +31,24 @@ const Workerpage = () => {
   const [isAlert, setIsAlert] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
-  const { selectedService = "" } = location.state || {};
+  //const { selectedService = "", worker: selectedWorker } = location.state || {};
+  const { selectedService = "", workerId,slug="" } = location.state || {};
+
+  // Find worker by id
+  const selectedWorker = WORKERS_RAW.find((w) => w.id === workerId);
+
+  const filteredServices = selectedWorker.services.filter(service =>
+  service.title.toLowerCase().includes(slug.toLowerCase().replace(/-/g, " "))
+);
+
 
   // refs for sections
   const aboutRef = useRef(null);
   const servicesRef = useRef(null);
   const portfolioRef = useRef(null);
   const reviewsRef = useRef(null);
+
+  
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -56,25 +69,32 @@ const Workerpage = () => {
                 {/* Left 2/3: Main Content */}
                 <Box sx={{ flex: 2, display: "flex", flexDirection: "column", gap: 3 }}>
                   <WorkerOverview
+                    worker={selectedWorker}
                     setOpen={setOpen}
                     scrollToSectionRefs={{ aboutRef, servicesRef, portfolioRef, reviewsRef }}
                   />
                   <Box ref={servicesRef}>
-                    <WorkerServices setIsAlert={setIsAlert} selectedService={selectedService} />
+                    <WorkerServices 
+                     worker={{...selectedWorker,services: filteredServices}}
+                     setIsAlert={setIsAlert} selectedService={selectedService} />
                   </Box>
                   <Box ref={portfolioRef}>
-                    <WorkerPortFolio />
+                    <WorkerPortFolio
+                    worker={selectedWorker}
+                    />
                   </Box>
                   <Box ref={reviewsRef}>
-                    <WorkerReview />
+                    <WorkerReview
+                    worker={selectedWorker}
+                    />
                   </Box>
                 </Box>
 
                 {/* Right 1/3: Sidebar */}
                 <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
-                  <WorkerJoin />
-                  <WorkerBusiness />
-                  <MoreWorkers />
+                  <WorkerJoin worker={selectedWorker} />
+                  <WorkerBusiness worker={selectedWorker} />
+                  <MoreWorkers worker={selectedWorker} />
                 </Box>
               </Box>
             </Box>

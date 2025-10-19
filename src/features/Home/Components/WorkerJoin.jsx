@@ -187,6 +187,7 @@ const WorkerJoin = () => {
               gap: 3,
               gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" },
               mb: 6,
+              alignItems: "stretch",
             }}
           >
             {benefits.map((benefit, index) => (
@@ -206,23 +207,27 @@ const WorkerJoin = () => {
                 }}
               >
                 <Paper
-                  elevation={0}
-                  sx={{
-                    p: 3,
-                    borderRadius: 4,
-                    background: "rgba(255,255,255,0.9)",
-                    backdropFilter: "blur(15px)",
-                    textAlign: "center",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                    transition:
-                      "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                    "&:hover": {
-                      boxShadow: `0 20px 40px ${benefit.color}20`,
-                      borderColor: benefit.color,
-                      transform: "translateY(-2px)",
-                    },
-                  }}
-                >
+  elevation={0}
+  sx={{
+    p: 3,
+    borderRadius: 4,
+    background: "rgba(255,255,255,0.9)",
+    backdropFilter: "blur(15px)",
+    textAlign: "center",
+    border: "1px solid rgba(255,255,255,0.3)",
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    minHeight: "220px", // ✅ equal height
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    "&:hover": {
+      boxShadow: `0 20px 40px ${benefit.color}20`,
+      borderColor: benefit.color,
+      transform: "translateY(-2px)",
+    },
+  }}
+>
+
                   <Box
                     sx={{
                       width: 56,

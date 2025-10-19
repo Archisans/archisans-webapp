@@ -9,16 +9,13 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import GavelIcon from "@mui/icons-material/Gavel";
+import InfoIcon from "@mui/icons-material/Info";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -60,18 +57,18 @@ const Profile = () => {
                 sx={{ width: 80, height: 80 }}
               />
 
-              {/* User Info */}
-              <Box>
-                <Typography
-                  sx={{
-                    fontSize: 20,
-                    fontWeight: 600,
-                    color: "#0b134a",
-                    mb: 0.5,
-                  }}
-                >
-                  {profile.fullName || profile.phoneNumber }
-                </Typography>
+            {/* User Info */}
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 600,
+                  color: "#0b134a",
+                  mb: 0.5,
+                }}
+              >
+                {user?.fullName || "Full Name"}
+              </Typography>
 
                 {profile?.fullName && (
                   <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
@@ -80,7 +77,8 @@ const Profile = () => {
                 )}
               </Box>
             </Box>
-        
+          </Box>
+
         </Grid>
 
 
@@ -163,12 +161,35 @@ const Profile = () => {
 
             <Divider sx={{ mx: 2, borderColor: "rgba(0, 0, 0, 0.3)" }} />
 
+            {/* About */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to={RouteProvider.USER_ABOUT} // make sure this route exists
+                sx={{ px: 2, }}
+              >
+                <InfoIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <ListItemText
+                  primary="About"
+                  slotProps={{
+                    primary: {
+                      sx: {
+                        color: "#0b134a",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                      },
+                    },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+
             {/* Terms and Condition */}
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to={RouteProvider.USER_TERMS}
-                sx={{ px: 2, py: 1, mt: 1.5 }}
+                sx={{ px: 2, pb: 1, }}
               >
                 <GavelIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
                 <ListItemText
