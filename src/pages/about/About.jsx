@@ -1,11 +1,11 @@
 import React from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import TermsMobile from "@/features/Profile/Mobile/Terms";
+import AboutMobile from "@/features/Profile/Mobile/About";
 import { useNavigate } from "react-router-dom";
-import TermsModal from "@/components/Desktop/Footer/components/TermsModal";
+import AboutModal from "@/components/Desktop/Footer/components/About";
 
-export default function Terms() {
+export default function About() {
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);
 
   const navigate = useNavigate();
@@ -13,5 +13,5 @@ export default function Terms() {
       const handleClose = () => {
         navigate(-1);
       };
-  return <div>{isMobile ? <TermsMobile /> : <TermsModal open={true} onClose={handleClose}/>}</div>;
+  return <div>{isMobile ? <AboutMobile /> : <AboutModal open={true} onClose={handleClose}/>}</div>;
 }

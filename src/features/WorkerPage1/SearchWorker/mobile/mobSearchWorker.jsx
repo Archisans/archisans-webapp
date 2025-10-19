@@ -121,69 +121,69 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
 
       {/* Info Section */}
       <Box sx={{ px: 1, py: 2 }}>
-      <Stack
-  direction="row"
-  justifyContent="space-between"
-  alignItems="flex-start"
->
-  <Stack
-    direction="row"
-    spacing={1}
-    alignItems="center"
-    sx={{ maxWidth: "65%", overflow: "hidden" }}
-  >
-    <Avatar src={worker.avatar} sx={{ height: 53, width: 53, flexShrink: 0 }} />
-    <Box sx={{ overflow: "hidden" }}>
-      <Typography
-        mb={0.4}
-        fontSize={18}
-        fontWeight={580}
-        color="black"
-        noWrap
-        sx={{ textOverflow: "ellipsis" }}
-      >
-        {worker.name}
-      </Typography>
-      <Stack direction="row" alignItems="center" spacing={0.5}>
-        <MapPinIcon size={18} />
-        <Typography
-          color="#6c6868ff"
-          fontSize={14}
-          noWrap
-          sx={{ textOverflow: "ellipsis" }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="flex-start"
         >
-          {worker.location}
-        </Typography>
-      </Stack>
-    </Box>
-  </Stack>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{ maxWidth: "65%", overflow: "hidden" }}
+          >
+            <Avatar src={worker.avatar} sx={{ height: 53, width: 53, flexShrink: 0 }} />
+            <Box sx={{ overflow: "hidden" }}>
+              <Typography
+                mb={0.4}
+                fontSize={18}
+                fontWeight={580}
+                color="black"
+                noWrap
+                sx={{ textOverflow: "ellipsis" }}
+              >
+                {worker.name}
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <MapPinIcon size={18} />
+                <Typography
+                  color="#6c6868ff"
+                  fontSize={14}
+                  noWrap
+                  sx={{ textOverflow: "ellipsis" }}
+                >
+                  {worker.location}
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
 
-  {/* Starts From */}
-  <Box
-    textAlign="right"
-    mr={1.5}
-    display="flex"
-    flexDirection="column"
-    justifyContent="center"
-    sx={{ flexShrink: 0 }}
-  >
-    <Typography fontSize={15.5} color="grey">
-      Starts from
-    </Typography>
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      <Typography fontSize={18} fontWeight={500} color="black">
-        {worker.price}
-      </Typography>
-      <Typography color="grey"> /hr</Typography>
-    </Box>
-  </Box>
-</Stack>
+          {/* Starts From */}
+          <Box
+            textAlign="right"
+            mr={1.5}
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            sx={{ flexShrink: 0 }}
+          >
+            <Typography fontSize={15.5} color="grey">
+              Starts from
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Typography fontSize={18} fontWeight={500} color="black">
+                {worker.price}
+              </Typography>
+              <Typography color="grey"> /hr</Typography>
+            </Box>
+          </Box>
+        </Stack>
 
 
         {/* Roles */}

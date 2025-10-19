@@ -13,6 +13,7 @@ import Premium from "./pages/premium/Premium";
 import Support from "./pages/support/Support";
 import Terms from "./pages/terms/Terms";
 import PrivacyPolicy from "./pages/privacypolicy/PrivacyPolicy";
+import About from "./pages/about/About";
 import WorkerInfo from "./pages/worker/WorkerInfo";
 import ChatSupport from "./pages/support/chat/ChatSupport";
 import WorkerSearch from "./pages/worker/search/WokerSearch";
@@ -78,6 +79,7 @@ function App() {
           <Route path={RouteProvider.USER_SUPPORT} element={<Support />} />
           <Route path={RouteProvider.USER_TERMS} element={<Terms />} />
           <Route path={RouteProvider.USER_PRIVACY_POLICY} element={<PrivacyPolicy />} />
+          <Route path={RouteProvider.USER_ABOUT} element={<About />} />
           <Route
             path={RouteProvider.USER_WORKER_INFO}
             element={<WorkerInfo />}

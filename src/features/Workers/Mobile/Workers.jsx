@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UserSpecificBooking from "@/features/Bookings/UserSpecificBooking";
 import WorkerCard from "./WorkerCard";
-import MobHeading from "@/components/Mobile/mobileHeading";
 
 const workers = [
   {
@@ -18,7 +17,7 @@ const workers = [
     avatar: "https://randomuser.me/api/portraits/men/18.jpg",
   },
   {
-    name: "Athul Murali",
+    name: "Athul Murali jkhjkh",
     location: "Thrissur",
     rating: 3.8,
     reviews: 520,

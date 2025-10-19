@@ -14,6 +14,7 @@ export const RouteProvider = {
   USER_PREMIUM: "/premium",
   USER_SUPPORT: "/support",
   USER_TERMS: "/terms",
+  USER_ABOUT:"/about",
   USER_PRIVACY_POLICY: "/privacy",
 
   USER_SAVED_WORKERS:"/saved-workers",
