@@ -4,11 +4,15 @@ import { useMediaQuery, Box, Typography } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
 import ServicesMobile from "@/features/Services/Mobile/Services";
 import { useBootstrapConfiguration } from "@/hooks/useBootstrapConfiguration";
+import ServicesModal from "@/features/Home/Components/ServicesModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Services() {
+
   const { bootstrapConfiguration } = useBootstrapConfiguration();
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const pathParts = location.pathname.split("/");
   const slug = pathParts[pathParts.length - 1];
@@ -41,12 +45,27 @@ export default function Services() {
     title = category.title || "Category Not Found";
   }
 
+
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
       {isMobile ? (
         <ServicesMobile services={services} title={title} />
       ) : (
-        <ServicesMobile services={services} title={title} />
+        <ServicesModal
+          open={true}
+          onClose={handleClose}
+          category={
+            slug === "all"
+              ? { title: "All Services", services: services }
+              : bootstrapConfiguration?.serviceCategories?.find(
+                (cat) => cat.slug === slug
+              )
+          }
+        />
       )}
     </div>
   );
