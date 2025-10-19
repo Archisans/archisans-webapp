@@ -103,7 +103,7 @@ export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
           </LocalizationProvider>
         </Grid>
         <Grid container flexDirection={"column"} size={12} pb={2}>
-          <Grid container alignItems={"center"}>
+          {/* <Grid container alignItems={"center"}>
             <Typography {...textStyle.BasicHeading}>Type of Work?</Typography>
           </Grid>
           <FormControl sx={{ m: 1, minWidth: 200, paddingBottom: 0 }}>
@@ -124,7 +124,7 @@ export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
           <Grid container>
             <Typography {...textStyle.BasicHeading}>Location</Typography>
           </Grid>

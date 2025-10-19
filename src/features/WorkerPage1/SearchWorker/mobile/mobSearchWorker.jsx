@@ -159,7 +159,7 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
   </Stack>
 
   {/* Starts From */}
-  <Box
+  {/* <Box
     textAlign="right"
     mr={1.5}
     display="flex"
@@ -182,7 +182,7 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
       </Typography>
       <Typography color="grey"> /hr</Typography>
     </Box>
-  </Box>
+  </Box> */}
 </Stack>
 
 

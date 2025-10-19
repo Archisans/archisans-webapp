@@ -91,9 +91,9 @@ const WorkerServices = ({ selectedService, setIsAlert }) => {
                       fontSize: "0.75rem",
                     }}
                   />
-                  <Typography variant="h6" fontWeight={600} color="#0073b1">
+                  {/* <Typography variant="h6" fontWeight={600} color="#0073b1">
                     ₹{service.price}/hr
-                  </Typography>
+                  </Typography> */}
                 </Box>
 
                 <Box display="flex" alignItems="center" gap={0.5}>

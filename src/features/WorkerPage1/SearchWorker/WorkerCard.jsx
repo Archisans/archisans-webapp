@@ -123,7 +123,7 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
               </Typography>
             </Stack>
           </Box>
-          <Box textAlign="right">
+          {/* <Box textAlign="right">
             <Typography fontSize={11} color="text.secondary" mb={0}>
               Starting at
             </Typography>
@@ -133,7 +133,7 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
                 /hr
               </Typography>
             </Typography>
-          </Box>
+          </Box> */}
         </Stack>
 
         {/* Skills */}
