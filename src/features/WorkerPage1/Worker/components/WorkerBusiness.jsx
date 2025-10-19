@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Paper, Typography } from "@mui/material";
-import { businessDetails } from "@/features/WorkerPage1/Worker/constants";
+// import { businessDetails } from "@/features/WorkerPage1/Worker/constants";
 
-const WorkerBusiness = () => {
+const WorkerBusiness = ({worker}) => {
   return (
     <Box >
       {/* Business Details */}
@@ -26,7 +26,7 @@ const WorkerBusiness = () => {
               Office Address
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {businessDetails.officeAddress || "Not Available"}
+              {worker.businessDetails.officeAddress || "Not Available"}
             </Typography>
           </Box>
 
@@ -35,7 +35,7 @@ const WorkerBusiness = () => {
               Permanent Address
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {businessDetails.permanentAddress || "Not Available"}
+              {worker.businessDetails.permanentAddress || "Not Available"}
             </Typography>
           </Box>
 
@@ -44,7 +44,7 @@ const WorkerBusiness = () => {
               Company Name
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {businessDetails.companyName || "Not Available"}
+              {worker.businessDetails.companyName || "Not Available"}
             </Typography>
           </Box>
 
@@ -53,7 +53,7 @@ const WorkerBusiness = () => {
               Work Permit
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {businessDetails.workPermit || "Not Available"}
+              {worker.businessDetails.workPermit || "Not Available"}
             </Typography>
           </Box>
 
@@ -62,7 +62,7 @@ const WorkerBusiness = () => {
               GST Number
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {businessDetails.gstNumber || "Not Available"}
+              {worker.businessDetails.gstNumber || "Not Available"}
             </Typography>
           </Box>
         </Box>

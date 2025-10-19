@@ -4,7 +4,25 @@ import { MapPin, Calendar } from "lucide-react";
 import { projects } from "@/features/WorkerPage1/Worker/constants";
 import { Phone } from "@mui/icons-material";
 
-const WorkerPortFolio = () => {
+const WorkerPortFolio = ({worker}) => {
+
+  // get sid from localStorage
+  const sid = parseInt(localStorage.getItem("sid"), 10);
+
+  // filter project by sid
+  let filteredProjects = [];
+  if (sid) {
+    const matched = worker.projects.find((p) => p.id === sid);
+    if (matched) filteredProjects.push(matched);
+  }
+
+  // add one random project if available
+  const remaining = worker.projects.filter((p) => !filteredProjects.includes(p));
+  if (remaining.length > 0) {
+    const randomIndex = Math.floor(Math.random() * remaining.length);
+    filteredProjects.push(remaining[randomIndex]);
+  }
+
   return (
     <Paper
       elevation={0}
@@ -19,7 +37,7 @@ const WorkerPortFolio = () => {
       </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-  {projects.map((project, idx) => (
+  {filteredProjects.map((project, idx) => (
     <Box
       key={idx}
       sx={{

@@ -141,7 +141,7 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
               </Stack>
             </Box>
           </Stack>
-          <Box textAlign="right" mr={1.5}>
+          {/* <Box textAlign="right" mr={1.5}>
             <Typography fontSize={15.5} color="grey">
               Starts from
             </Typography>
@@ -157,7 +157,7 @@ const WorkerCard = ({ worker, navigate, setOpen }) => {
               </Typography>
               <Typography color="grey"> /hr</Typography>
             </Box>
-          </Box>
+          </Box> */}
         </Stack>
 
         {/* Roles */}

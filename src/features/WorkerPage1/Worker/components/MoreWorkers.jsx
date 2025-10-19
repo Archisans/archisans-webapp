@@ -74,9 +74,9 @@ const MoreWorkers = () => {
             </Typography>
           </Box>
 
-          <Typography variant="body2" color="#1976d2" fontWeight={600} mb={1}>
+          {/* <Typography variant="body2" color="#1976d2" fontWeight={600} mb={1}>
             {worker.rate || "Not Available"}
-          </Typography>
+          </Typography> */}
 
           <Button variant="outlined" size="small" sx={{ textTransform: "none", px: 2 }}>
             View

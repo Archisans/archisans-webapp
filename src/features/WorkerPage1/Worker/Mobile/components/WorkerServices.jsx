@@ -84,7 +84,7 @@ const MobWorkerServices = ({ selectedService, setIsAlert }) => {
                       </Typography>
                     </Box>
 
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    {/* <Box sx={{ display: "flex", flexDirection: "row" }}>
                       <Typography
                         fontSize={{ xs: 9, sm: 10, md: 11 }}
                         color="gray"
@@ -100,7 +100,7 @@ const MobWorkerServices = ({ selectedService, setIsAlert }) => {
                         </Typography>
                         /hr
                       </Typography>
-                    </Box>
+                    </Box> */}
                   </Box>
                 </Box>
               </Box>
