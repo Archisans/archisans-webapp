@@ -12,7 +12,7 @@ import { KeyboardArrowDownOutlined } from "@mui/icons-material";
 import Advertisement1 from "./Components/Advertisment1";
 import ScrollToTopButton from "./Components/scrollToTopButton";
 import SearchBar from "./Components/SearchBar";
-import ArchisansWorker from "@/assets/Images/ArchisansWorker.png";
+import ArchisansWorker from "@/assets/Images/ArchisansWorkerNew.png";
 import Top_Home_Img from "@/assets/Images/Top_Home_Img.png";
 import InstantService from "@/assets/Images/InstantService.png";
 import AddressDrawer from "@/features/Address/Components/AddressSelectBottomDrawer/AddressDrawer";
