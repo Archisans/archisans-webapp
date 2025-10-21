@@ -6,11 +6,14 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Close, ArrowForward, ArrowBack } from "@mui/icons-material";
 import { usePhoneLogin } from "@/hooks/usePhoneLogin";
 
 const LoginModal = ({ open, onClose, onLogin }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     step,
     phoneNumber,
@@ -27,6 +30,10 @@ const LoginModal = ({ open, onClose, onLogin }) => {
   } = usePhoneLogin(onLogin);
 
   const handleClose = () => {
+    if(location.pathname !== "/") {
+      navigate(-1);
+      return;
+    }
     reset();
     onClose();
   };

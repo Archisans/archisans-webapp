@@ -39,6 +39,11 @@ const SideDrawer = ({ open, setOpen }) => {
     }
   };
 
+  const handleClose = () => {
+    setShowLogout(false);
+    setOpen(false);
+  };
+
   return (
     <>
       <Backdrop
@@ -137,7 +142,7 @@ const SideDrawer = ({ open, setOpen }) => {
       <HelpSupportModal open={helpOpen} onClose={() => setHelpOpen(false)} />
       <LogoutModal
         open={showLogout}
-        onClose={() => setShowLogout(false)}
+        onClose={() => handleClose()}
         onConfirm={() => setShowLogout(false)}
       />
     </>
