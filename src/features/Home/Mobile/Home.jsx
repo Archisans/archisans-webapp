@@ -9,7 +9,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { KeyboardArrowDownOutlined } from "@mui/icons-material";
-import Advertisement1 from "./Components/Advertisment1";
 import ScrollToTopButton from "./Components/scrollToTopButton";
 import SearchBar from "./Components/SearchBar";
 import ArchisansWorker from "@/assets/Images/ArchisansWorker.png";
@@ -25,6 +24,7 @@ import ProfileDrawer from "./Components/ProfileDrawer";
 import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import Footer from "./Components/Footer";
 import PopularServices from "./Components/PopularServices";
+import AdvertisementCarousel from "./Components/AdvertisementCarousal";
 
 
 const HomeMobile = ({ bootstrapConfiguration }) => {
@@ -155,10 +155,9 @@ const HomeMobile = ({ bootstrapConfiguration }) => {
               </Box>
 
               {/* Banner */}
-              {/* <AdvertisementCarousel
+              <AdvertisementCarousel
                 advertisements={bootstrapConfiguration?.advertisements?.central}
-              /> */}
-              <Advertisement1 />
+              />
             </Box>
           </Box>
         </Grid>
