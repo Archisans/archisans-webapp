@@ -59,7 +59,7 @@ export const UserProvider = ({ children }) => {
   const fetchProfile = useCallback(async (userId) => {
     try {
       const { data, error: fetchError } = await supabase
-        .from("profiles")
+        .from("profile")
         .select("first_name, last_name, avatar_url, phone_number")
         .eq("id", userId)
         .single();
@@ -101,7 +101,7 @@ export const UserProvider = ({ children }) => {
 
     try {
       const { error: updateError } = await supabase
-        .from("profiles")
+        .from("profile")
         .update({
           first_name: profile.firstName,
           last_name: profile.lastName,
@@ -141,7 +141,7 @@ export const UserProvider = ({ children }) => {
         const avatarUrl = await uploadProfileImage(user.id, file);
 
         const { error: updateError } = await supabase
-          .from("profiles")
+          .from("profile")
           .update({ avatar_url: avatarUrl, updated_at: new Date() })
           .eq("id", user.id);
 
