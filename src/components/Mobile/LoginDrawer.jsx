@@ -13,7 +13,8 @@ import { usePhoneLogin } from "@/hooks/usePhoneLogin";
 export default function LoginDrawer({ open, setOpen, height }) {
   const [focus, setFocus] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
-  const [initialHeight, _setInitialHeight] = useState(window.innerHeight);
+  const [initialHeight, setInitialHeight] = useState(window.innerHeight);
+  const [drawerHeight, setDrawerHeight] = useState(height);
 
   const {
     step,
@@ -30,19 +31,63 @@ export default function LoginDrawer({ open, setOpen, height }) {
   } = usePhoneLogin(() => setOpen(false));
 
   useEffect(() => {
-    const handleResize = () => {
-      const heightDiff = initialHeight - window.innerHeight;
-      setKeyboardOpen(heightDiff > 150);
+    setInitialHeight(window.innerHeight);
+
+    const updateViewport = () => {
+      const viewportHeight = window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+
+      const heightDiff = initialHeight - viewportHeight;
+      const kbOpen = heightDiff > 150;
+      setKeyboardOpen(kbOpen);
+
+      if (focus && kbOpen) {
+        const visibleHeight = viewportHeight;
+        const targetHeight = Math.max(200, visibleHeight - 24);
+        setDrawerHeight(`${targetHeight}px`);
+
+        const active = document.activeElement;
+        if (active && typeof active.scrollIntoView === "function") {
+          setTimeout(() => {
+            try {
+              active.scrollIntoView({ behavior: "smooth", block: "center" });
+            } catch {
+              void 0;
+            }
+          }, 50);
+        }
+      } else {
+        setDrawerHeight(height);
+      }
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [initialHeight]);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", updateViewport);
+      window.visualViewport.addEventListener("scroll", updateViewport);
+    } else {
+      window.addEventListener("resize", updateViewport);
+    }
+    updateViewport();
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", updateViewport);
+        window.visualViewport.removeEventListener("scroll", updateViewport);
+      } else {
+        window.removeEventListener("resize", updateViewport);
+      }
+    };
+  }, [initialHeight, focus, height]);
+
+  useEffect(() => {
+    if (!focus || !keyboardOpen) setDrawerHeight(height);
+  }, [height, focus, keyboardOpen]);
 
   return (
     <BottomDrawerLayout
       open={open}
       setOpen={setOpen}
-      height={focus && keyboardOpen ? "60vh" : height}
+      height={drawerHeight}
       headerBar={false}
       closeIcon={true}
     >

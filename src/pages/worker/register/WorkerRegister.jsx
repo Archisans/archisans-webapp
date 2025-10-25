@@ -22,6 +22,25 @@ export default function WorkerRegister() {
     error: "",
   });
 
+    const [formData, setFormData] = useState({
+    personal: {
+      fullName: profile.fullName || "",
+      dob: "2002-02-02",
+      gender: "MALE",
+      aadhaar: "123456789012",
+    },
+    contact: {
+      phone: profile.phoneNumber || "",
+      email: "xyz@gmail.com",
+      address: "xyz 123",
+    },
+    professions: [],
+    uploadedImage: profile.imageUrl || null,
+  });
+
+    // Step state for mobile
+  const [currentStep, setCurrentStep] = useState(0);
+
   useEffect(() => {
     if (!profile) return;
 
@@ -38,21 +57,7 @@ export default function WorkerRegister() {
     return null;
   }
 
-  const [formData, setFormData] = useState({
-    personal: {
-      fullName: profile.fullName || "",
-      dob: "2002-02-02",
-      gender: "MALE",
-      aadhaar: "123456789012",
-    },
-    contact: {
-      phone: profile.phoneNumber || "",
-      email: "xyz@gmail.com",
-      address: "xyz 123",
-    },
-    professions: [],
-    uploadedImage: profile.imageUrl || null,
-  });
+
 
   const handleSubmit = async () => {
     setSubmissionStatus({ loading: true, success: false, error: "" });
@@ -75,8 +80,6 @@ export default function WorkerRegister() {
     }
   };
 
-  // Step state for mobile
-  const [currentStep, setCurrentStep] = useState(0);
 
   const updateFormData = (section, data) => {
     setFormData((prev) => ({ ...prev, [section]: data }));

@@ -24,7 +24,7 @@ import {
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import plumbingImg from "@/assets/Images/plumbingImg.png";
-import AdvertisementCarousel from "@/features/OldHome/Mobile/AdvertisementCarousal";
+import AdvertisementCarousel from "@/features/Advertisment/AdvertismentCarousel/AdvertisementCarousal";
 import WorkerBottomBar from "./workerBottomBar";
 import { RouteProvider } from "@/config/RouteProvider";
 

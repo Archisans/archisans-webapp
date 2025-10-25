@@ -31,12 +31,11 @@ import {
   Notes,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { address, work, slots } from "./constant";
+import { address, slots } from "./constant";
 import NotAvailable from "@/components/NotAvailable";
 
-export default function UserSpecificBooking({ open, setOpen, setIsAlert }) {
+export default function UserSpecificBooking({ open, setOpen }) {
   const [date, setDate] = useState(dayjs());
-  const [workItem, setWorkItem] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(0);
