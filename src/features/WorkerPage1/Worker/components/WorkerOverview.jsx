@@ -9,24 +9,17 @@ import {
   Rating,
   IconButton,
 } from "@mui/material";
-import { Phone } from "@mui/icons-material";
 import { MapPin as MapPinIcon, Share2 as ShareNetworkIcon } from "lucide-react";
 // import { workerProfile } from "@/features/WorkerPage1/Worker/constants";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
+import { Facebook, LinkedIn, Instagram, Phone } from "@mui/icons-material";
+import LaunchIcon from '@mui/icons-material/Launch';
 
 const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
   const { aboutRef, servicesRef, portfolioRef, reviewsRef } = scrollToSectionRefs;
-  const [isFav, setIsFav] = useState(false);
 
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleShare = () => {
-    const url = `${window.location.origin}/worker/${worker.name}`;
-    navigator.clipboard.writeText(url).then(() => {
-      alert("Link copied to clipboard!");
-    });
   };
 
   return (
@@ -67,37 +60,9 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
               gap: 1,
             }}
           >
-            <IconButton
-              onClick={handleShare}
-              sx={{
-                cursor: "pointer",
-                bgcolor: "rgba(255,255,255,0.9)",
-                backdropFilter: "blur(8px)",
-                color: "#1976d2",
-                width: 32,
-                height: 32,
-                "&:hover": { bgcolor: "white", transform: "scale(1.05)" },
-                transition: "all 0.2s",
-              }}
-            >
-              <ShareNetworkIcon size={16} />
-            </IconButton>
-            <IconButton
-              onClick={() => setIsFav(!isFav)}
-              sx={{
-                cursor: "pointer",
-                bgcolor: "rgba(255,255,255,0.9)",
-                backdropFilter: "blur(8px)",
-                color: isFav ? "red" : "#666",
-                width: 32,
-                height: 32,
-                "&:hover": { bgcolor: "white", transform: "scale(1.05)" },
-                transition: "all 0.2s",
-              }}
-            >
-              {isFav ? <Favorite fontSize="small" /> : <FavoriteBorder fontSize="small" />}
-            </IconButton>
+             <FavouriteAndShareButton />
           </Box>
+
         </Box>
 
         <Box sx={{ px: 2.5, pb: 2.5 }}>
@@ -120,38 +85,31 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
                 </Typography>
               </Box>
 
-              <Box display="flex" alignItems="center" gap={2} mb={1.5}>
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  <MapPinIcon size={16} color="#666" />
-                  <Typography variant="body2" color="#666" fontWeight={500}>
-                    {worker.location}
-                  </Typography>
-                </Box>
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  <Phone sx={{ fontSize: 16, color: "#666" }} />
-                  <Typography variant="body2" color="#666" fontWeight={500}>
-                    {worker.phone}
-                  </Typography>
-                </Box>
-              </Box>
+<Box display="flex" alignItems="center" flexWrap="wrap" gap={2} mb={1.5}>
+  {/* Location */}
+  <Box display="flex" alignItems="center" gap={0.5}>
+    <MapPinIcon size={16} color="#666" />
+    <Typography variant="body2" color="#666" fontWeight={500}>
+      {worker.location}
+    </Typography>
+  </Box>
 
-              <Box display="flex" alignItems="center" gap={1.5}>
-                <Rating value={worker.overallRating} precision={0.1} readOnly size="small" />
-                <Typography variant="body2" color="#666" fontWeight={500}>
-                  {worker.overallRating}{" "}
-                  <Box component="span" sx={{ mx: 0.5, color: "#999" }}>
-                    •
-                  </Box>{" "}
-                  {worker.reviewCount} Reviews
-                </Typography>
-
-                <Chip
-                  label="Top Rated"
-                  size="small"
-                  sx={{ bgcolor: "#fff3cd", color: "#856404", fontWeight: 600 }}
-                />
-              </Box>
-            </Box>
+  {/* Phone */}
+  <Box display="flex" alignItems="center" gap={0.5}>
+    <Phone sx={{ fontSize: 16, color: "#666" }} />
+    <Typography variant="body2" color="#666" fontWeight={500}>
+      +91 9463xxxxxx
+    </Typography>
+  </Box>
+  {/* Portfolio */}
+  <Box display="flex" alignItems="center" gap={0.5}>
+    <LaunchIcon sx={{ fontSize: 16, color: "#666" }} />
+    <Typography variant="body2" color="#666" fontWeight={500}>
+      Portfolio
+    </Typography>
+  </Box>
+</Box>
+  </Box>           
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, pt: 2 }}>
               <Button
@@ -239,18 +197,90 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
       </Paper>
 
       {/* About Section */}
-      <Paper
-        ref={aboutRef}
-        elevation={0}
-        sx={{ mt: 2, p: 2, borderRadius: 2, border: "1px solid #e0e0e0" }}
+<Paper
+  ref={aboutRef}
+  elevation={0}
+  sx={{ mt: 2, p: 2, borderRadius: 2, border: "1px solid #e0e0e0" }}
+>
+  <Typography variant="subtitle1" fontWeight={600} mb={1.5}>
+    About
+  </Typography>
+
+  <Typography variant="body2" color="#555" lineHeight={1.6} mb={1.5}>
+    {worker.about}
+  </Typography>
+
+  {/* Social Media Section */}
+  <Box
+    display="flex"
+    alignItems="center"
+    flexWrap="wrap"
+    gap={2}
+    sx={{ mt: 0.5 }}
+  >
+    {/* Label */}
+    <Typography
+      variant="body2"
+      color="#444"
+      fontWeight={600}
+      sx={{ mr: 1 }}
+    >
+      Connect with me:
+    </Typography>
+
+    {/* Facebook */}
+    <Box display="flex" alignItems="center" gap={0.5}>
+      <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />
+      <Typography
+        variant="body2"
+        color="#666"
+        fontWeight={500}
+        sx={{
+          cursor: "pointer",
+          "&:hover": { color: "#145DBF" },
+          transition: "0.3s",
+        }}
       >
-        <Typography variant="subtitle1" fontWeight={600} mb={1.5}>
-          About
-        </Typography>
-        <Typography variant="body2" color="#555" lineHeight={1.6}>
-          {worker.about}
-        </Typography>
-      </Paper>
+        Facebook
+      </Typography>
+    </Box>
+
+    {/* LinkedIn */}
+    <Box display="flex" alignItems="center" gap={0.5}>
+      <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />
+      <Typography
+        variant="body2"
+        color="#666"
+        fontWeight={500}
+        sx={{
+          cursor: "pointer",
+          "&:hover": { color: "#005582" },
+          transition: "0.3s",
+        }}
+      >
+        LinkedIn
+      </Typography>
+    </Box>
+
+    {/* Instagram */}
+    <Box display="flex" alignItems="center" gap={0.5}>
+      <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />
+      <Typography
+        variant="body2"
+        color="#666"
+        fontWeight={500}
+        sx={{
+          cursor: "pointer",
+          "&:hover": { color: "#C13584" },
+          transition: "0.3s",
+        }}
+      >
+        Instagram
+      </Typography>
+    </Box>
+  </Box>
+</Paper>
+
     </Box>
   );
 };
