@@ -74,7 +74,7 @@ export const usePhoneLogin = (onLogin) => {
 
       try {
         const { data: profileData, error: fetchError } = await supabase
-          .from("profiles")
+          .from("profile")
           .select("id")
           .eq("id", userId)
           .single();
@@ -82,7 +82,7 @@ export const usePhoneLogin = (onLogin) => {
         if (fetchError && fetchError.code !== "PGRST116") throw fetchError;
 
         if (!profileData) {
-          await supabase.from("profiles").upsert(
+          await supabase.from("profile").upsert(
             {
               id: userId,
               phone_number: fullPhoneNumber,

@@ -19,7 +19,7 @@ export const uploadProfileImage = async (userId, file) => {
 
 export const deleteProfileImage = async (userId) => {
   const { data: profileData } = await supabase
-    .from("profiles")
+    .from("profile")
     .select("avatar_url")
     .eq("id", userId)
     .single();
