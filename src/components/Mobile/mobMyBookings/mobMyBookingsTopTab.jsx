@@ -3,7 +3,7 @@ import { Box, Tabs, Tab, Grid, Dialog, DialogTitle, DialogContent, DialogActions
 import CloseIcon from "@mui/icons-material/Close";
 import { TabContext, TabPanel } from "@mui/lab";
 import BookingCard from "./mobMyBookingscard";
-import { bookingsData } from "./bookingsData";
+import { bookingsData } from "@/components/Desktop/MyBookings/BookingsData";
 
 const MobMyBookingsTopTab = () => {
   const [tabValue, setTabValue] = useState("0");

@@ -18,15 +18,20 @@ import BuildIcon from "@mui/icons-material/Build";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MobHeading from "@/components/Mobile/mobileHeading";
 import { useLocation } from "react-router-dom";
+import { bookingsData } from "@/components/Desktop/MyBookings/BookingsData";
 
 const MobBookingInfo = () => {
   const theme = useTheme();
   const location = useLocation();
-  const bookingData = location.state || {};
+  const booking = location.state || {};
 
-  const { service, date, time, worker , status} = bookingData;
-
-
+  const service = booking.service || "NA";
+  const date = booking.date || "NA";
+  const time = booking.time || "NA";
+  const worker = booking.worker || {};
+  const status = booking.status || "NA";
+  const fullAddress = booking.fullAddress || "NA";
+  const specialInstruction = booking.specialInstruction || "NA";
 
   return (
     <Grid container>
@@ -37,7 +42,7 @@ const MobBookingInfo = () => {
         <Stack direction="row" alignItems="center" spacing={2}>
           <Avatar
             sx={{ width: 66, height: 66, borderRadius: 0.5 }}
-            src={worker?.avatar || "https://randomuser.me/api/portraits/men/45.jpg"}
+            src={worker.avatar || "NA"}
           />
           <Box sx={{ flexGrow: 1 }}>
             <Box
@@ -48,7 +53,7 @@ const MobBookingInfo = () => {
               }}
             >
               <Typography sx={{ fontSize: 18, fontWeight: 600 }}>
-                {worker?.name || "Unknown Worker"}
+                {worker.name || "NA"}
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 0.3 }}>
                 <StarIcon sx={{ color: "#FFC107", fontSize: 18 }} />
@@ -59,7 +64,7 @@ const MobBookingInfo = () => {
             <Stack direction="row" alignItems="center" spacing={0.5} mb={0.9}>
               <LocationOnIcon sx={{ fontSize: 16, color: "gray" }} />
               <Typography sx={{ fontSize: 12, color: "gray" }}>
-                {worker?.location || "Location not available"}
+                {worker.location || "NA"}
               </Typography>
             </Stack>
 
@@ -94,7 +99,7 @@ const MobBookingInfo = () => {
                 <CalendarTodayIcon sx={{ fontSize: 20, color: "gray" }} />
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Date</Typography>
               </Box>
-              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{date || "N/A"}</Typography>
+              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{date}</Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -102,7 +107,7 @@ const MobBookingInfo = () => {
                 <AccessTimeIcon sx={{ fontSize: 20, color: "gray" }} />
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Timeslot</Typography>
               </Box>
-              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{time || "N/A"}</Typography>
+              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{time}</Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -111,7 +116,7 @@ const MobBookingInfo = () => {
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Worker</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                {worker?.name || "N/A"}
+                {worker.name || "NA"}
               </Typography>
             </Box>
 
@@ -120,9 +125,7 @@ const MobBookingInfo = () => {
                 <BuildIcon sx={{ fontSize: 20, color: "gray" }} />
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Service</Typography>
               </Box>
-              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                {service || "N/A"}
-              </Typography>
+              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{service}</Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -131,7 +134,7 @@ const MobBookingInfo = () => {
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Phone</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                {worker?.phone || "8764587459"}
+                {worker.phone || "NA"}
               </Typography>
             </Box>
           </Stack>
@@ -141,52 +144,48 @@ const MobBookingInfo = () => {
           <Stack spacing={1.5}>
             <Box>
               <Typography variant="body2" color="text.secondary">
-                Special Instruction
+                Full Address
               </Typography>
               <Typography fontSize={15} fontWeight={550}>
-                Gate is locked, call on arrival
+                {fullAddress}
               </Typography>
             </Box>
             <Box>
               <Typography variant="body2" color="text.secondary">
-                City / Area
+                Special Instruction
               </Typography>
               <Typography fontSize={15} fontWeight={550}>
-                {worker?.location || "Thrissur, Kerala"}
+                {specialInstruction}
               </Typography>
             </Box>
           </Stack>
         </Box>
+
+        {/* Conditional Buttons */}
+        {status === "in-progress" && (
+  <Stack
+    direction="row"
+    spacing={2} // gap between buttons
+    width="100%"
+    mt={3} // margin top
+    px={2} // padding left/right
+  >
+    <Button
+      variant="outlined"
+      sx={{ flex: 1, color: "black", fontSize: 14 }}
+    >
+      Cancel
+    </Button>
+    <Button
+      variant="contained"
+      sx={{ flex: 1, textTransform: "none", fontSize: 14 }}
+    >
+      Mark as completed
+    </Button>
+  </Stack>
+)}
+
       </Box>
-
-      {/* ✅ Conditional Buttons */}
-      {status === "in-progress" && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: "100%",
-            my: 1,
-            mx: 2.5,
-          }}
-        >
-          <Button variant="outlined" sx={{ color: "black", fontSize: 14, px: 5 }}>
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              textTransform: "none",
-              fontSize: 14,
-              px: 2,
-            }}
-          >
-            Mark as completed
-          </Button>
-        </Box>
-      )}
-
     </Grid>
   );
 };
