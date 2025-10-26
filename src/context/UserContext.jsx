@@ -23,7 +23,10 @@ export const UserProvider = ({ children }) => {
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
+    fullName: "",
     phoneNumber: "",
+    imageUrl: "",
+    isWorker: false,
   });
   const [edit, setEdit] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -32,6 +35,7 @@ export const UserProvider = ({ children }) => {
   const [success, setSuccess] = useState(false);
 
   const isSignedIn = !!user;
+  const isWorker = profile?.isWorker || false;
 
   useEffect(() => {
     const initSession = async () => {
@@ -60,7 +64,7 @@ export const UserProvider = ({ children }) => {
     try {
       const { data, error: fetchError } = await supabase
         .from("profile")
-        .select("first_name, last_name, avatar_url, phone_number")
+        .select("first_name, last_name, avatar_url, phone_number, is_worker")
         .eq("id", userId)
         .single();
 
@@ -73,6 +77,7 @@ export const UserProvider = ({ children }) => {
           fullName: [data.first_name, data.last_name].filter(Boolean).join(" "),
           phoneNumber: data.phone_number || "",
           imageUrl: data.avatar_url || "",
+          isWorker: data.is_worker || false,
         });
       }
     } catch (err) {
@@ -84,12 +89,6 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (user?.id) {
       fetchProfile(user.id);
-    } else {
-      setProfile({
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-      });
     }
   }, [user?.id, fetchProfile]);
 
@@ -175,6 +174,7 @@ export const UserProvider = ({ children }) => {
         error,
         success,
         isSignedIn,
+        isWorker,
         handleSaveProfile,
         handleImageUpload,
         fetchProfile,

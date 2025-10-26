@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Box } from "@mui/material";
+import { useUser } from "@/context/UserContext";
 import Footer from "@/components/Desktop/Footer/Footer";
 import PopularServices from "@/features/Home/Components/popularServices";
 import PopularCities from "@/features/Home/Components/popularCities";
@@ -12,6 +13,7 @@ import Advertisements from "./Components/Advertisements";
 
 export default function Home({ bootstrapConfiguration }) {
   const categoriesRef = useRef(null);
+  const { isWorker } = useUser();
 
   const scrollToCategories = () => {
     if (categoriesRef.current) {
@@ -38,7 +40,7 @@ export default function Home({ bootstrapConfiguration }) {
   return (
     <div>
       {/* HERO */}
-      <Landing onGetStartedClick={scrollToCategories} />
+      <Landing onGetStartedClick={scrollToCategories} isWorker={isWorker} />
 
       {/* CATEGORIES GRID */}
       <Box ref={categoriesRef}>
@@ -48,7 +50,7 @@ export default function Home({ bootstrapConfiguration }) {
       </Box>
 
       {/* Join as Worker Section */}
-      <WorkerJoin />
+      {!isWorker && <WorkerJoin />}
 
       {/* Central Advertisements */}
       <Advertisements
@@ -65,7 +67,7 @@ export default function Home({ bootstrapConfiguration }) {
       <PopularCities />
 
       {/* CTA BANNER */}
-      <WorkerBanner />
+      {!isWorker && <WorkerBanner />}
 
       {/* Footer */}
       <Footer />

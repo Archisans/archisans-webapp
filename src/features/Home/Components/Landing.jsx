@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Typography, Button, Grid, Stack } from "@mui/material";
+import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward, Build, Verified, Star } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
@@ -38,9 +38,7 @@ const StarField = () => {
             backgroundColor: star.color,
             borderRadius: "50%",
             boxShadow:
-              star.color === "#87CEEB"
-                ? "0 0 6px #87CEEB"
-                : "0 0 4px white",
+              star.color === "#87CEEB" ? "0 0 6px #87CEEB" : "0 0 4px white",
           }}
           animate={{
             left: [`${star.x}%`, `${(star.x + 20) % 100}%`],
@@ -59,7 +57,7 @@ const StarField = () => {
 };
 
 // Landing Component
-const Landing = ({ onGetStartedClick }) => {
+const Landing = ({ onGetStartedClick, isWorker }) => {
   const navigate = useNavigate();
 
   return (
@@ -74,18 +72,14 @@ const Landing = ({ onGetStartedClick }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        textAlign: "center", // center text
-        
+        textAlign: "center",
       }}
     >
       {/* Starfield Background */}
       <StarField />
 
       {/* Hero Section */}
-      <Container
-        maxWidth="md" 
-        sx={{ mt:10,position: "relative", zIndex: 1 }}
-      >
+      <Container maxWidth="md" sx={{ mt: 10, position: "relative", zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,9 +108,8 @@ const Landing = ({ onGetStartedClick }) => {
               mx: "auto", // center horizontally
             }}
           >
-            Bringing verified experts closer to your home.
-Simplifying every repair, renovation, and service — all in one place.
-
+            Bringing verified experts closer to your home. Simplifying every
+            repair, renovation, and service — all in one place.
           </Typography>
 
           <Stack
@@ -144,28 +137,30 @@ Simplifying every repair, renovation, and service — all in one place.
             >
               Find Professionals
             </Button>
-            <Button
-              onClick={() => navigate(RouteProvider.WORKER_REGISTER)}
-              variant="outlined"
-              size="large"
-              startIcon={<Build />}
-              sx={{
-                borderColor: "#30363d",
-                color: "#f0f6fc",
-                fontWeight: 600,
-                px: 4,
-                py: 2,
-                borderRadius: 2,
-                textTransform: "none",
-                fontSize: "1rem",
-                "&:hover": {
-                  borderColor: "#8b949e",
-                  bgcolor: "rgba(240, 246, 252, 0.1)",
-                },
-              }}
-            >
-              Join as Professional
-            </Button>
+            {!isWorker && (
+              <Button
+                onClick={() => navigate(RouteProvider.WORKER_REGISTER)}
+                variant="outlined"
+                size="large"
+                startIcon={<Build />}
+                sx={{
+                  borderColor: "#30363d",
+                  color: "#f0f6fc",
+                  fontWeight: 600,
+                  px: 4,
+                  py: 2,
+                  borderRadius: 2,
+                  textTransform: "none",
+                  fontSize: "1rem",
+                  "&:hover": {
+                    borderColor: "#8b949e",
+                    bgcolor: "rgba(240, 246, 252, 0.1)",
+                  },
+                }}
+              >
+                Join as Professional
+              </Button>
+            )}
           </Stack>
 
           <Box
@@ -178,31 +173,18 @@ Simplifying every repair, renovation, and service — all in one place.
               flexWrap: "wrap",
             }}
           >
-            {/* <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Verified sx={{ fontSize: 16 }} />
               <Typography sx={{ fontSize: "0.9rem" }}>
-                100K+ verified pros
+                Newly launched
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Star sx={{ fontSize: 16 }} />
               <Typography sx={{ fontSize: "0.9rem" }}>
-                1M+ happy customers
+                Join our first 1K users!
               </Typography>
-            </Box> */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-  <Verified sx={{ fontSize: 16 }} />
-  <Typography sx={{ fontSize: "0.9rem" }}>
-    Newly launched
-  </Typography>
-</Box>
-<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-  <Star sx={{ fontSize: 16 }} />
-  <Typography sx={{ fontSize: "0.9rem" }}>
-    Join our first 1K users!
-  </Typography>
-</Box>
-
+            </Box>
           </Box>
         </motion.div>
       </Container>

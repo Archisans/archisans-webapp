@@ -26,10 +26,9 @@ import Footer from "./Components/Footer";
 import PopularServices from "./Components/PopularServices";
 import AdvertisementCarousel from "./Components/AdvertisementCarousal";
 
-
 const HomeMobile = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();
-  const { profile, isSignedIn } = useUser();
+  const { profile, isSignedIn, isWorker } = useUser();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -197,24 +196,26 @@ const HomeMobile = ({ bootstrapConfiguration }) => {
       </Grid>
 
       {/* Join as Worker */}
-      <Grid container justifyContent="center">
-        <Grid sx={{ mt: 3, px: 1, pb: 1.5 }}>
-          <Box
-            component="img"
-            src={ArchisansWorker}
-            alt="Sample"
-            onClick={() => navigate(RouteProvider.WORKER_REGISTER)}
-            sx={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
-              borderRadius: 2,
-              cursor: "pointer",
-              boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
-            }}
-          />
+      {!isWorker && (
+        <Grid container justifyContent="center">
+          <Grid sx={{ mt: 3, px: 1, pb: 1.5 }}>
+            <Box
+              component="img"
+              src={ArchisansWorker}
+              alt="Sample"
+              onClick={() => navigate(RouteProvider.WORKER_REGISTER)}
+              sx={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+                borderRadius: 2,
+                cursor: "pointer",
+                boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
+              }}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
 
       <PopularServices name="contract" />
 
