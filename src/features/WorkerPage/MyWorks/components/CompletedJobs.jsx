@@ -1,6 +1,6 @@
 import React , { useState } from "react";
 import MyWorksTable from "./MyWorksTable";
-import { JOBS_COMPLETED } from "./constants";
+import { JOBS_COMPLETED } from "../../Mobile/MyWorks/components/constants";
 import BookingInfoModal from "@/features/Bookings/BookingInfoModal";
 
 const DesktopCompletedJobs = () => {

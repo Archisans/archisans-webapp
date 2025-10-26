@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MyWorksTable from "./MyWorksTable";
-import { JOBS_OFFERS } from "./constants";
+import { JOBS_OFFERS } from "../../Mobile/MyWorks/components/constants";
 import BookingInfoModal from "@/features/Bookings/BookingInfoModal";
 
 const DesktopJobOffers = () => {

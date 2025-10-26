@@ -106,17 +106,14 @@ const BookingInfoModal = ({ open, onClose, bookingData }) => {
         </Typography>
 
         <Stack spacing={1.8}>
-          {[
-            { icon: <CalendarTodayIcon />, label: "Date", value: bookingData.date },
-            { icon: <AccessTimeIcon />, label: "Timeslot", value: bookingData.time },
-            { icon: <PersonIcon />, label: "Worker", value: bookingData.worker.name },
-            { icon: <BuildIcon />, label: "Service", value: bookingData.service },
-            {
-              icon: <PhoneIcon />,
-              label: "Phone",
-              value: bookingData.worker.phone || "9864251275",
-            },
-          ].map((item, idx) => (
+                  {[
+          { icon: <CalendarTodayIcon />, label: "Date", value: bookingData.date || "NA" },
+          { icon: <AccessTimeIcon />, label: "Timeslot", value: bookingData.time || "NA" },
+          { icon: <PersonIcon />, label: "Worker", value: bookingData.worker?.name || "NA" },
+          { icon: <BuildIcon />, label: "Service", value: bookingData.service?.name || bookingData.service || "NA" },
+          { icon: <PhoneIcon />, label: "Phone", value: bookingData.worker?.phone || "NA" },
+        ]
+.map((item, idx) => (
             <Box
               key={idx}
               display="flex"
@@ -145,8 +142,7 @@ const BookingInfoModal = ({ open, onClose, bookingData }) => {
               Special Instruction
             </Typography>
             <Typography fontSize={14} fontWeight={500}>
-              {bookingData.specialInstruction ||
-                "Gate is locked, call on arrival"}
+              {bookingData.specialInstruction || "NA"}
             </Typography>
           </Box>
           <Box>
@@ -154,8 +150,7 @@ const BookingInfoModal = ({ open, onClose, bookingData }) => {
               City / Area
             </Typography>
             <Typography fontSize={14} fontWeight={500}>
-              {bookingData.fullAddress ||
-                `${bookingData.worker.location}, National Studio`}
+              {bookingData.fullAddress || "NA"}
             </Typography>
           </Box>
         </Stack>

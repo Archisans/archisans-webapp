@@ -31,7 +31,7 @@ const MyWorksTable = ({
               <TableCell>Service</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Time</TableCell>
-              <TableCell>Worker</TableCell>
+              <TableCell>Client</TableCell>
               <TableCell>Location</TableCell>
               {showStatus && <TableCell>Status</TableCell>}
               {showActions && <TableCell align="center">Actions</TableCell>}
@@ -45,7 +45,7 @@ const MyWorksTable = ({
                 <TableCell>
                   <Box display="flex" alignItems="center" gap={1}>
                     <Typography fontSize={14} fontWeight={600}>
-                      {job.service}
+                      {job.service.name}
                     </Typography>
                   </Box>
                 </TableCell>
@@ -66,7 +66,7 @@ const MyWorksTable = ({
                   </Box>
                 </TableCell>
 
-                {/* Worker */}
+                {/* User  */}
                 <TableCell>
                   <Box display="flex" alignItems="center" gap={1}>
                     <Avatar src={job.worker.avatar} sx={{ width: 36, height: 36 }} />
@@ -79,7 +79,7 @@ const MyWorksTable = ({
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <MapPinIcon size={12} color="grey" />
                     <Typography fontSize={12} color="grey">
-                      {job.worker.location}
+                      {job.fullAddress}
                     </Typography>
                   </Box>
                 </TableCell>

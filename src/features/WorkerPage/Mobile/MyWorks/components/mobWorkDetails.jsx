@@ -1,16 +1,14 @@
-import React from 'react'
+import React from "react";
 import {
   Grid,
   Typography,
   Box,
   Button,
-  Paper,
   Divider,
   Stack,
-  Avatar
+  Avatar,
 } from "@mui/material";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import StarIcon from "@mui/icons-material/Star";
+import { useLocation } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -20,7 +18,26 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import MobHeading from "@/components/Mobile/mobileHeading";
 
 const MobWorkDetails = () => {
-  // const theme = useTheme();
+  const location = useLocation();
+  const job = location.state?.job; // 👈 Get the passed job object
+
+  if (!job) {
+    return (
+      <Box p={2}>
+        <Typography variant="h6">No job data available.</Typography>
+      </Box>
+    );
+  }
+
+  const {
+    service,
+    date,
+    time,
+    worker,
+    fullAddress,
+    specialInstruction,
+    status,
+  } = job;
 
   return (
     <Grid container>
@@ -31,29 +48,19 @@ const MobWorkDetails = () => {
         <Stack direction="row" alignItems="center" spacing={2}>
           <Avatar
             sx={{ width: 66, height: 66, borderRadius: 0.5 }}
-            src="https://randomuser.me/api/portraits/men/83.jpg"
+            src={worker.avatar}
           />
           <Box sx={{ flexGrow: 1 }}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <Typography sx={{ fontSize: 18, fontWeight: 600 }}>
-                Daison Babu
-              </Typography>
-
-            </Box>
+            <Typography sx={{ fontSize: 18, fontWeight: 600 }}>
+              {worker.name}
+            </Typography>
 
             <Stack direction="row" alignItems="center" spacing={0.5} mb={0.9}>
               <LocationOnIcon sx={{ fontSize: 16, color: "gray" }} />
               <Typography sx={{ fontSize: 12, color: "gray" }}>
-                Thrissur, Kerala
+                {worker.location}
               </Typography>
             </Stack>
-
           </Box>
         </Stack>
 
@@ -66,7 +73,7 @@ const MobWorkDetails = () => {
             border: "1px solid rgba(226, 223, 223, 1)",
             boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
             borderRadius: 1,
-            backgroundColor: "#fff"
+            backgroundColor: "#fff",
           }}
         >
           <Typography sx={{ fontSize: 16, fontWeight: 600, mb: 2 }}>
@@ -81,29 +88,29 @@ const MobWorkDetails = () => {
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Date</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                12 - 14 Nov 2024
+                {date}
               </Typography>
             </Box>
 
-            {/* Timeslot */}
+            {/* Time */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Box display="flex" alignItems="center">
                 <AccessTimeIcon sx={{ fontSize: 20, color: "gray" }} />
-                <Typography sx={{ fontSize: 15, ml: 1 }}>Timeslot</Typography>
+                <Typography sx={{ fontSize: 15, ml: 1 }}>Time</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                10:00 AM - 12:00 PM
+                {time}
               </Typography>
             </Box>
 
-            {/* Worker */}
+            {/* Client */}
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Box display="flex" alignItems="center">
                 <PersonIcon sx={{ fontSize: 20, color: "gray" }} />
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Client</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                Daison Babu
+                {worker.name}
               </Typography>
             </Box>
 
@@ -114,7 +121,7 @@ const MobWorkDetails = () => {
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Service</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                Plumbing
+                {service.name}
               </Typography>
             </Box>
 
@@ -125,7 +132,7 @@ const MobWorkDetails = () => {
                 <Typography sx={{ fontSize: 15, ml: 1 }}>Phone</Typography>
               </Box>
               <Typography sx={{ fontSize: 15, fontWeight: 600 }}>
-                9864251275
+                {worker.phone}
               </Typography>
             </Box>
           </Stack>
@@ -139,25 +146,33 @@ const MobWorkDetails = () => {
                 Special Instruction
               </Typography>
               <Typography fontSize={15} fontWeight={550}>
-                Gate is locked, call on arrival
+                {specialInstruction}
               </Typography>
             </Box>
             <Box>
               <Typography variant="body2" color="text.secondary">
-                City / Area
+                Full Address
               </Typography>
               <Typography fontSize={15} fontWeight={550}>
-                Thrissur, Arnattukara, National Studio
+                {fullAddress}
               </Typography>
             </Box>
           </Stack>
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', mt: 1, mx: 2.5 }}>
-        <Button
-          variant="outlined"
-          sx={{ color: "black", fontSize: 14, px: 5 }}
-        >
+
+      {/* Buttons */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+          mt: 1,
+          mx: 2.5,
+        }}
+      >
+        <Button variant="outlined" sx={{ color: "black", fontSize: 14, px: 5 }}>
           Decline
         </Button>
         <Button
@@ -171,10 +186,8 @@ const MobWorkDetails = () => {
           Accept
         </Button>
       </Box>
-
     </Grid>
   );
 };
 
-
-export default MobWorkDetails
+export default MobWorkDetails;

@@ -9,11 +9,13 @@ const BookingCard = ({
   date,
   time,
   worker,
+  fullAddress,
+  specialInstruction,
   actionLabel,
   onActionClick,
   showRateButton = false,
   onRateClick,
-  status,  
+  status,
 }) => {
   const navigate = useNavigate();
 
@@ -21,7 +23,15 @@ const BookingCard = ({
     <Box
       onClick={() =>
         navigate(RouteProvider.USER_BOOKINGS_INFO, {
-          state: { service, date, time, worker, status }, 
+          state: {
+            service: service || "NA",
+            date: date || "NA",
+            time: time || "NA",
+            worker: worker || {},
+            status: status || "NA",
+            fullAddress: fullAddress || "NA",
+            specialInstruction: specialInstruction || "NA",
+          },
         })
       }
       sx={{
@@ -41,14 +51,14 @@ const BookingCard = ({
       <Stack direction="row" spacing={2} alignItems="center">
         <Avatar variant="rounded" src={plumbingImg} sx={{ width: 56, height: 56 }} />
         <Box flex={1}>
-          <Typography fontWeight={650}>{service}</Typography>
+          <Typography fontWeight={650}>{service || "NA"}</Typography>
           <Stack direction="row" spacing={1} mt={0.5}>
             <CalendarBlankIcon size={14} />
-            <Typography fontSize={12}>{date}</Typography>
+            <Typography fontSize={12}>{date || "NA"}</Typography>
           </Stack>
           <Stack direction="row" spacing={1} mt={0.5}>
             <ClockIcon size={14} />
-            <Typography fontSize={12}>{time}</Typography>
+            <Typography fontSize={12}>{time || "NA"}</Typography>
           </Stack>
         </Box>
       </Stack>
@@ -57,15 +67,15 @@ const BookingCard = ({
 
       <Box mt={2}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <Avatar src={worker.avatar} alt={worker.name} sx={{ width: 40, height: 40 }} />
+          <Avatar src={worker?.avatar} alt={worker?.name} sx={{ width: 40, height: 40 }} />
           <Box flex={1}>
             <Typography fontSize={14} fontWeight={600}>
-              {worker.name}
+              {worker?.name || "NA"}
             </Typography>
             <Stack direction="row" alignItems="center" spacing={0.5} mt={0.5}>
               <MapPinIcon size={14} color="grey" />
               <Typography fontSize={12} color="grey">
-                {worker.location}
+                {worker?.location || "NA"}
               </Typography>
             </Stack>
           </Box>
