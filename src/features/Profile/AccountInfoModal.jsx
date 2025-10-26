@@ -37,8 +37,6 @@ const AccountInfoModal = ({ open, onClose, message }) => {
     }
   };
 
-  console.log(profile);
-
   if (!user) {
     return (
       <Modal open={open} onClose={onClose}>
