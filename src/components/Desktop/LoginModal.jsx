@@ -16,11 +16,14 @@ const LoginModal = ({ open, onClose, onLogin }) => {
   const navigate = useNavigate();
   const {
     step,
+    setStep,
     phoneNumber,
     setPhoneNumber,
     otp,
+    setOtp,
     otpRefs,
     error,
+    setError,
     success,
     loading,
     handlePhoneSubmit,
@@ -191,6 +194,11 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                               .slice(0, 10);
                             setPhoneNumber(value);
                           }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && phoneNumber.length === 10 && !loading) {
+                              handlePhoneSubmit();
+                            }
+                          }}
                           style={{
                             flex: 1,
                             padding: "14px 18px",
@@ -278,53 +286,89 @@ const LoginModal = ({ open, onClose, onLogin }) => {
 
                       {/* OTP Boxes */}
                       <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          mb: 3,
-                          gap: 1,
-                        }}
-                      >
-                        {otp.map((digit, index) => (
-                          <input
-                            key={index}
-                            ref={(el) => (otpRefs.current[index] = el)}
-                            value={digit}
-                            onChange={(e) =>
-                              handleOtpChange(e.target.value, index)
-                            }
-                            maxLength={1}
-                            style={{
-                              width: "52px",
-                              height: "60px",
-                              textAlign: "center",
-                              fontSize: "1.6rem",
-                              borderRadius: "12px",
-                              border: "2px solid #e5e7eb",
-                              backgroundColor: "#f9fafb",
-                              color: "#111827",
-                              fontWeight: 600,
-                              outline: "none",
-                              transition: "all 0.2s",
-                            }}
-                            onFocus={(e) => {
-                              e.target.style.borderColor = "#3b82f6";
-                              e.target.style.backgroundColor = "#fff";
-                            }}
-                            onBlur={(e) => {
-                              e.target.style.borderColor = "#e5e7eb";
-                              e.target.style.backgroundColor = "#f9fafb";
-                            }}
-                          />
-                        ))}
-                      </Box>
+  sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    mb: 3,
+    gap: 1,
+  }}
+>
+  {otp.map((digit, index) => (
+    <input
+      key={index}
+      ref={(el) => (otpRefs.current[index] = el)}
+      value={digit}
+      maxLength={1}
+      onChange={(e) => {
+        const value = e.target.value.replace(/\D/g, "").slice(0, 1);
+        handleOtpChange(value, index);
+        setOtp((prev) => {
+          const newOtp = [...prev];
+          newOtp[index] = value;
+          return newOtp;
+        });
+
+        // Move focus to next input if filled
+        if (value && index < otp.length - 1) {
+          otpRefs.current[index + 1]?.focus();
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Backspace") {
+          e.preventDefault();
+
+          if (otp[index] !== "") {
+            handleOtpChange("", index);
+            setOtp((prev) => {
+              const newOtp = [...prev];
+              newOtp[index] = "";
+              return newOtp;
+            });
+          } else if (index > 0) {
+            otpRefs.current[index - 1]?.focus();
+          }
+        }
+
+        if (e.key === "Enter" && otp.join("").length === 6 && !loading) {
+          handleOtpSubmit();
+        }
+      }}
+      style={{
+        width: "52px",
+        height: "60px",
+        textAlign: "center",
+        fontSize: "1.6rem",
+        borderRadius: "12px",
+        border: "2px solid #e5e7eb",
+        backgroundColor: "#f9fafb",
+        color: "#111827",
+        fontWeight: 600,
+        outline: "none",
+        transition: "all 0.2s",
+      }}
+      onFocus={(e) => {
+        e.target.style.borderColor = "#3b82f6";
+        e.target.style.backgroundColor = "#fff";
+      }}
+      onBlur={(e) => {
+        e.target.style.borderColor = "#e5e7eb";
+        e.target.style.backgroundColor = "#f9fafb";
+      }}
+    />
+  ))}
+</Box>
+
 
                       <Box sx={{ display: "flex", gap: 2 }}>
-                        <Button
+                        {/* <Button
                           onClick={() => {
                             setStep(1);
                             setError("");
-                            setOtp(["", "", "", "", "", ""]);
+                            const emptyOtp = otp.map(() => "");
+                            setOtp(emptyOtp);
+                            otpRefs.current.forEach((input, idx) => {
+                              if (input) input.value = "";
+                            });
                           }}
                           startIcon={<ArrowBack />}
                           disabled={loading}
@@ -347,7 +391,7 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                           }}
                         >
                           Back
-                        </Button>
+                        </Button> */}
                         <Button
                           onClick={handleOtpSubmit}
                           disabled={otp.join("").length !== 6 || loading}
