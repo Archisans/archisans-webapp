@@ -1,14 +1,11 @@
-import React from "react";
 import {
   Dialog,
   DialogContent,
   Typography,
   Button,
   Box,
-  IconButton,
   useMediaQuery,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
 import { supabase } from "@/lib/supabaseClient";
 import { BREAKPOINTS } from "@/config/breakPoints";
 
@@ -43,18 +40,6 @@ const LogoutModal = ({ open, onClose }) => {
         },
       }}
     >
-      <IconButton
-        onClick={onClose}
-        sx={{
-          position: "absolute",
-          right: 12,
-          top: 12,
-          color: "grey.600",
-        }}
-      >
-        <Close />
-      </IconButton>
-
       <DialogContent sx={{ textAlign: "center" }}>
         <Typography
           variant={isMobile ? "h6" : "h5"}
