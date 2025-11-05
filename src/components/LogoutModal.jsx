@@ -17,6 +17,7 @@ const LogoutModal = ({ open, onClose }) => {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       onClose();
+      window.location.replace("/");
     } catch (err) {
       if (process.env.NODE_ENV === "development") {
         console.error("SignOut error:", err.message);
