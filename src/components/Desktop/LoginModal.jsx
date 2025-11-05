@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   Box,
   Typography,
@@ -8,7 +9,7 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Close, ArrowForward, ArrowBack } from "@mui/icons-material";
+import { Close, ArrowForward } from "@mui/icons-material";
 import { usePhoneLogin } from "@/hooks/usePhoneLogin";
 
 const LoginModal = ({ open, onClose, onLogin }) => {
@@ -16,14 +17,12 @@ const LoginModal = ({ open, onClose, onLogin }) => {
   const navigate = useNavigate();
   const {
     step,
-    setStep,
     phoneNumber,
     setPhoneNumber,
     otp,
     setOtp,
     otpRefs,
     error,
-    setError,
     success,
     loading,
     handlePhoneSubmit,
@@ -31,9 +30,36 @@ const LoginModal = ({ open, onClose, onLogin }) => {
     handleOtpSubmit,
     reset,
   } = usePhoneLogin(onLogin);
+  const phoneInputRef = useRef(null);
+
+  useEffect(() => {
+    if (open && step === 1 && !success) {
+      const timer = setTimeout(() => {
+        phoneInputRef.current?.focus();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+
+    if (step === 2 && open) {
+      const timer = setTimeout(() => {
+        otpRefs.current[0]?.focus();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [open, step, success]);
+
+
+  useEffect(() => {
+    if (step === 2 && open) {
+      const timer = setTimeout(() => {
+        otpRefs.current[0]?.focus();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [step, open]);
 
   const handleClose = () => {
-    if(location.pathname !== "/") {
+    if (location.pathname !== "/") {
       navigate(-1);
       return;
     }
@@ -185,6 +211,7 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                           +91
                         </Box>
                         <input
+                          ref={phoneInputRef}
                           type="text"
                           placeholder="Enter phone number"
                           value={phoneNumber}
@@ -195,7 +222,11 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                             setPhoneNumber(value);
                           }}
                           onKeyDown={(e) => {
-                            if (e.key === "Enter" && phoneNumber.length === 10 && !loading) {
+                            if (
+                              e.key === "Enter" &&
+                              phoneNumber.length === 10 &&
+                              !loading
+                            ) {
                               handlePhoneSubmit();
                             }
                           }}
@@ -286,112 +317,85 @@ const LoginModal = ({ open, onClose, onLogin }) => {
 
                       {/* OTP Boxes */}
                       <Box
-  sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    mb: 3,
-    gap: 1,
-  }}
->
-  {otp.map((digit, index) => (
-    <input
-      key={index}
-      ref={(el) => (otpRefs.current[index] = el)}
-      value={digit}
-      maxLength={1}
-      onChange={(e) => {
-        const value = e.target.value.replace(/\D/g, "").slice(0, 1);
-        handleOtpChange(value, index);
-        setOtp((prev) => {
-          const newOtp = [...prev];
-          newOtp[index] = value;
-          return newOtp;
-        });
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          mb: 3,
+                          gap: 1,
+                        }}
+                      >
+                        {otp.map((digit, index) => (
+                          <input
+                            key={index}
+                            ref={(el) => (otpRefs.current[index] = el)}
+                            value={digit}
+                            maxLength={1}
+                            onChange={(e) => {
+                              const value = e.target.value
+                                .replace(/\D/g, "")
+                                .slice(0, 1);
+                              handleOtpChange(value, index);
+                              setOtp((prev) => {
+                                const newOtp = [...prev];
+                                newOtp[index] = value;
+                                return newOtp;
+                              });
 
-        // Move focus to next input if filled
-        if (value && index < otp.length - 1) {
-          otpRefs.current[index + 1]?.focus();
-        }
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Backspace") {
-          e.preventDefault();
+                              // Move focus to next input if filled
+                              if (value && index < otp.length - 1) {
+                                otpRefs.current[index + 1]?.focus();
+                              }
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Backspace") {
+                                e.preventDefault();
 
-          if (otp[index] !== "") {
-            handleOtpChange("", index);
-            setOtp((prev) => {
-              const newOtp = [...prev];
-              newOtp[index] = "";
-              return newOtp;
-            });
-          } else if (index > 0) {
-            otpRefs.current[index - 1]?.focus();
-          }
-        }
+                                if (otp[index] !== "") {
+                                  handleOtpChange("", index);
+                                  setOtp((prev) => {
+                                    const newOtp = [...prev];
+                                    newOtp[index] = "";
+                                    return newOtp;
+                                  });
+                                } else if (index > 0) {
+                                  otpRefs.current[index - 1]?.focus();
+                                }
+                              }
 
-        if (e.key === "Enter" && otp.join("").length === 6 && !loading) {
-          handleOtpSubmit();
-        }
-      }}
-      style={{
-        width: "52px",
-        height: "60px",
-        textAlign: "center",
-        fontSize: "1.6rem",
-        borderRadius: "12px",
-        border: "2px solid #e5e7eb",
-        backgroundColor: "#f9fafb",
-        color: "#111827",
-        fontWeight: 600,
-        outline: "none",
-        transition: "all 0.2s",
-      }}
-      onFocus={(e) => {
-        e.target.style.borderColor = "#3b82f6";
-        e.target.style.backgroundColor = "#fff";
-      }}
-      onBlur={(e) => {
-        e.target.style.borderColor = "#e5e7eb";
-        e.target.style.backgroundColor = "#f9fafb";
-      }}
-    />
-  ))}
-</Box>
-
+                              if (
+                                e.key === "Enter" &&
+                                otp.join("").length === 6 &&
+                                !loading
+                              ) {
+                                handleOtpSubmit();
+                              }
+                            }}
+                            style={{
+                              width: "52px",
+                              height: "60px",
+                              textAlign: "center",
+                              fontSize: "1.6rem",
+                              borderRadius: "12px",
+                              border: "2px solid #e5e7eb",
+                              backgroundColor: "#f9fafb",
+                              color: "#111827",
+                              fontWeight: 600,
+                              outline: "none",
+                              transition: "all 0.2s",
+                            }}
+                            onFocus={(e) => {
+                              e.target.style.borderColor = "#3b82f6";
+                              e.target.style.backgroundColor = "#fff";
+                            }}
+                            onBlur={(e) => {
+                              e.target.style.borderColor = "#e5e7eb";
+                              e.target.style.backgroundColor = "#f9fafb";
+                            }}
+                          />
+                        ))}
+                      </Box>
 
                       <Box sx={{ display: "flex", gap: 2 }}>
-                        {/* <Button
-                          onClick={() => {
-                            setStep(1);
-                            setError("");
-                            const emptyOtp = otp.map(() => "");
-                            setOtp(emptyOtp);
-                            otpRefs.current.forEach((input, idx) => {
-                              if (input) input.value = "";
-                            });
-                          }}
-                          startIcon={<ArrowBack />}
-                          disabled={loading}
-                          sx={{
-                            bgcolor: "#f3f4f6",
-                            color: "#374151",
-                            fontWeight: 600,
-                            py: 2.5,
-                            px: 3,
-                            borderRadius: 3,
-                            border: "1px solid #e5e7eb",
-                            textTransform: "none",
-                            "&:hover": {
-                              bgcolor: "#e5e7eb",
-                            },
-                            "&:disabled": {
-                              bgcolor: "#f9fafb",
-                              color: "#d1d5db",
-                            },
-                          }}
-                        >
-                          Back
-                        </Button> */}
                         <Button
                           onClick={handleOtpSubmit}
                           disabled={otp.join("").length !== 6 || loading}
