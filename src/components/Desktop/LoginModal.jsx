@@ -126,44 +126,7 @@ const LoginModal = ({ open, onClose, onLogin }) => {
 
               <Box sx={{ p: 5, color: "#1f2937", textAlign: "center" }}>
                 <AnimatePresence mode="wait">
-                  {success ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Box
-                        sx={{
-                          fontSize: "4rem",
-                          mb: 2,
-                          background:
-                            "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                        }}
-                      >
-                        ✓
-                      </Box>
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          fontWeight: 700,
-                          mb: 1,
-                          fontSize: "1.8rem",
-                          color: "#111827",
-                        }}
-                      >
-                        Welcome Back!
-                      </Typography>
-                      <Typography
-                        sx={{ color: "#6b7280", fontSize: "0.95rem" }}
-                      >
-                        Successfully logged in as +91 {phoneNumber}
-                      </Typography>
-                    </motion.div>
-                  ) : step === 1 ? (
+                  {step === 1 ? (
                     <motion.div
                       key="phone"
                       initial={{ opacity: 0, x: 50 }}
