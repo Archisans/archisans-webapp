@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import { supabase } from "../lib/supabaseClient";
+import { useUser } from "@/context/UserContext";
 
 export const usePhoneLogin = (onLogin) => {
+  const { fetchProfile } = useUser();
   const [step, setStep] = useState(1); // 1 = phone, 2 = otp
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
@@ -96,6 +98,7 @@ export const usePhoneLogin = (onLogin) => {
         console.error("Profile creation error:", err);
       }
 
+      await fetchProfile(userId);
       setSuccess(true);
       setTimeout(() => onLogin?.(), 1000);
     } catch (err) {
@@ -122,6 +125,7 @@ export const usePhoneLogin = (onLogin) => {
     phoneNumber,
     setPhoneNumber,
     otp,
+    setOtp,
     otpRefs,
     error,
     success,

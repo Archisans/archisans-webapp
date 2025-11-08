@@ -1,4 +1,4 @@
-import { Edit } from "@mui/icons-material";
+import { Edit, Save } from "@mui/icons-material";
 import {
   Avatar,
   Badge,
@@ -6,22 +6,21 @@ import {
   Button,
   Grid,
   IconButton,
-  Input,
-  Typography,
   CircularProgress,
   Alert,
   Paper,
+  TextField,
+  Typography,
+  Divider,
+  Stack,
 } from "@mui/material";
 import MobHeading from "@/components/Mobile/mobileHeading";
 import { useUser } from "@/context/UserContext";
+import { useState } from "react";
 
 export default function AccountInfo({ message }) {
   const {
-    user,
     profile,
-    setProfile,
-    edit,
-    setEdit,
     saving,
     imageLoading,
     error,
@@ -30,170 +29,162 @@ export default function AccountInfo({ message }) {
     handleSaveProfile,
   } = useUser();
 
+  const [draftProfile, setDraftProfile] = useState(profile);
+  const [edit, setEdit] = useState(true);
+
   const handleSave = async () => {
-    await handleSaveProfile();
+    const ok = await handleSaveProfile(draftProfile);
+    if (ok) {
+      setEdit(true);
+    }
   };
 
-  if (!user) {
-    return (
-      <Box p={2}>
-        <Alert severity="error">User not found. Please sign in.</Alert>
-      </Box>
-    );
-  }
-
   return (
-    <Grid
-      container
-      direction="column"
-      sx={{ height: "fit-content" }}
-      pt={0}
-      pb={10}
-    >
+    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 600, mx: "auto" }}>
       <MobHeading Heading="Account Info" />
 
-      {/* Messages */}
-      {message && (
-        <Box p={2}>
-          <Alert severity="error">{message}</Alert>
-        </Box>
-      )}
-      {success && (
-        <Box p={2}>
-          <Alert severity="success">Profile updated successfully!</Alert>
-        </Box>
-      )}
-      {error && (
-        <Box p={2}>
-          <Alert severity="error">{error}</Alert>
-        </Box>
-      )}
+      {/* Alerts */}
+      <Stack spacing={2} sx={{ my: 1 }}>
+        {message && <Alert severity="error">{message}</Alert>}
+        {success && <Alert severity="success">Profile updated successfully!</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
+      </Stack>
 
-      {/* Avatar + Basic Info */}
+      {/* Profile Card */}
       <Paper
-        elevation={2}
+        elevation={0}
         sx={{
-          borderRadius: 3,
-          p: 3,
-          mx: 2,
-          mb: 3,
+          p: { xs: 2.5, sm: 3 },
+          border: "1px solid",
+          borderColor: "divider",
           backgroundColor: "background.paper",
         }}
       >
-        <Grid
-          container
-          alignItems="center"
+        <Stack
+          direction="row"
           spacing={3}
-          sx={{ borderBottom: "1px solid #eee", pb: 3 }}
+          alignItems="center"
+          justifyContent="flex-start"
+          sx={{ mb: 3 }}
         >
-          <Grid item>
-            <Badge
-              overlap="circular"
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              badgeContent={
-                <IconButton
-                  component="label"
-                  size="small"
-                  color="primary"
-                  disabled={imageLoading}
-                  sx={{
-                    bgcolor: "white",
-                    boxShadow: 1,
-                    height: "28px",
-                    width: "28px",
-                  }}
-                >
-                  {imageLoading ? (
-                    <CircularProgress size={14} />
-                  ) : (
-                    <Edit fontSize="small" />
-                  )}
-                  <input
-                    type="file"
-                    hidden
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
-                </IconButton>
-              }
-            >
-              <Avatar
-                src={profile.imageUrl || ""}
-                sx={{ height: "90px", width: "90px" }}
-              />
-            </Badge>
-          </Grid>
-
-          <Grid item xs>
-            <Typography sx={{ fontSize: "16px", fontWeight: 500, mb: 1 }}>
-              First Name
-            </Typography>
-            <Input
-              fullWidth
-              disabled={edit}
-              value={profile.firstName || ""}
-              onChange={(e) =>
-                setProfile((p) => ({ ...p, firstName: e.target.value }))
-              }
-              sx={{ fontSize: "14px", mb: 2 }}
+          {/* Avatar */}
+          <Badge
+            overlap="circular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            badgeContent={
+              <IconButton
+                component="label"
+                size="small"
+                color="primary"
+                disabled={imageLoading}
+                sx={{
+                  bgcolor: "background.paper",
+                  boxShadow: 2,
+                  "&:hover": { bgcolor: "primary.main", color: "white" },
+                }}
+              >
+                {imageLoading ? (
+                  <CircularProgress size={16} />
+                ) : (
+                  <Edit fontSize="small" />
+                )}
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+              </IconButton>
+            }
+          >
+            <Avatar
+              src={profile.imageUrl || ""}
+              sx={{ width: 90, height: 90, bgcolor: "primary.main" }}
             />
-            <Typography sx={{ fontSize: "16px", fontWeight: 500, mb: 1 }}>
-              Last Name
+          </Badge>
+
+          <Box>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              {draftProfile.fullName || "Your Name"}
             </Typography>
-            <Input
+          </Box>
+        </Stack>
+
+        <Divider sx={{ mb: 3 }} />
+
+        {/* Profile Details */}
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="First Name"
               fullWidth
+              variant="outlined"
+              size="small"
               disabled={edit}
-              value={profile.lastName || ""}
+              value={draftProfile.firstName || ""}
               onChange={(e) =>
-                setProfile((p) => ({ ...p, lastName: e.target.value }))
+                setDraftProfile((p) => ({ ...p, firstName: e.target.value }))
               }
-              sx={{ fontSize: "14px" }}
             />
           </Grid>
-        </Grid>
 
-        {/* Phone Number */}
-        <Grid container alignItems="center" spacing={2} sx={{ mt: 3 }}>
-          <Grid item xs={4}>
-            <Typography sx={{ fontSize: "15px", fontWeight: 500 }}>
-              Phone Number
-            </Typography>
-          </Grid>
-          <Grid item xs={8}>
-            <Input
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Last Name"
               fullWidth
+              variant="outlined"
+              size="small"
+              disabled={edit}
+              value={draftProfile.lastName || ""}
+              onChange={(e) =>
+                setDraftProfile((p) => ({ ...p, lastName: e.target.value }))
+              }
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="Phone Number"
+              fullWidth
+              variant="outlined"
+              size="small"
               disabled
               value={profile.phoneNumber || ""}
-              sx={{ fontSize: "14px" }}
             />
           </Grid>
         </Grid>
       </Paper>
 
       {/* Save/Edit Button */}
-      <Box p={3}>
+      <Box sx={{ mt: 4 }}>
         <Button
           variant="contained"
-          sx={{ height: "3em", fontWeight: 600 }}
           fullWidth
-          onClick={() => {
-            if (edit) {
-              setEdit(false);
-            } else {
-              handleSave();
-            }
-          }}
+          onClick={() => (edit ? setEdit(false) : handleSave())}
           disabled={saving}
+          startIcon={
+            saving ? (
+              <CircularProgress size={18} color="inherit" />
+            ) : edit ? (
+              <Edit fontSize="small" />
+            ) : (
+              <Save fontSize="small" />
+            )
+          }
+          sx={{
+            height: 48,
+            fontWeight: 600,
+            textTransform: "none",
+            borderRadius: 2,
+            backgroundColor: edit ? "primary.main" : "success.main",
+            "&:hover": {
+              backgroundColor: edit ? "primary.dark" : "success.dark",
+            },
+          }}
         >
-          {saving ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : edit ? (
-            "Edit"
-          ) : (
-            "Save"
-          )}
+          {saving ? "Saving..." : edit ? "Edit Profile" : "Save Changes"}
         </Button>
       </Box>
-    </Grid>
+    </Box>
   );
 }

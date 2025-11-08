@@ -10,7 +10,7 @@ import {
   uploadProfileImage,
   deleteProfileImage,
 } from "@/lib/storage/profileStorage";
-import { validateProfileImage } from "@/lib/storage/validation/profileValidation";
+import { validateImage } from "@/lib/storage/validation/validateImage";
 
 const TOAST_DURATION = 3000;
 
@@ -62,6 +62,7 @@ export const UserProvider = ({ children }) => {
 
   const fetchProfile = useCallback(async (userId) => {
     try {
+      setLoading(true);
       const { data, error: fetchError } = await supabase
         .from("profile")
         .select("first_name, last_name, avatar_url, phone_number, is_worker")
@@ -83,6 +84,8 @@ export const UserProvider = ({ children }) => {
     } catch (err) {
       console.error("Failed to fetch profile:", err);
       setError("Failed to load profile");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -92,41 +95,64 @@ export const UserProvider = ({ children }) => {
     }
   }, [user?.id, fetchProfile]);
 
-  const handleSaveProfile = useCallback(async () => {
-    if (!user?.id) return;
+  const handleSaveProfile = useCallback(
+    async (profileData) => {
+      if (!user?.id) return false;
 
-    setSaving(true);
-    setError(null);
+      setSaving(true);
+      setError(null);
 
-    try {
-      const { error: updateError } = await supabase
-        .from("profile")
-        .update({
-          first_name: profile.firstName,
-          last_name: profile.lastName,
-          phone_number: profile.phoneNumber,
-          updated_at: new Date(),
-        })
-        .eq("id", user.id);
+      if (
+        isWorker &&
+        (!profileData.firstName.trim() || !profileData.lastName.trim())
+      ) {
+        setError("Worker name cannot be empty.");
+        setSaving(false);
+        return false;
+      }
 
-      if (updateError) throw updateError;
+      try {
+        const { error: updateError } = await supabase
+          .from("profile")
+          .update({
+            first_name: profileData.firstName,
+            last_name: profileData.lastName,
+            phone_number: profileData.phoneNumber,
+          })
+          .eq("id", user.id);
 
-      setSuccess(true);
-      setEdit(true);
-      setTimeout(() => setSuccess(false), TOAST_DURATION);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update profile");
-    } finally {
-      setSaving(false);
-    }
-  }, [user?.id, profile]);
+        if (updateError) throw updateError;
+
+        setProfile((prev) => ({
+          ...prev,
+          ...profileData,
+          fullName: [profileData.firstName, profileData.lastName]
+            .filter(Boolean)
+            .join(" "),
+        }));
+
+        setSuccess(true);
+        setEdit(true);
+        setTimeout(() => setSuccess(false), TOAST_DURATION);
+        return true;
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Failed to update profile."
+        );
+        return false;
+      } finally {
+        setSaving(false);
+      }
+    },
+    [user?.id, isWorker]
+  );
 
   const handleImageUpload = useCallback(
     async (e) => {
       const file = e.target.files?.[0];
       if (!file || !user?.id) return;
 
-      const validationError = validateProfileImage(file);
+      const validationError = validateImage(file);
       if (validationError) {
         setError(validationError);
         return;
@@ -146,6 +172,10 @@ export const UserProvider = ({ children }) => {
 
         if (updateError) throw updateError;
 
+        setProfile((prev) => ({
+          ...prev,
+          imageUrl: avatarUrl,
+        }));
         setSuccess(true);
         setTimeout(() => setSuccess(false), TOAST_DURATION);
       } catch (err) {
@@ -172,6 +202,7 @@ export const UserProvider = ({ children }) => {
         saving,
         imageLoading,
         error,
+        setError,
         success,
         isSignedIn,
         isWorker,

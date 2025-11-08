@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import {
   SuitcaseSimpleIcon,
@@ -14,9 +13,9 @@ const TOPBAR_HEIGHT = 64;
 
 const mainCategories = [
   { name: "Dashboard", path: RouteProvider.WORKER_HOME, icon: <SuitcaseSimpleIcon size={22} /> },
-  { name: "My Works", path: RouteProvider.WORKER_ASSIGNED_WORKS, icon: <SuitcaseSimpleIcon size={22} /> },
-  { name: "Availability", path: RouteProvider.WORKER_AVAILABILITY, icon: <CalendarCheckIcon size={22} /> },
-  { name: "Portfolio", path: RouteProvider.WORKER_PORTFOLIO, icon: <BankIcon size={22} /> },
+  //{ name: "My Works", path: RouteProvider.WORKER_ASSIGNED_WORKS, icon: <SuitcaseSimpleIcon size={22} /> },
+  //{ name: "Availability", path: RouteProvider.WORKER_AVAILABILITY, icon: <CalendarCheckIcon size={22} /> },
+  //{ name: "Portfolio", path: RouteProvider.WORKER_PORTFOLIO, icon: <BankIcon size={22} /> },
   { name: "Work Profile", path: RouteProvider.WORKER_PROFILE, icon: <UserIcon size={22} /> },
 ];
 
@@ -41,26 +40,7 @@ export default function WorkerSideBar() {
         height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
       }}
     >
-      {/* Top Section */}
       <Box>
-        <Box
-          sx={{
-            mb: 4,
-            p: 2.5,
-            borderRadius: 1,
-            bgcolor: "white",
-            boxShadow: "0 0 8px rgba(0,0,0,0.15)"
-          }}
-        >
-          <Typography fontSize={20} fontWeight={700} color="#2a30a0">
-            Hi, Daison 👋
-          </Typography>
-          <Typography fontSize={14} color="black" mt={0.5}>
-            Welcome to <strong>Archisans</strong>
-          </Typography>
-        </Box>
-
-
         {/* Menu Items */}
         <Stack spacing={1.2}>
           {mainCategories.map(({ name, path, icon }, idx) => {
@@ -84,7 +64,7 @@ export default function WorkerSideBar() {
                   border: active ? "1px solid #6b70d6" : "1px solid transparent",
                   transition: "all 0.3s ease",
                   color: active ? "#fff" : "text.primary",
-                  width: "100%", // full width
+                  width: "100%",
                   boxSizing: "border-box",
                 }}
               >

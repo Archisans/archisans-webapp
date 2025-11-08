@@ -14,8 +14,7 @@ import Home from "./pages/Home";
 import Search from "./pages/search/Search";
 import Services from "./pages/services/Services";
 import Workers from "./pages/workers/Workers";
-import WorkerInfo from "./pages/worker/WorkerInfo";
-import WorkerSearch from "./pages/worker/search/WokerSearch";
+import WorkerInfo from "./pages/worker/info/WorkerInfo";
 import SavedAddress from "./pages/address/saved/Address";
 import AddAddress from "./pages/address/AddAddress";
 import Profile from "./pages/profile/Profile";
@@ -31,7 +30,7 @@ import About from "./pages/about/About";
 import SavedWorker from "./pages/savedworkers/SavedWorker";
 
 // Pages - Worker
-import WorkerHome from "./pages/worker/home/WorkerHome";
+import Worker from "./pages/worker/Worker";
 import WorkerRegister from "./pages/worker/register/WorkerRegister";
 import AssignedWorks from "./pages/worker/assigned/works/AssignedWorks";
 import WorkerWorkInfo from "./pages/worker/work/info/WorkerWorkInfo";
@@ -66,7 +65,6 @@ function App() {
           <Route path={RouteProvider.USER_HOME} element={<Home />} />
           <Route path={RouteProvider.USER_SEARCH} element={<Search />} />
           <Route path={RouteProvider.USER_SERVICES} element={<Services />} />
-          <Route path={RouteProvider.USER_WORKERS} element={<Workers />} />
           <Route path={RouteProvider.USER_SERVICES_ALL} element={<Services />} />
           <Route path={RouteProvider.USER_SETTINGS} element={<Settings />} />
           <Route path={RouteProvider.USER_PREMIUM} element={<Premium />} />
@@ -80,7 +78,7 @@ function App() {
           <Route path={RouteProvider.USER_WORKER_INFO} element={<WorkerInfo />} />
           <Route
             path={RouteProvider.USER_WORKER_SEARCH}
-            element={<WorkerSearch />}
+            element={<Workers />}
           />
 
           {/* Protected Routes */}
@@ -142,7 +140,7 @@ function App() {
             path={RouteProvider.WORKER_HOME}
             element={
               <ProtectedRoute>
-                <WorkerHome />
+                <Worker />
               </ProtectedRoute>
             }
           />

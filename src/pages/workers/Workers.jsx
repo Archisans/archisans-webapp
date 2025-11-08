@@ -1,26 +1,26 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { BREAKPOINTS } from "@/config/breakPoints";
 import { useMediaQuery } from "@mui/material";
-import WorkersMobile from "@/features/Workers/Mobile/Workers";
+import { PageLoader } from "@/components/PageLoader";
+import { useFetchWorkersBySlug } from "@/hooks/useFetchWorkersBySlug";
+import MobileSearchWorker from "@/features/SearchWorker/Mobile/SearchWorker";
+import DesktopSearchWorker from "@/features/SearchWorker/SearchWorker";
 
 export default function Workers() {
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);
-  const location = useLocation();
+  const { slug } = useParams();
+  const { workers, loading, error } = useFetchWorkersBySlug(slug);
 
-  const pathParts = location.pathname.split("/");
-  const slug = pathParts[pathParts.length - 1];
-  const title = slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  if (loading || error) {
+    return <PageLoader />;
+  }
 
   return (
     <div>
       {isMobile ? (
-        <WorkersMobile title={title} />
+        <MobileSearchWorker workers={workers} />
       ) : (
-        <WorkersMobile title={title} />
+        <DesktopSearchWorker workers={workers} />
       )}
     </div>
   );

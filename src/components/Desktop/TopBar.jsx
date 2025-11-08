@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -10,19 +10,19 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useUser } from "@/context/UserContext";
+import { navLinks } from "@/components/Desktop/Constants/topBar";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate, useLocation } from "react-router-dom";
-import { navLinks } from "@/components/Desktop/Constants/topBar";
-import SideDrawer from "@/components/Desktop/SideDrawer";
+import UserMenu from "@/components/Desktop/UserMenu";
 import LoginPopUpModal from "@/components/Desktop/LoginModal";
-import { useUser } from "@/context/UserContext";
 
 const TopBar = ({ handleLocationClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { profile, isSignedIn } = useUser();
+  const { profile, isSignedIn, isWorker } = useUser();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
@@ -59,7 +59,7 @@ const TopBar = ({ handleLocationClick }) => {
           sx={{
             gap: 2,
             justifyContent: "space-between",
-            flexWrap: "nowrap", // prevent wrapping
+            flexWrap: "nowrap",
             minWidth: 0,
           }}
         >
@@ -93,9 +93,7 @@ const TopBar = ({ handleLocationClick }) => {
               flexItem
               orientation="vertical"
               sx={{
-                borderColor: isTransparent
-                  ? "rgba(255,255,255,0.3)"
-                  : "#eee",
+                borderColor: isTransparent ? "rgba(255,255,255,0.3)" : "#eee",
               }}
             />
 
@@ -122,7 +120,13 @@ const TopBar = ({ handleLocationClick }) => {
               size="small"
               sx={{
                 flexGrow: 1, // use available space
-                maxWidth: { xs: "180px", sm: "260px", md: "350px", lg: "450px", xl: "550px" },
+                maxWidth: {
+                  xs: "180px",
+                  sm: "260px",
+                  md: "350px",
+                  lg: "450px",
+                  xl: "550px",
+                },
                 mx: 2,
                 display: { xs: "none", sm: "block" },
                 "& .MuiOutlinedInput-root": {
@@ -137,9 +141,7 @@ const TopBar = ({ handleLocationClick }) => {
                   },
                 },
                 "& .MuiInputBase-input::placeholder": {
-                  color: isTransparent
-                    ? "rgba(255,255,255,0.7)"
-                    : "#999",
+                  color: isTransparent ? "rgba(255,255,255,0.7)" : "#999",
                 },
               }}
               InputProps={{
@@ -147,9 +149,7 @@ const TopBar = ({ handleLocationClick }) => {
                   <InputAdornment position="start">
                     <SearchIcon
                       sx={{
-                        color: isTransparent
-                          ? "rgba(255,255,255,0.7)"
-                          : "#999",
+                        color: isTransparent ? "rgba(255,255,255,0.7)" : "#999",
                       }}
                     />
                   </InputAdornment>
@@ -172,6 +172,7 @@ const TopBar = ({ handleLocationClick }) => {
               .filter((link) => {
                 if (link.requiresAuth && !isSignedIn) return false;
                 if (!link.requiresAuth && isSignedIn) return false;
+                if (link.worker && !isWorker) return false;
                 return true;
               })
               .map((link, idx) => (
@@ -192,7 +193,11 @@ const TopBar = ({ handleLocationClick }) => {
                     "&:after": {
                       content: '""',
                       position: "absolute",
-                      width: 0,
+                      width:
+                        location.pathname === link.path ||
+                        location.pathname.startsWith(`${link.path}/`)
+                          ? "100%"
+                          : 0,
                       height: "2px",
                       bottom: 0,
                       left: 0,
@@ -221,9 +226,7 @@ const TopBar = ({ handleLocationClick }) => {
                 sx={{
                   height: "40px",
                   alignSelf: "center",
-                  borderColor: isTransparent
-                    ? "rgba(255,255,255,0.3)"
-                    : "#eee",
+                  borderColor: isTransparent ? "rgba(255,255,255,0.3)" : "#eee",
                 }}
               />
               <Stack direction="row" spacing={1} alignItems="center">
@@ -238,7 +241,7 @@ const TopBar = ({ handleLocationClick }) => {
         </Toolbar>
       </AppBar>
 
-      <SideDrawer open={drawerOpen} setOpen={setDrawerOpen} />
+      <UserMenu open={drawerOpen} setOpen={setDrawerOpen} />
 
       {/* Login Popup */}
       <LoginPopUpModal open={loginOpen} onClose={() => setLoginOpen(false)} />

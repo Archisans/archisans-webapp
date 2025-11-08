@@ -14,7 +14,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
-import SideDrawer from "./SideDrawer";
+import SideDrawer from "./UserMenu";
 
 const WorkerTopBar = ({ handleLocationClick }) => {
   const navigate = useNavigate();

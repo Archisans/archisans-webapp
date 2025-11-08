@@ -4,179 +4,177 @@ import {
   Avatar,
   Box,
   Button,
-  Alert,
-  Fade,
   IconButton,
 } from "@mui/material";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import AlertMessage from "@/components/Desktop/BookingAlert";
-
+import { useNavigate } from "react-router-dom";
 import {
   MapPin as MapPinIcon,
   Share2 as ShareNetworkIcon,
   Heart as HeartIcon,
 } from "lucide-react";
-
-import UserSpecificBooking from "@/features/Bookings/UserSpecificBooking";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import WorkerTopTab from "@/features/Worker/Mobile/components/WorkerTopTab";
-import WorkerBottomLinks from "@/features/Worker/Mobile/components/WorkerBottomLinks";
 
-import { workerProfile } from "@/features/Worker/constants";
-
-const Workerpage = () => {
+const Workerpage = ({ worker }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [open, setOpen] = useState(false);
-  const [linksOpen, setLinksOpen] = useState(false);
-  const [isAlert, setIsAlert] = useState(false);
-
-  const {
-    name = workerProfile.name,
-    img = workerProfile.img,
-    selectedService = "",
-  } = location.state || {};
 
   return (
-    <Grid container sx={{ bgcolor: "white" }}>
-      {/* Banner */}
+    <Grid container sx={{ bgcolor: "#f9f9f9", minHeight: "100vh" }}>
+      {/* Banner Section */}
       <Box sx={{ width: "100%", bgcolor: "#fff" }}>
         <Box sx={{ position: "relative", width: "100%" }}>
           <img
-            src={workerProfile.bannerImage}
+            src={worker.image}
             alt="Top Banner"
-            style={{ width: "100%", height: 140, objectFit: "cover" }}
+            style={{
+              width: "100%",
+              height: 180,
+              objectFit: "cover",
+              borderBottomLeftRadius: 16,
+              borderBottomRightRadius: 16,
+            }}
           />
 
-          {/* Back Arrow */}
+          {/* Back Button */}
           <IconButton
             onClick={() => navigate(-1)}
             sx={{
               position: "absolute",
-              top: 8,
-              left: 8,
-              bgcolor: "rgba(0,0,0,0.4)",
+              top: 10,
+              left: 10,
+              bgcolor: "rgba(0,0,0,0.5)",
               color: "white",
               "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+              zIndex: 2,
             }}
           >
             <ArrowBackIosIcon sx={{ fontSize: 20 }} />
           </IconButton>
 
-          {/* Right Icons */}
+          {/* Share + Heart */}
           <Box
             sx={{
               position: "absolute",
-              top: 8,
-              right: 8,
+              top: 10,
+              right: 10,
               display: "flex",
               gap: 1,
+              zIndex: 2,
             }}
           >
             <IconButton
               sx={{
                 bgcolor: "rgba(255,255,255,0.9)",
-                "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+                "&:hover": { bgcolor: "#e8e8e8" },
               }}
             >
-              <ShareNetworkIcon size={17} color="#0030CC" />
+              <ShareNetworkIcon size={18} color="#0030CC" />
             </IconButton>
             <IconButton
               sx={{
                 bgcolor: "rgba(255,255,255,0.9)",
-                "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+                "&:hover": { bgcolor: "#e8e8e8" },
               }}
             >
-              <HeartIcon size={17} color="#ff0000ff" />
+              <HeartIcon size={18} color="#FF3B3B" />
             </IconButton>
           </Box>
         </Box>
 
-        {/* Avatar */}
+        {/* Profile Section */}
         <Box sx={{ display: "flex", justifyContent: "center", mt: -7 }}>
           <Avatar
-            src={img}
+            src={worker.avatar}
             sx={{
-              width: 95,
-              height: 95,
-              border: "3px solid #fff",
-              boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
+              width: 100,
+              height: 100,
+              border: "4px solid white",
+              boxShadow: "0px 4px 14px rgba(0,0,0,0.2)",
             }}
           />
         </Box>
 
-        {/* Name & Username */}
-        <Box textAlign="center" mt={0.5}>
+        {/* Name + Location */}
+        <Box textAlign="center" mt={1.5}>
           <Box
             display="flex"
             justifyContent="center"
             alignItems="center"
-            gap={0.5}
+            gap={0.6}
           >
             <Typography
-              sx={{ fontSize: 23, fontWeight: "600", color: "black" }}
+              sx={{
+                fontSize: 22,
+                fontWeight: 600,
+                color: "#111",
+                lineHeight: 1.2,
+              }}
             >
-              {name}
+              {worker.name}
             </Typography>
-            <VerifiedIcon sx={{ color: "#278405ff", fontSize: 22 }} />
+            <VerifiedIcon sx={{ color: "#1C9C3C", fontSize: 21 }} />
           </Box>
 
-          <Box display="flex" justifyContent="center" gap={1} mt={1}>
-            <Typography fontSize={14} color="gray">
-              {workerProfile.phone}
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            gap={0.6}
+            mt={0.5}
+          >
+            <MapPinIcon size={15} color="#555" />
+            <Typography fontSize={13.5} color="#666">
+              {worker.location}
             </Typography>
-            <Box display="flex" alignItems="center" gap={0.5}>
-              <MapPinIcon size={16} color="#555" />
-              <Typography fontSize={14} color="gray">
-                {workerProfile.location}
-              </Typography>
-            </Box>
           </Box>
         </Box>
 
         {/* About */}
-        <Box px={3} mt={1} mb={1.5} textAlign="center">
-          <Typography fontSize={14} color="black" fontWeight="450">
-            {workerProfile.about}
+        <Box px={3} mt={1.5} mb={2} textAlign="center">
+          <Typography
+            fontSize={14}
+            color="text.secondary"
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              lineHeight: 1.5,
+            }}
+          >
+            {worker.about}
           </Typography>
         </Box>
 
-        {/* Book Button */}
+        {/* Call Now */}
         <Box display="flex" justifyContent="center" pb={1}>
           <Button
+            fullWidth
             variant="contained"
-            onClick={() => setOpen(true)}
+            onClick={() => window.open(`tel:${worker.phone}`, "_self")}
             sx={{
-              bgcolor: "#0b134aff",
+              mx: 3,
+              bgcolor: "#0b134a",
               color: "#fff",
               fontWeight: 600,
-              borderRadius: 1,
-              px: 12,
+              py: 1.2,
+              fontSize: 15,
+              borderRadius: 1.5,
               textTransform: "none",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+              "&:hover": { bgcolor: "#16227d" },
             }}
           >
-            Book Now
+            Call Now
           </Button>
         </Box>
       </Box>
 
-      {/* Top Tabs */}
-      <Box mt={1} width="100%">
-        <WorkerTopTab service={selectedService} setIsAlert={setIsAlert} />
+      {/* Tabs Section */}
+      <Box width="100%">
+        <WorkerTopTab worker={worker} />
       </Box>
-
-      {/* Alert */}
-      <AlertMessage isAlert={isAlert} />
-
-      {/* Modals */}
-      <UserSpecificBooking
-        open={open}
-        setIsAlert={setIsAlert}
-        setOpen={setOpen}
-      />
-      <WorkerBottomLinks open={linksOpen} onClose={() => setLinksOpen(false)} />
     </Grid>
   );
 };

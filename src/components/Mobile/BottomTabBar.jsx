@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Tabs, Tab, Typography } from "@mui/material";
-import { Home, Search, Calendar } from "lucide-react";
+import { Home, Search } from "lucide-react";
 import { RouteProvider } from "@/config/RouteProvider";
+import { SuitcaseIcon } from "@phosphor-icons/react";
 
 const BottomTabBar = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const BottomTabBar = () => {
   const allowedPaths = [
     RouteProvider.USER_HOME,
     RouteProvider.USER_SEARCH,
-    RouteProvider.USER_BOOKINGS,
+    RouteProvider.WORKER_HOME,
   ];
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const BottomTabBar = () => {
     setValue(newValue);
     if (newValue === 0) navigate(RouteProvider.USER_HOME);
     else if (newValue === 1) navigate(RouteProvider.USER_SEARCH);
-    else if (newValue === 2) navigate(RouteProvider.USER_BOOKINGS);
+    else if (newValue === 2) navigate(RouteProvider.WORKER_HOME);
   };
 
   if (
@@ -55,26 +56,26 @@ const BottomTabBar = () => {
         borderTop: "1px solid lightgrey",
       }}
     >
-<Tabs
-  value={value}
-  onChange={handleChange}
-  aria-label="mobile bottom navigation"
-  variant="fullWidth"
-  TabIndicatorProps={{
-    sx: {
-      bottom: -1.4, 
-      height: 3,
-      borderRadius: 1.5,
-      bgcolor: activeColor,
-    },
-  }}
-  sx={{
-    minHeight: 50,
-    height: 48,
-    pt: 0.7,
-    position: "relative",
-  }}
->
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="mobile bottom navigation"
+        variant="fullWidth"
+        TabIndicatorProps={{
+          sx: {
+            bottom: -1.4,
+            height: 3,
+            borderRadius: 1.5,
+            bgcolor: activeColor,
+          },
+        }}
+        sx={{
+          minHeight: 50,
+          height: 48,
+          pt: 0.7,
+          position: "relative",
+        }}
+      >
         {/* Home */}
         <Tab
           label={
@@ -135,11 +136,11 @@ const BottomTabBar = () => {
           }}
         />
 
-        {/* Bookings */}
+        {/* Worker */}
         <Tab
           label={
             <Box display="flex" flexDirection="column" alignItems="center">
-              <Calendar
+              <SuitcaseIcon
                 size={23}
                 strokeWidth={2}
                 color={value === 2 ? activeColor : inactiveColor}
@@ -149,7 +150,7 @@ const BottomTabBar = () => {
                 mt={0.3}
                 color={value === 2 ? activeColor : inactiveColor}
               >
-                Bookings
+                Worker
               </Typography>
             </Box>
           }

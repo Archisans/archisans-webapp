@@ -1,86 +1,91 @@
-import { Box, Tabs, Tab, useMediaQuery } from "@mui/material";
 import { useState } from "react";
-import { useTheme } from "@mui/material/styles";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 import MobWorkerServices from "@/features/Worker/Mobile/components/WorkerServices";
-import MobWorkerPortFolio from "@/features/Worker/Mobile/components/WorkerPortFolio";
 import MobWorkerBusiness from "@/features/Worker/Mobile/components/WorkerBusiness";
 import MobWorkerReview from "@/features/Worker/Mobile/components/WorkerReview";
+import MobWorkerAbout from "@/features/Worker/Mobile/components/WorkerAbout";
 
-const MobWorkerTopTab = ({ service, setIsAlert }) => {
+const MobWorkerTopTab = ({ worker }) => {
   const [value, setValue] = useState(0);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const hasCompany = Boolean(worker?.company);
+  const hasAbout = Boolean(worker?.about && worker.about.trim() !== "");
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const tabs = [
+    {
+      label: "Services",
+      component: <MobWorkerServices services={worker.services} />,
+    },
+    ...(hasCompany
+      ? [
+          {
+            label: "Business",
+            component: <MobWorkerBusiness company={worker.company} />,
+          },
+        ]
+      : []),
+    {
+      label: "Reviews",
+      component: <MobWorkerReview reviews={worker.reviews} />,
+    },
+    ...(hasAbout
+      ? [{ label: "About", component: <MobWorkerAbout about={worker.about} /> }]
+      : []),
+  ];
 
   return (
     <Box>
       {/* Tabs Header */}
       <Box
         sx={{
-          borderColor: "divider",
-          bgcolor: "white",
+          borderBottom: "1px solid #e0e0e0",
+          position: "relative",
         }}
       >
         <Tabs
           value={value}
           onChange={handleTabChange}
-          variant={isMobile ? "scrollable" : "fullWidth"}
-          scrollButtons={isMobile ? "auto" : false}
+          variant="scrollable"
+          scrollButtons="auto"
           textColor="primary"
           indicatorColor="primary"
+          TabIndicatorProps={{
+            sx: {
+              height: 3,
+              borderRadius: 2,
+              bottom: 0,
+            },
+          }}
+          sx={{
+            "& .MuiTabs-flexContainer": {
+              justifyContent: "center",
+            },
+            minHeight: 48,
+          }}
         >
-          <Tab
-            label="Services"
-            sx={{
-              fontWeight: 550,
-              fontSize: { xs: 13, sm: 15, md: 16 },
-              textTransform: "none",
-            }}
-          />
-
-          <Tab
-            label="Portfolio"
-            sx={{
-              fontWeight: 550,
-              fontSize: { xs: 13, sm: 15, md: 16 },
-              textTransform: "none",
-            }}
-          />
-          <Tab
-            label="Business"
-            sx={{
-              fontWeight: 550,
-              fontSize: { xs: 13, sm: 15, md: 16 },
-              textTransform: "none",
-            }}
-          />
-          <Tab
-            label="Reviews"
-            sx={{
-              fontWeight: 550,
-              fontSize: { xs: 13, sm: 15, md: 16 },
-              textTransform: "none",
-            }}
-          />
+          {tabs.map((tab, index) => (
+            <Tab
+              key={index}
+              label={tab.label}
+              sx={{
+                fontWeight: 550,
+                fontSize: 13,
+                textTransform: "none",
+                minWidth: "auto",
+                px: 3,
+                py: 1,
+                color: "#333",
+              }}
+            />
+          ))}
         </Tabs>
       </Box>
 
       {/* Tab Content */}
-      <Box sx={{ mt: 2 }}>
-        {value === 0 && (
-          <MobWorkerServices
-            setIsAlert={setIsAlert}
-            selectedService={service}
-          />
-        )}
-
-        {value === 1 && <MobWorkerPortFolio />}
-        {value === 2 && <MobWorkerBusiness />}
-        {value === 3 && <MobWorkerReview />}
-      </Box>
+      {tabs[value]?.component}
     </Box>
   );
 };

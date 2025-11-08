@@ -1,7 +1,6 @@
 import { supabase } from "../supabaseClient";
 
 export const uploadProfileImage = async (userId, file) => {
-  console.log(file);
   const fileExt = file.name.split(".").pop();
   const fileName = `${Date.now()}.${fileExt}`;
   const filePath = `${userId}/${fileName}`;

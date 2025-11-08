@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Paper, Typography, Button } from "@mui/material";
+import { Paper, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { RouteProvider } from "@/config/RouteProvider";

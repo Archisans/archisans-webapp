@@ -41,6 +41,7 @@ export const MENU_ITEMS = [
     label: "Join as Worker",
     icon: <EngineeringIcon />,
     to: RouteProvider.WORKER_REGISTER,
+    isWorker: false,
   },
   {
     label: "Help & Support",

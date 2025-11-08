@@ -1,37 +1,23 @@
-import React from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Avatar,
-  Button,
-  Chip,
-  Rating,
-  IconButton,
-} from "@mui/material";
-import { MapPin as MapPinIcon, Share2 as ShareNetworkIcon } from "lucide-react";
-// import { workerProfile } from "@/features/Worker/constants";
+import { Box, Typography, Paper, Avatar, Button, Chip } from "@mui/material";
+import { MapPin as MapPinIcon } from "lucide-react";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
 import { Facebook, LinkedIn, Instagram, Phone } from "@mui/icons-material";
-import LaunchIcon from "@mui/icons-material/Launch";
 
-const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
-  const { aboutRef, servicesRef, portfolioRef, reviewsRef } =
-    scrollToSectionRefs;
+const platformIcons = {
+  Facebook: <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />,
+  LinkedIn: <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />,
+  Instagram: <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />,
+};
 
-  const scrollToSection = (ref) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
+const WorkerOverview = ({ worker }) => {
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", gap: 3, width: "100%" }}
-    >
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3, width: "100%" }}>
       {/* Profile Section */}
       <Paper
-        elevation={3}
+        elevation={0}
         sx={{
           width: "100%",
+          border: "1px solid #e0e0e0",
           borderRadius: 2,
           overflow: "hidden",
           background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
@@ -40,7 +26,7 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
         {/* Cover Photo */}
         <Box sx={{ position: "relative", height: 160 }}>
           <img
-            src={worker.bannerImage}
+            src={worker.image}
             alt="Cover"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -70,7 +56,7 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
         <Box sx={{ px: 2.5, pb: 2.5 }}>
           <Box sx={{ display: "flex", alignItems: "flex-end", mb: 2 }}>
             <Avatar
-              src={worker.img}
+              src={worker.avatar}
               sx={{
                 width: 100,
                 height: 100,
@@ -106,25 +92,28 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <Phone sx={{ fontSize: 16, color: "#666" }} />
                   <Typography variant="body2" color="#666" fontWeight={500}>
-                    +91 9463xxxxxx
+                    {worker.phone}
                   </Typography>
                 </Box>
-                {/* Portfolio */}
+
+                {/* Portfolio 
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <LaunchIcon sx={{ fontSize: 16, color: "#666" }} />
                   <Typography variant="body2" color="#666" fontWeight={500}>
                     Portfolio
                   </Typography>
-                </Box>
+                </Box> */}
               </Box>
             </Box>
 
-            <Box
-              sx={{ display: "flex", flexDirection: "column", gap: 1.5, pt: 2 }}
-            >
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, pt: 2 }}>
               <Button
                 variant="contained"
-                onClick={() => setOpen(true)}
+                onClick={() =>
+                  navigator.clipboard.writeText(worker.phone).then(() => {
+                    alert(`Phone number (${worker.phone}) copied to clipboard.`);
+                  })
+                }
                 sx={{
                   bgcolor: "#1976d2",
                   textTransform: "none",
@@ -142,78 +131,44 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
                   transition: "all 0.2s",
                 }}
               >
-                Book Now
+                Call Now
               </Button>
             </Box>
           </Box>
 
-          {/* Navigation Chips */}
-          <Box>
-            <Typography
-              variant="subtitle1"
-              fontWeight={600}
-              mb={1.5}
-              color="#1976d2"
-            >
-              Navigate to Section
-            </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-              <Chip
-                label="About Me"
-                size="small"
-                onClick={() => scrollToSection(aboutRef)}
-                sx={{
-                  bgcolor: "#e3f2fd",
-                  color: "#1976d2",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  "&:hover": { bgcolor: "#bbdefb" },
-                }}
-              />
-              <Chip
-                label="Services Offered"
-                size="small"
-                onClick={() => scrollToSection(servicesRef)}
-                sx={{
-                  bgcolor: "#e8f5e8",
-                  color: "#2e7d32",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  "&:hover": { bgcolor: "#c8e6c9" },
-                }}
-              />
-              <Chip
-                label="Recent Projects"
-                size="small"
-                onClick={() => scrollToSection(portfolioRef)}
-                sx={{
-                  bgcolor: "#fff3e0",
-                  color: "#f57c00",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  "&:hover": { bgcolor: "#ffe0b2" },
-                }}
-              />
-              <Chip
-                label="Reviews"
-                size="small"
-                onClick={() => scrollToSection(reviewsRef)}
-                sx={{
-                  bgcolor: "#f3e8fd",
-                  color: "#8e24aa",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  "&:hover": { bgcolor: "#e1bee7" },
-                }}
-              />
+          {/* Dynamic Skills (from worker.roles) */}
+          {worker.roles && worker.roles.length > 0 && (
+            <Box>
+              <Typography
+                variant="subtitle1"
+                fontWeight={600}
+                mb={1.5}
+                color="#1976d2"
+              >
+                Skills
+              </Typography>
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                {worker.roles.map((role, idx) => (
+                  <Chip
+                    key={idx}
+                    label={role}
+                    size="small"
+                    sx={{
+                      bgcolor: "#e3f2fd",
+                      color: "#1976d2",
+                      fontWeight: 600,
+                      cursor: "default",
+                    }}
+                  />
+                ))}
+              </Box>
             </Box>
-          </Box>
+          )}
         </Box>
       </Paper>
 
       {/* About Section */}
       <Paper
-        ref={aboutRef}
         elevation={0}
         sx={{ mt: 2, p: 2, borderRadius: 2, border: "1px solid #e0e0e0" }}
       >
@@ -222,78 +177,50 @@ const WorkerOverview = ({ worker, scrollToSectionRefs, setOpen }) => {
         </Typography>
 
         <Typography variant="body2" color="#555" lineHeight={1.6} mb={1.5}>
-          {worker.about}
+          {worker.about || "No description available."}
         </Typography>
 
         {/* Social Media Section */}
-        <Box
-          display="flex"
-          alignItems="center"
-          flexWrap="wrap"
-          gap={2}
-          sx={{ mt: 0.5 }}
-        >
-          {/* Label */}
-          <Typography
-            variant="body2"
-            color="#444"
-            fontWeight={600}
-            sx={{ mr: 1 }}
-          >
-            Connect with me:
-          </Typography>
-
-          {/* Facebook */}
-          <Box display="flex" alignItems="center" gap={0.5}>
-            <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />
+        {worker.social && worker.social.length > 0 && (
+          <Box display="flex" alignItems="center" flexWrap="wrap" gap={2} sx={{ mt: 0.5 }}>
             <Typography
               variant="body2"
-              color="#666"
-              fontWeight={500}
-              sx={{
-                cursor: "pointer",
-                "&:hover": { color: "#145DBF" },
-                transition: "0.3s",
-              }}
+              color="#444"
+              fontWeight={600}
+              sx={{ mr: 1 }}
             >
-              Facebook
+              Connect with me:
             </Typography>
-          </Box>
 
-          {/* LinkedIn */}
-          <Box display="flex" alignItems="center" gap={0.5}>
-            <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />
-            <Typography
-              variant="body2"
-              color="#666"
-              fontWeight={500}
-              sx={{
-                cursor: "pointer",
-                "&:hover": { color: "#005582" },
-                transition: "0.3s",
-              }}
-            >
-              LinkedIn
-            </Typography>
+            {worker.social.map((social) => (
+              <Box
+                key={social.id}
+                display="flex"
+                alignItems="center"
+                gap={0.5}
+                component="a"
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ textDecoration: "none" }}
+              >
+                {platformIcons[social.platform] || null}
+                <Typography
+                  variant="body2"
+                  color="#666"
+                  fontWeight={500}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": { color: "#1976d2" },
+                    transition: "0.3s",
+                  }}
+                >
+                  {social.platform}
+                </Typography>
+              </Box>
+            ))}
           </Box>
-
-          {/* Instagram */}
-          <Box display="flex" alignItems="center" gap={0.5}>
-            <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />
-            <Typography
-              variant="body2"
-              color="#666"
-              fontWeight={500}
-              sx={{
-                cursor: "pointer",
-                "&:hover": { color: "#C13584" },
-                transition: "0.3s",
-              }}
-            >
-              Instagram
-            </Typography>
-          </Box>
-        </Box>
+        )}
       </Paper>
     </Box>
   );

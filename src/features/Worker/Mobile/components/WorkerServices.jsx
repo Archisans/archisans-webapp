@@ -1,111 +1,79 @@
-import { Box, Grid, Typography } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import { services } from "@/features/Worker/constants";
+import { Box, Typography, Chip } from "@mui/material";
 
-const MobWorkerServices = () => {
+const WorkerServices = ({ services }) => {
   return (
-    <Grid sx={{ mb: { xs: 2, sm: 3, md: 4 } }}>
-      <Box>
-        {/* Section Title */}
-        <Typography
-          sx={{
-            fontSize: { xs: 15, sm: 16, md: 17 },
-            fontWeight: 600,
-            mt: { xs: 2, sm: 3, md: 4 },
-            mb: { xs: 1, sm: 2 },
-            ml: { xs: 1, sm: 2 },
-            color: "#050a56ff",
-          }}
-        >
-          My Services
-        </Typography>
+    <Box sx={{ p: 2 }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: 2,
+        }}
+      >
+        {services.map((service) => (
+          <Box
+            key={service.id}
+            sx={{
+              border: "1px solid #e0e0e0",
+              borderRadius: 2,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              "&:hover": {
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                borderColor: "#0073b1",
+              },
+            }}
+          >
+            <Box
+              component="img"
+              src={service.image}
+              alt={service.title}
+              sx={{
+                width: "100%",
+                height: 100,
+                objectFit: "cover",
+              }}
+            />
 
-        {/* Service Cards */}
-        <Grid container spacing={{ xs: 1, sm: 2 }}>
-          {services.map((service, idx) => (
-            <Grid
-              item
-              xs={12} // full width on mobile
-              sm={6} // two per row on tablet
-              md={4} // three per row on desktop
-              key={idx}
-            >
-              <Box
+            <Box sx={{ p: 1.5 }}>
+              <Typography
+                variant="body1"
+                fontWeight={500}
+                mb={1}
                 sx={{
-                  p: { xs: 1, sm: 1.5 },
-                  borderRadius: 1.5,
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  fontSize: "0.813rem",
+                  lineHeight: 1.3,
                   overflow: "hidden",
-                  bgcolor: "white",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  minHeight: "1.6em",
                 }}
               >
-                {/* Image */}
-                <Box
-                  component="img"
-                  src={service.img}
-                  alt={service.title}
-                  sx={{
-                    borderRadius: 1,
-                    width: "100%",
-                    height: { xs: 100, sm: 120, md: 140 },
-                    objectFit: "cover",
-                  }}
-                />
+                {service.title}
+              </Typography>
 
-                {/* Content */}
-                <Box sx={{ p: 0.5 }}>
-                  <Typography
-                    fontWeight="550"
-                    color="black"
-                    gutterBottom
-                    sx={{ fontSize: { xs: 12, sm: 13, md: 14 } }}
-                  >
-                    {service.title} ({service.years})
-                  </Typography>
-
-                  <Box sx={{ display: "flex", flexDirection: "row", gap: 0.5 }}>
-                    <Box display="flex" alignItems="center" gap={0.3}>
-                      <StarIcon
-                        sx={{
-                          fontSize: { xs: 11, sm: 12 },
-                          mb: 0.3,
-                          color: "#FFD700",
-                        }}
-                      />
-                      <Typography
-                        fontSize={{ xs: 9, sm: 10, md: 11 }}
-                        fontWeight={500}
-                      >
-                        {service.rating} ({service.reviews} reviews)
-                      </Typography>
-                    </Box>
-
-                    {/* <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      <Typography
-                        fontSize={{ xs: 9, sm: 10, md: 11 }}
-                        color="gray"
-                      >
-                        From{" "}
-                        <Typography
-                          component="span"
-                          fontWeight={500}
-                          fontSize={{ xs: 9, sm: 10, md: 11 }}
-                          color="black"
-                        >
-                          {service.price.toLocaleString()} Rs
-                        </Typography>
-                        /hr
-                      </Typography>
-                    </Box> */}
-                  </Box>
-                </Box>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
+              <Chip
+                label={`${service.experience} yrs`}
+                size="small"
+                sx={{
+                  bgcolor: "#f3f2ef",
+                  color: "#666",
+                  fontSize: "0.688rem",
+                  height: 22,
+                  width: "fit-content",
+                }}
+              />
+            </Box>
+          </Box>
+        ))}
       </Box>
-    </Grid>
+    </Box>
   );
 };
 
-export default MobWorkerServices;
+export default WorkerServices;

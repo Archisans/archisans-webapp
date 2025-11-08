@@ -2,12 +2,12 @@ export const RouteProvider = {
   USER_HOME: "/",
   USER_SEARCH: "/search",
   USER_SERVICES: "/services/*",
-  USER_WORKERS: "/workers/*",
+  USER_WORKERS: "/workers",
   USER_PROFILE: "/profile",
   USER_BOOKINGS: "/bookings",
   USER_BOOKINGS_INFO: "/bookings/info",
   USER_SERVICES_ALL: "/services/all",
-  USER_WORKER_INFO: "/worker/info",
+  USER_WORKER_INFO: "/worker/info/:phoneNumber",
   USER_SETTINGS: "/settings",
   USER_SETTINGS_NOTIFICATION: "/settings/notification",
   USER_PROFILE_EDIT: "/profile/edit",
@@ -23,16 +23,8 @@ export const RouteProvider = {
   USER_ADDRESS_ADD: "/address/add",
 
   USER_WORKER_SEARCH: "/workers/:slug",
-  USER_SERVICE_ARCHITECT: "/services/architects",
-  USER_SERVICE_ARTISANS: "/services/artisans",
-  USER_SERVICE_AUTOMATION: "/services/automation",
-  USER_SERVICE_FABRICATION: "/services/fabrication",
-  USER_SERVICE_CONTRACTORS: "/services/contractors",
-  USER_SERVICE_ENGINEERS: "/services/engineers",
   
   WORKER_REGISTER: "/worker/register",
-
-
   WORKER_HOME: "/worker",
   WORKER_ASSIGNED_WORKS: "/worker/assigned/works",
   WORKER_WORK_INFO: "/worker/work/info",

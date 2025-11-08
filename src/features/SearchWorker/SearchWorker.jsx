@@ -1,74 +1,87 @@
-import React, { useState } from "react";
-import { Box, Container, Typography, Paper } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Grid,
+} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import WorkerCard from "@/features/SearchWorker/WorkerCard";
-import { WORKERS } from "@/features/SearchWorker/constants";
-import AlertMessage from "@/components/Desktop/BookingAlert";
-import UserSpecificBooking from "@/features/Bookings/UserSpecificBookingModal";
+import WorkerCard from "@/features/SearchWorker/components/WorkerCard";
 
-const DesktopSearchWorker = () => {
+const SearchWorker = ({ workers = [], loading = false }) => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [isAlert, setIsAlert] = useState(false);
   const { slug } = useParams();
-  const workers = WORKERS(slug);
+
+  const formattedTitle = slug
+    ? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    : "Professionals";
 
   return (
-    <Box sx={{ bgcolor: "#f8fafc", minHeight: "100vh" }}>
-      <Container maxWidth="xl" sx={{ py: 4 }}>
-        {/* Header Section */}
+    <Box
+      sx={{
+        bgcolor: "linear-gradient(180deg, #f9fafb 0%, #f1f5f9 100%)",
+        minHeight: "100vh",
+        py: 6,
+      }}
+    >
+      <Container maxWidth="xl">
+        {/* Header */}
         <Paper
           elevation={0}
           sx={{
-            p: 3,
-            mb: 4,
-            borderRadius: 3,
+            p: 4,
+            mb: 5,
+            borderRadius: 4,
             bgcolor: "white",
             border: "1px solid #e2e8f0",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
           }}
         >
-          <Typography variant="h4" fontWeight={700} mb={1} color="#1e293b">
-            {`Available ${
-              slug
-                ? slug
-                    .replace(/-/g, " ")
-                    .replace(/\b\w/g, (c) => c.toUpperCase())
-                : "Professionals"
-            }`}
+          <Typography
+            variant="h4"
+            fontWeight={700}
+            color="primary"
+            sx={{ mb: 1, letterSpacing: "-0.5px" }}
+          >
+            {`Available ${formattedTitle}`}
           </Typography>
-          {/* <Typography color="text.secondary" fontSize={16}>
-            {WORKERS.length} skilled professionals ready to help with your projects
-          </Typography> */}
+          <Typography variant="body1" color="text.secondary">
+            Browse vetted professionals ready to work on your project.
+          </Typography>
         </Paper>
 
-        {/* Worker Grid - Perfect horizontal gaps */}
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "24px",
-            px: 3,
-          }}
-        >
-          {workers.map((worker, idx) => (
-            <WorkerCard
-              key={idx}
-              worker={worker}
-              navigate={navigate}
-              setOpen={setOpen}
-            />
-          ))}
-        </Box>
+        {/* Empty State */}
+        {workers.length === 0 ? (
+          <Paper
+            elevation={0}
+            sx={{
+              textAlign: "center",
+              p: 6,
+              borderRadius: 4,
+              border: "1px dashed #cbd5e1",
+              bgcolor: "#f8fafc",
+            }}
+          >
+            <Typography variant="h6" color="text.secondary" fontWeight={500}>
+              No {formattedTitle.toLowerCase()} found
+            </Typography>
+            <Typography variant="body2" color="text.secondary" mt={1}>
+              Try adjusting your filters or check back later.
+            </Typography>
+          </Paper>
+        ) : (
+          /* Worker Grid */
+          <Grid container spacing={3}>
+            {workers.map((worker, idx) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+                <WorkerCard worker={worker} navigate={navigate} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Container>
-
-      <AlertMessage isAlert={isAlert} />
-      <UserSpecificBooking
-        open={open}
-        setIsAlert={setIsAlert}
-        setOpen={setOpen}
-      />
     </Box>
   );
 };
 
-export default DesktopSearchWorker;
+export default SearchWorker;

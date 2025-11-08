@@ -14,8 +14,8 @@ const AppLayout = () => {
 
   const bottomTabs = [
     RouteProvider.USER_HOME,
-    RouteProvider.USER_BOOKINGS,
-    RouteProvider.USER_PROFILE,
+    RouteProvider.USER_SEARCH,
+    RouteProvider.WORKER_HOME,
   ];
 
   const workerSideBarPaths = [

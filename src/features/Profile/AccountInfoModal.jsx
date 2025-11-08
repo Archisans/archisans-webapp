@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Edit } from "@mui/icons-material";
 import {
   Avatar,
@@ -17,48 +19,46 @@ import { useUser } from "@/context/UserContext";
 
 const AccountInfoModal = ({ open, onClose, message }) => {
   const {
-    user,
     profile,
-    setProfile,
-    edit,
-    setEdit,
     saving,
     imageLoading,
     error,
+    setError,
     success,
     handleImageUpload,
     handleSaveProfile,
   } = useUser();
 
+  const navigate = useNavigate();
+
+  const [draftProfile, setDraftProfile] = useState(profile);
+  const [edit, setEdit] = useState(true);
+
+  useEffect(() => {
+    if (open) {
+      setDraftProfile(profile);
+      setEdit(true);
+    }
+  }, [open, profile]);
+
   const handleSaveAndClose = async () => {
-    await handleSaveProfile();
-    if (!error) {
-      setTimeout(() => onClose(), 1000);
+    const ok = await handleSaveProfile(draftProfile);
+    if (ok) {
+      if (message) navigate(-1);
+      setEdit(true);
+      setTimeout(() => onClose(), 500);
     }
   };
 
-  if (!user) {
-    return (
-      <Modal open={open} onClose={onClose}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "400px",
-          }}
-        >
-          <Paper sx={{ p: 3 }}>
-            <Alert severity="error">User not found. Please sign in.</Alert>
-          </Paper>
-        </Box>
-      </Modal>
-    );
-  }
+  const handleClose = () => {
+    setError(null);
+    setEdit(true);
+    setDraftProfile(profile);
+    onClose();
+  };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Box
         sx={{
           position: "absolute",
@@ -77,7 +77,7 @@ const AccountInfoModal = ({ open, onClose, message }) => {
           </Typography>
 
           {/* Messages */}
-          {message && (
+          {message && !success && (
             <Box p={2}>
               <Alert severity="error">{message}</Alert>
             </Box>
@@ -109,7 +109,7 @@ const AccountInfoModal = ({ open, onClose, message }) => {
                     component="label"
                     size="small"
                     color="primary"
-                    disabled={imageLoading}
+                    disabled={imageLoading || edit}
                     sx={{
                       bgcolor: "white",
                       boxShadow: 1,
@@ -144,9 +144,12 @@ const AccountInfoModal = ({ open, onClose, message }) => {
               <Input
                 fullWidth
                 disabled={edit}
-                value={profile.firstName}
+                value={draftProfile.firstName}
                 onChange={(e) =>
-                  setProfile((p) => ({ ...p, firstName: e.target.value }))
+                  setDraftProfile((p) => ({
+                    ...p,
+                    firstName: e.target.value,
+                  }))
                 }
                 sx={{ fontSize: "14px", mb: 2 }}
               />
@@ -156,9 +159,12 @@ const AccountInfoModal = ({ open, onClose, message }) => {
               <Input
                 fullWidth
                 disabled={edit}
-                value={profile.lastName}
+                value={draftProfile.lastName}
                 onChange={(e) =>
-                  setProfile((p) => ({ ...p, lastName: e.target.value }))
+                  setDraftProfile((p) => ({
+                    ...p,
+                    lastName: e.target.value,
+                  }))
                 }
                 sx={{ fontSize: "14px" }}
               />
@@ -184,9 +190,15 @@ const AccountInfoModal = ({ open, onClose, message }) => {
 
           {/* Buttons */}
           <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
-            <Button variant="outlined" onClick={onClose} sx={{ flex: 1 }}>
-              Cancel
+            <Button
+              variant="outlined"
+              onClick={handleClose}
+              sx={{ flex: 1 }}
+              disabled={saving}
+            >
+              {edit ? "Close" : "Cancel"}
             </Button>
+
             <Button
               variant="contained"
               sx={{ flex: 1, fontWeight: 600 }}
