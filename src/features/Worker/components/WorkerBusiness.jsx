@@ -1,9 +1,11 @@
 import { Box, Paper, Typography } from "@mui/material";
 
-const WorkerBusiness = ({ company }) => {
+const WorkerBusiness = ({ company,location }) => {
+  // Safely handle if company is null or undefined
+  const safeCompany = company || {};
+
   return (
     <Box>
-      {/* Business Details */}
       <Paper
         elevation={0}
         sx={{
@@ -19,12 +21,22 @@ const WorkerBusiness = ({ company }) => {
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          
+          <Box>
+            <Typography variant="body2" color="#666" mb={0.5}>
+              Location
+            </Typography>
+            <Typography variant="body2" fontWeight={500}>
+              {location || "Not Available"}
+            </Typography>
+          </Box>
+          
           <Box>
             <Typography variant="body2" color="#666" mb={0.5}>
               Company Name
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {company.companyName || "Not Available"}
+              {safeCompany.companyName || "Not Available"}
             </Typography>
           </Box>
 
@@ -33,7 +45,7 @@ const WorkerBusiness = ({ company }) => {
               Work Permit
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {company.workPermitNumber || "Not Available"}
+              {safeCompany.workPermitNumber || "Not Available"}
             </Typography>
           </Box>
 
@@ -42,7 +54,7 @@ const WorkerBusiness = ({ company }) => {
               GST Number
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {company.gstNumber || "Not Available"}
+              {safeCompany.gstNumber || "Not Available"}
             </Typography>
           </Box>
         </Box>

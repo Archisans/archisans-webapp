@@ -31,26 +31,47 @@ const Workerpage = ({ worker }) => {
           width: "100%",
         }}
       >
-        <Grid container spacing={3}>
-          {/* MAIN CONTENT */}
-          <Grid item xs={12} md={8} lg={9}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <WorkerOverview worker={worker} />
+       <Box
+  sx={{
+    display: "flex",
+    flexDirection: { xs: "column", md: "row" },
+    alignItems: "flex-start",
+    gap: 3,
+    width: "100%",
+  }}
+>
+  {/* MAIN CONTENT - takes 2/3 width */}
+  <Box
+    sx={{
+      flexBasis: { xs: "100%", md: "66.67%" },
+      flexGrow: 0,
+      flexShrink: 0,
+    }}
+  >
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <WorkerOverview worker={worker} />
+      <WorkerServices services={worker.services} />
+      <WorkerReview />
+    </Box>
+  </Box>
 
-              <WorkerServices services={worker.services} />
+  {/* SIDEBAR - takes remaining 1/3 width */}
+  <Box
+    sx={{
+      flexBasis: { xs: "100%", md: "33.33%" },
+      flexGrow: 0,
+      flexShrink: 0,
+      display: "flex",
+      flexDirection: "column",
+      gap: 3,
+    }}
+  >
+    {!isWorker && <WorkerJoin />}
+    {<WorkerBusiness company={worker.company} location={worker.location} />}
+  </Box>
+</Box>
 
-              <WorkerReview />
-            </Box>
-          </Grid>
 
-          {/* SIDEBAR */}
-          <Grid item xs={12} md={4} lg={3}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {!isWorker && <WorkerJoin />}
-              {worker.company && <WorkerBusiness company={worker.company} />}
-            </Box>
-          </Grid>
-        </Grid>
       </Container>
 
       <Zoom in={showScroll}>
