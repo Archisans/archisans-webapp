@@ -1,7 +1,7 @@
 import { Box, Typography, Paper, Avatar, Button, Chip } from "@mui/material";
 import { MapPin as MapPinIcon } from "lucide-react";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
-import { Facebook, LinkedIn, Instagram, Phone } from "@mui/icons-material";
+import { Facebook, LinkedIn, Instagram, Phone,Launch } from "@mui/icons-material";
 
 const platformIcons = {
   Facebook: <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />,
@@ -80,13 +80,13 @@ const WorkerOverview = ({ worker }) => {
                 gap={2}
                 mb={1.5}
               >
-                {/* Location */}
+                {/* Location
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <MapPinIcon size={16} color="#666" />
                   <Typography variant="body2" color="#666" fontWeight={500}>
                     {worker.location}
                   </Typography>
-                </Box>
+                </Box> */}
 
                 {/* Phone */}
                 <Box display="flex" alignItems="center" gap={0.5}>
@@ -96,14 +96,14 @@ const WorkerOverview = ({ worker }) => {
                   </Typography>
                 </Box>
 
-                {/* Portfolio 
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  <LaunchIcon sx={{ fontSize: 16, color: "#666" }} />
+                
+                {/* <Box display="flex" alignItems="center" gap={0.5}>
+                  <Launch sx={{ fontSize: 16, color: "#666" }} />
                   <Typography variant="body2" color="#666" fontWeight={500}>
                     Portfolio
                   </Typography>
                 </Box> */}
-              </Box>
+              </Box> 
             </Box>
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, pt: 2 }}>
@@ -137,33 +137,35 @@ const WorkerOverview = ({ worker }) => {
           </Box>
 
           {/* Dynamic Skills (from worker.roles) */}
-          {worker.roles && worker.roles.length > 0 && (
-            <Box>
-              <Typography
-                variant="subtitle1"
-                fontWeight={600}
-                mb={1.5}
-                color="#1976d2"
-              >
-                Skills
-              </Typography>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                {worker.roles.map((role, idx) => (
-                  <Chip
-                    key={idx}
-                    label={role}
-                    size="small"
-                    sx={{
-                      bgcolor: "#e3f2fd",
-                      color: "#1976d2",
-                      fontWeight: 600,
-                      cursor: "default",
-                    }}
-                  />
-                ))}
-              </Box>
-            </Box>
-          )}
+{worker.roles && worker.roles.length > 0 && (
+  <Box>
+    <Typography
+      variant="subtitle1"
+      fontWeight={600}
+      mb={1.5}
+      color="#1976d2"
+    >
+      Skills
+    </Typography>
+
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+      {[...new Set(worker.roles)].map((role, idx) => (
+        <Chip
+          key={idx}
+          label={role}
+          size="small"
+          sx={{
+            bgcolor: "#e3f2fd",
+            color: "#1976d2",
+            fontWeight: 600,
+            cursor: "default",
+          }}
+        />
+      ))}
+    </Box>
+  </Box>
+)}
+
         </Box>
       </Paper>
 
@@ -176,9 +178,23 @@ const WorkerOverview = ({ worker }) => {
           About
         </Typography>
 
-        <Typography variant="body2" color="#555" lineHeight={1.6} mb={1.5}>
-          {worker.about || "No description available."}
-        </Typography>
+        <Typography
+  variant="body2"
+  color="#555"
+  lineHeight={1.6}
+  mb={1.5}
+  sx={{
+    whiteSpace: "pre-line",           // keeps line breaks if present
+    wordBreak: "break-word",          // prevents overflow for long words
+    overflowWrap: "break-word",
+    maxHeight: "12em",                // prevents very long texts from stretching layout
+    overflowY: "auto",                // adds scroll if text exceeds max height
+    pr: 1,                            // spacing for scrollbar
+  }}
+>
+  {worker.about || "No description available."}
+</Typography>
+
 
         {/* Social Media Section */}
         {worker.social && worker.social.length > 0 && (

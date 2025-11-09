@@ -71,9 +71,9 @@ const SearchWorker = ({ workers = [], loading = false }) => {
           </Paper>
         ) : (
           /* Worker Grid */
-          <Grid container spacing={3}>
+          <Grid container spacing={2} justifyContent="center">
             {workers.map((worker, idx) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+              <Grid item xs={12} sm={6} md={4} lg={3} key={idx} display="flex" justifyContent="center">
                 <WorkerCard worker={worker} navigate={navigate} />
               </Grid>
             ))}
