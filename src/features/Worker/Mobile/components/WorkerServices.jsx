@@ -2,7 +2,7 @@ import { Box, Typography, Chip } from "@mui/material";
 
 const WorkerServices = ({ services }) => {
   return (
-    <Box sx={{ p: 2 }}>
+    <Box sx={{ p: 1 }}>
       <Box
         sx={{
           display: "grid",

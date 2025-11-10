@@ -37,7 +37,6 @@ const MobWorkerReview = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          mt: 2,
           mb: 2,
           border: "2px solid #eaeaea",
           p: 1,

@@ -2,13 +2,12 @@ import { Box, Typography, Divider } from "@mui/material";
 
 const MobWorkerBusiness = ({ company }) => {
   return (
-    <Box sx={{ p: 2 }}>
+    <Box sx={{ p: 1 }}>
       {/* Company Name */}
       <Typography
         variant="subtitle2"
         sx={{
           color: "text.secondary",
-          mt: 2,
           fontSize: { xs: 12, sm: 13, md: 14 },
         }}
       >
