@@ -44,18 +44,19 @@ const BottomTabBar = () => {
 
   return (
     <Box
-      sx={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        width: "100%",
-        height: "60px",
-        bgcolor: "white",
-        zIndex: 1000,
-        borderTop: "1px solid lightgrey",
-      }}
-    >
+    sx={{
+      position: "fixed",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: "100%",
+      height: "calc(60px + env(safe-area-inset-bottom, 0px))",
+      bgcolor: "white",
+      zIndex: 1000,
+      borderTop: "1px solid lightgrey",
+      paddingBottom: "env(safe-area-inset-bottom)", 
+    }}
+  >
       <Tabs
         value={value}
         onChange={handleChange}
