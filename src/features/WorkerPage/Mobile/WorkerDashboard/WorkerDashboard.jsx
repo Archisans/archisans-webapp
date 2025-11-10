@@ -105,7 +105,6 @@ const WorkerDashboard = ({ worker }) => {
               color: "#6B7280",
               textTransform: "uppercase",
               letterSpacing: "0.05em",
-              mt: 2,
               mb: 2,
             }}
           >
@@ -208,6 +207,7 @@ const WorkerDashboard = ({ worker }) => {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
+            mt={2}
             mb={2}
           >
             <Typography
