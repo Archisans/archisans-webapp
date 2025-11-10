@@ -138,7 +138,7 @@ const SearchWorker = ({ workers }) => {
               mb: 1,
             }}
           >
-            No Workers Found
+            No Matching Professionals
           </Typography>
           <Typography
             variant="body2"
@@ -149,7 +149,7 @@ const SearchWorker = ({ workers }) => {
               lineHeight: 1.5,
             }}
           >
-            No workers found in your location. Try searching for different
+            No Professionals found in your location. Try searching for different
             services or check back later.
           </Typography>
         </Box>
