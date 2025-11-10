@@ -95,6 +95,24 @@ const WorkerDashboard = ({ worker }) => {
 
       {/* Main Content */}
       <Box sx={{ px: 2, py: 3, pb: 10 }}>
+        
+        {/* Ads */}
+          <Box>
+          <Typography
+            sx={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: "#6B7280",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              mb: 2,
+            }}
+          >
+            Featured
+          </Typography>
+          <AdvertisementCarousel />
+        </Box>
+
         {/* Quick Actions */}
         <Box mb={4}>
           <Typography
@@ -104,6 +122,7 @@ const WorkerDashboard = ({ worker }) => {
               color: "#6B7280",
               textTransform: "uppercase",
               letterSpacing: "0.05em",
+              mt:2,
               mb: 2,
             }}
           >
@@ -305,23 +324,6 @@ const WorkerDashboard = ({ worker }) => {
               </Card>
             ))}
           </Box>
-        </Box>
-
-        {/* Ads */}
-        <Box>
-          <Typography
-            sx={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#6B7280",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              mb: 2,
-            }}
-          >
-            Featured
-          </Typography>
-          <AdvertisementCarousel />
         </Box>
       </Box>
     </Box>
