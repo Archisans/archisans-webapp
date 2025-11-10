@@ -16,6 +16,9 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import WorkerTopTab from "@/features/Worker/Mobile/components/WorkerTopTab";
 
+import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
+
+
 const Workerpage = ({ worker }) => {
   const navigate = useNavigate();
 
@@ -25,14 +28,12 @@ const Workerpage = ({ worker }) => {
       <Box sx={{ width: "100%", bgcolor: "#fff" }}>
         <Box sx={{ position: "relative", width: "100%" }}>
           <img
-            src={worker.image}
+            src={worker.image ? worker.image : DefaultWorkerImg}
             alt="Top Banner"
             style={{
               width: "100%",
-              height: 180,
+              height: 160,
               objectFit: "cover",
-              borderBottomLeftRadius: 16,
-              borderBottomRightRadius: 16,
             }}
           />
 

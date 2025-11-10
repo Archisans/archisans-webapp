@@ -37,12 +37,21 @@ const MobWorkerTopTab = ({ worker }) => {
   ];
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "10vh", 
+      }}
+    >
       {/* Tabs Header */}
       <Box
         sx={{
           borderBottom: "1px solid #e0e0e0",
-          position: "relative",
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          backgroundColor: "#fff", // ensures content under doesn't overlap
         }}
       >
         <Tabs
@@ -85,7 +94,9 @@ const MobWorkerTopTab = ({ worker }) => {
       </Box>
 
       {/* Tab Content */}
-      {tabs[value]?.component}
+      <Box sx={{ flexGrow: 1, minHeight: "50vh", mt: 1 }}>
+        {tabs[value]?.component}
+      </Box>
     </Box>
   );
 };

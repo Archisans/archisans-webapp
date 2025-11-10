@@ -10,7 +10,7 @@ import {
 import { MapPinIcon, StarIcon } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
-
+import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
 const WorkerCard = ({ worker, navigate }) => {
   const theme = useTheme();
 
@@ -34,9 +34,9 @@ const WorkerCard = ({ worker, navigate }) => {
       }}
     >
       {/* Image with Rating */}
-      <Box sx={{ position: "relative", height: 110 }}>
+      <Box sx={{ position: "relative", height: 150 }}>
         <img
-          src={worker.image}
+          src={worker.image ? worker.image : DefaultWorkerImg}
           alt="background"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
