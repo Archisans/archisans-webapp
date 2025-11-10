@@ -2,6 +2,9 @@ import { Box, Typography, Paper, Avatar, Button, Chip } from "@mui/material";
 import { MapPin as MapPinIcon } from "lucide-react";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
 import { Facebook, LinkedIn, Instagram, Phone,Launch } from "@mui/icons-material";
+import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
+import ReviewDialog from "@/components/Desktop/ReviewDialog";
+import { useState } from "react";
 
 const platformIcons = {
   Facebook: <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />,
@@ -9,7 +12,11 @@ const platformIcons = {
   Instagram: <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />,
 };
 
+
 const WorkerOverview = ({ worker }) => {
+  
+const [openReview, setOpenReview] = useState(false);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3, width: "100%" }}>
       {/* Profile Section */}
@@ -24,34 +31,49 @@ const WorkerOverview = ({ worker }) => {
         }}
       >
         {/* Cover Photo */}
-        <Box sx={{ position: "relative", height: 160 }}>
-          <img
-            src={worker.image}
-            alt="Cover"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: "50%",
-              background: "linear-gradient(transparent, rgba(0,0,0,0.4))",
-            }}
-          />
-          <Box
-            sx={{
-              position: "absolute",
-              top: 15,
-              right: 15,
-              display: "flex",
-              gap: 1,
-            }}
-          >
-            <FavouriteAndShareButton />
-          </Box>
-        </Box>
+<Box sx={{ position: "relative", height: 160, overflow: "hidden" }}>
+  <Box
+    component="img"
+    src={worker.image ? worker.image : DefaultWorkerImg}
+    alt="Cover"
+    sx={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      objectPosition: worker.image ? "center" : "left top", // ✅ align from top-left for default
+      transition: "transform 0.4s ease",
+      transform: "scale(1.02)", // slight zoom to avoid edge gaps
+    }}
+  />
+
+  {/* Gradient Overlay */}
+  <Box
+    sx={{
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: "50%",
+      background: "linear-gradient(transparent, rgba(0,0,0,0.4))",
+    }}
+  />
+
+  {/* Favourite + Share */}
+  <Box
+    sx={{
+      position: "absolute",
+      top: 15,
+      right: 15,
+      display: "flex",
+      gap: 1,
+      zIndex: 2,
+    }}
+  >
+    <FavouriteAndShareButton />
+  </Box>
+</Box>
+
+
 
         <Box sx={{ px: 2.5, pb: 2.5 }}>
           <Box sx={{ display: "flex", alignItems: "flex-end", mb: 2 }}>
@@ -106,34 +128,73 @@ const WorkerOverview = ({ worker }) => {
               </Box> 
             </Box>
 
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, pt: 2 }}>
-              <Button
-                variant="contained"
-                onClick={() =>
-                  navigator.clipboard.writeText(worker.phone).then(() => {
-                    alert(`Phone number (${worker.phone}) copied to clipboard.`);
-                  })
-                }
-                sx={{
-                  bgcolor: "#1976d2",
-                  textTransform: "none",
-                  fontWeight: 700,
-                  borderRadius: 2,
-                  px: 4,
-                  py: 1,
-                  fontSize: "0.95rem",
-                  boxShadow: "0 3px 8px rgba(25,118,210,0.25)",
-                  "&:hover": {
-                    bgcolor: "#1565c0",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 5px 12px rgba(25,118,210,0.35)",
-                  },
-                  transition: "all 0.2s",
-                }}
-              >
-                Call Now
-              </Button>
-            </Box>
+           <Box
+  sx={{
+    display: "flex",
+    flexDirection: "row", // 👈 side by side
+    alignItems: "center",
+    gap: 1.5,             // spacing between buttons
+    pt: 2,
+  }}
+>
+  {/* Call Now Button */}
+
+   {/* Add Review Button */}
+  <Button
+    onClick={() => setOpenReview(true)} // ✅ Opens dialog
+    variant="outlined"
+    sx={{
+      color: "#1976d2",
+      borderColor: "#1976d2",
+      textTransform: "none",
+      fontWeight: 600,
+      borderRadius: 2,
+      px: 4,
+      py: 1,
+      fontSize: "0.9rem",
+      "&:hover": {
+        bgcolor: "rgba(25,118,210,0.08)",
+        borderColor: "#1565c0",
+        transform: "translateY(-2px)",
+        boxShadow: "0 3px 8px rgba(25,118,210,0.2)",
+      },
+      transition: "all 0.2s",
+    }}
+  >
+    Add Review
+  </Button>
+
+  <Button
+    variant="contained"
+    onClick={() =>
+      navigator.clipboard.writeText(worker.phone).then(() => {
+        alert(`Phone number (${worker.phone}) copied to clipboard.`);
+      })
+    }
+    sx={{
+      bgcolor: "#1976d2",
+      textTransform: "none",
+      fontWeight: 700,
+      borderRadius: 2,
+      px: 4,
+      py: 1,
+      fontSize: "0.95rem",
+      boxShadow: "0 3px 8px rgba(25,118,210,0.25)",
+      "&:hover": {
+        bgcolor: "#1565c0",
+        transform: "translateY(-2px)",
+        boxShadow: "0 5px 12px rgba(25,118,210,0.35)",
+      },
+      transition: "all 0.2s",
+    }}
+  >
+    Call Now
+  </Button>
+
+ 
+</Box>
+
+
           </Box>
 
           {/* Dynamic Skills (from worker.roles) */}
@@ -238,6 +299,18 @@ const WorkerOverview = ({ worker }) => {
           </Box>
         )}
       </Paper>
+
+{/* ✅ Review Dialog */}
+      <ReviewDialog
+        open={openReview}
+        onClose={() => setOpenReview(false)}
+        title={`Rate ${worker.name}`}
+        onSubmit={(rating, comment) => {
+          console.log("Review submitted:", { worker: worker.name, rating, comment });
+          setOpenReview(false);
+        }}
+      />
+
     </Box>
   );
 };

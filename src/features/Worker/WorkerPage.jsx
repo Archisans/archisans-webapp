@@ -7,6 +7,7 @@ import WorkerReview from "@/features/Worker/components/WorkerReview";
 import WorkerJoin from "./components/WorkerJoin";
 import WorkerOverview from "@/features/Worker/components/WorkerOverview";
 import WorkerBusiness from "@/features/Worker/components/WorkerBusiness";
+import WorkerEdit from "./components/WorkerEdit";
 
 const Workerpage = ({ worker }) => {
   const { isWorker } = useUser();
@@ -66,7 +67,7 @@ const Workerpage = ({ worker }) => {
       gap: 3,
     }}
   >
-    {!isWorker && <WorkerJoin />}
+    {!isWorker ? <WorkerJoin /> : <WorkerEdit />}
     {<WorkerBusiness company={worker.company} location={worker.location} />}
   </Box>
 </Box>
