@@ -70,17 +70,26 @@ const Portfolio = () => {
 
       <PortfolioUpload portfolioFile={portfolioFile} setPortfolioFile={setPortfolioFile} portfolioLink={portfolioLink} setPortfolioLink={setPortfolioLink} />
 
-      <Typography variant="h5" gutterBottom>🛠 Work Samples</Typography>
+      <Box
+  sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    mb: 2, // optional margin-bottom for spacing
+  }}
+>
+  <Typography  sx={{fontSize:20, fontWeight: 500 }}>
+    My Projects
+  </Typography>
 
-      {/* Horizontal Scroll */}
-      <Box sx={{ display: "flex", gap: 3, overflowX: "auto", py: 2, px: 1, "&::-webkit-scrollbar": { height: 8 }, "&::-webkit-scrollbar-thumb": { backgroundColor: "#bbb", borderRadius: 4 } }}>
-        {workSamples.map((sample, index) => !sample.edit && (
-          <motion.div key={index} style={{ minWidth: 340, flexShrink: 0, display: "flex", flexDirection: "column" }}>
-            <WorkSampleCard sample={sample} index={index} toggleEditMode={toggleEditMode} handleRemoveFile={handleRemoveFile} handleRemoveWorkSample={handleRemoveWorkSample} />
-          </motion.div>
-        ))}
-      </Box>
-
+  <Button
+    variant="contained"
+    startIcon={<Add />}
+    onClick={handleAddWorkSample}
+  >
+    Add Project
+  </Button>
+</Box>
       {/* Edit/Add Forms */}
       <Box sx={{ mt: 3, display: "flex", flexDirection: "column", gap: 3 }}>
         {workSamples.map((sample, index) => sample.edit && (
@@ -88,9 +97,38 @@ const Portfolio = () => {
         ))}
       </Box>
 
-      <Box sx={{ textAlign: "center", mt: 3 }}>
-        <Button variant="contained" startIcon={<Add />} onClick={handleAddWorkSample}>Add Work Sample</Button>
-      </Box>
+{/* Vertical List */}
+<Box
+  sx={{
+    display: "flex",
+    flexDirection: "column",
+    gap: 3,
+    py: 2,
+  }}
+>
+  {workSamples.map(
+    (sample, index) =>
+      !sample.edit && (
+        <motion.div
+          key={index}
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <WorkSampleCard
+            sample={sample}
+            index={index}
+            toggleEditMode={toggleEditMode}
+            handleRemoveFile={handleRemoveFile}
+            handleRemoveWorkSample={handleRemoveWorkSample}
+          />
+        </motion.div>
+      )
+  )}
+</Box>
+
     </Box>
   );
 };
