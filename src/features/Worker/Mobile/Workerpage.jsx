@@ -156,6 +156,7 @@ const Workerpage = ({ worker }) => {
             onClick={() => window.open(`tel:${worker.phone}`, "_self")}
             sx={{
               mx: 3,
+              mb:0.8,
               bgcolor: "#0b134a",
               color: "#fff",
               fontWeight: 600,
@@ -163,7 +164,6 @@ const Workerpage = ({ worker }) => {
               fontSize: 15,
               borderRadius: 1.5,
               textTransform: "none",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
               "&:hover": { bgcolor: "#16227d" },
             }}
           >
