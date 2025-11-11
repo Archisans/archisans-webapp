@@ -83,12 +83,19 @@ const Portfolio = () => {
   </Typography>
 
   <Button
-    variant="contained"
-    startIcon={<Add />}
-    onClick={handleAddWorkSample}
-  >
-    Add Project
-  </Button>
+  variant="contained"
+  size="small"
+  startIcon={<Add />}
+  onClick={handleAddWorkSample}
+  sx={{
+    fontSize: 13,
+    textTransform: "none",
+    px: 1.5,
+    py: 0.8,
+  }}
+>
+  Add Project
+</Button>
 </Box>
       {/* Edit/Add Forms */}
       <Box sx={{ mt: 3, display: "flex", flexDirection: "column", gap: 3 }}>
