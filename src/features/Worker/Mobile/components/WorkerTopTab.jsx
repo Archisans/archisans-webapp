@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Box, Tabs, Tab, } from "@mui/material";
+import { Box, Tabs, Tab } from "@mui/material";
 import MobWorkerServices from "@/features/Worker/Mobile/components/WorkerServices";
 import MobWorkerBusiness from "@/features/Worker/Mobile/components/WorkerBusiness";
 import MobWorkerReview from "@/features/Worker/Mobile/components/WorkerReview";
 import MobWorkerAbout from "@/features/Worker/Mobile/components/WorkerAbout";
+import WorkerSocialMediaLinks from "./WorkerSocialMediaLinks";
 
 const MobWorkerTopTab = ({ worker }) => {
   const [value, setValue] = useState(0);
   const hasCompany = Boolean(worker?.company);
   const hasAbout = Boolean(worker?.about && worker.about.trim() !== "");
+  const hasSocial = Boolean(worker.social);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -31,6 +33,14 @@ const MobWorkerTopTab = ({ worker }) => {
       label: "Reviews",
       component: <MobWorkerReview reviews={worker.reviews} />,
     },
+    ...(hasSocial
+      ? [
+          {
+            label: "Social",
+            component: <WorkerSocialMediaLinks social={worker.social} />,
+          },
+        ]
+      : []),
     ...(hasAbout
       ? [{ label: "About", component: <MobWorkerAbout about={worker.about} /> }]
       : []),
@@ -41,7 +51,7 @@ const MobWorkerTopTab = ({ worker }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "10vh", 
+        minHeight: "10vh",
       }}
     >
       {/* Tabs Header */}

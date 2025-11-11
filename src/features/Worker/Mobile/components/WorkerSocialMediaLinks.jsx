@@ -1,79 +1,184 @@
-import React from "react";
-import { Box, Typography, IconButton, Card, CardContent, Tooltip } from "@mui/material";
-import { Instagram, Facebook, Youtube, Linkedin } from "lucide-react";
+import {
+  Box,
+  Typography,
+  IconButton,
+  CardContent,
+  Tooltip,
+  Chip,
+} from "@mui/material";
+import { Instagram, Facebook, Youtube, Linkedin, Link2 } from "lucide-react";
 
-const socialLinks = [
-  {
-    name: "Instagram",
-    icon: <Instagram size={22} color="#E1306C" />,
-    url: "https://www.instagram.com/",
+const socialPlatforms = {
+  Instagram: {
+    icon: <Instagram size={22} />,
+    color: "#E1306C",
+    baseUrl: "https://instagram.com/",
   },
-  {
-    name: "Facebook",
-    icon: <Facebook size={22} color="#1877F2" />,
-    url: "https://www.facebook.com/",
+  Facebook: {
+    icon: <Facebook size={22} />,
+    color: "#1877F2",
+    baseUrl: "https://facebook.com/",
   },
-  {
-    name: "YouTube",
-    icon: <Youtube size={22} color="#FF0000" />,
-    url: "https://www.youtube.com/",
+  YouTube: {
+    icon: <Youtube size={22} />,
+    color: "#FF0000",
+    baseUrl: "https://youtube.com/",
   },
-  {
-    name: "LinkedIn",
-    icon: <Linkedin size={22} color="#0A66C2" />,
-    url: "https://www.linkedin.com/",
+  LinkedIn: {
+    icon: <Linkedin size={22} />,
+    color: "#0A66C2",
+    baseUrl: "https://linkedin.com/in/",
   },
-];
+};
 
-const WorkerSocialMediaLinks = () => {
+const WorkerSocialMediaLinks = ({ social = [] }) => {
+  const validSocialLinks = social
+    .filter((item) => item?.url && item?.platform)
+    .map((item) => {
+      const platformConfig = socialPlatforms[item.platform] || {
+        icon: <Link2 size={22} />,
+        color: "#666666",
+        baseUrl: "",
+      };
+
+      return {
+        ...item,
+        icon: platformConfig.icon,
+        color: platformConfig.color,
+        displayName: item.platform,
+        profileUrl: item.url.startsWith("http")
+          ? item.url
+          : `${platformConfig.baseUrl}${item.url}`,
+      };
+    });
+
   return (
-    <Card
+    <Box
       sx={{
         width: "100%",
-        maxWidth: 400,
+        maxWidth: 450,
         mx: "auto",
-        mt: 3,
-        borderRadius: 3,
-        boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
       }}
     >
-      <CardContent>
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          textAlign="center"
-          mb={2}
-          sx={{ color: "#1a1a1a" }}
-        >
-          Connect with Me
-        </Typography>
+      <CardContent sx={{ p: 3 }}>
+        <Box textAlign="center" mb={3}>
+          <Typography
+            variant="h6"
+            fontWeight={700}
+            sx={{
+              color: "#1e293b",
+              background: "linear-gradient(135deg, #334155 0%, #475569 100%)",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              mb: 1,
+            }}
+          >
+            Connect with Me
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ color: "#64748b", fontSize: "0.875rem" }}
+          >
+            Follow my work on social media
+          </Typography>
+        </Box>
 
-        <Box display="flex" justifyContent="center" gap={3}>
-          {socialLinks.map((social) => (
-            <Tooltip title={social.name} key={social.name}>
-              <IconButton
-                component="a"
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  bgcolor: "#f7f7f7",
-                  borderRadius: "50%",
-                  p: 1.3,
-                  "&:hover": {
-                    bgcolor: "#eaeaea",
-                    transform: "scale(1.1)",
-                    transition: "0.2s ease",
-                  },
-                }}
-              >
-                {social.icon}
-              </IconButton>
+        <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap">
+          {validSocialLinks.map((item) => (
+            <Tooltip
+              key={item.id || `${item.platform}-${item.url}`}
+              title={`Visit ${item.displayName}`}
+              arrow
+              placement="top"
+            >
+              <Box sx={{ position: "relative" }}>
+                <IconButton
+                  component="a"
+                  href={item.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    bgcolor: "white",
+                    borderRadius: "16px",
+                    p: 2,
+                    width: 56,
+                    height: 56,
+                    border: `2px solid ${item.color}20`,
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                    "&:hover": {
+                      bgcolor: `${item.color}08`,
+                      transform: "scale(1.15)",
+                      boxShadow: `0 4px 20px ${item.color}30`,
+                      border: `2px solid ${item.color}40`,
+                    },
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                >
+                  <Box sx={{ color: item.color }}>{item.icon}</Box>
+                </IconButton>
+
+                {/* Platform label */}
+                <Chip
+                  label={item.displayName}
+                  size="small"
+                  sx={{
+                    position: "absolute",
+                    bottom: -8,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    bgcolor: item.color,
+                    color: "white",
+                    fontSize: "0.65rem",
+                    height: 20,
+                    minWidth: 60,
+                    "& .MuiChip-label": {
+                      px: 1,
+                      fontWeight: 600,
+                    },
+                  }}
+                />
+              </Box>
             </Tooltip>
           ))}
         </Box>
+
+        {/* Stats */}
+        <Box
+          display="flex"
+          justifyContent="center"
+          mt={3}
+          pt={2}
+          sx={{
+            borderTop: "1px solid #e2e8f0",
+            opacity: 0.8,
+          }}
+        >
+          <Typography
+            variant="caption"
+            sx={{
+              color: "#64748b",
+              fontWeight: 500,
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+            }}
+          >
+            <Box
+              component="span"
+              sx={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                bgcolor: "#10b981",
+              }}
+            />
+            {validSocialLinks.length} platform
+            {validSocialLinks.length !== 1 ? "s" : ""} connected
+          </Typography>
+        </Box>
       </CardContent>
-    </Card>
+    </Box>
   );
 };
 
