@@ -124,17 +124,28 @@ const WorkerCard = ({ worker, navigate }) => {
               >
                 {worker.name}
               </Typography>
+
               <Stack direction="row" alignItems="center" spacing={0.5}>
-                <MapPinIcon size={18} />
+                <Box sx={{ flexShrink: 0 }}>
+                  <MapPinIcon size={13} />
+                </Box>
                 <Typography
                   color="#6c6868ff"
                   fontSize={14}
                   noWrap
-                  sx={{ textOverflow: "ellipsis" }}
+                  sx={{
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    flexGrow: 1,
+                    minWidth: 0, // ensures ellipsis works correctly inside flex
+                  }}
                 >
                   {worker.location}
                 </Typography>
               </Stack>
+
+
             </Box>
           </Stack>
         </Stack>
