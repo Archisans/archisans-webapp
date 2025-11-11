@@ -6,11 +6,11 @@ import "swiper/css";
 import img1 from "@/assets/Images/Interior.png";
 import img2 from "@/assets/Images/AdIcon.png";
 
-const imageData = [{ img: img1 }, { img: img2 }, { img: img1 }, { img: img2 }];
+const imageData = [{ img: img1 }, { img: img2 }, { img: img1 }, { img: img2 }, { img: img2 }];
 
 const AdvertisementCarousel = () => {
   return (
-    <Box sx={{ width: "95%", px: 1, py: 1, pb: 1 }}>
+    <Box sx={{ width: "100%", py: 1, pb: 1 }}>
       <Swiper
         modules={[Autoplay]}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
