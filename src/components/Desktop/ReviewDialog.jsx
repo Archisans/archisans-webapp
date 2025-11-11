@@ -12,6 +12,7 @@ import {
   Box,
   useMediaQuery,
   useTheme,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import AlertMessage from "@/components/Desktop/AlertMessage";
@@ -26,41 +27,49 @@ const ReviewDialog = ({
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleSubmit = () => {
-    if (onSubmit) onSubmit({ rating, comment });
-    setShowAlert(true);
+  const handleSubmit = async () => {
+    if (!rating) return;
+    setLoading(true);
+    try {
+      await onSubmit({ rating, comment });
 
-    setTimeout(() => {
-      setShowAlert(false);
+      setShowAlert(true);
       setRating(0);
       setComment("");
       onClose();
-    }, 2000);
+
+      setTimeout(() => setShowAlert(false), 2000);
+    } catch (error) {
+      console.error("Review submission failed:", error);
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 2000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      {/* ✅ Success Alert */}
       <AlertMessage
         isAlert={showAlert}
-        message="🎉 Review submitted successfully!"
+        message="Review submitted successfully!"
         color="success"
       />
 
-      {/* Review Dialog */}
       <Dialog
         open={open}
-        onClose={onClose}
+        onClose={!loading ? onClose : undefined}
         maxWidth="sm"
         fullWidth
         PaperProps={{
           sx: {
             borderRadius: 3,
-            mx: isMobile ? 2 : 0, // small margin on mobile
+            mx: isMobile ? 2 : 0,
             p: isMobile ? 2 : 3,
           },
         }}
@@ -70,6 +79,7 @@ const ReviewDialog = ({
           <IconButton
             aria-label="close"
             onClick={onClose}
+            disabled={loading}
             sx={{
               position: "absolute",
               right: 10,
@@ -80,7 +90,6 @@ const ReviewDialog = ({
             <CloseIcon />
           </IconButton>
 
-          {/* Title */}
           <DialogTitle
             sx={{
               textAlign: "center",
@@ -91,7 +100,6 @@ const ReviewDialog = ({
             {title}
           </DialogTitle>
 
-          {/* Content */}
           <DialogContent sx={{ textAlign: "center" }}>
             <Typography
               sx={{
@@ -108,9 +116,7 @@ const ReviewDialog = ({
               value={rating}
               onChange={(event, newValue) => setRating(newValue)}
               size="large"
-              sx={{
-                fontSize: isMobile ? "2.2rem" : "3rem",
-              }}
+              sx={{ fontSize: isMobile ? "2.2rem" : "3rem" }}
             />
 
             <TextField
@@ -133,12 +139,13 @@ const ReviewDialog = ({
             />
           </DialogContent>
 
-          {/* Actions */}
           <DialogActions sx={{ justifyContent: "center", mt: 0 }}>
             <Button
               onClick={handleSubmit}
               variant="contained"
+              disabled={loading}
               sx={{
+                width: "150px",
                 textTransform: "none",
                 borderRadius: "50px",
                 px: isMobile ? 4 : 6,
@@ -146,9 +153,19 @@ const ReviewDialog = ({
                 color: "white",
                 fontWeight: "bold",
                 fontSize: isMobile ? "0.9rem" : "1rem",
+                position: "relative",
               }}
             >
-              Submit
+              {loading ? (
+                <CircularProgress
+                  size={30}
+                  sx={{
+                    color: "white",
+                  }}
+                />
+              ) : (
+                "Submit"
+              )}
             </Button>
           </DialogActions>
         </Box>

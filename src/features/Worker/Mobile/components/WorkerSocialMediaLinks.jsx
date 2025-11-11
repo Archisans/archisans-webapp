@@ -60,7 +60,7 @@ const WorkerSocialMediaLinks = ({ social = [] }) => {
         mx: "auto",
       }}
     >
-      <CardContent sx={{ p: 3 }}>
+      <CardContent>
         <Box textAlign="center" mb={3}>
           <Typography
             variant="h6"
@@ -102,6 +102,7 @@ const WorkerSocialMediaLinks = ({ social = [] }) => {
                     bgcolor: "white",
                     borderRadius: "16px",
                     p: 2,
+                    ml: 2,
                     width: 56,
                     height: 56,
                     border: `2px solid ${item.color}20`,
@@ -126,12 +127,13 @@ const WorkerSocialMediaLinks = ({ social = [] }) => {
                     position: "absolute",
                     bottom: -8,
                     left: "50%",
+                    ml: 1,
                     transform: "translateX(-50%)",
                     bgcolor: item.color,
                     color: "white",
                     fontSize: "0.65rem",
                     height: 20,
-                    minWidth: 60,
+                    minWidth: 80,
                     "& .MuiChip-label": {
                       px: 1,
                       fontWeight: 600,

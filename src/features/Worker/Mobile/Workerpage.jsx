@@ -6,7 +6,7 @@ import {
   Box,
   Button,
   IconButton,
-  Stack
+  Stack,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
@@ -17,17 +17,22 @@ import {
 import VerifiedIcon from "@mui/icons-material/Verified";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import WorkerTopTab from "@/features/Worker/Mobile/components/WorkerTopTab";
-
-import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
+import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
-
-
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
-
+import { useWorkerReview } from "@/hooks/useWorkerReview";
+import { useUser } from "@/context/UserContext";
 
 const Workerpage = ({ worker }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
+  const { addReview } = useWorkerReview(worker.id);
   const [openReview, setOpenReview] = useState(false);
+
+  const handleReviewSubmit = async ({ rating, comment }) => {
+    await addReview({ rating, message: comment });
+    setOpenReview(false);
+  };
 
   return (
     <Grid container sx={{ bgcolor: "#f9f9f9", minHeight: "100vh" }}>
@@ -61,23 +66,23 @@ const Workerpage = ({ worker }) => {
           </IconButton>
 
           {/* Action Buttons */}
-        <Stack
-          direction="row"
-          spacing={1.5}
-          sx={{ position: "absolute", top: 8, right: 8 }}
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: 7,
-              right: 1,
-              display: "flex",
-              gap: 1,
-            }}
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{ position: "absolute", top: 8, right: 8 }}
           >
-            <FavouriteAndShareButton />
-          </Box>
-        </Stack>
+            <Box
+              sx={{
+                position: "absolute",
+                top: 7,
+                right: 1,
+                display: "flex",
+                gap: 1,
+              }}
+            >
+              <FavouriteAndShareButton />
+            </Box>
+          </Stack>
         </Box>
 
         {/* Profile Section */}
@@ -128,94 +133,72 @@ const Workerpage = ({ worker }) => {
           </Box>
         </Box>
 
-        {/* About */}
-        {/* <Box px={3} mt={1.5} mb={2} textAlign="center">
-          <Typography
-            fontSize={14}
-            color="text.secondary"
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          gap={1.5}
+          px={2}
+          pb={1.5}
+          mt={2}
+        >
+          {/* Add Review */}
+          {worker.userId !== user.id && (
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={() => setOpenReview(true)}
+              sx={{
+                bgcolor: "#ffffff",
+                color: "#0b134a",
+                fontWeight: 600,
+                py: 1.2,
+                fontSize: 14,
+                borderRadius: 2,
+                textTransform: "none",
+                border: "1px solid #0b134a",
+                boxShadow: "0px 3px 6px rgba(0,0,0,0.1)",
+                "&:hover": { bgcolor: "#f5f7ff" },
+                "&:active": { transform: "scale(0.98)" },
+              }}
+            >
+              Add Review
+            </Button>
+          )}
+
+          {/* Call Now */}
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={() => window.open(`tel:${worker.phone}`, "_self")}
             sx={{
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-              lineHeight: 1.5,
+              bgcolor: "#0b134a",
+              color: "#fff",
+              fontWeight: 600,
+              py: 1.2,
+              fontSize: 14,
+              borderRadius: 2,
+              textTransform: "none",
+              boxShadow: "0px 3px 6px rgba(0,0,0,0.15)",
+              "&:hover": { bgcolor: "#16227d" },
+              "&:active": { transform: "scale(0.98)" },
             }}
           >
-            {worker.about}
-          </Typography>
-        </Box> */}
-
-        {/* Call Now */}
-        <Box
-  display="flex"
-  justifyContent="center"
-  alignItems="center"
-  gap={1.5}
-  px={2}
-  pb={1.5}
-  mt={2}
->
-  
-
-  <Button
-    fullWidth
-    variant="contained"
-    onClick={() => setOpenReview(true)}
-    sx={{
-      bgcolor: "#ffffff",
-      color: "#0b134a",
-      fontWeight: 600,
-      py: 1.2,
-      fontSize: 14,
-      borderRadius: 2,
-      textTransform: "none",
-      border: "1px solid #0b134a",
-      boxShadow: "0px 3px 6px rgba(0,0,0,0.1)",
-      "&:hover": { bgcolor: "#f5f7ff" },
-      "&:active": { transform: "scale(0.98)" },
-    }}
-  >
-     Add Review
-  </Button>
-
-  <Button
-    fullWidth
-    variant="contained"
-    onClick={() => window.open(`tel:${worker.phone}`, "_self")}
-    sx={{
-      bgcolor: "#0b134a",
-      color: "#fff",
-      fontWeight: 600,
-      py: 1.2,
-      fontSize: 14,
-      borderRadius: 2,
-      textTransform: "none",
-      boxShadow: "0px 3px 6px rgba(0,0,0,0.15)",
-      "&:hover": { bgcolor: "#16227d" },
-      "&:active": { transform: "scale(0.98)" },
-    }}
-  >
-   Call Now
-  </Button>
-
-</Box>
-
+            Call Now
+          </Button>
+        </Box>
       </Box>
 
       {/* Tabs Section */}
       <Box width="100%">
-        <WorkerTopTab worker={worker} />
+        <WorkerTopTab worker={worker} key={`review-todo-fix-here-${Date.now()}`} />
       </Box>
-      {/* ✅ Review Dialog */}
-            <ReviewDialog
-              open={openReview}
-              onClose={() => setOpenReview(false)}
-              title={`Rate ${worker.name}`}
-              onSubmit={(rating, comment) => {
-                console.log("Review submitted:", { worker: worker.name, rating, comment });
-                setOpenReview(false);
-              }}
-            />
+      <ReviewDialog
+        open={openReview}
+        onClose={() => setOpenReview(false)}
+        title={`Rate ${worker.name}`}
+        onSubmit={handleReviewSubmit}
+      />
     </Grid>
   );
 };

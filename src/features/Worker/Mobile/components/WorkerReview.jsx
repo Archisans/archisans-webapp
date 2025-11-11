@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Grid,
   Typography,
@@ -9,25 +9,25 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  CircularProgress,
 } from "@mui/material";
-import MobWorkerReviewCard from "@/features/Worker/Mobile/components/WorkerReviewCard";
-import { workerReviews } from "@/features/Worker/constants";
+import WorkerReviewCard from "@/features/Worker/Mobile/components/WorkerReviewCard";
+import { useWorkerReview } from "@/hooks/useWorkerReview";
 
-const MobWorkerReview = () => {
+const WorkerReview = ({ workerId }) => {
   const [sortOption, setSortOption] = useState("latest");
+  const { reviews, loading, error, stats } = useWorkerReview(workerId);
 
-  const handleChange = (event) => {
-    setSortOption(event.target.value);
-  };
+  const handleChange = (event) => setSortOption(event.target.value);
 
-  // 🔹 Sorting logic
-  const sortedReviews = [...workerReviews].sort((a, b) => {
-    if (sortOption === "latest") {
-      return new Date(b.date) - new Date(a.date);
-    } else {
-      return new Date(a.date) - new Date(b.date);
-    }
-  });
+  const sortedReviews = useMemo(() => {
+    const sorted = [...reviews].sort((a, b) => {
+      const dateA = new Date(a.created_at);
+      const dateB = new Date(b.created_at);
+      return sortOption === "latest" ? dateB - dateA : dateA - dateB;
+    });
+    return sorted;
+  }, [reviews, sortOption]);
 
   return (
     <Grid sx={{ p: 1 }}>
@@ -40,24 +40,24 @@ const MobWorkerReview = () => {
           mb: 2,
           border: "2px solid #eaeaea",
           p: 1,
-          borderRadius: 1,
+          borderRadius: 2,
         }}
       >
         <Stack spacing={0.5} sx={{ pl: 1.5 }}>
           <Stack direction="row" spacing={1} alignItems="center">
             <Typography sx={{ fontWeight: "bold", fontSize: "22px" }}>
-              4.5
+              {stats.average}
             </Typography>
             <Rating
               size="medium"
-              name="half-rating-read"
-              defaultValue={4.5}
+              name="worker-rating"
+              value={parseFloat(stats.average)}
               precision={0.5}
               readOnly
             />
           </Stack>
           <Typography sx={{ fontSize: "14px", color: "text.secondary" }}>
-            {workerReviews.length} reviews
+            {stats.count} reviews
           </Typography>
         </Stack>
 
@@ -79,11 +79,32 @@ const MobWorkerReview = () => {
       </Grid>
 
       {/* Review Cards */}
-      {sortedReviews.map((review) => (
-        <MobWorkerReviewCard key={review.id} {...review} />
-      ))}
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            py: 5,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : error ? (
+        <Typography color="error" sx={{ textAlign: "center", mt: 2 }}>
+          {error}
+        </Typography>
+      ) : sortedReviews.length === 0 ? (
+        <Typography sx={{ textAlign: "center", mt: 2 }}>
+          No reviews yet.
+        </Typography>
+      ) : (
+        sortedReviews.map((review) => (
+          <WorkerReviewCard key={review.id} {...review} />
+        ))
+      )}
     </Grid>
   );
 };
 
-export default MobWorkerReview;
+export default WorkerReview;

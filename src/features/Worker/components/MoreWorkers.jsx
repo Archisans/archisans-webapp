@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Paper, Avatar, Typography, Rating, Button } from "@mui/material";
-import { workers } from "@/features/Worker/constants";
+import { workers } from "@/features/Worker/utils/constants";
 
 const MoreWorkers = () => {
   return (

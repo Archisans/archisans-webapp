@@ -8,30 +8,44 @@ import {
   Select,
   MenuItem,
   Paper,
+  Divider,
+  CircularProgress,
 } from "@mui/material";
 import WorkerReviewCard from "@/features/Worker/components/WorkerReviewCard";
+import { useWorkerReview } from "@/hooks/useWorkerReview";
 
-const WorkerReview = ({ worker }) => {
+const WorkerReview = ({ workerId }) => {
   const [sortOption, setSortOption] = useState("latest");
+  const { reviews, loading, error } = useWorkerReview(workerId);
 
   const handleChange = (event) => setSortOption(event.target.value);
 
-  // Use reviews from the worker prop
-  const reviews = worker?.workerReviews || [];
-
-  // Sort reviews
-  const sortedReviews = [...reviews].sort((a, b) => {
-    if (sortOption === "latest") return new Date(b.date) - new Date(a.date);
-    return new Date(a.date) - new Date(b.date);
+  const sortedReviews = [...(reviews || [])].sort((a, b) => {
+    const da = new Date(a.created_at);
+    const db = new Date(b.created_at);
+    return sortOption === "latest" ? db - da : da - db;
   });
 
-  // Calculate average rating
   const averageRating =
     reviews.length > 0
       ? (
-          reviews.reduce((acc, r) => acc + (r.rate || 0), 0) / reviews.length
+          reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length
         ).toFixed(1)
       : 0;
+
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" py={4}>
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error)
+    return (
+      <Typography color="error" textAlign="center" mt={2}>
+        {error}
+      </Typography>
+    );
 
   return (
     <Paper
@@ -40,6 +54,7 @@ const WorkerReview = ({ worker }) => {
         p: 3,
         borderRadius: 2,
         border: "1px solid #e0e0e0",
+        bgcolor: "background.paper",
       }}
     >
       {/* Header */}
@@ -63,21 +78,35 @@ const WorkerReview = ({ worker }) => {
       </Box>
 
       {/* Average rating */}
-      <Box display="flex" alignItems="center" gap={1} mb={3}>
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={1}
+        mb={3}
+        sx={{ flexWrap: "wrap" }}
+      >
         <Typography variant="h5" fontWeight={600}>
           {averageRating}
         </Typography>
         <Rating value={Number(averageRating)} precision={0.1} readOnly />
-        <Typography variant="body2" color="#666">
-          ({reviews.length} reviews)
+        <Typography variant="body2" color="text.secondary">
+          ({reviews.length} review{reviews.length !== 1 ? "s" : ""})
         </Typography>
       </Box>
 
+      <Divider sx={{ mb: 3 }} />
+
       {/* Reviews list */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {sortedReviews.map((review) => (
-          <WorkerReviewCard key={review.id} {...review} />
-        ))}
+        {sortedReviews.length > 0 ? (
+          sortedReviews.map((review) => (
+            <WorkerReviewCard key={review.id} {...review} />
+          ))
+        ) : (
+          <Typography variant="body2" color="text.secondary" textAlign="center">
+            No reviews yet.
+          </Typography>
+        )}
       </Box>
     </Paper>
   );
