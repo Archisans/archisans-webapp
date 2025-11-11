@@ -61,7 +61,7 @@ const MobWorkerTopTab = ({ worker }) => {
           position: "sticky",
           top: 0,
           zIndex: 10,
-          backgroundColor: "#fff", // ensures content under doesn't overlap
+          backgroundColor: "#fff",
         }}
       >
         <Tabs
@@ -69,6 +69,7 @@ const MobWorkerTopTab = ({ worker }) => {
           onChange={handleTabChange}
           variant="scrollable"
           scrollButtons="auto"
+          allowScrollButtonsMobile
           textColor="primary"
           indicatorColor="primary"
           TabIndicatorProps={{
@@ -79,10 +80,10 @@ const MobWorkerTopTab = ({ worker }) => {
             },
           }}
           sx={{
-            "& .MuiTabs-flexContainer": {
-              justifyContent: "center",
-            },
             minHeight: 48,
+            "& .MuiTabScrollButton-root": {
+              width: 30,
+            },
           }}
         >
           {tabs.map((tab, index) => (
@@ -91,12 +92,17 @@ const MobWorkerTopTab = ({ worker }) => {
               label={tab.label}
               sx={{
                 fontWeight: 550,
-                fontSize: 13,
+                fontSize: 14,
                 textTransform: "none",
                 minWidth: "auto",
-                px: 3,
+                px: 2,
                 py: 1,
-                color: "#333",
+                color: value === index ? "#0b134a" : "#666",
+                flexShrink: 0,
+                "&.Mui-selected": {
+                  color: "#0b134a",
+                  fontWeight: 600,
+                },
               }}
             />
           ))}
