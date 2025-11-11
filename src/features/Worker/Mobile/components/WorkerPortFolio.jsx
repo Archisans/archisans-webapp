@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { MapPin } from "lucide-react";
-import { projects } from "@/features/Worker/constants";
+import { projects } from "@/features/Worker/utils/constants";
 
 const MobWorkerPortFolio = () => {
   const theme = useTheme();

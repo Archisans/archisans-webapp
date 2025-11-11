@@ -1,94 +1,111 @@
 import { Grid, Avatar, Box, Rating, Stack, Typography } from "@mui/material";
+import { formatDate } from "../../utils/formatDate";
 
-const MobWorkerReviewCard = ({ name, rate, date,review, avatar }) => {
+const WorkerReviewCard = ({ reviewer, rating, message, created_at }) => {
+  const name = reviewer
+    ? [reviewer.first_name, reviewer.last_name].filter(Boolean).join(" ")
+    : "Anonymous";
+
+  const avatar = reviewer?.avatar_url;
+  const date = formatDate(created_at);
+
   return (
     <Grid
       sx={{
-        p: { xs: 1.5, sm: 2, md: 2.5 },
-        mb: { xs: 1.5, sm: 2 },
-        border: "1.5px solid #e9e9f8ff",
+        p: { xs: 2, sm: 2.5 },
+        mb: { xs: 2, sm: 2.5 },
         borderRadius: 2,
-        boxShadow: "0px 2px 6px rgba(0,0,0,0.05)",
-        bgcolor: "white",
+        bgcolor: "background.paper",
+        boxShadow: "0px 4px 12px rgba(0,0,0,0.05)",
+        border: "1px solid #eee",
+        transition: "transform 0.15s ease, box-shadow 0.15s ease",
+        "&:hover": {
+          transform: "translateY(-2px)",
+          boxShadow: "0px 6px 16px rgba(0,0,0,0.08)",
+        },
       }}
     >
-      {/* 🔹 Top Row: Avatar + Name + Rating + Date */}
+      {/* Header Section */}
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: { xs: "flex-start", sm: "flex-end" },
           flexWrap: "wrap",
-          gap: { xs: 1, sm: 0 },
+          alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+        <Stack direction="row" alignItems="center" spacing={2}>
           <Avatar
             src={avatar}
+            alt={name}
             sx={{
-              width: { xs: 45, sm: 55, md: 65 },
-              height: { xs: 45, sm: 55, md: 65 },
-              border: "3px solid white",
-              boxShadow: "0px 1px 4px rgba(0,0,0,0.1)",
-              mr: { xs: 1.5, sm: 2 },
+              width: { xs: 48, sm: 56 },
+              height: { xs: 48, sm: 56 },
+              border: "2px solid white",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
             }}
           />
+
           <Box>
             <Typography
               sx={{
                 fontWeight: 600,
-                fontSize: { xs: 15, sm: 17, md: 18 },
+                fontSize: { xs: 15, sm: 17 },
               }}
             >
               {name}
             </Typography>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography
-                sx={{
-                  fontWeight: 600,
-                  fontSize: { xs: 13, sm: 15, md: 16 },
-                }}
-              >
-                {rate}
-              </Typography>
+
+            <Stack direction="row" alignItems="center" spacing={0.6} sx={{ mt: 0.5 }}>
               <Rating
-                size="small"
-                name="half-rating-read"
-                value={rate}
+                name="worker-rating"
+                value={rating}
                 precision={0.5}
+                size="small"
                 readOnly
               />
+              <Typography
+                sx={{
+                  fontSize: 13,
+                  color: "text.secondary",
+                  fontWeight: 500,
+                }}
+              >
+                {rating.toFixed(1)}
+              </Typography>
             </Stack>
           </Box>
-        </Box>
+        </Stack>
 
         <Typography
           sx={{
-            color: "grey",
-            fontSize: { xs: 11, sm: 13, md: 14 },
+            color: "text.secondary",
+            fontSize: { xs: 12, sm: 13 },
             fontWeight: 500,
-            mt: { xs: 1, sm: 0 }, // pushes down on mobile
+            mt: { xs: 1, sm: 0 },
           }}
         >
           {date}
         </Typography>
       </Box>
 
-      {/* 🔹 Review Text */}
-      <Box sx={{ maxWidth: 850, mt: { xs: 1.5, sm: 2 } }}>
-        <Typography
-          sx={{
-            fontSize: { xs: 13, sm: 15, md: 16 },
-            lineHeight: 1.5,
-            textAlign: "justify",
-          }}
-        >
-          {review}
-        </Typography>
-      </Box>
+      {/* Review Text */}
+      {message && (
+        <Box sx={{ mt: 1.5 }}>
+          <Typography
+            sx={{
+              fontSize: { xs: 14, sm: 15 },
+              lineHeight: 1.6,
+              color: "text.primary",
+              textAlign: "justify",
+            }}
+          >
+            {message}
+          </Typography>
+        </Box>
+      )}
     </Grid>
   );
 };
 
-export default MobWorkerReviewCard;
+export default WorkerReviewCard;

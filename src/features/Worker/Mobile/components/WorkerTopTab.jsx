@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
 import MobWorkerServices from "@/features/Worker/Mobile/components/WorkerServices";
 import MobWorkerBusiness from "@/features/Worker/Mobile/components/WorkerBusiness";
-import MobWorkerReview from "@/features/Worker/Mobile/components/WorkerReview";
+import WorkerReview from "@/features/Worker/Mobile/components/WorkerReview";
 import MobWorkerAbout from "@/features/Worker/Mobile/components/WorkerAbout";
 import WorkerSocialMediaLinks from "./WorkerSocialMediaLinks";
 
@@ -31,7 +31,7 @@ const MobWorkerTopTab = ({ worker }) => {
       : []),
     {
       label: "Reviews",
-      component: <MobWorkerReview reviews={worker.reviews} />,
+      component: <WorkerReview workerId={worker.id} />,
     },
     ...(hasSocial
       ? [
@@ -62,12 +62,12 @@ const MobWorkerTopTab = ({ worker }) => {
           top: 0,
           zIndex: 10,
           backgroundColor: "#fff",
+          justifyContent: "center",
         }}
       >
         <Tabs
           value={value}
           onChange={handleTabChange}
-          variant="scrollable"
           scrollButtons="auto"
           allowScrollButtonsMobile
           textColor="primary"
@@ -79,10 +79,14 @@ const MobWorkerTopTab = ({ worker }) => {
               bottom: 0,
             },
           }}
+          variant={tabs.length > 4 ? "scrollable" : "standard"}
           sx={{
             minHeight: 48,
             "& .MuiTabScrollButton-root": {
               width: 30,
+            },
+            "& .MuiTabs-flexContainer": {
+              justifyContent: tabs.length > 4 ? "flex-start" : "center",
             },
           }}
         >

@@ -94,6 +94,7 @@ export const useFetchWorkerByPhoneNumber = (phoneNumber) => {
 
         const formatted = {
           id: data.id,
+          userId: profileData.id,
           name: [data.profile?.first_name, data.profile?.last_name]
             .filter(Boolean)
             .join(" "),
