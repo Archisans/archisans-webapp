@@ -60,11 +60,7 @@ import {
   formatExperienceLabel,
   useCompanyForm,
 } from "./utils/workerFormLogic";
-import {
-  GENDER_OPTIONS,
-  EXPERIENCE_YEARS,
-  RATE_BASIS_OPTIONS,
-} from "./utils/constants";
+import { GENDER_OPTIONS, EXPERIENCE_YEARS } from "./utils/constants";
 
 const WorkerForm = ({
   formData,
@@ -134,7 +130,7 @@ const WorkerForm = ({
       },
       {
         key: "experience",
-        label: "Experience & Rate",
+        label: "Experience",
         icon: <Star />,
         ref: experienceRef,
       },
@@ -317,7 +313,7 @@ const WorkerForm = ({
     });
   }, []);
 
-  const handleChangeExperienceRate = useCallback(
+  const handleChangeExperience = useCallback(
     (categoryId, serviceId, field, value) => {
       const updatedProfessions = formData.professions.map((prof) => {
         if (prof.categoryId !== categoryId) return prof;
@@ -335,13 +331,7 @@ const WorkerForm = ({
 
       const fieldName = `${categoryId}@${serviceId}@${field}`;
       if (touched[fieldName]) {
-        const isArtisan =
-          formData.professions
-            ?.find((p) => p.categoryId === categoryId)
-            ?.categoryTitle?.toLowerCase() === "artisans";
-        validateField(fieldName, value, {
-          isRequired: isArtisan && field !== "experience",
-        });
+        validateField(fieldName, value);
       }
     },
     [formData.professions, touched, updateFormData, validateField]
@@ -425,10 +415,8 @@ const WorkerForm = ({
 
     formData.professions?.forEach((prof) => {
       prof.services.forEach((service) => {
-        ["experience", "rate", "rateBasis"].forEach((field) => {
-          const fieldName = `${prof.categoryId}@${service.id}@${field}`;
-          allFields[fieldName] = true;
-        });
+        const fieldName = `${prof.categoryId}@${service.id}@experience`;
+        allFields[fieldName] = true;
       });
     });
 
@@ -1616,7 +1604,7 @@ const WorkerForm = ({
             )}
           </Paper>
 
-          {/* Experience & Rate Section */}
+          {/* Experience Section */}
           <Paper
             ref={experienceRef}
             sx={{
@@ -1628,7 +1616,7 @@ const WorkerForm = ({
             }}
             elevation={0}
           >
-            <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
               <Box
                 sx={{
                   width: 40,
@@ -1648,7 +1636,7 @@ const WorkerForm = ({
                 variant="h6"
                 sx={{ fontWeight: 600, color: "#1e293b" }}
               >
-                Experience & Rate Details
+                Experience Details
               </Typography>
             </Box>
 
@@ -1656,7 +1644,7 @@ const WorkerForm = ({
               <Box
                 sx={{
                   textAlign: "center",
-                  py: 4,
+                  py: 5,
                   px: 3,
                   bgcolor: "#f8fafc",
                   borderRadius: 1,
@@ -1665,219 +1653,84 @@ const WorkerForm = ({
               >
                 <Work sx={{ fontSize: 32, color: "#94a3b8", mb: 2 }} />
                 <Typography color="#64748b" sx={{ fontSize: "0.875rem" }}>
-                  Please select at least one profession to add experience and
-                  rates.
+                  Please select at least one profession to add experience
+                  details.
                 </Typography>
               </Box>
             )}
 
-            {formData.professions?.map((prof) =>
-              prof.services.map((service) => {
-                const data = {
-                  experience: service.experience || "",
-                  rate: service.rate || "",
-                  rateBasis: service.rateBasis || "",
-                };
+            <Box sx={{ mt: 1 }}>
+              {formData.professions?.map((prof) =>
+                prof.services.map((service) => {
+                  const data = {
+                    experience: service.experience || "",
+                  };
+                  const fieldName = `${prof.categoryId}@${service.id}@experience`;
 
-                const isArtisan =
-                  prof.categoryTitle?.toLowerCase() === "artisans";
-                const fieldNames = {
-                  experience: `${prof.categoryId}@${service.id}@experience`,
-                  rate: `${prof.categoryId}@${service.id}@rate`,
-                  rateBasis: `${prof.categoryId}@${service.id}@rateBasis`,
-                };
-
-                return (
-                  <Box
-                    key={`${prof.categoryId}-${service.id}`}
-                    sx={{
-                      p: 3,
-                      mb: 3,
-                      borderRadius: 1,
-                      bgcolor: "#f8fafc",
-                      border: "1px solid #e2e8f0",
-                    }}
-                  >
-                    <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                      <Chip
-                        label={prof.categoryTitle}
-                        size="small"
-                        sx={{
-                          bgcolor: "#334155",
-                          color: "#ffffff",
-                          fontWeight: 500,
-                          mr: 2,
-                          fontSize: "0.75rem",
-                        }}
-                      />
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ fontWeight: 600, color: "#1e293b" }}
-                      >
-                        {service.title}
-                      </Typography>
-                    </Box>
-
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} md={4}>
-                        <FormControl
-                          fullWidth
-                          error={
-                            touched[fieldNames.experience] &&
-                            !!allErrors[fieldNames.experience]
-                          }
-                        >
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              mb: 1,
-                              color: "#64748b",
-                              fontWeight: 500,
-                              display: "block",
-                            }}
-                          >
-                            Years of Experience *
-                          </Typography>
-                          <Select
-                            value={data.experience}
-                            onChange={(e) =>
-                              handleChangeExperienceRate(
-                                prof.categoryId,
-                                service.id,
-                                "experience",
-                                e.target.value
-                              )
-                            }
-                            onBlur={() =>
-                              handleBlur(fieldNames.experience, data.experience)
-                            }
-                            displayEmpty
-                            sx={{ borderRadius: 1 }}
-                          >
-                            <MenuItem disabled value="">
-                              Select Experience
-                            </MenuItem>
-                            {EXPERIENCE_YEARS.map((year) => (
-                              <MenuItem key={year} value={year}>
-                                {formatExperienceLabel(year)}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          {touched[fieldNames.experience] &&
-                            allErrors[fieldNames.experience] && (
-                              <FormHelperText>
-                                {allErrors[fieldNames.experience]}
-                              </FormHelperText>
-                            )}
-                        </FormControl>
-                      </Grid>
-
-                      <Grid item xs={12} md={4}>
+                  return (
+                    <Box
+                      key={`${prof.categoryId}-${service.id}`}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        p: 2,
+                        borderBottom: "1px solid #e2e8f0",
+                        "&:last-of-type": { borderBottom: "none" },
+                        "&:hover": { bgcolor: "#f9fafb" },
+                      }}
+                    >
+                      <Box>
                         <Typography
-                          variant="caption"
-                          sx={{
-                            mb: 1,
-                            display: "block",
-                            color: "#64748b",
-                            fontWeight: 500,
-                          }}
+                          variant="subtitle1"
+                          sx={{ fontWeight: 600, color: "#1e293b" }}
                         >
-                          Rate{isArtisan ? " *" : ""}
+                          {service.title}
                         </Typography>
-                        <TextField
-                          fullWidth
-                          type="number"
-                          placeholder="Enter rate"
-                          value={data.rate}
+                        <Typography variant="caption" sx={{ color: "#64748b" }}>
+                          {prof.categoryTitle}
+                        </Typography>
+                      </Box>
+
+                      <FormControl
+                        sx={{ minWidth: 180 }}
+                        error={touched[fieldName] && !!allErrors[fieldName]}
+                      >
+                        <Select
+                          size="small"
+                          value={data.experience}
                           onChange={(e) =>
-                            handleChangeExperienceRate(
+                            handleChangeExperience(
                               prof.categoryId,
                               service.id,
-                              "rate",
+                              "experience",
                               e.target.value
                             )
                           }
-                          onBlur={() => handleBlur(fieldNames.rate, data.rate)}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                ₹
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={
-                            touched[fieldNames.rate] &&
-                            !!allErrors[fieldNames.rate]
-                          }
-                          helperText={
-                            touched[fieldNames.rate] &&
-                            allErrors[fieldNames.rate]
-                          }
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              borderRadius: 1,
-                            },
-                          }}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} md={4}>
-                        <FormControl
-                          fullWidth
-                          error={
-                            touched[fieldNames.rateBasis] &&
-                            !!allErrors[fieldNames.rateBasis]
-                          }
+                          onBlur={() => handleBlur(fieldName, data.experience)}
+                          displayEmpty
+                          sx={{ borderRadius: 1 }}
                         >
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              mb: 1,
-                              color: "#64748b",
-                              fontWeight: 500,
-                              display: "block",
-                            }}
-                          >
-                            Rate Type{isArtisan ? " *" : ""}
-                          </Typography>
-                          <Select
-                            value={data.rateBasis}
-                            onChange={(e) =>
-                              handleChangeExperienceRate(
-                                prof.categoryId,
-                                service.id,
-                                "rateBasis",
-                                e.target.value
-                              )
-                            }
-                            onBlur={() =>
-                              handleBlur(fieldNames.rateBasis, data.rateBasis)
-                            }
-                            displayEmpty
-                            sx={{ borderRadius: 1 }}
-                          >
-                            <MenuItem disabled value="">
-                              Select Type
+                          <MenuItem disabled value="">
+                            Select Years
+                          </MenuItem>
+                          {EXPERIENCE_YEARS.map((year) => (
+                            <MenuItem key={year} value={year}>
+                              {formatExperienceLabel(year)}
                             </MenuItem>
-                            {RATE_BASIS_OPTIONS.map((option) => (
-                              <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          {touched[fieldNames.rateBasis] &&
-                            allErrors[fieldNames.rateBasis] && (
-                              <FormHelperText>
-                                {allErrors[fieldNames.rateBasis]}
-                              </FormHelperText>
-                            )}
-                        </FormControl>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                );
-              })
-            )}
+                          ))}
+                        </Select>
+                        {touched[fieldName] && allErrors[fieldName] && (
+                          <FormHelperText>
+                            {allErrors[fieldName]}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Box>
+                  );
+                })
+              )}
+            </Box>
           </Paper>
 
           {/* Submit Button */}

@@ -60,17 +60,7 @@ export const validators = {
     if (value === "" || value === null || value === undefined)
       return "Experience is required";
     return "";
-  },
-
-  rate: (value, isRequired = false) => {
-    if (isRequired && !value) return "Rate is required";
-    return "";
-  },
-
-  rateBasis: (value, isRequired = false) => {
-    if (isRequired && !value) return "Rate basis is required";
-    return "";
-  },
+  }
 };
 
 // ============================================
@@ -486,20 +476,6 @@ export const useExperienceForm = () => {
         setError(`Please select experience for ${item.title}`);
         return false;
       }
-
-      // For artisan professions, rate and rateBasis are required
-      const isArtisan = item.categoryTitle?.toLowerCase() === "artisans";
-
-      if (isArtisan) {
-        if (!item.rate) {
-          setError(`Please enter rate for ${item.title}`);
-          return false;
-        }
-        if (!item.rateBasis) {
-          setError(`Please select rate type for ${item.title}`);
-          return false;
-        }
-      }
     }
 
     setError("");
@@ -512,15 +488,8 @@ export const useExperienceForm = () => {
         item.experience !== "" &&
         item.experience !== null &&
         item.experience !== undefined;
-      const isArtisan = item.categoryTitle?.toLowerCase() === "artisans";
-
-      if (!hasExperience) return false;
-
-      if (isArtisan) {
-        return !!(item.rate && item.rateBasis);
-      }
-
-      return true;
+      
+        return hasExperience;
     });
   }, []);
 

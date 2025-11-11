@@ -17,7 +17,7 @@ import {
   formatExperienceLabel,
   useExperienceForm,
 } from "../utils/workerFormLogic";
-import { EXPERIENCE_YEARS, RATE_BASIS_OPTIONS } from "../utils/constants";
+import { EXPERIENCE_YEARS } from "../utils/constants";
 
 const WorkerForm7 = ({
   formData,
@@ -97,7 +97,7 @@ const WorkerForm7 = ({
           activeStep={6}
           onBack={back}
           pgnum="7/7"
-          title="Your Experience & Rates"
+          title="Your Experience"
         />
 
         <Box sx={{ borderRadius: 1, mb: 3 }}>
@@ -143,58 +143,6 @@ const WorkerForm7 = ({
                       ))}
                     </Select>
                   </FormControl>
-
-                  <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-                    <TextField
-                      placeholder="Base rate"
-                      type="number"
-                      value={srv.rate ?? ""}
-                      onChange={(e) =>
-                        handleServiceChange(
-                          catIndex,
-                          srvIndex,
-                          "rate",
-                          e.target.value
-                        )
-                      }
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">₹</InputAdornment>
-                        ),
-                      }}
-                      sx={{
-                        flex: 1,
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: 1,
-                          backgroundColor: "#fff",
-                        },
-                      }}
-                    />
-                    <FormControl sx={{ minWidth: 140, flexShrink: 0 }}>
-                      <Select
-                        value={srv.rateBasis ?? ""}
-                        displayEmpty
-                        onChange={(e) =>
-                          handleServiceChange(
-                            catIndex,
-                            srvIndex,
-                            "rateBasis",
-                            e.target.value
-                          )
-                        }
-                        sx={{ borderRadius: 1, backgroundColor: "#fff" }}
-                      >
-                        <MenuItem value="" disabled>
-                          Select rate type
-                        </MenuItem>
-                        {RATE_BASIS_OPTIONS.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Box>
                 </Box>
               ))}
 
