@@ -17,40 +17,34 @@ const WorkerServices = ({ services = [] }) => {
       <Grid
         container
         spacing={2}
-        sx={{
-          display: "flex",
-          alignItems: "stretch", // ✅ makes all cards same height
-        }}
+        justifyContent="left"
+        alignItems="stretch" // ✅ same height alignment
       >
         {services.map((service, idx) => (
           <Grid
             item
-            xs={12}
-            sm={6}
-            md={4}
             key={service.id || idx}
             sx={{
               display: "flex",
-              justifyContent: "center", // ✅ keeps all cards centered
+              justifyContent: "center",
             }}
           >
             <Box
               sx={{
-                width: "100%", // ✅ same width within grid cell
-                maxWidth: 320, // ✅ uniform card width (can adjust)
-                height: "100%",
+                width: 260, // ✅ fixed width for all cards
+                minHeight: 100, // ✅ gives consistent height baseline
                 p: 2,
                 border: "1px solid #e0e0e0",
                 borderRadius: 2,
                 cursor: "pointer",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
+                justifyContent: "flex-start",
                 transition: "all 0.25s ease",
                 "&:hover": {
                   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                   borderColor: "#0073b1",
-                  transform: "translateY(-3px)", // ✅ smooth lift hover
+                  transform: "translateY(-3px)",
                 },
               }}
             >
@@ -58,7 +52,7 @@ const WorkerServices = ({ services = [] }) => {
               <Box
                 sx={{
                   width: "100%",
-                  height: 150, // ✅ uniform image height
+                  height: 150,
                   mb: 1.5,
                   borderRadius: 1,
                   overflow: "hidden",
@@ -81,11 +75,15 @@ const WorkerServices = ({ services = [] }) => {
               <Typography
                 variant="subtitle1"
                 fontWeight={600}
-                mb={1}
+                mb={1.5}
                 sx={{
-                  wordBreak: "break-word",
+                  wordBreak: "break-word", // ✅ wrap long text
                   textAlign: "center",
-                  flexGrow: 1,
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2, // ✅ limit to 2 lines
+                  overflow: "hidden",
+                  minHeight: "3.2em", // ✅ maintain equal height
                 }}
               >
                 {service.title || "No title available"}
