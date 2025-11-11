@@ -5,6 +5,7 @@ import {
   CardContent,
   Typography,
   Grid,
+  Chip,
 } from "@mui/material";
 
 const WorkerServices = ({ professions = [] }) => {
@@ -56,50 +57,105 @@ const WorkerServices = ({ professions = [] }) => {
         </Typography>
       </Box>
 
-      <Grid container spacing={2}>
-        {services.map((s) => (
-          <Grid item xs={12} sm={6} md={3} key={s.id}>
-            <Card
+      {/* ✅ Equal height & width cards with modern layout */}
+      <Grid
+        container
+        spacing={2}
+        justifyContent="flex-start"
+        alignItems="stretch"
+      >
+        {services.map((s, idx) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            key={s.id || idx}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Box
               sx={{
+                width: 260, // ✅ fixed consistent width
+                minHeight: 100,
+                p: 2,
+                border: "1px solid #e0e0e0",
                 borderRadius: 2,
-                border: "1px solid #f1f5f9",
+                cursor: "pointer",
                 bgcolor: "white",
-                boxShadow: "0px 1px 3px rgba(0,0,0,0.05)",
-                transition: "all 0.2s ease-in-out",
-                "&:hover": { boxShadow: "0px 3px 8px rgba(0,0,0,0.1)" },
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                transition: "all 0.25s ease",
+                "&:hover": {
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  borderColor: "#0073b1",
+                  transform: "translateY(-3px)",
+                },
               }}
             >
-              <CardMedia
-                component="img"
-                height="140"
-                image={s.imageUrl}
-                alt={s.name}
+              {/* Image */}
+              <Box
                 sx={{
-                  borderTopLeftRadius: 8,
-                  borderTopRightRadius: 8,
-                  objectFit: "cover",
+                  width: "100%",
+                  height: 150,
+                  mb: 1.5,
+                  borderRadius: 1,
+                  overflow: "hidden",
+                  flexShrink: 0,
                 }}
-              />
-              <CardContent sx={{ p: 2 }}>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight={600}
-                  gutterBottom
-                  noWrap
-                >
-                  {s.title}
-                </Typography>
-                {s.experience && (
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mt: 0.5 }}
-                  >
-                    Experience: {s.experience} years
-                  </Typography>
-                )}
-              </CardContent>
-            </Card>
+              >
+                <img
+                  src={s.imageUrl}
+                  alt={s.title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </Box>
+
+              {/* Title */}
+              <Typography
+                variant="subtitle1"
+                fontWeight={600}
+                mb={1.5}
+                sx={{
+                  wordBreak: "break-word",
+                  textAlign: "center",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 1, // ✅ limit to 2 lines
+                  overflow: "hidden",
+                  minHeight: "1.2em", // ✅ maintain equal height
+                }}
+              >
+                {s.title || "No title available"}
+              </Typography>
+
+              {/* Experience */}
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                mt="auto"
+              >
+                <Chip
+                  label={`Experience: ${s.experience || "0"} years`}
+                  size="small"
+                  sx={{
+                    bgcolor: "#f3f2ef",
+                    color: "#666",
+                    fontSize: "0.75rem",
+                    fontWeight: 500,
+                  }}
+                />
+              </Box>
+            </Box>
           </Grid>
         ))}
       </Grid>

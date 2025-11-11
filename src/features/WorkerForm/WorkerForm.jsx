@@ -65,6 +65,7 @@ import {
   EXPERIENCE_YEARS,
   RATE_BASIS_OPTIONS,
 } from "./utils/constants";
+import PortfolioDesktop from "../WorkerPage/Portfolio/Portfolio";
 
 const WorkerForm = ({
   formData,
@@ -1169,314 +1170,7 @@ const WorkerForm = ({
             </Box>
           </Paper>
 
-          {/* Social Media Section */}
-          <Paper
-            sx={{
-              p: 4,
-              mb: 4,
-              borderRadius: 2,
-              border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-            }}
-            elevation={0}
-          >
-            <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-              <Box
-                sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  mr: 2,
-                  border: "1px solid #e2e8f0",
-                }}
-              >
-                <Instagram sx={{ color: "#64748b", fontSize: 20 }} />
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
-              >
-                Social Media Profiles (Optional)
-              </Typography>
-            </Box>
-
-            <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
-              Add your social media profiles to help clients learn more about
-              your work
-            </Typography>
-
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Instagram"
-                  placeholder="https://instagram.com/yourprofile"
-                  value={formData.socialMedia?.Instagram || ""}
-                  onChange={(e) =>
-                    handleSocialMediaChange("Instagram", e.target.value)
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Instagram sx={{ color: "#E1306C" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Facebook"
-                  placeholder="https://facebook.com/yourprofile"
-                  value={formData.socialMedia?.Facebook || ""}
-                  onChange={(e) =>
-                    handleSocialMediaChange("Facebook", e.target.value)
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Facebook sx={{ color: "#1877F2" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="YouTube"
-                  placeholder="https://youtube.com/yourchannel"
-                  value={formData.socialMedia?.YouTube || ""}
-                  onChange={(e) =>
-                    handleSocialMediaChange("YouTube", e.target.value)
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <YouTube sx={{ color: "#FF0000" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="LinkedIn"
-                  placeholder="https://linkedin.com/in/yourprofile"
-                  value={formData.socialMedia?.LinkedIn || ""}
-                  onChange={(e) =>
-                    handleSocialMediaChange("LinkedIn", e.target.value)
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LinkedIn sx={{ color: "#0A66C2" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-
-          {/* Company Information Section */}
-          <Paper
-            sx={{
-              p: 4,
-              mb: 4,
-              borderRadius: 2,
-              border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-            }}
-            elevation={0}
-          >
-            <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-              <Box
-                sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  mr: 2,
-                  border: "1px solid #e2e8f0",
-                }}
-              >
-                <Business sx={{ color: "#64748b", fontSize: 20 }} />
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
-              >
-                Company Information (Optional)
-              </Typography>
-            </Box>
-
-            <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
-              Fill this section only if you represent a company or registered
-              business. If you start filling any field, all fields become
-              required.
-            </Typography>
-
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Company Name"
-                  placeholder="Enter company name"
-                  value={formData.company?.companyName || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("companyName", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "companyName",
-                      formData.company?.companyName || ""
-                    )
-                  }
-                  error={!!companyForm.errors.companyName}
-                  helperText={companyForm.errors.companyName}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Business sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Work Permit Number"
-                  placeholder="Enter work permit number"
-                  value={formData.company?.workPermitNumber || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("workPermitNumber", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "workPermitNumber",
-                      formData.company?.workPermitNumber || ""
-                    )
-                  }
-                  error={!!companyForm.errors.workPermitNumber}
-                  helperText={companyForm.errors.workPermitNumber}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Assignment sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="GST Number"
-                  placeholder="15-character GST number"
-                  value={formData.company?.gstNumber || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("gstNumber", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "gstNumber",
-                      formData.company?.gstNumber || ""
-                    )
-                  }
-                  error={!!companyForm.errors.gstNumber}
-                  helperText={companyForm.errors.gstNumber}
-                  inputProps={{ maxLength: 15 }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Receipt sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Working Hours (per day)"
-                  placeholder="e.g., 8"
-                  value={formData.company?.workingHours || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("workingHours", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "workingHours",
-                      formData.company?.workingHours || ""
-                    )
-                  }
-                  error={!!companyForm.errors.workingHours}
-                  helperText={companyForm.errors.workingHours}
-                  inputProps={{ maxLength: 2, inputMode: "numeric" }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Schedule sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-
-          {/* Profession Section */}
+                    {/* Profession Section */}
           <Paper
             ref={professionRef}
             sx={{
@@ -1879,6 +1573,315 @@ const WorkerForm = ({
               })
             )}
           </Paper>
+
+          {/* Social Media Section */}
+          <Paper
+            sx={{
+              p: 4,
+              mb: 4,
+              borderRadius: 2,
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+            }}
+            elevation={0}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "50%",
+                  bgcolor: "#f1f5f9",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mr: 2,
+                  border: "1px solid #e2e8f0",
+                }}
+              >
+                <Instagram sx={{ color: "#64748b", fontSize: 20 }} />
+              </Box>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 600, color: "#1e293b" }}
+              >
+                Social Media Profiles (Optional)
+              </Typography>
+            </Box>
+
+            <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
+              Add your social media profiles to help clients learn more about
+              your work
+            </Typography>
+
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Instagram"
+                  placeholder="https://instagram.com/yourprofile"
+                  value={formData.socialMedia?.Instagram || ""}
+                  onChange={(e) =>
+                    handleSocialMediaChange("Instagram", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Instagram sx={{ color: "#E1306C" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Facebook"
+                  placeholder="https://facebook.com/yourprofile"
+                  value={formData.socialMedia?.Facebook || ""}
+                  onChange={(e) =>
+                    handleSocialMediaChange("Facebook", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Facebook sx={{ color: "#1877F2" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="YouTube"
+                  placeholder="https://youtube.com/yourchannel"
+                  value={formData.socialMedia?.YouTube || ""}
+                  onChange={(e) =>
+                    handleSocialMediaChange("YouTube", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <YouTube sx={{ color: "#FF0000" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="LinkedIn"
+                  placeholder="https://linkedin.com/in/yourprofile"
+                  value={formData.socialMedia?.LinkedIn || ""}
+                  onChange={(e) =>
+                    handleSocialMediaChange("LinkedIn", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LinkedIn sx={{ color: "#0A66C2" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+
+          {/* Company Information Section */}
+          <Paper
+            sx={{
+              p: 4,
+              mb: 4,
+              borderRadius: 2,
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+            }}
+            elevation={0}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "50%",
+                  bgcolor: "#f1f5f9",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mr: 2,
+                  border: "1px solid #e2e8f0",
+                }}
+              >
+                <Business sx={{ color: "#64748b", fontSize: 20 }} />
+              </Box>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 600, color: "#1e293b" }}
+              >
+                Company Information (Optional)
+              </Typography>
+            </Box>
+
+            <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
+              Fill this section only if you represent a company or registered
+              business. If you start filling any field, all fields become
+              required.
+            </Typography>
+
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Company Name"
+                  placeholder="Enter company name"
+                  value={formData.company?.companyName || ""}
+                  onChange={(e) =>
+                    handleCompanyChange("companyName", e.target.value)
+                  }
+                  onBlur={() =>
+                    handleCompanyBlur(
+                      "companyName",
+                      formData.company?.companyName || ""
+                    )
+                  }
+                  error={!!companyForm.errors.companyName}
+                  helperText={companyForm.errors.companyName}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Business sx={{ color: "#94a3b8" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Work Permit Number"
+                  placeholder="Enter work permit number"
+                  value={formData.company?.workPermitNumber || ""}
+                  onChange={(e) =>
+                    handleCompanyChange("workPermitNumber", e.target.value)
+                  }
+                  onBlur={() =>
+                    handleCompanyBlur(
+                      "workPermitNumber",
+                      formData.company?.workPermitNumber || ""
+                    )
+                  }
+                  error={!!companyForm.errors.workPermitNumber}
+                  helperText={companyForm.errors.workPermitNumber}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Assignment sx={{ color: "#94a3b8" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="GST Number"
+                  placeholder="15-character GST number"
+                  value={formData.company?.gstNumber || ""}
+                  onChange={(e) =>
+                    handleCompanyChange("gstNumber", e.target.value)
+                  }
+                  onBlur={() =>
+                    handleCompanyBlur(
+                      "gstNumber",
+                      formData.company?.gstNumber || ""
+                    )
+                  }
+                  error={!!companyForm.errors.gstNumber}
+                  helperText={companyForm.errors.gstNumber}
+                  inputProps={{ maxLength: 15 }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Receipt sx={{ color: "#94a3b8" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Working Hours (per day)"
+                  placeholder="e.g., 8"
+                  value={formData.company?.workingHours || ""}
+                  onChange={(e) =>
+                    handleCompanyChange("workingHours", e.target.value)
+                  }
+                  onBlur={() =>
+                    handleCompanyBlur(
+                      "workingHours",
+                      formData.company?.workingHours || ""
+                    )
+                  }
+                  error={!!companyForm.errors.workingHours}
+                  helperText={companyForm.errors.workingHours}
+                  inputProps={{ maxLength: 2, inputMode: "numeric" }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Schedule sx={{ color: "#94a3b8" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+
+            <PortfolioDesktop/>
 
           {/* Submit Button */}
           <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 4 }}>

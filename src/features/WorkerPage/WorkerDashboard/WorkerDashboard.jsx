@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import WorkerHeader from "./components/WorkerHeader";
 import WorkerServices from "./components/WorkerService";
 import WorkerAdvertisment from "./components/WorkerAdvertisment";
+import PortfolioDesktop from "../Portfolio/Portfolio";
 
 const WorkerDashboard = ({ worker }) => {
   const navigate = useNavigate();
