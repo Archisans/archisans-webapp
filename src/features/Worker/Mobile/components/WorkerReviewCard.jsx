@@ -1,5 +1,5 @@
 import { Grid, Avatar, Box, Rating, Stack, Typography } from "@mui/material";
-import { formatDate } from "../../utils/formatDate";
+import { formatReviewDate } from "../../utils/formatReviewDate";
 
 const WorkerReviewCard = ({ reviewer, rating, message, created_at }) => {
   const name = reviewer
@@ -7,7 +7,7 @@ const WorkerReviewCard = ({ reviewer, rating, message, created_at }) => {
     : "Anonymous";
 
   const avatar = reviewer?.avatar_url;
-  const date = formatDate(created_at);
+  const date = formatReviewDate(created_at);
 
   return (
     <Grid
