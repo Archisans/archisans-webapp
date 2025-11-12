@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, Paper, Avatar, Button, Chip } from "@mui/material";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
-import { Facebook, LinkedIn, Instagram, Phone } from "@mui/icons-material";
+import { Facebook, LinkedIn, Instagram, YouTube, Phone } from "@mui/icons-material";
 import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
 
@@ -9,6 +9,7 @@ const platformIcons = {
   Facebook: <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />,
   LinkedIn: <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />,
   Instagram: <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />,
+  YouTube: <YouTube sx={{ fontSize: 16, color: "#FF0000" }} />
 };
 
 const WorkerOverview = ({ worker, userId, onReviewAdded }) => {

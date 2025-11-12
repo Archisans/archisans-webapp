@@ -6,28 +6,24 @@ import {
   Tooltip,
   Chip,
 } from "@mui/material";
-import { Instagram, Facebook, Youtube, Linkedin, Link2 } from "lucide-react";
+import { Facebook, LinkedIn, Instagram, YouTube } from "@mui/icons-material";
 
 const socialPlatforms = {
   Instagram: {
     icon: <Instagram size={22} />,
     color: "#E1306C",
-    baseUrl: "https://instagram.com/",
   },
   Facebook: {
     icon: <Facebook size={22} />,
     color: "#1877F2",
-    baseUrl: "https://facebook.com/",
   },
   YouTube: {
-    icon: <Youtube size={22} />,
+    icon: <YouTube size={22} />,
     color: "#FF0000",
-    baseUrl: "https://youtube.com/",
   },
   LinkedIn: {
-    icon: <Linkedin size={22} />,
+    icon: <LinkedIn size={22} />,
     color: "#0A66C2",
-    baseUrl: "https://linkedin.com/in/",
   },
 };
 
@@ -35,20 +31,14 @@ const WorkerSocialMediaLinks = ({ social = [] }) => {
   const validSocialLinks = social
     .filter((item) => item?.url && item?.platform)
     .map((item) => {
-      const platformConfig = socialPlatforms[item.platform] || {
-        icon: <Link2 size={22} />,
-        color: "#666666",
-        baseUrl: "",
-      };
+      const platformConfig = socialPlatforms[item.platform];
 
       return {
         ...item,
         icon: platformConfig.icon,
         color: platformConfig.color,
         displayName: item.platform,
-        profileUrl: item.url.startsWith("http")
-          ? item.url
-          : `${platformConfig.baseUrl}${item.url}`,
+        profileUrl: item.url,
       };
     });
 
