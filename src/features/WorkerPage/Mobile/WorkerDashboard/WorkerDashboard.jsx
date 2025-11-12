@@ -94,10 +94,10 @@ const WorkerDashboard = ({ worker }) => {
       </Box>
 
       {/* Main Content */}
-      <Box sx={{ px: 2, py: 3, pb: 10 }}>
+      <Box sx={{ py: 3, pb: 10 }}>
 
         {/* Quick Actions */}
-        <Box mb={4}>
+        <Box mb={4} px={2}>
           <Typography
             sx={{
               fontSize: 13,
@@ -188,6 +188,7 @@ const WorkerDashboard = ({ worker }) => {
         <Box>
           <Typography
             sx={{
+              px:2,
               fontSize: 13,
               fontWeight: 600,
               color: "#6B7280",
@@ -202,7 +203,7 @@ const WorkerDashboard = ({ worker }) => {
         </Box>
 
         {/* Services */}
-        <Box mb={4}>
+        <Box mb={4} px={2}>
           <Stack
             direction="row"
             justifyContent="space-between"
