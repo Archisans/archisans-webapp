@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   AppBar,
   Toolbar,
@@ -135,6 +135,8 @@ const TopBar = ({ handleLocationClick }) => {
   const [scrolled, setScrolled] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const searchRef = useRef(null);
+
   const {
     query,
     suggestions,
@@ -157,6 +159,16 @@ const TopBar = ({ handleLocationClick }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
+  useEffect(() => {
+    if (location.state?.focusSearch) {
+      setTimeout(() => {
+        searchRef.current?.focus();
+      }, 150);
+
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
   const visibleLinks = useMemo(
     () =>
       navLinks.filter((link) => {
@@ -178,6 +190,7 @@ const TopBar = ({ handleLocationClick }) => {
     (item) => executeSearch(item),
     [executeSearch]
   );
+
   const handleResultClick = useCallback(
     (service) => {
       navigate(`/workers/${service.slug}`);
@@ -255,6 +268,7 @@ const TopBar = ({ handleLocationClick }) => {
 
             {/* Search Field */}
             <TextField
+              inputRef={searchRef}
               value={query}
               onChange={(e) => {
                 handleInputChange(e.target.value);
