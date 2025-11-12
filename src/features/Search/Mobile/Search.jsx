@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -15,89 +14,30 @@ import {
   LocationOnOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useSearch } from "@/hooks/useSearch";
 import MobServiceCategoryList from "@/components/Mobile/mobServiceCategoryList";
 
 const Search = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [results, setResults] = useState([]);
-  const [recentSearches, setRecentSearches] = useState([]);
-
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("recentSearches")) || [];
-    setRecentSearches(saved);
-  }, []);
-
-  const updateRecentSearches = (searchTerm) => {
-    if (!searchTerm.trim()) return;
-    let updated = [
-      searchTerm,
-      ...recentSearches.filter(
-        (item) => item.toLowerCase() !== searchTerm.toLowerCase()
-      ),
-    ];
-    if (updated.length > 5) updated = updated.slice(0, 5);
-    setRecentSearches(updated);
-    localStorage.setItem("recentSearches", JSON.stringify(updated));
-  };
-
-  const executeSearch = (searchTerm) => {
-    const cleanTerm = searchTerm.trim();
-    setQuery(cleanTerm);
-    if (cleanTerm.length < 3) {
-      setResults([]);
-      return;
-    }
-
-    updateRecentSearches(cleanTerm);
-
-    const allServices = bootstrapConfiguration.serviceCategories.flatMap(
-      (cat) => cat.services
-    );
-
-    const filtered = allServices.filter((service) =>
-      service.title.toLowerCase().includes(cleanTerm.toLowerCase())
-    );
-
-    setResults(filtered);
-    setSuggestions([]);
-  };
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-
-    if (value.trim().length >= 3) {
-      const allServices = bootstrapConfiguration.serviceCategories.flatMap(
-        (cat) => cat.services
-      );
-
-      const matched = allServices
-        .filter((service) =>
-          service.title.toLowerCase().includes(value.toLowerCase())
-        )
-        .map((service) => service.title);
-
-      // Unique + limit suggestions
-      const uniqueSuggestions = [...new Set(matched)].slice(0, 6);
-      setSuggestions(uniqueSuggestions);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleDeleteRecent = (item) => {
-    const updated = recentSearches.filter((r) => r !== item);
-    setRecentSearches(updated);
-    localStorage.setItem("recentSearches", JSON.stringify(updated));
-  };
+  const {
+    query,
+    suggestions,
+    results,
+    recentSearches,
+    executeSearch,
+    handleInputChange,
+    handleDeleteRecent,
+    clearSearch,
+  } = useSearch(bootstrapConfiguration);
 
   const handleClickService = (slug) => {
     if (slug) {
       navigate("/workers/" + slug);
     }
   };
+
+  const showNoResults =
+    query.trim().length > 0 && results.length === 0 && suggestions.length === 0;
 
   return (
     <Box py={2}>
@@ -117,7 +57,7 @@ const Search = ({ bootstrapConfiguration }) => {
             >
               Current Location
             </Typography>
-            <Typography sx={{ fontWeight: "Bold", fontSize: 15 }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: 15 }}>
               Thrissur, Kerala
             </Typography>
           </Box>
@@ -145,18 +85,11 @@ const Search = ({ bootstrapConfiguration }) => {
           placeholder="Search Services"
           fullWidth
           value={query}
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && executeSearch(query)}
         />
         {query && (
-          <IconButton
-            size="small"
-            onClick={() => {
-              setQuery("");
-              setResults([]);
-              setSuggestions([]);
-            }}
-          >
+          <IconButton size="small" onClick={clearSearch}>
             <Close />
           </IconButton>
         )}
@@ -182,38 +115,44 @@ const Search = ({ bootstrapConfiguration }) => {
       )}
 
       {/* Recent Searches */}
-      {recentSearches.length > 0 && !results.length && !suggestions.length && (
-        <Box mt={3} px={1} borderBottom="1px solid rgba(0,0,0,0.1)" pb={1}>
-          <Typography fontWeight={500} mb={1} color="grey">
-            Recent searches
-          </Typography>
-          {recentSearches.map((item, index) => (
-            <Box
-              key={index}
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              mb={1}
-              sx={{ cursor: "pointer" }}
-            >
+      {recentSearches.length > 0 &&
+        !results.length &&
+        !suggestions.length &&
+        !showNoResults && (
+          <Box mt={3} px={1} borderBottom="1px solid rgba(0,0,0,0.1)" pb={1}>
+            <Typography fontWeight={500} mb={1} color="grey">
+              Recent searches
+            </Typography>
+            {recentSearches.map((item, index) => (
               <Box
+                key={index}
                 display="flex"
                 alignItems="center"
-                gap={1}
-                onClick={() => executeSearch(item)}
+                justifyContent="space-between"
+                mb={1}
+                sx={{ cursor: "pointer" }}
               >
-                <SearchIcon sx={{ fontSize: 22, color: "gray" }} />
-                <Typography sx={{ fontSize: "90%", fontWeight: 550 }}>
-                  {item}
-                </Typography>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                  onClick={() => executeSearch(item)}
+                >
+                  <SearchIcon sx={{ fontSize: 22, color: "gray" }} />
+                  <Typography sx={{ fontSize: "90%", fontWeight: 550 }}>
+                    {item}
+                  </Typography>
+                </Box>
+                <IconButton
+                  size="small"
+                  onClick={() => handleDeleteRecent(item)}
+                >
+                  <Close fontSize="small" />
+                </IconButton>
               </Box>
-              <IconButton size="small" onClick={() => handleDeleteRecent(item)}>
-                <Close fontSize="small" />
-              </IconButton>
-            </Box>
-          ))}
-        </Box>
-      )}
+            ))}
+          </Box>
+        )}
 
       {/* Results Grid */}
       {results.length > 0 && (
@@ -235,8 +174,27 @@ const Search = ({ bootstrapConfiguration }) => {
         </Box>
       )}
 
+      {showNoResults && (
+        <Box
+          mt={4}
+          textAlign="center"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <SearchIcon sx={{ fontSize: 50, color: "grey.400", mb: 1 }} />
+          <Typography variant="h6" color="text.secondary" fontWeight={500}>
+            No results found
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mt={0.5}>
+            Try searching for something else
+          </Typography>
+        </Box>
+      )}
+
       {/* Popular Services */}
-      {!results.length && !suggestions.length && (
+      {!results.length && !suggestions.length && !showNoResults && (
         <Box mt={3} px={1}>
           <Typography sx={{ fontSize: "115%", fontWeight: 600, mb: 2 }}>
             Popular services

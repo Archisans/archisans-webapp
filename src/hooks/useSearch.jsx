@@ -8,8 +8,8 @@ export const useSearch = (bootstrapConfiguration) => {
 
   const debounceTimer = useRef(null);
 
-  const updateRecentSearches = (term) => {
-    if (!term.trim()) return;
+  const updateRecentSearches = (term, hasResults) => {
+    if (!term.trim() || !hasResults) return;
 
     setRecentSearches((prev) => {
       const filtered = prev.filter(
@@ -31,7 +31,6 @@ export const useSearch = (bootstrapConfiguration) => {
       }
 
       setQuery(cleanTerm);
-      updateRecentSearches(cleanTerm);
 
       if (!bootstrapConfiguration?.serviceCategories) {
         setResults([]);
@@ -48,6 +47,7 @@ export const useSearch = (bootstrapConfiguration) => {
 
       setResults(filtered);
       setSuggestions([]);
+      updateRecentSearches(cleanTerm, filtered.length > 0);
     },
     [bootstrapConfiguration]
   );
