@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Edit } from "@mui/icons-material";
 import {
   Avatar,
@@ -17,7 +16,7 @@ import {
 } from "@mui/material";
 import { useUser } from "@/context/UserContext";
 
-const AccountInfoModal = ({ open, onClose, message }) => {
+const AccountInfoModal = ({ open, onClose }) => {
   const {
     profile,
     saving,
@@ -28,9 +27,6 @@ const AccountInfoModal = ({ open, onClose, message }) => {
     handleImageUpload,
     handleSaveProfile,
   } = useUser();
-
-  const navigate = useNavigate();
-
   const [draftProfile, setDraftProfile] = useState(profile);
   const [edit, setEdit] = useState(true);
 
@@ -44,7 +40,6 @@ const AccountInfoModal = ({ open, onClose, message }) => {
   const handleSaveAndClose = async () => {
     const ok = await handleSaveProfile(draftProfile);
     if (ok) {
-      if (message) navigate(-1);
       setEdit(true);
       setTimeout(() => onClose(), 500);
     }
@@ -77,11 +72,6 @@ const AccountInfoModal = ({ open, onClose, message }) => {
           </Typography>
 
           {/* Messages */}
-          {message && !success && (
-            <Box p={2}>
-              <Alert severity="error">{message}</Alert>
-            </Box>
-          )}
           {success && (
             <Alert severity="success" sx={{ mb: 2 }}>
               Profile updated successfully!
@@ -126,7 +116,7 @@ const AccountInfoModal = ({ open, onClose, message }) => {
                       type="file"
                       hidden
                       accept="image/*"
-                      onChange={handleImageUpload}
+                      onChange={(e) => handleImageUpload(e.target.files?.[0])}
                     />
                   </IconButton>
                 }

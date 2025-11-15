@@ -61,6 +61,7 @@ import {
   useCompanyForm,
 } from "./utils/workerFormLogic";
 import { GENDER_OPTIONS, EXPERIENCE_YEARS } from "./utils/constants";
+import { Camera } from "lucide-react";
 
 const WorkerForm = ({
   formData,
@@ -85,6 +86,8 @@ const WorkerForm = ({
   const companyForm = useCompanyForm();
   const professionForm = useProfessionForm();
   const experienceForm = useExperienceForm();
+
+  const profileImageInputRef = useRef(null);
 
   // Main validation hook for field-level validation
   const { touched, validateField, handleBlur, markAllTouched } =
@@ -180,6 +183,21 @@ const WorkerForm = ({
     },
     [formData.personal, touched, updateFormData, personalForm]
   );
+
+  const handleProfileImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      updateFormData("personal", {
+        ...formData.personal,
+        imageUrl: e.target.result,
+        file: file,
+      });
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleContactChange = useCallback(
     (field, value) => {
@@ -391,7 +409,7 @@ const WorkerForm = ({
     // Mark all fields as touched
     const allFields = {};
 
-    ["aadhaar", "dob", "gender"].forEach((field) => {
+    ["fullName", "imageUrl", "aadhaar", "dob", "gender"].forEach((field) => {
       allFields[field] = true;
     });
 
@@ -675,23 +693,45 @@ const WorkerForm = ({
               </Typography>
             </Box>
 
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              mb={4}
-            >
-              <Avatar
-                src={formData?.personal?.imageUrl}
-                sx={{
-                  width: 100,
-                  height: 100,
-                  bgcolor: "#f8fafc",
-                  color: "#64748b",
-                  border: "3px solid #ffffff",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                }}
-              />
+            <Box display="flex" justifyContent="center" mb={5}>
+              <Box sx={{ position: "relative", display: "inline-block" }}>
+                <Avatar
+                  src={formData?.personal?.imageUrl}
+                  alt="Profile"
+                  sx={{
+                    width: 110,
+                    height: 110,
+                    border: "3px solid #fff",
+                  }}
+                />
+
+                <IconButton
+                  onClick={() => profileImageInputRef.current?.click()}
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    backgroundColor: "white",
+                    width: 34,
+                    height: 34,
+                    borderRadius: "50%",
+                    padding: 0,
+                    boxShadow: 2,
+                    "&:hover": { backgroundColor: "#f5f5f5" },
+                  }}
+                >
+                  <Camera size={18} strokeWidth={2} />
+                </IconButton>
+
+                {/* Hidden file input */}
+                <input
+                  ref={profileImageInputRef}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  onChange={handleProfileImageChange}
+                />
+              </Box>
             </Box>
 
             <Grid container spacing={3}>
@@ -701,7 +741,17 @@ const WorkerForm = ({
                   label="Full Name"
                   placeholder="Enter your full name"
                   value={formData.personal?.fullName || ""}
-                  disabled
+                  onChange={(e) =>
+                    handlePersonalChange(
+                      "fullName",
+                      sanitizeInput.fullName(e.target.value)
+                    )
+                  }
+                  onBlur={() =>
+                    handleBlur("fullName", getFieldValue("fullName"))
+                  }
+                  error={touched.fullName && !!personalForm.errors.fullName}
+                  helperText={touched.fullName && personalForm.errors.fullName}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
