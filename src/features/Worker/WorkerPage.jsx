@@ -47,7 +47,7 @@ const Workerpage = ({ worker }) => {
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
               <WorkerOverview 
                 worker={worker} 
-                userId={user.id}
+                userId={user?.id}
                 onReviewAdded={handleReviewAdded}
               />
               <WorkerServices services={worker.services} />
@@ -68,7 +68,7 @@ const Workerpage = ({ worker }) => {
           >
             {!isWorker && <WorkerJoin />}
 
-            {worker.userId === user.id && <WorkerEdit />}
+            {worker.userId === user?.id && <WorkerEdit />}
 
             {worker.company && (
               <WorkerBusiness

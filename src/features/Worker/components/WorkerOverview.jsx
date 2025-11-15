@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Box, Typography, Paper, Avatar, Button, Chip } from "@mui/material";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
-import { Facebook, LinkedIn, Instagram, YouTube, Phone } from "@mui/icons-material";
+import {
+  Facebook,
+  LinkedIn,
+  Instagram,
+  YouTube,
+  Phone,
+} from "@mui/icons-material";
 import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
 
@@ -9,7 +15,7 @@ const platformIcons = {
   Facebook: <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />,
   LinkedIn: <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />,
   Instagram: <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />,
-  YouTube: <YouTube sx={{ fontSize: 16, color: "#FF0000" }} />
+  YouTube: <YouTube sx={{ fontSize: 16, color: "#FF0000" }} />,
 };
 
 const WorkerOverview = ({ worker, userId, onReviewAdded }) => {
@@ -140,31 +146,32 @@ const WorkerOverview = ({ worker, userId, onReviewAdded }) => {
               }}
             >
               {/* Add Review Button */}
-              {worker.userId !== userId && (
-                <Button
-                  onClick={() => setOpenReview(true)}
-                  variant="outlined"
-                  sx={{
-                    color: "#1976d2",
-                    borderColor: "#1976d2",
-                    textTransform: "none",
-                    fontWeight: 600,
-                    borderRadius: 2,
-                    px: 4,
-                    py: 1,
-                    fontSize: "0.9rem",
-                    "&:hover": {
-                      bgcolor: "rgba(25,118,210,0.08)",
-                      borderColor: "#1565c0",
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 3px 8px rgba(25,118,210,0.2)",
-                    },
-                    transition: "all 0.2s",
-                  }}
-                >
-                  Add Review
-                </Button>
-              )}
+              {!userId ||
+                (worker.userId !== userId && (
+                  <Button
+                    onClick={() => setOpenReview(true)}
+                    variant="outlined"
+                    sx={{
+                      color: "#1976d2",
+                      borderColor: "#1976d2",
+                      textTransform: "none",
+                      fontWeight: 600,
+                      borderRadius: 2,
+                      px: 4,
+                      py: 1,
+                      fontSize: "0.9rem",
+                      "&:hover": {
+                        bgcolor: "rgba(25,118,210,0.08)",
+                        borderColor: "#1565c0",
+                        transform: "translateY(-2px)",
+                        boxShadow: "0 3px 8px rgba(25,118,210,0.2)",
+                      },
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    Add Review
+                  </Button>
+                ))}
 
               {/* Call Now Button */}
               <Button
