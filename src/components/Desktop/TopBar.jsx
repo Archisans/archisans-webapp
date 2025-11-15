@@ -353,11 +353,7 @@ const TopBar = ({ handleLocationClick }) => {
                   "&:after": {
                     content: '""',
                     position: "absolute",
-                    width:
-                      location.pathname === link.path ||
-                      location.pathname.startsWith(`${link.path}/`)
-                        ? "100%"
-                        : 0,
+                    width: location.pathname === link.path ? "100%" : 0,
                     height: 2,
                     bottom: 0,
                     left: 0,

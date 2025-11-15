@@ -16,21 +16,26 @@ import {
 } from "@mui/material";
 import MobHeading from "@/components/Mobile/mobileHeading";
 import { useUser } from "@/context/UserContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function AccountInfo({ message }) {
+export default function AccountInfo() {
   const {
     profile,
     saving,
     imageLoading,
     error,
     success,
+    setError,
     handleImageUpload,
     handleSaveProfile,
   } = useUser();
 
   const [draftProfile, setDraftProfile] = useState(profile);
   const [edit, setEdit] = useState(true);
+
+  useEffect(() => {
+    setDraftProfile(profile);
+  }, [profile]);
 
   const handleSave = async () => {
     const ok = await handleSaveProfile(draftProfile);
@@ -39,14 +44,21 @@ export default function AccountInfo({ message }) {
     }
   };
 
+  const handleCancel = () => {
+    setError(null);
+    setDraftProfile(profile);
+    setEdit(true);
+  };
+
   return (
     <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 600, mx: "auto" }}>
       <MobHeading Heading="Account Info" />
 
       {/* Alerts */}
       <Stack spacing={2} sx={{ my: 1 }}>
-        {message && <Alert severity="error">{message}</Alert>}
-        {success && <Alert severity="success">Profile updated successfully!</Alert>}
+        {success && (
+          <Alert severity="success">Profile updated successfully!</Alert>
+        )}
         {error && <Alert severity="error">{error}</Alert>}
       </Stack>
 
@@ -76,11 +88,10 @@ export default function AccountInfo({ message }) {
                 component="label"
                 size="small"
                 color="primary"
-                disabled={imageLoading}
+                disabled={imageLoading || edit}
                 sx={{
                   bgcolor: "background.paper",
                   boxShadow: 2,
-                  "&:hover": { bgcolor: "primary.main", color: "white" },
                 }}
               >
                 {imageLoading ? (
@@ -92,7 +103,7 @@ export default function AccountInfo({ message }) {
                   type="file"
                   hidden
                   accept="image/*"
-                  onChange={handleImageUpload}
+                  onChange={(e) => handleImageUpload(e.target.files?.[0])}
                 />
               </IconButton>
             }
@@ -105,7 +116,7 @@ export default function AccountInfo({ message }) {
 
           <Box>
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
-              {draftProfile.fullName || "Your Name"}
+              {draftProfile.firstName || "Your Name"}
             </Typography>
           </Box>
         </Stack>
@@ -155,8 +166,21 @@ export default function AccountInfo({ message }) {
         </Grid>
       </Paper>
 
-      {/* Save/Edit Button */}
-      <Box sx={{ mt: 4 }}>
+      {/* Buttons */}
+      <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
+        {!edit && (
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={handleCancel}
+            disabled={saving}
+            sx={{ height: 48, borderRadius: 2, textTransform: "none" }}
+          >
+            Cancel
+          </Button>
+        )}
+
+        {/* Edit / Save Button */}
         <Button
           variant="contained"
           fullWidth
@@ -182,7 +206,7 @@ export default function AccountInfo({ message }) {
             },
           }}
         >
-          {saving ? "Saving..." : edit ? "Edit Profile" : "Save Changes"}
+          {saving ? "Saving..." : edit ? "Edit Profile" : "Save"}
         </Button>
       </Box>
     </Box>

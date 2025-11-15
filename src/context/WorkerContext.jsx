@@ -16,7 +16,13 @@ import {
 const WorkerContext = createContext(null);
 
 export const WorkerProvider = ({ children }) => {
-  const { user, profile, isWorker } = useUser();
+  const {
+    user,
+    profile,
+    handleSaveProfile,
+    handleImageUpload: handleProfileImageUpload,
+    isWorker,
+  } = useUser();
   const [worker, setWorker] = useState({
     personal: {},
     contact: {},
@@ -384,6 +390,18 @@ export const WorkerProvider = ({ children }) => {
     setError("");
 
     try {
+      if (personal.fullName != profile.fullName) {
+        const parts = personal.fullName.trim().split(/\s+/);
+        const firstName = parts[0];
+        const lastName = parts.length > 1 ? parts.slice(1).join(" ") : "";
+        await handleSaveProfile({ firstName, lastName });
+      }
+
+      console.log(personal);
+      if (personal.imageUrl != profile.imageUrl) {
+        await handleProfileImageUpload(personal.file);
+      }
+
       const workerPayload = {
         aadhaar: personal.aadhaar,
         dob: personal.dob,
@@ -429,10 +447,6 @@ export const WorkerProvider = ({ children }) => {
           await deleteCoverPhoto(savedWorker.id);
         }
       }
-
-      // Fetch and update the worker state in context
-      const updatedWorker = await fetchWorker();
-      return updatedWorker;
     } catch (err) {
       console.error("Complete profile save error:", err);
       setError(err.message || "Failed to save complete profile");

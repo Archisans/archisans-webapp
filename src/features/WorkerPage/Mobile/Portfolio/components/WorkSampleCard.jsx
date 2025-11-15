@@ -1,13 +1,19 @@
 import React from "react";
 import {
-  Paper,
-  Typography,
   Box,
+  Typography,
   Stack,
+  Link,
+  Divider,
   Button,
-  Divider
+  IconButton
 } from "@mui/material";
-import { Edit, Delete, VideoLibrary, Folder } from "@mui/icons-material";
+import {
+  Edit,
+  Delete,
+  VideoLibrary,
+  Folder
+} from "@mui/icons-material";
 
 const WorkSampleCard = ({
   sample,
@@ -16,137 +22,179 @@ const WorkSampleCard = ({
   toggleEditMode
 }) => {
   return (
-    <Paper
+    <Box
       sx={{
-        p: 3,
+        p: 2,
+        mb: 2,
         borderRadius: 2,
-        width: "100%",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-        transition: "0.3s",
-        "&:hover": { boxShadow: "0 6px 30px rgba(0,0,0,0.12)" },
-        background: "#ffffff"
+        border: "1px solid #e5e7eb",
+        boxShadow: "0px 2px 5px rgba(0,0,0,0.06)",
+        background: "#ffffff",
       }}
     >
-      {/* Title */}
-      <Typography variant="h6" fontWeight={700} mb={2}>
+      {/* TITLE */}
+      <Typography
+        sx={{
+          color: "rgb(8, 13, 112)",
+          fontSize: 16,
+          fontWeight: 700,
+          mb: 1.5,
+        }}
+      >
         {sample.title}
       </Typography>
 
-      {/* Details */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 1,
-          mb: 2,
-          fontSize: "14px"
-        }}
-      >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="body2" sx={{ opacity: 0.7 }}>
+      {/* DETAILS */}
+      <Stack spacing={1.2} sx={{ mb: 2 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>
             Service
           </Typography>
-          <Typography variant="body2" fontWeight={600}>
+          <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
             {sample.type}
           </Typography>
-        </Box>
+        </Stack>
 
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="body2" sx={{ opacity: 0.7 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>
             Location
           </Typography>
-          <Typography variant="body2" fontWeight={600}>
+          <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
             {sample.location}
           </Typography>
-        </Box>
+        </Stack>
 
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="body2" sx={{ opacity: 0.7 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>
             Phone
           </Typography>
-          <Typography variant="body2" fontWeight={600}>
+          <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
             {sample.clientNumber}
           </Typography>
-        </Box>
-      </Box>
+        </Stack>
+      </Stack>
 
-      {/* Images Section */}
+      {/* IMAGES */}
       {sample.photos?.length > 0 && (
         <Box mb={2}>
-          <Divider sx={{ mb: 1 }} />
+          <Divider sx={{ my: 1 }} />
 
-          <Typography variant="body2" fontWeight={600} mb={1}>
+          <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
             Images
           </Typography>
 
-          <Stack direction="row" spacing={1} flexWrap="wrap">
-            {sample.photos.map((file, i) => (
-              <img
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1.5,
+              overflowX: "auto",
+              pb: 1,
+              "&::-webkit-scrollbar": { display: "none" },
+            }}
+          >
+            {sample.photos.map((img, i) => (
+              <Box
                 key={i}
-                src={file}
-                alt=""
-                style={{
-                  width: 110,
-                  height: 80,
-                  borderRadius: 10,
+                component="img"
+                src={img}
+                sx={{
+                  width: 140,
+                  height: 100,
+                  borderRadius: 2,
                   objectFit: "cover",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.15)"
+                  border: "1px solid #e5e7eb",
                 }}
+                onClick={() => window.open(img, "_blank")}
               />
             ))}
-          </Stack>
+          </Box>
         </Box>
       )}
 
-      {/* Google Drive Uploads */}
-      {sample.driveLinks?.length > 0 && (
-        <Box mb={2}>
-          <Divider sx={{ mb: 1 }} />
+{/* GOOGLE DRIVE FILE */}
+{sample.driveLink && (
+  <Box mb={2}>
+    <Divider sx={{ my: 1 }} />
 
-          <Typography variant="body2" fontWeight={600} mb={1}>
-            Google Drive Uploads
-          </Typography>
+    <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
+      Google Drive Upload
+    </Typography>
 
-          <Stack spacing={0.8}>
-            {sample.driveLinks.map((link, i) => (
-              <Box key={i} display="flex" alignItems="center" gap={1}>
-                <Folder fontSize="small" color="primary" />
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ fontSize: "14px", wordBreak: "break-all" }}
-                >
-                  Open Drive File
-                </a>
-              </Box>
-            ))}
-          </Stack>
-        </Box>
-      )}
+    <Stack direction="row" spacing={1.4} alignItems="center">
+      <Box
+        sx={{
+          width: 30,
+          height: 30,
+          borderRadius: "6px",
+          background: "#e0f2fe",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Folder fontSize="small" color="primary" />
+      </Box>
 
-      {/* Video Links */}
+      <Link
+        href={sample.driveLink}
+        target="_blank"
+        sx={{
+          fontSize: 14,
+          fontWeight: 600,
+          color: "#2563eb",
+          wordBreak: "break-word",
+        }}
+      >
+        Open Drive File
+      </Link>
+    </Stack>
+  </Box>
+)}
+
+      {/* VIDEO LINKS */}
       {sample.videoLinks?.length > 0 && (
         <Box mb={2}>
-          <Divider sx={{ mb: 1 }} />
+          <Divider sx={{ my: 1 }} />
 
-          <Typography variant="body2" fontWeight={600} mb={1}>
+          <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
             Video Links
           </Typography>
 
-          <Stack spacing={0.8}>
+          <Stack spacing={1}>
             {sample.videoLinks.map((link, i) => (
-              <Box key={i} display="flex" alignItems="center" gap={1}>
-                <VideoLibrary fontSize="small" color="primary" />
-                <a
+              <Stack
+                key={i}
+                direction="row"
+                spacing={1.4}
+                alignItems="center"
+              >
+                <Box
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: "6px",
+                    background: "#fef3c7",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <VideoLibrary fontSize="small" color="warning" />
+                </Box>
+
+                <Link
                   href={link}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ fontSize: "14px", wordBreak: "break-all" }}
+                  sx={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: "#2563eb",
+                    wordBreak: "break-word",
+                  }}
                 >
                   Open Video
-                </a>
-              </Box>
+                </Link>
+              </Stack>
             ))}
           </Stack>
         </Box>
@@ -154,7 +202,7 @@ const WorkSampleCard = ({
 
       <Divider sx={{ my: 2 }} />
 
-      {/* Action Buttons */}
+      {/* ACTION BUTTONS */}
       <Stack direction="row" spacing={2}>
         <Button
           variant="outlined"
@@ -175,7 +223,7 @@ const WorkSampleCard = ({
           Remove
         </Button>
       </Stack>
-    </Paper>
+    </Box>
   );
 };
 
