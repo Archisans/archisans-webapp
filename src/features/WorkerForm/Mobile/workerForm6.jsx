@@ -43,29 +43,51 @@ const WorkerForm6 = ({
   const handleSelect = (categoryId, categoryTitle) => {
     setError("");
     setCurrentProfession({ id: categoryId, title: categoryTitle });
+
     const existing = selected.find((s) => s.categoryId === categoryId);
 
     if (existing) {
       setSelectedSubServices(existing.services || []);
     } else {
       setSelectedSubServices([]);
-      setSelected((prev) => [
-        ...prev,
-        { categoryId, categoryTitle, services: [] },
-      ]);
     }
 
     setOpen(true);
   };
 
   const handleSaveSubServices = () => {
-    if (selectedSubServices.length === 0) return;
+    if (selectedSubServices.length === 0) {
+      const filtered = selected.filter(
+        (s) => s.categoryId !== currentProfession.id
+      );
+      setSelected(filtered);
+      updateFormData("professions", filtered);
+      setOpen(false);
+      return;
+    }
 
-    const updated = selected.map((s) =>
-      s.categoryId === currentProfession.id
-        ? { ...s, services: selectedSubServices }
-        : s
+    const existing = selected.some(
+      (s) => s.categoryId === currentProfession.id
     );
+
+    let updated;
+
+    if (existing) {
+      updated = selected.map((s) =>
+        s.categoryId === currentProfession.id
+          ? { ...s, services: selectedSubServices }
+          : s
+      );
+    } else {
+      updated = [
+        ...selected,
+        {
+          categoryId: currentProfession.id,
+          categoryTitle: currentProfession.title,
+          services: selectedSubServices,
+        },
+      ];
+    }
 
     setSelected(updated);
     updateFormData("professions", updated);
@@ -90,6 +112,7 @@ const WorkerForm6 = ({
 
   const handleCheckboxClick = (e, categoryId, categoryTitle) => {
     e.stopPropagation();
+
     const isSelected = selected.some((s) => s.categoryId === categoryId);
 
     if (isSelected) {
@@ -161,6 +184,7 @@ const WorkerForm6 = ({
                     {category.title}
                   </Typography>
                 </Box>
+
                 <Checkbox
                   checked={isSelected}
                   onClick={(e) =>
@@ -178,10 +202,12 @@ const WorkerForm6 = ({
           )}
         </Box>
 
+        {/* Sub-services Dialog */}
         <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
           <DialogTitle>
             Select Services for {currentProfession?.title}
           </DialogTitle>
+
           <DialogContent>
             {currentProfession &&
               services
@@ -201,13 +227,10 @@ const WorkerForm6 = ({
                   />
                 ))}
           </DialogContent>
+
           <DialogActions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button
-              variant="contained"
-              onClick={handleSaveSubServices}
-              disabled={selectedSubServices.length === 0}
-            >
+            <Button variant="contained" onClick={handleSaveSubServices}>
               Save
             </Button>
           </DialogActions>
