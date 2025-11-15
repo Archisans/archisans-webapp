@@ -152,13 +152,13 @@ export const usePersonalInfoForm = () => {
     (data) => {
       const fields = [
         { field: "fullName", value: data.fullName },
-        { field: "avatar", value: data.imageUrl },
+        { field: "imageUrl", value: data.imageUrl },
         { field: "aadhaar", value: data.aadhaar },
         { field: "dob", value: data.dob },
         { field: "gender", value: data.gender },
       ];
 
-      markAllTouched(["fullName", "avatar", "aadhaar", "dob", "gender"]);
+      markAllTouched(["fullName", "imageUrl", "aadhaar", "dob", "gender"]);
       return validateAll(fields);
     },
     [markAllTouched, validateAll]
