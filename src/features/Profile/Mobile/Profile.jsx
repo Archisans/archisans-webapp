@@ -107,7 +107,7 @@ const Profile = () => {
             </ListItem>
 
             {/* Saved Workers */}
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to={RouteProvider.USER_SAVED_WORKERS}
@@ -129,10 +129,10 @@ const Profile = () => {
                   }}
                 />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
 
             {/* Saved Address */}
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemButton
                 component={Link}
                 to={RouteProvider.USER_ADDRESS_SAVED}
@@ -154,9 +154,9 @@ const Profile = () => {
                   }}
                 />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
 
-            <Divider sx={{ mx: 2, borderColor: "rgba(0, 0, 0, 0.3)" }} />
+            {/* <Divider sx={{ mx: 2, borderColor: "rgba(0, 0, 0, 0.3)" }} /> */}
 
             {/* About */}
             <ListItem disablePadding>

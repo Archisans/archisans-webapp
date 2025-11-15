@@ -111,14 +111,14 @@ const WorkerDashboard = ({ worker }) => {
             Quick Actions
           </Typography>
 
-          <Stack direction="row" spacing={2} justifyContent="center">
+          <Stack direction="row" spacing={2} justifyContent="flex-start">
             {[
-              {
-                text: "Portfolio",
-                description: "Manage your work",
-                icon: <BankIcon size={20} color="#374151" weight="regular" />,
-                onClick: () => navigate(RouteProvider.WORKER_PORTFOLIO),
-              },
+              // {
+              //   text: "Portfolio",
+              //   description: "Manage your work",
+              //   icon: <BankIcon size={20} color="#374151" weight="regular" />,
+              //   onClick: () => navigate(RouteProvider.WORKER_PORTFOLIO),
+              // },
               {
                 text: "Work Profile",
                 description: "Edit your details",
