@@ -222,14 +222,6 @@ const WorkerDashboard = ({ worker }) => {
             >
               Services ({services.length})
             </Typography>
-            <IconButton
-              size="small"
-              sx={{
-                "&:hover": { bgcolor: "#F3F4F6" },
-              }}
-            >
-              <ArrowRightIcon size={16} color="#6B7280" />
-            </IconButton>
           </Stack>
 
           <Box
