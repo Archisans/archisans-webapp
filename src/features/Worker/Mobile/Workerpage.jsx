@@ -35,7 +35,7 @@ const Workerpage = ({ worker }) => {
   };
 
   return (
-    <Grid container sx={{ bgcolor: "#f9f9f9", minHeight: "100vh" }}>
+    <Grid container sx={{ bgcolor: "#f9f9f9", }}>
       {/* Banner Section */}
       <Box sx={{ width: "100%", bgcolor: "#fff" }}>
         <Box sx={{ position: "relative", width: "100%" }}>
@@ -190,7 +190,7 @@ const Workerpage = ({ worker }) => {
       </Box>
 
       {/* Tabs Section */}
-      <Box width="100%">
+      <Box width="100%" >
         <WorkerTopTab worker={worker} key={`review-todo-fix-here-${Date.now()}`} />
       </Box>
       <ReviewDialog
