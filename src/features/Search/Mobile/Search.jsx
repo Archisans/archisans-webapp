@@ -16,6 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "@/hooks/useSearch";
 import MobServiceCategoryList from "@/components/Mobile/mobServiceCategoryList";
+import MobMainHeader from "@/components/Mobile/MainHeader";
 
 const Search = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();
@@ -40,29 +41,9 @@ const Search = ({ bootstrapConfiguration }) => {
     query.trim().length > 0 && results.length === 0 && suggestions.length === 0;
 
   return (
-    <Box py={2}>
+    <Box pb={2}>
       {/* Header */}
-      <Box px={1} display="flex" alignItems="center">
-        <ArrowBackIos
-          sx={{ fontSize: 23, cursor: "pointer", color: "grey" }}
-          onClick={() => navigate(-1)}
-        />
-        <Box display="flex" alignItems="center" ml={1}>
-          <LocationOnOutlined sx={{ fontSize: 25, mr: 1, color: "black" }} />
-          <Box display="flex" flexDirection="column">
-            <Typography
-              variant="caption"
-              color="gray"
-              sx={{ lineHeight: 1, fontSize: 13 }}
-            >
-              Current Location
-            </Typography>
-            <Typography sx={{ fontWeight: "bold", fontSize: 15 }}>
-              Thrissur, Kerala
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
+      <MobMainHeader/>
 
       {/* Search Bar */}
       <Box

@@ -16,6 +16,7 @@ import { BellIcon } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { RouteProvider } from "@/config/RouteProvider";
 import WorkerCard from "./components/WorkerCard";
+import MobMainHeader from "@/components/Mobile/MainHeader";
 
 const SearchWorker = ({ workers }) => {
   const navigate = useNavigate();
@@ -23,57 +24,13 @@ const SearchWorker = ({ workers }) => {
   return (
     <Box sx={{ pb: 8 }}>
       {/* Header */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          pt: 2,
-          px: 2,
-        }}
-      >
-        {/* Location Info */}
-        <Box display="flex" alignItems="center">
-          <ArrowBackIos
-            sx={{ fontSize: 23, cursor: "pointer", color: "grey" }}
-            onClick={() => navigate(-1)}
-          />
-          <Box display="flex">
-            <LocationOnOutlined
-              sx={{ fontSize: 25, mr: 1, mt: 0.5, color: "black" }}
-            />
-            <Box display="flex" flexDirection="column">
-              <Typography
-                variant="caption"
-                color="gray"
-                sx={{ lineHeight: 1, fontSize: 13 }}
-              >
-                Current Location
-              </Typography>
-              <Typography sx={{ fontWeight: "Bold", fontSize: 15 }}>
-                Thrissur, Kerala
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-
-        {/* Notification and Avatar */}
-        <Stack direction="row" spacing={1} alignItems="center">
-          <IconButton
-            onClick={() => navigate(RouteProvider.USER_SETTINGS_NOTIFICATION)}
-          >
-            <BellIcon color="#050b5fff" />
-          </IconButton>
-          <Avatar
-            onClick={() => navigate(RouteProvider.USER_PROFILE_EDIT)}
-            sx={{ width: 32, height: 32 }}
-            src="https://randomuser.me/api/portraits/men/83.jpg"
-          />
-        </Stack>
+      <Box sx={{mb:4}}>
+      <MobMainHeader backArrow onBack={() => navigate(-1)}/>
       </Box>
+     
 
       {/* Search Bar */}
-      <Box
+      {/* <Box
         mt={2}
         display="flex"
         alignItems="center"
@@ -97,7 +54,7 @@ const SearchWorker = ({ workers }) => {
           sx={{ color: "#888" }}
           onClick={() => navigate("/mobile-Search-filter")}
         />
-      </Box>
+      </Box> */}
 
       {/* Worker Cards or Empty State */}
       {workers && workers.length > 0 ? (

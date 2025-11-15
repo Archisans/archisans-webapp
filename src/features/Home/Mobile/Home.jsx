@@ -25,6 +25,7 @@ import LoginDrawer from "@/components/Mobile/LoginDrawer";
 import Footer from "./Components/Footer";
 import PopularServices from "./Components/PopularServices";
 import AdvertisementCarousel from "./Components/AdvertisementCarousal";
+import MobMainHeader from "@/components/Mobile/MainHeader";
 
 const HomeMobile = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();
@@ -70,83 +71,7 @@ const HomeMobile = ({ bootstrapConfiguration }) => {
             {/* Foreground Content */}
             <Box sx={{ position: "relative", zIndex: 2 }}>
               {/* Header */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  pt: 2,
-                  pr: 2,
-                  pl: 1,
-                }}
-              >
-                <Box display="flex" position="relative">
-                  {/* Location */}
-                  <Box display="flex" flexDirection="column" pl={1.5}>
-                    <Typography
-                      variant="caption"
-                      sx={{ lineHeight: 1, fontSize: 13 }}
-                    >
-                      Current Location
-                    </Typography>
-                    <Grid container>
-                      <Typography
-                        sx={{
-                          fontWeight: "bold",
-                          fontSize: 15,
-                          color: theme.palette.primary.main,
-                        }}
-                      >
-                        Thrissur, Kerala
-                      </Typography>
-                      <IconButton
-                        onClick={() => handleOpen(true)}
-                        sx={{ padding: 0 }}
-                      >
-                        <KeyboardArrowDownOutlined
-                          sx={{ color: theme.palette.primary.main }}
-                        />
-                      </IconButton>
-                    </Grid>
-                  </Box>
-                </Box>
-
-                {isSignedIn ? (
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <IconButton
-                      onClick={() =>
-                        navigate(RouteProvider.USER_SETTINGS_NOTIFICATION)
-                      }
-                    >
-                      <BellIcon color="#0c136fff" />
-                    </IconButton>
-                    <Avatar
-                      onClick={() => setDrawerOpen(true)}
-                      sx={{ width: 32, height: 32 }}
-                      src={profile.imageUrl}
-                    />
-                  </Stack>
-                ) : (
-                  <Box>
-                    <button
-                      onClick={() => setLoginOpen(true)}
-                      style={{
-                        backgroundColor: "#0c136fff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "20px",
-                        padding: "6px 16px",
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        cursor: "pointer",
-                        boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-                      }}
-                    >
-                      Login
-                    </button>
-                  </Box>
-                )}
-              </Box>
+              <MobMainHeader />
 
               {/* Search */}
               <Box sx={{ px: 2, mb: 1, pb: 1.5 }}>
