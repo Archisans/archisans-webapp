@@ -1,4 +1,4 @@
-export const EXPERIENCE_YEARS = Array.from({ length: 31 }, (_, i) => i);
+export const EXPERIENCE_YEARS = Array.from({ length: 31 }, (_, i) => i+1);
 
 export const RATE_BASIS_OPTIONS = [
   { value: "HOUR", label: "Per Hour" },

@@ -128,7 +128,7 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
     if (!open) {
       reset();
     }
-  }, [open, reset]);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;

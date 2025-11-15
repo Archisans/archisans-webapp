@@ -45,6 +45,7 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
   const handleNext = () => {
     const isValid = validatePersonalInfo({
       fullName: personal.fullName,
+      imageUrl: personal.imageUrl,
       aadhaar: personal.aadhaar,
       dob: personal.dob,
       gender: personal.gender,
