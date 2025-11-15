@@ -447,6 +447,9 @@ export const WorkerProvider = ({ children }) => {
           await deleteCoverPhoto(savedWorker.id);
         }
       }
+
+      const updatedWorker = await fetchWorker();
+      return updatedWorker;
     } catch (err) {
       console.error("Complete profile save error:", err);
       setError(err.message || "Failed to save complete profile");
