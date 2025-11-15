@@ -1,6 +1,7 @@
 import { Box, Typography, Avatar, Button, Chip } from "@mui/material";
 import { Edit as EditIcon, Verified } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const WorkerHeader = ({ navigate, worker }) => {
   console.log(worker)
@@ -124,33 +125,49 @@ const WorkerHeader = ({ navigate, worker }) => {
             </Box>
           </Box>
 
-          <Button
-            variant="contained"
-            startIcon={<EditIcon />}
-            onClick={() => navigate(RouteProvider.WORKER_PROFILE)}
-            sx={{
-              bgcolor: "#0e1c79",
-              color: "white",
-              textTransform: "none",
-              borderRadius: 2,
-              px: 3,
-              py: 1.25,
-              fontWeight: 600,
-              fontSize: "0.95rem",
-              boxShadow: "0 4px 12px rgba(14, 28, 121, 0.2)",
-              transition: "all 0.2s ease",
-              "&:hover": {
-                bgcolor: "#1e40af",
-                boxShadow: "0 6px 20px rgba(14, 28, 121, 0.3)",
-                transform: "translateY(-1px)",
-              },
-              "&:active": {
-                transform: "translateY(0)",
-              },
-            }}
-          >
-            Edit Profile
-          </Button>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+  <Button
+    variant="contained"
+    startIcon={<EditIcon />}
+    onClick={() => navigate(RouteProvider.WORKER_PROFILE)}
+    sx={{
+      bgcolor: "#0e1c79",
+      color: "white",
+      textTransform: "none",
+      borderRadius: 2,
+      px: 3,
+      py: 1.2,
+      fontWeight: 600,
+      fontSize: "0.9rem",
+      "&:hover": { bgcolor: "#0e1c79" },
+    }}
+  >
+    Edit Profile
+  </Button>
+
+  <Button
+    variant="outlined"
+    startIcon={<AddCircleOutlineIcon />}
+    onClick={() => navigate(RouteProvider.WORKER_PORTFOLIO)}
+    sx={{
+      color: "#0e1c79",
+      borderColor: "#0e1c79",
+      textTransform: "none",
+      borderRadius: 2,
+      px: 3,
+      py: 1.2,
+      fontWeight: 600,
+      fontSize: "0.9rem",
+      "&:hover": {
+        borderColor: "#0e1c79",
+        backgroundColor: "rgba(14, 28, 121, 0.06)",
+      },
+    }}
+  >
+    Add Portfolio
+  </Button>
+</Box>
+
         </Box>
       </Box>
     </Box>

@@ -11,6 +11,7 @@ import WorkerEdit from "./components/WorkerEdit";
 import WorkerAvailability from "./components/WorkerAvailability";
 import MoreWorkers from "./components/MoreWorkers";
 import WorkerAds from "./components/WorkerAds";
+import WorkerPortFolio from "./components/WorkerPortFolio";
 
 const Workerpage = ({ worker }) => {
   const { isWorker } = useUser();
@@ -55,6 +56,7 @@ const Workerpage = ({ worker }) => {
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
       <WorkerOverview worker={worker} />
       <WorkerServices services={worker.services} />
+      <WorkerPortFolio />
       <WorkerReview />
     </Box>
   </Box>

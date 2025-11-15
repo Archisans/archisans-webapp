@@ -256,3 +256,51 @@ export const projects = [
     images: [plumbingImg, plumbingImg],
   },
 ];
+
+export const portfolioProjects = [
+  {
+    id: 1,
+    title: "Modern House Renovation",
+    service: "Interior Design",
+    location: "Kochi",
+    phnno: "9876543210",
+    description:
+      "A complete renovation with modern interior designs and space optimization.",
+    images: [
+      plumbingImg,
+      plumbingImg,
+      plumbingImg
+    ],
+    video: "",
+    googleDrive:"https:hai.com",
+  },
+  {
+    id: 2,
+    title: "Luxury Villa Project",
+    service: "Architecture",
+    location: "Thrissur",
+    phnno: "9123456780",
+    description:
+      "Designed a premium luxury villa with 3D modeling and landscape planning.",
+    images: [
+      plumbingImg
+    ],
+    video: "https://example.com/video",
+    googleDrive:"https:hai.com",
+  },
+    {
+    id: 3,
+    title: "Hi Villa Project",
+    service: "Architecture",
+    location: "Thrissur",
+    phnno: "9123456780",
+    description:
+      "Designed a premium luxury villa with 3D modeling and landscape planning.",
+    images: [
+      
+    ],
+    video: "",
+    googleDrive:"https:hai.com",
+  },
+  
+];

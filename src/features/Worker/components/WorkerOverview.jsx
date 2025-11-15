@@ -4,6 +4,7 @@ import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButto
 import { Facebook, LinkedIn, Instagram, Phone,Launch } from "@mui/icons-material";
 import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { useState } from "react";
 
 const platformIcons = {
@@ -11,6 +12,9 @@ const platformIcons = {
   LinkedIn: <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />,
   Instagram: <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />,
 };
+// ---- Temporary Portfolio Values (Replace later with DB values) ----
+const portfolioPdf = "https://example.com/worker-portfolio.pdf";
+const portfolioLink = "https://example.com/worker-portfolio-page";
 
 
 const WorkerOverview = ({ worker }) => {
@@ -117,14 +121,32 @@ const [openReview, setOpenReview] = useState(false);
                     {worker.phone}
                   </Typography>
                 </Box>
+               {/* Portfolio Section with Two Icons */}
+{(portfolioPdf || portfolioLink) && (
+  <Box display="flex" alignItems="center" gap={1.5}>
+    {/* <Typography variant="body2" fontWeight={500}>
+      Portfolio
+    </Typography> */}
 
-                
-                {/* <Box display="flex" alignItems="center" gap={0.5}>
-                  <Launch sx={{ fontSize: 16, color: "#666" }} />
-                  <Typography variant="body2" color="#666" fontWeight={500}>
-                    Portfolio
-                  </Typography>
-                </Box> */}
+    {/* Download PDF */}
+    {portfolioPdf && (
+      <CloudDownloadIcon
+        sx={{ fontSize: 18, color: "#1976d2", cursor: "pointer" }}
+        onClick={() => window.open(portfolioPdf, "_blank")}
+      />
+    )}
+
+    {/* Open Portfolio Link */}
+    {portfolioLink && (
+      <Launch
+        sx={{ fontSize: 16, color: "#1976d2", cursor: "pointer" }}
+        onClick={() => window.open(portfolioLink, "_blank")}
+      />
+    )}
+  </Box>
+)}
+
+
               </Box> 
             </Box>
 

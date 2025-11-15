@@ -1,28 +1,14 @@
 import React from "react";
 import { Box, Typography, Paper, Chip } from "@mui/material";
-import { MapPin, Calendar } from "lucide-react";
-
+import { MapPin } from "lucide-react";
 import { Phone } from "@mui/icons-material";
 
-const WorkerPortFolio = ({ worker }) => {
-  // get sid from localStorage
-  const sid = parseInt(localStorage.getItem("sid"), 10);
+import { portfolioProjects } from "../constants";
 
-  // filter project by sid
-  let filteredProjects = [];
-  if (sid) {
-    const matched = worker.projects.find((p) => p.id === sid);
-    if (matched) filteredProjects.push(matched);
-  }
+const WorkerPortFolio = () => {
 
-  // add one random project if available
-  const remaining = worker.projects.filter(
-    (p) => !filteredProjects.includes(p)
-  );
-  if (remaining.length > 0) {
-    const randomIndex = Math.floor(Math.random() * remaining.length);
-    filteredProjects.push(remaining[randomIndex]);
-  }
+const filteredProjects = portfolioProjects;
+
 
   return (
     <Paper
@@ -79,7 +65,6 @@ const WorkerPortFolio = ({ worker }) => {
               {project.description}
             </Typography>
 
-            {/* Project Images */}
             {project.images && project.images.length > 0 && (
               <Box display="flex" gap={1} mt={2} sx={{ overflowX: "auto" }}>
                 {project.images.slice(0, 3).map((img, imgIdx) => (
@@ -99,23 +84,38 @@ const WorkerPortFolio = ({ worker }) => {
               </Box>
             )}
 
-            {/* Conditional Video */}
             <Box mt={2}>
-              {project.video ? (
-                <Typography
-                  variant="body2"
-                  color="#1976d2"
-                  sx={{ mt: 2, cursor: "pointer", fontWeight: 500 }}
-                  onClick={() => window.open(project.video, "_blank")}
-                >
-                  Watch Video
-                </Typography>
-              ) : (
-                <Typography variant="body2" color="#999" sx={{ mt: 2 }}>
-                  Video not available
-                </Typography>
-              )}
-            </Box>
+  {project.video ? (
+    <Typography
+      variant="body2"
+      color="#1976d2"
+      sx={{ cursor: "pointer", fontWeight: 500 }}
+      onClick={() => window.open(project.video, "_blank")}
+    >
+      Watch Video
+    </Typography>
+  ) : (
+    <Typography variant="body2" color="#999">
+      Video not available
+    </Typography>
+  )}
+
+  {project.googleDrive ? (
+    <Typography
+      variant="body2"
+      color="#388e3c"
+      sx={{ mt: 1, cursor: "pointer", fontWeight: 500 }}
+      onClick={() => window.open(project.googleDrive, "_blank")}
+    >
+      Navigate to Google Drive
+    </Typography>
+  ) : (
+    <Typography variant="body2" color="#999" sx={{ mt: 1 }}>
+      Drive link not available
+    </Typography>
+  )}
+</Box>
+
           </Box>
         ))}
       </Box>

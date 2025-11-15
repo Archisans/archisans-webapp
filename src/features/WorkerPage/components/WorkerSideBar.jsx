@@ -7,6 +7,7 @@ import {
 } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
 import { Link, useLocation } from "react-router-dom";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const SIDEBAR_WIDTH = 260;
 const TOPBAR_HEIGHT = 64;
@@ -17,6 +18,8 @@ const mainCategories = [
   //{ name: "Availability", path: RouteProvider.WORKER_AVAILABILITY, icon: <CalendarCheckIcon size={22} /> },
   //{ name: "Portfolio", path: RouteProvider.WORKER_PORTFOLIO, icon: <BankIcon size={22} /> },
   { name: "Work Profile", path: RouteProvider.WORKER_PROFILE, icon: <UserIcon size={22} /> },
+  { name: "Add Portfolio", path: RouteProvider.WORKER_PORTFOLIO, icon: <AddCircleOutlineIcon size={22} /> },
+
 ];
 
 export default function WorkerSideBar() {
@@ -25,21 +28,22 @@ export default function WorkerSideBar() {
 
   return (
     <Box
-      sx={{
-        width: SIDEBAR_WIDTH,
-        position: "fixed",
-        top: TOPBAR_HEIGHT,
-        left: 0,
-        boxShadow: "2px 0px 12px rgba(0,0,0,0.05)",
-        borderRight: "1px solid #e3e8f0",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        p: 2,
-        bgcolor: "#fff",
-        height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
-      }}
-    >
+  sx={{
+    width: SIDEBAR_WIDTH,
+    position: "fixed",
+    top: TOPBAR_HEIGHT,
+    left: 0,
+    height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
+    overflowY: "auto",
+    boxShadow: "2px 0px 12px rgba(0,0,0,0.05)",
+    borderRight: "1px solid #e3e8f0",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    p: 2,
+    bgcolor: "#fff",
+  }}
+>
       <Box>
         {/* Menu Items */}
         <Stack spacing={1.2}>

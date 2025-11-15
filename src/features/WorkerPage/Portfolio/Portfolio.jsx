@@ -76,7 +76,7 @@ const handlePortfolioUpload = (event) => {
           <Folder sx={{ color: "#64748b", fontSize: 20 }} />
         </Box>
         <Typography variant="h6" sx={{ fontWeight: 600, color: "#1e293b" }}>
-          Portfolio & Best Works (optional)
+          Add Your Portfolio
         </Typography>
       </Box>
 
@@ -89,7 +89,6 @@ const handlePortfolioUpload = (event) => {
           alignItems: "flex-start",
         }}
       >
-        {/* Upload Portfolio */}
        {/* Upload Portfolio */}
 <Box sx={{ flex: 1, minWidth: 280 }}>
   <Typography
@@ -164,22 +163,6 @@ const handlePortfolioUpload = (event) => {
     >
       {portfolioFile.name}
     </Typography>
-
-    {/* ❌ Small Delete Button */}
-    <IconButton
-      size="small"
-      onClick={(e) => {
-        e.stopPropagation(); // prevent opening file on click
-        setPortfolioFile(null);
-      }}
-      sx={{
-        ml: 0.2,
-        color: "#ef4444",
-        "&:hover": { bgcolor: "#fee2e2" },
-      }}
-    >
-      <Close fontSize="small" />
-    </IconButton>
   </Box>
 )}
 
@@ -404,9 +387,6 @@ const handlePortfolioUpload = (event) => {
               Image {i + 1}
             </Typography>
           </Box>
-          <IconButton size="small">
-            <Close fontSize="small" />
-          </IconButton>
         </Box>
       ))}
 
@@ -433,9 +413,6 @@ const handlePortfolioUpload = (event) => {
           >
             Video {i + 1}
           </Typography>
-          <IconButton size="small">
-            <Close fontSize="small" />
-          </IconButton>
         </Box>
       ))}
     </Stack>
