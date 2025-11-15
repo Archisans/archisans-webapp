@@ -60,7 +60,7 @@ export const validators = {
     if (value === "" || value === null || value === undefined)
       return "Experience is required";
     return "";
-  }
+  },
 };
 
 // ============================================
@@ -488,8 +488,8 @@ export const useExperienceForm = () => {
         item.experience !== "" &&
         item.experience !== null &&
         item.experience !== undefined;
-      
-        return hasExperience;
+
+      return hasExperience;
     });
   }, []);
 
@@ -508,10 +508,7 @@ export const useExperienceForm = () => {
 
 export const sanitizeInput = {
   fullName: (value) => {
-    return value
-      .replace(/[^a-zA-Z\s]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
+    return value.replace(/[^a-zA-Z\s]/g, "").replace(/\s+/g, " ");
   },
 
   numericOnly: (value, maxLength) => {

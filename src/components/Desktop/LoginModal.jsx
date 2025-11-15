@@ -19,44 +19,44 @@ const LoginModal = ({ open, onClose, onLogin }) => {
     step,
     phoneNumber,
     setPhoneNumber,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
     otp,
-    setOtp,
     otpRefs,
     error,
-    success,
     loading,
     handlePhoneSubmit,
+    handleNameSubmit,
     handleOtpChange,
     handleOtpSubmit,
     reset,
   } = usePhoneLogin(onLogin);
+
   const phoneInputRef = useRef(null);
 
   useEffect(() => {
-    if (open && step === 1 && !success) {
-      const timer = setTimeout(() => {
-        phoneInputRef.current?.focus();
-      }, 300);
-      return () => clearTimeout(timer);
+    if (!open) return;
+
+    if (step === 1) {
+      const t = setTimeout(() => phoneInputRef.current?.focus(), 300);
+      return () => clearTimeout(t);
     }
 
-    if (step === 2 && open) {
-      const timer = setTimeout(() => {
-        otpRefs.current[0]?.focus();
+    if (step === 2) {
+      const t = setTimeout(() => {
+        const firstNameInput = document.getElementById("first-name-input");
+        firstNameInput?.focus();
       }, 300);
-      return () => clearTimeout(timer);
+      return () => clearTimeout(t);
     }
-  }, [open, step, success]);
 
-
-  useEffect(() => {
-    if (step === 2 && open) {
-      const timer = setTimeout(() => {
-        otpRefs.current[0]?.focus();
-      }, 300);
-      return () => clearTimeout(timer);
+    if (step === 3) {
+      const t = setTimeout(() => otpRefs.current[0]?.focus(), 300);
+      return () => clearTimeout(t);
     }
-  }, [step, open]);
+  }, [open, step]);
 
   const handleClose = () => {
     if (location.pathname !== "/") {
@@ -74,6 +74,8 @@ const LoginModal = ({ open, onClose, onLogin }) => {
     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
     borderRadius: "24px",
   };
+
+  const transition = { duration: 0.25, ease: "easeOut" };
 
   return (
     <AnimatePresence>
@@ -93,7 +95,7 @@ const LoginModal = ({ open, onClose, onLogin }) => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={transition}
           >
             <Box
               sx={{
@@ -126,13 +128,13 @@ const LoginModal = ({ open, onClose, onLogin }) => {
 
               <Box sx={{ p: 5, color: "#1f2937", textAlign: "center" }}>
                 <AnimatePresence mode="wait">
-                  {step === 1 ? (
+                  {step === 1 && (
                     <motion.div
                       key="phone"
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -50 }}
-                      transition={{ duration: 0.25 }}
+                      transition={transition}
                     >
                       <Typography
                         variant="h4"
@@ -145,6 +147,7 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                       >
                         Login
                       </Typography>
+
                       <Typography
                         sx={{ color: "#6b7280", mb: 4, fontSize: "0.95rem" }}
                       >
@@ -173,17 +176,17 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                         >
                           +91
                         </Box>
+
                         <input
                           ref={phoneInputRef}
                           type="text"
                           placeholder="Enter phone number"
                           value={phoneNumber}
-                          onChange={(e) => {
-                            const value = e.target.value
-                              .replace(/\D/g, "")
-                              .slice(0, 10);
-                            setPhoneNumber(value);
-                          }}
+                          onChange={(e) =>
+                            setPhoneNumber(
+                              e.target.value.replace(/\D/g, "").slice(0, 10)
+                            )
+                          }
                           onKeyDown={(e) => {
                             if (
                               e.key === "Enter" &&
@@ -253,13 +256,142 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                         {loading ? "Sending..." : "Send OTP"}
                       </Button>
                     </motion.div>
-                  ) : (
+                  )}
+
+                  {step === 2 && (
+                    <motion.div
+                      key="name"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={transition}
+                    >
+                      <Typography
+                        variant="h4"
+                        sx={{ fontWeight: 700, mb: 1, fontSize: "1.9rem" }}
+                      >
+                        Create Profile
+                      </Typography>
+
+                      <Typography sx={{ color: "#6b7280", mb: 4 }}>
+                        This phone number is new! Tell us your name.
+                      </Typography>
+
+                      {/* First Name */}
+                      <input
+                        id="first-name-input"
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            if (firstName.trim().length > 0) {
+                              document
+                                .getElementById("last-name-input")
+                                ?.focus();
+                            }
+                          }
+                        }}
+                        style={{
+                          width: "100%",
+                          padding: "14px 18px",
+                          borderRadius: "12px",
+                          border: "1px solid #e5e7eb",
+                          marginBottom: "16px",
+                          backgroundColor: "#f9fafb",
+                          outline: "none",
+                          transition: "all 0.2s",
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#3b82f6";
+                          e.target.style.backgroundColor = "#fff";
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "#e5e7eb";
+                          e.target.style.backgroundColor = "#f9fafb";
+                        }}
+                      />
+
+                      {/* Last Name */}
+                      <input
+                        id="last-name-input"
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && !loading) {
+                            handleNameSubmit();
+                          }
+                        }}
+                        style={{
+                          width: "100%",
+                          padding: "14px 18px",
+                          borderRadius: "12px",
+                          border: "1px solid #e5e7eb",
+                          marginBottom: "24px",
+                          backgroundColor: "#f9fafb",
+                          outline: "none",
+                          transition: "all 0.2s",
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#3b82f6";
+                          e.target.style.backgroundColor = "#fff";
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "#e5e7eb";
+                          e.target.style.backgroundColor = "#f9fafb";
+                        }}
+                      />
+
+                      <Box sx={{ display: "flex", gap: 2 }}>
+                        <Button
+                          onClick={handleNameSubmit}
+                          disabled={loading}
+                          endIcon={
+                            loading ? (
+                              <CircularProgress
+                                size={20}
+                                sx={{ color: "white" }}
+                              />
+                            ) : null
+                          }
+                          sx={{
+                            bgcolor: "#3b82f6",
+                            color: "white",
+                            fontWeight: 600,
+                            py: 2.5,
+                            px: 4,
+                            borderRadius: 3,
+                            flex: 1,
+                            fontSize: "1rem",
+                            textTransform: "none",
+                            boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)",
+                            "&:hover": {
+                              bgcolor: "#2563eb",
+                              boxShadow: "0 6px 16px rgba(59, 130, 246, 0.4)",
+                            },
+                            "&:disabled": {
+                              bgcolor: "#e5e7eb",
+                              color: "#9ca3af",
+                              boxShadow: "none",
+                            },
+                          }}
+                        >
+                          {loading ? "Processing..." : "Continue"}
+                        </Button>
+                      </Box>
+                    </motion.div>
+                  )}
+
+                  {step === 3 && (
                     <motion.div
                       key="otp"
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -50 }}
-                      transition={{ duration: 0.25 }}
+                      transition={transition}
                     >
                       <Typography
                         variant="h4"
@@ -294,20 +426,11 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                             value={digit}
                             maxLength={1}
                             onChange={(e) => {
-                              const value = e.target.value
+                              const val = e.target.value
                                 .replace(/\D/g, "")
                                 .slice(0, 1);
-                              handleOtpChange(value, index);
-                              setOtp((prev) => {
-                                const newOtp = [...prev];
-                                newOtp[index] = value;
-                                return newOtp;
-                              });
 
-                              // Move focus to next input if filled
-                              if (value && index < otp.length - 1) {
-                                otpRefs.current[index + 1]?.focus();
-                              }
+                              handleOtpChange(val, index);
                             }}
                             onKeyDown={(e) => {
                               if (e.key === "Backspace") {
@@ -397,6 +520,7 @@ const LoginModal = ({ open, onClose, onLogin }) => {
                       </Box>
                     </motion.div>
                   )}
+
                   {error && (
                     <Typography
                       sx={{

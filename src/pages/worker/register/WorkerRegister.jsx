@@ -71,7 +71,6 @@ export default function WorkerRegister() {
     try {
       await saveCompleteProfile(formData);
       setSubmissionStatus({ loading: false, success: true, error: "" });
-      fetch
       navigate(RouteProvider.WORKER_HOME);
     } catch (err) {
       setSubmissionStatus({
