@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import { useState } from "react";

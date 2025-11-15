@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import { socialLinks, quickLinks, contactInfo, stats } from "@/components/Desktop/Footer/constants";
-import AboutModal from "@/components/Desktop/Footer/components/About";
-import HelpSupportModal from "@/components/Desktop/Footer/components/Help&Support";
-import PrivacyPolicyModal from "@/components/Desktop/Footer/components/PrivacyPolicy";
-import TermsModal from "./components/TermsModal";
+import AboutModal from "@/components/Desktop/Footer/Components/About";
+import HelpSupportModal from "@/components/Desktop/Footer/Components/Help&Support";
+import PrivacyPolicyModal from "@/components/Desktop/Footer/Components/PrivacyPolicy";
+import TermsModal from "./Components/TermsModal";
 
 const Footer = () => {
   const navigate = useNavigate();

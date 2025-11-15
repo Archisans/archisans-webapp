@@ -15,7 +15,7 @@ import {
 import { BellIcon } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { RouteProvider } from "@/config/RouteProvider";
-import WorkerCard from "./components/WorkerCard";
+import WorkerCard from "./Components/WorkerCard";
 
 const SearchWorker = ({ workers }) => {
   const navigate = useNavigate();

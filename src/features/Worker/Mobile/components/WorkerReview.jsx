@@ -11,7 +11,7 @@ import {
   MenuItem,
   CircularProgress,
 } from "@mui/material";
-import WorkerReviewCard from "@/features/Worker/Mobile/components/WorkerReviewCard";
+import WorkerReviewCard from "@/features/Worker/Mobile/Components/WorkerReviewCard";
 import { useWorkerReview } from "@/hooks/useWorkerReview";
 
 const WorkerReview = ({ workerId }) => {

@@ -9,8 +9,8 @@ import {
   FormHelperText,
   InputLabel,
 } from "@mui/material";
-import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
-import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
+import BottomButton from "@/features/WorkerForm/Mobile/Components/BottomButton";
+import TopProgressBar from "@/features/WorkerForm/Mobile/Components/TopProgressBar";
 import { usePersonalInfoForm, sanitizeInput } from "../utils/workerFormLogic";
 import { GENDER_OPTIONS } from "../utils/constants";
 

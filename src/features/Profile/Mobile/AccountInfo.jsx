@@ -14,7 +14,7 @@ import {
   Divider,
   Stack,
 } from "@mui/material";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 import { useUser } from "@/context/UserContext";
 import { useState } from "react";
 

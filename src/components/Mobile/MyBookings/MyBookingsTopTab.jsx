@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Tabs, Tab, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, TextField, Rating, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { TabContext, TabPanel } from "@mui/lab";
-import BookingCard from "./mobMyBookingscard";
+import BookingCard from "./MyBookingscard";
 import { bookingsData } from "@/components/Desktop/MyBookings/BookingsData";
 
 const MobMyBookingsTopTab = () => {

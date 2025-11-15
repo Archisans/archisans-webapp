@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import WorkerHeader from "./components/WorkerHeader";
-import WorkerServices from "./components/WorkerService";
-import WorkerAdvertisment from "./components/WorkerAdvertisment";
+import WorkerHeader from "./Components/WorkerHeader";
+import WorkerServices from "./Components/WorkerService";
+import WorkerAdvertisment from "./Components/WorkerAdvertisment";
 
 const WorkerDashboard = ({ worker }) => {
   const navigate = useNavigate();

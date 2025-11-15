@@ -15,7 +15,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "@/hooks/useSearch";
-import MobServiceCategoryList from "@/components/Mobile/mobServiceCategoryList";
+import MobServiceCategoryList from "@/components/Mobile/ServiceCategoryList";
 
 const Search = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();

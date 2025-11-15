@@ -1,7 +1,7 @@
 import { Grid, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import MobHeading from "@/components/Mobile/mobileHeading";
-import MobServiceCategoryList from "@/components/Mobile/mobServiceCategoryList";
+import MobHeading from "@/components/Mobile/MobileHeading";
+import MobServiceCategoryList from "@/components/Mobile/ServiceCategoryList";
 
 const Services = ({ services, title }) => {
   const navigate = useNavigate();

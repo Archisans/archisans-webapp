@@ -1,7 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import MobMyBookings from "@/features/Bookings/Mobile/mobmyBookings";
+import MobMyBookings from "@/features/Bookings/Mobile/MyBookings";
 import MyBookings from "@/features/Bookings/MyBookings";
 
 export default function Bookings() {

@@ -1,6 +1,6 @@
 import { Grid, } from '@mui/material';
-import MobHeading from "@/components/Mobile/mobileHeading"
-import MobNotificationTopTab from "@/components/Mobile/mobNotification/mobNotificationTopTab"
+import MobHeading from "@/components/Mobile/MobileHeading"
+import MobNotificationTopTab from "@/components/Mobile/Notification/NotificationTopTab"
 
 const MobNotifications = () => {
     return (

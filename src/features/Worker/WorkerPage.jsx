@@ -1,11 +1,11 @@
 import { Grid, Box, Container, Fab, Zoom } from "@mui/material";
 import { useUser } from "@/context/UserContext";
-import WorkerServices from "@/features/Worker/components/WorkerServices";
-import WorkerReview from "@/features/Worker/components/WorkerReview";
-import WorkerJoin from "./components/WorkerJoin";
-import WorkerOverview from "@/features/Worker/components/WorkerOverview";
-import WorkerBusiness from "@/features/Worker/components/WorkerBusiness";
-import WorkerEdit from "./components/WorkerEdit";
+import WorkerServices from "@/features/Worker/Components/WorkerServices";
+import WorkerReview from "@/features/Worker/Components/WorkerReview";
+import WorkerJoin from "./Components/WorkerJoin";
+import WorkerOverview from "@/features/Worker/Components/WorkerOverview";
+import WorkerBusiness from "@/features/Worker/Components/WorkerBusiness";
+import WorkerEdit from "./Components/WorkerEdit";
 import { useWorkerReview } from "@/hooks/useWorkerReview";
 
 const Workerpage = ({ worker }) => {

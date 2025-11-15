@@ -3,7 +3,7 @@ import BottomTabBar from "@/components/Mobile/BottomTabBar";
 import { RouteProvider } from "@/config/RouteProvider";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import WorkerSideBar from "@/features/WorkerPage/components/WorkerSideBar";
+import WorkerSideBar from "@/features/WorkerPage/Components/WorkerSideBar";
 import TopBar from "@/components/Desktop/TopBar";
 
 const SIDEBAR_WIDTH = 250;

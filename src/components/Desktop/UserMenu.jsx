@@ -17,7 +17,7 @@ import {
   MENU_TEXT_STYLE,
 } from "@/components/Desktop/Constants/SideDrawer";
 import AccountInfoModal from "@/features/Profile/AccountInfoModal";
-import HelpSupportModal from "@/components/Desktop/Footer/components/Help&Support";
+import HelpSupportModal from "@/components/Desktop/Footer/Components/Help&Support";
 import { useUser } from "@/context/UserContext";
 import LogoutModal from "../LogoutModal";
 

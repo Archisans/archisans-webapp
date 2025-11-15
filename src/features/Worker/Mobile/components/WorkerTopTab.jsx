@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
-import MobWorkerServices from "@/features/Worker/Mobile/components/WorkerServices";
-import MobWorkerBusiness from "@/features/Worker/Mobile/components/WorkerBusiness";
-import WorkerReview from "@/features/Worker/Mobile/components/WorkerReview";
-import MobWorkerAbout from "@/features/Worker/Mobile/components/WorkerAbout";
+import MobWorkerServices from "@/features/Worker/Mobile/Components/WorkerServices";
+import MobWorkerBusiness from "@/features/Worker/Mobile/Components/WorkerBusiness";
+import WorkerReview from "@/features/Worker/Mobile/Components/WorkerReview";
+import MobWorkerAbout from "@/features/Worker/Mobile/Components/WorkerAbout";
 import WorkerSocialMediaLinks from "./WorkerSocialMediaLinks";
 
 const MobWorkerTopTab = ({ worker }) => {

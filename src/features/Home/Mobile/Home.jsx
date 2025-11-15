@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { KeyboardArrowDownOutlined } from "@mui/icons-material";
-import ScrollToTopButton from "./Components/scrollToTopButton";
+import ScrollToTopButton from "./Components/ScrollToTopButton";
 import SearchBar from "./Components/SearchBar";
 import ArchisansWorker from "@/assets/Images/ArchisansWorker.png";
 import Top_Home_Img from "@/assets/Images/Top_Home_Img.png";

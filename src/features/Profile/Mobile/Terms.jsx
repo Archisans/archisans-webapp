@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Divider } from "@mui/material";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 import { TERMS_CONTENT } from "@/components/Desktop/Footer/constants";
 
 const TermsMobile = () => {

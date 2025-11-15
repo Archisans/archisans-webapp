@@ -8,7 +8,7 @@ import {
   Switch,
   styled,
 } from "@mui/material";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 
 // iOS-style Switch
 const IOSSwitch = styled((props) => (

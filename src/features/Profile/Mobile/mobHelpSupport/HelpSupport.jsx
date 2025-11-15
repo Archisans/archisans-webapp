@@ -3,7 +3,7 @@ import { Grid, Box, Typography, IconButton, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { supportData } from "@/components/Desktop/Footer/constants";
 import { motion } from "framer-motion";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 
 const MobHelpSupportCard = ({ icon, title, subtitle, href }) => {
   return (

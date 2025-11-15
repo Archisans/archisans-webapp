@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Divider, AppBar, Toolbar, IconButton } from "@mui/material";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 import { useNavigate } from "react-router-dom";
 import { privacyData } from "@/components/Desktop/Footer/constants";
 

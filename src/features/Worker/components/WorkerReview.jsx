@@ -11,7 +11,7 @@ import {
   Divider,
   CircularProgress,
 } from "@mui/material";
-import WorkerReviewCard from "@/features/Worker/components/WorkerReviewCard";
+import WorkerReviewCard from "@/features/Worker/Components/WorkerReviewCard";
 import { useWorkerReview } from "@/hooks/useWorkerReview";
 
 const WorkerReview = ({ workerId }) => {

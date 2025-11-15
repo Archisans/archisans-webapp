@@ -11,33 +11,32 @@ import icon from "@/assets/Images/Archi.png";
 
 // Pages - User
 import Home from "./pages/Home";
-import Search from "./pages/search/Search";
-import Services from "./pages/services/Services";
-import Workers from "./pages/workers/Workers";
-import WorkerInfo from "./pages/worker/info/WorkerInfo";
-import SavedAddress from "./pages/address/saved/Address";
-import AddAddress from "./pages/address/AddAddress";
-import Profile from "./pages/profile/Profile";
-import Bookings from "./pages/bookings/Bookings";
-import Info from "./pages/bookings/info";
-import Settings from "./pages/settings/Settings";
-import Notification from "./pages/settings/notification/Notification";
-import Premium from "./pages/premium/Premium";
-import Support from "./pages/support/Support";
-import Terms from "./pages/terms/Terms";
-import PrivacyPolicy from "./pages/privacypolicy/PrivacyPolicy";
-import About from "./pages/about/About";
-import SavedWorker from "./pages/savedworkers/SavedWorker";
+import Search from "./pages/Search/Search";
+import Services from "./pages/Services/Services";
+import Workers from "./pages/Workers/Workers";
+import WorkerInfo from "./pages/Worker/Info/WorkerInfo";
+import SavedAddress from "./pages/Address/Saved/Address";
+import AddAddress from "./pages/Address/AddAddress";
+import Profile from "./pages/Profile/Profile";
+import Bookings from "./pages/Bookings/Bookings";
+import Info from "./pages/Bookings/Info/Index";
+import Settings from "./pages/Settings/Settings";
+import Notification from "./pages/Settings/Notification/Notification";
+import Support from "./pages/Support/Support";
+import Terms from "./pages/Terms/Terms";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import About from "./pages/About/About";
+import SavedWorker from "./pages/SavedWorkers/SavedWorker";
 
 // Pages - Worker
-import Worker from "./pages/worker/Worker";
-import WorkerRegister from "./pages/worker/register/WorkerRegister";
-import AssignedWorks from "./pages/worker/assigned/works/AssignedWorks";
-import WorkerWorkInfo from "./pages/worker/work/info/WorkerWorkInfo";
-import WorkerProfile from "./pages/worker/profile/WorkerProfile";
-import WorkerPortfolio from "./pages/worker/protfolio/WorkerPortfolio";
-import WorkerAvailability from "./pages/worker/availability/WorkerAvailability";
-import ServiceDetails from "./pages/worker/service/details/ServiceDetails";
+import Worker from "./pages/Worker/Worker";
+import WorkerRegister from "./pages/Worker/Register/WorkerRegister";
+import AssignedWorks from "./pages/Worker/Assigned/Works/AssignedWorks";
+import WorkerWorkInfo from "./pages/Worker/Work/Info/WorkerWorkInfo";
+import WorkerProfile from "./pages/Worker/Profile/WorkerProfile";
+import WorkerPortfolio from "./pages/Worker/Portfolio/WorkerPortfolio";
+import WorkerAvailability from "./pages/Worker/Availability/WorkerAvailability";
+import ServiceDetails from "./pages/Worker/Service/Details/ServiceDetails";
 
 // Error pages
 import NotFound from "@/error/404/NotFound";
@@ -67,7 +66,6 @@ function App() {
           <Route path={RouteProvider.USER_SERVICES} element={<Services />} />
           <Route path={RouteProvider.USER_SERVICES_ALL} element={<Services />} />
           <Route path={RouteProvider.USER_SETTINGS} element={<Settings />} />
-          <Route path={RouteProvider.USER_PREMIUM} element={<Premium />} />
           <Route path={RouteProvider.USER_SUPPORT} element={<Support />} />
           <Route path={RouteProvider.USER_TERMS} element={<Terms />} />
           <Route

@@ -15,7 +15,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PersonIcon from "@mui/icons-material/Person";
 import BuildIcon from "@mui/icons-material/Build";
 import PhoneIcon from "@mui/icons-material/Phone";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 
 const MobWorkDetails = () => {
   const location = useLocation();

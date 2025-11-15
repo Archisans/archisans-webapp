@@ -1,8 +1,8 @@
 import React from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import MobHelpSupport from "@/features/Profile/Mobile/mobHelpSupport/mobHelpSupport";
-import HelpSupportModal from "@/components/Desktop/Footer/components/Help&Support";
+import MobHelpSupport from "@/features/Profile/Mobile/mobHelpSupport/HelpSupport";
+import HelpSupportModal from "@/components/Desktop/Footer/Components/Help&Support";
 import { useNavigate } from "react-router-dom";
 
 export default function Support() {

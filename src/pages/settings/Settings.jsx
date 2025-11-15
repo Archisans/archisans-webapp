@@ -1,7 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import MobSettings from "@/features/Settings/mobSettings";
+import MobSettings from "@/features/Settings/Settings";
 
 export default function Settings() {
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);

@@ -13,7 +13,7 @@ import {
   Avatar,
 } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
-import MobHeading from '@/components/Mobile/mobileHeading';
+import MobHeading from '@/components/Mobile/MobileHeading';
 
 const ServiceCustomize = ({ serviceTitle = 'Service' }) => {
   const [formData, setFormData] = useState({

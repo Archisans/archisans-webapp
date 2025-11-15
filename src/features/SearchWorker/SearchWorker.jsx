@@ -6,7 +6,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import WorkerCard from "@/features/SearchWorker/components/WorkerCard";
+import WorkerCard from "@/features/SearchWorker/Components/WorkerCard";
 
 const SearchWorker = ({ workers = [], loading = false }) => {
   const navigate = useNavigate();

@@ -3,10 +3,10 @@ import { Box, Typography, Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { motion } from "framer-motion";
 
-import MobHeading from "@/components/Mobile/mobileHeading";
-import PortfolioUpload from "./components/PortfolioUpload";
-import WorkSampleCard from "./components/WorkSampleCard";
-import WorkSampleForm from "./components/WorkSampleForm";
+import MobHeading from "@/components/Mobile/MobileHeading";
+import PortfolioUpload from "./Components/PortfolioUpload";
+import WorkSampleCard from "./Components/WorkSampleCard";
+import WorkSampleForm from "./Components/WorkSampleForm";
 
 import arImage from "@/assets/Images/ar.jpg";
 import sampleVideo from "@/assets/Images/sample.mp4";

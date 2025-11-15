@@ -3,7 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
 import TermsMobile from "@/features/Profile/Mobile/Terms";
 import { useNavigate } from "react-router-dom";
-import TermsModal from "@/components/Desktop/Footer/components/TermsModal";
+import TermsModal from "@/components/Desktop/Footer/Components/TermsModal";
 
 export default function Terms() {
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);

@@ -1,6 +1,6 @@
 import { Box, Typography, IconButton, TextField } from "@mui/material";
-import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
-import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
+import BottomButton from "@/features/WorkerForm/Mobile/Components/BottomButton";
+import TopProgressBar from "@/features/WorkerForm/Mobile/Components/TopProgressBar";
 import { AddPhotoAlternate, Edit, Delete } from "@mui/icons-material";
 
 const WorkerForm4 = ({ formData, updateFormData, next, back }) => {

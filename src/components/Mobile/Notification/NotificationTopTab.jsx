@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Box, Tab, Tabs, Grid, useTheme } from "@mui/material";
 import { TabContext, TabPanel } from "@mui/lab";
 
-import MobNotificationList from "./mobNotificationList";
+import MobNotificationList from "./NotificationList";
 import {
   allNotifications,
   bookingNotifications,
   systemNotifications,
-} from "./mobNotificationData";
+} from "./NotificationData";
 
 const MobNotificationTopTab = () => {
   const [value, setValue] = useState("0");

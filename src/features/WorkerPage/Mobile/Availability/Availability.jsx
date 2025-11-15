@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { ArrowBack, ArrowForward, Close } from "@mui/icons-material";
 import dayjs from "dayjs";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 import { STATES,WEEKDAYS } from "./constant";
 
 const Availability = () => {

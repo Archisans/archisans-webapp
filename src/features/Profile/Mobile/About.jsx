@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Stack, Divider } from "@mui/material";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 
 const AboutMobile = () => {
     return (

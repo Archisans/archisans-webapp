@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import MobMyWorksTopBar from './components/mobMyWorksTopBar';
-import MobHeading from '@/components/Mobile/mobileHeading';
+import MobHeading from '@/components/Mobile/MobileHeading';
 
 const MobMyWorks = () => {
   return (

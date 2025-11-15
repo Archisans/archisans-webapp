@@ -1,6 +1,6 @@
 import { Box, TextField, InputAdornment } from "@mui/material";
-import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
-import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
+import BottomButton from "@/features/WorkerForm/Mobile/Components/BottomButton";
+import TopProgressBar from "@/features/WorkerForm/Mobile/Components/TopProgressBar";
 import { sanitizeInput } from "../utils/workerFormLogic";
 import { Instagram, Facebook, YouTube, LinkedIn } from "@mui/icons-material";
 

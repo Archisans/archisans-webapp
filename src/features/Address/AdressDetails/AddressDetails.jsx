@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MobHeading from "@/components/Mobile/mobileHeading";
+import MobHeading from "@/components/Mobile/MobileHeading";
 import {
   Box,
   Button,

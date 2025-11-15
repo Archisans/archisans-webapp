@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import WorkerTopTab from "@/features/Worker/Mobile/components/WorkerTopTab";
+import WorkerTopTab from "@/features/Worker/Mobile/Components/WorkerTopTab";
 import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
 import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";

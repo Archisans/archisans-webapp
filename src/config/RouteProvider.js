@@ -11,7 +11,6 @@ export const RouteProvider = {
   USER_SETTINGS: "/settings",
   USER_SETTINGS_NOTIFICATION: "/settings/notification",
   USER_PROFILE_EDIT: "/profile/edit",
-  USER_PREMIUM: "/premium",
   USER_SUPPORT: "/support",
   USER_TERMS: "/terms",
   USER_ABOUT:"/about",

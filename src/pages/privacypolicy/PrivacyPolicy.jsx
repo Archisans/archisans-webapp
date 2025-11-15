@@ -3,7 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
 import PrivacyPolicyMobile from "@/features/Profile/Mobile/PrivacyPolicy";
 import { useNavigate } from "react-router-dom";
-import PrivacyPolicyModal from "@/components/Desktop/Footer/components/PrivacyPolicy";
+import PrivacyPolicyModal from "@/components/Desktop/Footer/Components/PrivacyPolicy";
 
 export default function PrivacyPolicy() {
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);

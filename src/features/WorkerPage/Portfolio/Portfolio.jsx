@@ -9,9 +9,9 @@ import {
   Divider,
 } from "@mui/material";
 
-import PortfolioUpload from "./components/PortfolioUpload";
-import WorkSampleCard from "./components/WorkSampleCard";
-import WorkSampleForm from "./components/WorkSampleForm";
+import PortfolioUpload from "./Components/PortfolioUpload";
+import WorkSampleCard from "./Components/WorkSampleCard";
+import WorkSampleForm from "./Components/WorkSampleForm";
 
 import arImage from "@/assets/Images/ar.jpg";
 import sampleVideo from "@/assets/Images/sample.mp4";

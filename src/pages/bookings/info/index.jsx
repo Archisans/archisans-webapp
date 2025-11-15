@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import MobBookingInfo from "@/features/Bookings/Mobile/mobBookingInfo";
+import MobBookingInfo from "@/features/Bookings/Mobile/BookingInfo";
 import { useNavigate } from "react-router-dom";
 
 export default function Info() {
