@@ -1,12 +1,14 @@
-import { Grid, Box, Container, Fab, Zoom } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { useUser } from "@/context/UserContext";
+import { useWorkerReview } from "@/hooks/useWorkerReview";
 import WorkerServices from "@/features/Worker/components/WorkerServices";
 import WorkerReview from "@/features/Worker/components/WorkerReview";
 import WorkerJoin from "./components/WorkerJoin";
 import WorkerOverview from "@/features/Worker/components/WorkerOverview";
 import WorkerBusiness from "@/features/Worker/components/WorkerBusiness";
 import WorkerEdit from "./components/WorkerEdit";
-import { useWorkerReview } from "@/hooks/useWorkerReview";
+import MoreWorkers from "./components/MoreWorkers";
+import WorkerAds from "./components/WorkerAds";
 
 const Workerpage = ({ worker }) => {
   const { user, isWorker } = useUser();
@@ -45,8 +47,8 @@ const Workerpage = ({ worker }) => {
             }}
           >
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <WorkerOverview 
-                worker={worker} 
+              <WorkerOverview
+                worker={worker}
                 userId={user?.id}
                 onReviewAdded={handleReviewAdded}
               />
@@ -76,6 +78,8 @@ const Workerpage = ({ worker }) => {
                 location={worker.location}
               />
             )}
+            <WorkerAds />
+            <MoreWorkers />
           </Box>
         </Box>
       </Container>
