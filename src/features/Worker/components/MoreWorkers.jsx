@@ -18,7 +18,7 @@ const MoreWorkers = () => {
           mt: 2,
         }}
       >
-        {workers.map((worker, index) => (
+        {workers.slice(0, 4).map((worker, index) => (
           <Paper
             key={index}
             sx={{
