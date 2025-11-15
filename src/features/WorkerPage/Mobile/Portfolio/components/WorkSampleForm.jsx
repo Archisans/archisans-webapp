@@ -1,209 +1,207 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Paper,
+  Typography,
   Grid,
   TextField,
   Button,
-  Typography,
-  Box,
-  MenuItem,
+  Stack,
   Divider,
+  IconButton,
+  Box
 } from "@mui/material";
-import { PhotoCamera, VideoLibrary, Add } from "@mui/icons-material";
+import { PhotoCamera, Delete } from "@mui/icons-material";
 
-const WorkSampleForm = ({ onSave, onCancel }) => {
+const WorkSampleForm = ({ onSave, onCancel, existingData }) => {
   const [newSample, setNewSample] = useState({
     title: "",
     type: "",
     location: "",
     clientNumber: "",
     photos: [],
-    videos: [],
     videoLinks: [""],
+    driveLink: "",   // Single drive link
   });
 
-  const workTypes = ["Electrical", "Plumbing", "Painting", "Carpentry", "Masonry"];
+  useEffect(() => {
+    if (existingData) setNewSample(existingData);
+  }, [existingData]);
 
-  const handleWorkChange = (field, value) => {
+  const handleChange = (field, value) => {
     setNewSample((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleFileUpload = (e, field) => {
+  const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
-    handleWorkChange(field, [...newSample[field], ...files]);
+    handleChange("photos", [...newSample.photos, ...files]);
   };
 
-  const handleSaveNewSample = () => {
-    onSave && onSave(newSample);
+  const updateListField = (field, index, value) => {
+    const list = [...newSample[field]];
+    list[index] = value;
+    handleChange(field, list);
+  };
+
+  const addNewField = (field) => {
+    handleChange(field, [...newSample[field], ""]);
+  };
+
+  const removeField = (field, index) => {
+    handleChange(
+      field,
+      newSample[field].filter((_, i) => i !== index)
+    );
   };
 
   return (
-    <Paper
-      sx={{
-        p: 4,
-        borderRadius: 3,
-        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-        background: "#fff",
-        maxWidth: 700,
-        mx: "auto",
-      }}
-      elevation={3}
-    >
-      {/* Header */}
-      <Typography
-        variant="h6"
-        sx={{
-          fontWeight: 500,
-          mb: 3,
-          textAlign: "center",
-          color: "#333",
-        }}
-      >
-        Add New Work Details
+    <Box sx={{ p: 1 }}> 
+      {/* Title */}
+      <Typography variant="h6" fontWeight={700} mb={2}>
+        {existingData ? "Edit Work Sample" : "Add Work Sample"}
       </Typography>
-      <Divider sx={{ mb: 3 }} />
 
-      {/* Form Fields */}
-      <Grid container spacing={2}>
-        {/* Title */}
+      {/* Basic Fields */}
+      <Grid container spacing={2} mb={1}>
         <Grid item xs={12}>
           <TextField
-            label="Work Title / Details"
             fullWidth
+            label="Work Title"
             value={newSample.title}
-            onChange={(e) => handleWorkChange("title", e.target.value)}
+            onChange={(e) => handleChange("title", e.target.value)}
           />
         </Grid>
 
-        {/* Type of Work */}
         <Grid item xs={12}>
           <TextField
-            select
-            label="Type of Work"
             fullWidth
+            label="Work Type"
             value={newSample.type}
-            onChange={(e) => handleWorkChange("type", e.target.value)}
-          >
-            {workTypes.map((type) => (
-              <MenuItem key={type} value={type}>
-                {type}
-              </MenuItem>
-            ))}
-          </TextField>
+            onChange={(e) => handleChange("type", e.target.value)}
+          />
         </Grid>
 
-        {/* Location */}
         <Grid item xs={12} sm={6}>
           <TextField
+            fullWidth
             label="Location"
-            fullWidth
             value={newSample.location}
-            onChange={(e) => handleWorkChange("location", e.target.value)}
+            onChange={(e) => handleChange("location", e.target.value)}
           />
         </Grid>
 
-        {/* Contact */}
         <Grid item xs={12} sm={6}>
           <TextField
-            label="Client Contact Number"
             fullWidth
+            label="Client Number"
             value={newSample.clientNumber}
-            onChange={(e) => handleWorkChange("clientNumber", e.target.value)}
+            onChange={(e) => handleChange("clientNumber", e.target.value)}
           />
-        </Grid>
-
-        {/* Photo Upload */}
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" gutterBottom fontWeight={500}>
-            📷 Upload Photos
-          </Typography>
-          <Button
-            variant="outlined"
-            component="label"
-            startIcon={<PhotoCamera />}
-            sx={{ mr: 2 }}
-          >
-            Upload Photos
-            <input
-              type="file"
-              hidden
-              multiple
-              accept="image/*"
-              onChange={(e) => handleFileUpload(e, "photos")}
-            />
-          </Button>
-          <Typography variant="body2" color="text.secondary">
-            {newSample.photos.length} photo(s) selected
-          </Typography>
-        </Grid>
-
-        {/* Video Upload */}
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" gutterBottom fontWeight={500}>
-            🎥 Upload Videos
-          </Typography>
-          <Button
-            variant="outlined"
-            component="label"
-            startIcon={<VideoLibrary />}
-            sx={{ mr: 2 }}
-          >
-            Upload Videos
-            <input
-              type="file"
-              hidden
-              multiple
-              accept="video/*"
-              onChange={(e) => handleFileUpload(e, "videos")}
-            />
-          </Button>
-          <Typography variant="body2" color="text.secondary">
-            {newSample.videos.length} video(s) selected
-          </Typography>
-        </Grid>
-
-        {/* Video Links */}
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" gutterBottom fontWeight={500}>
-            🔗 Video Links
-          </Typography>
-          {newSample.videoLinks.map((link, index) => (
-            <TextField
-              key={index}
-              fullWidth
-              label={`Video Link ${index + 1}`}
-              value={link}
-              sx={{ mb: 1 }}
-              onChange={(e) => {
-                const updated = [...newSample.videoLinks];
-                updated[index] = e.target.value;
-                handleWorkChange("videoLinks", updated);
-              }}
-            />
-          ))}
-          <Button
-            size="small"
-            startIcon={<Add />}
-            onClick={() =>
-              handleWorkChange("videoLinks", [...newSample.videoLinks, ""])
-            }
-          >
-            Add Another Link
-          </Button>
         </Grid>
       </Grid>
 
+      {/* Photos */}
+      <Divider sx={{ my: 2 }} />
+      <Typography fontWeight={600} mb={1}>
+        Photos
+      </Typography>
+
+      <Button variant="contained" component="label" startIcon={<PhotoCamera />}>
+        Upload Photos
+        <input type="file" hidden multiple onChange={handleFileUpload} />
+      </Button>
+
+      <Stack direction="row" spacing={1} mt={1} flexWrap="wrap">
+        {newSample.photos.map((file, i) => {
+          const url =
+            typeof file === "string" ? file : URL.createObjectURL(file);
+
+          return (
+            <Box key={i} sx={{ position: "relative" }}>
+              <img
+                src={url}
+                alt=""
+                style={{
+                  width: 75,
+                  height: 75,
+                  borderRadius: 8,
+                  objectFit: "cover",
+                  border: "1px solid #ddd",
+                }}
+              />
+
+              <IconButton
+                size="small"
+                onClick={() =>
+                  handleChange(
+                    "photos",
+                    newSample.photos.filter((_, idx) => idx !== i)
+                  )
+                }
+                sx={{
+                  position: "absolute",
+                  top: -8,
+                  right: -8,
+                  background: "#fff",
+                  border: "1px solid #ccc",
+                }}
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+            </Box>
+          );
+        })}
+      </Stack>
+
+      {/* Drive Link */}
+      <Divider sx={{ my: 2 }} />
+      <Typography fontWeight={600} mb={1}>
+        Google Drive 
+      </Typography>
+
+      <TextField
+        fullWidth
+        label="Drive Upload Link"
+        value={newSample.driveLink}
+        onChange={(e) => handleChange("driveLink", e.target.value)}
+      />
+
+      {/* Video Links */}
+      <Divider sx={{ my: 2 }} />
+      <Typography fontWeight={600} mb={1}>
+        Video Links
+      </Typography>
+
+      {newSample.videoLinks.map((link, i) => (
+        <Stack direction="row" spacing={1} key={i} mb={1}>
+          <TextField
+            fullWidth
+            label={`Video Link ${i + 1}`}
+            value={link}
+            onChange={(e) => updateListField("videoLinks", i, e.target.value)}
+          />
+
+          {newSample.videoLinks.length > 1 && (
+            <IconButton onClick={() => removeField("videoLinks", i)}>
+              <Delete />
+            </IconButton>
+          )}
+        </Stack>
+      ))}
+
+      <Button variant="text" onClick={() => addNewField("videoLinks")}>
+        + Add Video Link
+      </Button>
+
       {/* Buttons */}
-      <Divider sx={{ my: 3 }} />
-      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
-        <Button variant="outlined" color="inherit" onClick={onCancel}>
+      <Stack direction="row" spacing={2} mt={3} justifyContent="flex-end">
+        <Button variant="outlined" onClick={onCancel}>
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSaveNewSample}>
+
+        <Button variant="contained" onClick={() => onSave(newSample)}>
           Save
         </Button>
-      </Box>
-    </Paper>
+      </Stack>
+    </Box>
   );
 };
 

@@ -2,171 +2,325 @@ import React from "react";
 import {
   Box,
   Typography,
-  Card,
+  Stack,
   Link,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Divider,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { MapPin } from "lucide-react";
-import { projects } from "@/features/Worker/utils/constants";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Video as VideoIcon, FolderOpen, FileText } from "lucide-react";
 
 const MobWorkerPortFolio = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // 🔥 NEW — Portfolio PDF + Portfolio URL
+  const portfolioData = {
+    pdf: "https://drive.google.com/file/d/12pdfexample/view?usp=drive_link",
+    link: "https://worker-portfolio-site.com/profile",
+  };
+
+  const workSamples = [
+    {
+      title: "Interior Design Project",
+      type: "Interior Work",
+      clientNumber: "9876543210",
+      location: "Bangalore, Karnataka",
+
+      photos: [
+        "https://picsum.photos/300/200?random=1",
+        "https://picsum.photos/300/200?random=2",
+      ],
+
+      driveLinks: [
+        "https://drive.google.com/file/d/1AbCdEfGh12345/view?usp=drivesdk",
+      ],
+
+      videoLinks: ["https://youtube.com/watch?v=demo1"],
+    },
+  ];
 
   return (
-    <Box sx={{ pb: 6, px: isMobile ? 1.5 : 3 }}>
-      {/* Section Heading */}
-      <Typography
+    <Box sx={{ p: 1 }}>
+
+      {/* ⭐ TOP PORTFOLIO SECTION (PDF + LINK)                */}
+      <Box
         sx={{
-          fontSize: { xs: 18, sm: 20 },
-          fontWeight: "600",
-          mt: { xs: 3, sm: 4 },
-          mb: { xs: 2, sm: 3 },
-          ml: 2,
-          color: "#050a56ff",
+          mb: 2,
+          p: 2,
+          borderRadius: 1,
+          border: "1px solid #e5e7eb",
+          boxShadow: "0px 1px 4px rgba(0,0,0,0.08)",
+          background: "#ffffff",
         }}
       >
-        My Projects
-      </Typography>
-
-      {projects.map((project, idx) => (
-        <Box key={idx} sx={{ mb: { xs: 2.5, sm: 3 }, mx: { xs: 1, sm: 5 } }}>
-          <Card
+        {/* PDF Section */}
+        <Stack direction="row" spacing={1.4} alignItems="center" sx={{ mb: 1.2 }}>
+          <Box
             sx={{
-              px: { xs: 1.5, sm: 5 },
-              py: { xs: 2, sm: 4 },
-              borderRadius: 1.5,
-              boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-              backgroundColor: "#ffffff",
+              height: 30,
+              borderRadius: "6px",
+              background: "#eef2ff",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {/* Title */}
-            <Typography
-              sx={{
-                display: "flex",
-                fontSize: { xs: 15, sm: 17 },
-                fontWeight: 600,
-                mb: { xs: 1, sm: 2 },
-                color: "#111827",
-                justifyContent: "center",
-              }}
-            >
-              {project.title}
-            </Typography>
+            <FileText size={18} color="#4f46e5" />
+          </Box>
 
-            {/* Service + Location + Date */}
-            <Box
+          {portfolioData.pdf ? (
+            <Link
+              href={portfolioData.pdf}
+              target="_blank"
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                mb: { xs: 1.5, sm: 2 },
+                fontSize: 14,
+                color: "#2563eb",
+                fontWeight: 600,
+                display: "block",
+                mt: 0.3,
+                whiteSpace: "normal",
+                overflowWrap: "break-word",
               }}
             >
-              <Typography
-                sx={{
-                  fontSize: { xs: 13, sm: 15 },
-                  fontWeight: 500,
-                  color: "#041060ff",
-                }}
-              >
-                {project.service}
+              View PDF
+            </Link>
+          ) : (
+            <Typography sx={{ fontSize: 13, color: "#9ca3af", mt: 0.3 }}>
+              No PDF uploaded
+            </Typography>
+          )}
+        </Stack>
+
+        <Divider sx={{ my: 1.5 }} />
+
+        {/* Portfolio External Link */}
+        <Stack direction="row" spacing={1.4} alignItems="center">
+          <Box
+            sx={{
+              width: 30,
+              height: 30,
+              borderRadius: "6px",
+              background: "#e0f2fe",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <FolderOpen size={18} color="#0284c7" />
+          </Box>
+
+          {portfolioData.link ? (
+            <Link
+              href={portfolioData.link}
+              target="_blank"
+              sx={{
+                fontSize: 14,
+                fontWeight: 600,
+                color: "#2563eb",
+                mt: 0.3,
+                display: "block",
+                whiteSpace: "normal",
+                overflowWrap: "break-word",
+              }}
+            >
+              Open Portfolio
+            </Link>
+          ) : (
+            <Typography sx={{ fontSize: 13, color: "#9ca3af", mt: 0.3 }}>
+              No link added
+            </Typography>
+          )}
+        </Stack>
+
+      </Box>
+
+
+
+
+      {/* ACCORDION WORK SAMPLES BELOW */}
+
+      {workSamples.map((sample, idx) => (
+        <Accordion
+          key={idx}
+          sx={{
+            mb: 2,
+            borderRadius: 1,
+            overflow: "hidden",
+            border: "1px solid #e5e7eb",
+            boxShadow: "0px 2px 5px rgba(0,0,0,0.06)",
+            "&::before": { display: "none" },
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            sx={{
+              bgcolor: "rgba(238, 239, 247, 0.39)",
+              py: 1.5,
+            }}
+          >
+            <Typography sx={{ color: 'rgb(8, 13, 112)', fontSize: 16, fontWeight: 600 }}>
+              {sample.title}
+            </Typography>
+          </AccordionSummary>
+
+          <AccordionDetails sx={{ p: 2 }}>
+            {/* Details */}
+            <Stack spacing={1.2} sx={{ mb: 2 }}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>Service</Typography>
+                <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
+                  {sample.type}
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" justifyContent="space-between">
+                <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>Phone</Typography>
+                <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
+                  {sample.clientNumber}
+                </Typography>
+              </Stack>
+
+              <Stack direction="row" justifyContent="space-between">
+                <Typography sx={{ fontSize: 13, color: "#6b7280" , fontWeight: 600}}>Location</Typography>
+                <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
+                  {sample.location}
+                </Typography>
+              </Stack>
+            </Stack>
+
+            <Divider sx={{ my: 2 }} />
+
+            {/* Images + Drive Thumbnails */}
+            <Box sx={{ mb: 2 }}>
+              <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
+                Images
               </Typography>
 
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                  <MapPin size={16} color="#0d0651ff" />
-                  <Typography
-                    sx={{ fontSize: { xs: 12, sm: 15 }, color: "#374151" }}
-                  >
-                    {project.location}
-                  </Typography>
-                </Box>
-                <Typography
-                  sx={{ fontSize: { xs: 11, sm: 14 }, color: "#6b7280" }}
-                >
-                  {project.date}
-                </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 1.5,
+                  overflowX: "auto",
+                  pb: 1,
+                  "&::-webkit-scrollbar": { display: "none" },
+                }}
+              >
+                {sample.photos.map((img, i) => (
+                  <Box
+                    key={i}
+                    component="img"
+                    src={img}
+                    alt="project"
+                    sx={{
+                      width: 140,
+                      height: 100,
+                      borderRadius: 2,
+                      objectFit: "cover",
+                      border: "1px solid #e5e7eb",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => window.open(img, "_blank")}
+                  />
+                ))}
               </Box>
             </Box>
 
-            <Divider sx={{ mb: { xs: 1.5, sm: 2 } }} />
+            {/* Google Drive Links */}
 
-            {/* Description */}
-            <Typography
-              sx={{
-                fontSize: { xs: 13, sm: 15 },
-                lineHeight: 1.6,
-                mb: { xs: 1.5, sm: 2 },
-                color: "#374151",
-              }}
-            >
-              {project.description}
-            </Typography>
+            {/* Google Drive Uploads */}
+            <Box sx={{ mt: 2 }}>
+              <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
+                Google Drive Uploads
+              </Typography>
 
-            {/* Images */}
-            <Box
-              sx={{
-                display: "flex",
-                gap: { xs: 1, sm: 1.5 },
-                overflowX: "auto",
-                pb: 1,
-                "&::-webkit-scrollbar": { display: "none" },
-                scrollbarWidth: "none",
-              }}
-            >
-              {project.images?.map((img, imgIdx) => (
-                <Box
-                  key={imgIdx}
-                  component="img"
-                  src={img}
-                  alt="Project"
-                  sx={{
-                    width: { xs: 120, sm: 140 },
-                    height: { xs: 80, sm: 90 },
-                    objectFit: "cover",
-                    borderRadius: 2,
-                    flexShrink: 0,
-                    border: "1px solid #e5e7eb",
-                    boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-                  }}
-                />
+              {sample.driveLinks.map((link, i) => (
+                <Stack key={i} direction="row" spacing={1.4} alignItems="center" sx={{ mb: 1 }}>
+
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: "6px",
+                      background: "#e0f2fe",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FolderOpen size={18} color="#0284c7" />
+                  </Box>
+
+                  <Link
+                    href={link}
+                    target="_blank"
+                    sx={{
+                      fontSize: 14,
+                      color: "#2563eb",
+                      fontWeight: 600,
+                      mt: 0.3,
+                      display: "block",
+                      whiteSpace: "normal",
+                      overflowWrap: "break-word",
+                    }}
+                  >
+                    Open Drive File
+                  </Link>
+                </Stack>
               ))}
             </Box>
 
-            {/* Video Link */}
-            {project.video && (
-              <Box sx={{ mt: 1 }}>
-                <Typography
-                  sx={{
-                    fontSize: { xs: 12, sm: 15 },
-                    fontWeight: 600,
-                    mb: 0.3,
-                    color: "#111827",
-                  }}
-                >
-                  Video:
-                </Typography>
-                <Link
-                  href={project.video}
-                  target="_blank"
-                  rel="noopener"
-                  sx={{
-                    fontSize: { xs: 12, sm: 13 },
-                    color: "#2563eb",
-                    fontWeight: 500,
-                    wordBreak: "break-word",
-                    "&:hover": { textDecoration: "underline" },
-                  }}
-                >
-                  {project.video}
-                </Link>
-              </Box>
-            )}
-          </Card>
-        </Box>
+
+
+            {/* Video Links */}
+            {/* Video Links */}
+            <Box sx={{ mt: 3 }}>
+              <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
+                Video Links
+              </Typography>
+
+              {sample.videoLinks.map((link, i) => (
+                <Stack key={i} direction="row" spacing={1.4} alignItems="center" sx={{ mb: 1 }}>
+
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: "6px",
+                      background: "#fef3c7",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <VideoIcon size={18} color="#d97706" />
+                  </Box>
+
+                  <Link
+                    href={link}
+                    target="_blank"
+                    sx={{
+                      fontSize: 14,
+                      color: "#2563eb",
+                      fontWeight: 600,
+                      mt: 0.3,
+                      display: "block",
+                      whiteSpace: "normal",
+                      overflowWrap: "break-word",
+                    }}
+                  >
+                    Open Video
+                  </Link>
+                </Stack>
+              ))}
+            </Box>
+
+
+          </AccordionDetails>
+        </Accordion>
       ))}
     </Box>
   );

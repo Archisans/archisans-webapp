@@ -5,6 +5,7 @@ import MobWorkerBusiness from "@/features/Worker/Mobile/components/WorkerBusines
 import WorkerReview from "@/features/Worker/Mobile/components/WorkerReview";
 import MobWorkerAbout from "@/features/Worker/Mobile/components/WorkerAbout";
 import WorkerSocialMediaLinks from "./WorkerSocialMediaLinks";
+import MobWorkerPortFolio from "./WorkerPortFolio";
 
 const MobWorkerTopTab = ({ worker }) => {
   const [value, setValue] = useState(0);
@@ -22,6 +23,10 @@ const MobWorkerTopTab = ({ worker }) => {
     {
       label: "Services",
       component: <MobWorkerServices services={worker.services} />,
+    },
+    {
+      label: "Portfolio",
+      component: <MobWorkerPortFolio />,
     },
     ...(hasCompany
       ? [
@@ -53,7 +58,6 @@ const MobWorkerTopTab = ({ worker }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "10vh",
       }}
     >
       {/* Tabs Header */}
