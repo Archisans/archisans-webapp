@@ -34,14 +34,6 @@ export default function WorkerRegister() {
     if (profile.isWorker) {
       navigate(RouteProvider.WORKER_HOME);
     }
-
-    const isProfileComplete = profile.fullName && profile.imageUrl;
-
-    if (!isProfileComplete) {
-      navigate(RouteProvider.USER_PROFILE, {
-        state: { message: "Please complete your profile to continue" },
-      });
-    }
   }, [profile]);
 
   const [formData, setFormData] = useState({
@@ -71,7 +63,6 @@ export default function WorkerRegister() {
     try {
       await saveCompleteProfile(formData);
       setSubmissionStatus({ loading: false, success: true, error: "" });
-      fetch
       navigate(RouteProvider.WORKER_HOME);
     } catch (err) {
       setSubmissionStatus({

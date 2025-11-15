@@ -117,7 +117,6 @@ export const UserProvider = ({ children }) => {
           .update({
             first_name: profileData.firstName,
             last_name: profileData.lastName,
-            phone_number: profileData.phoneNumber,
           })
           .eq("id", user.id);
 
@@ -148,8 +147,7 @@ export const UserProvider = ({ children }) => {
   );
 
   const handleImageUpload = useCallback(
-    async (e) => {
-      const file = e.target.files?.[0];
+    async (file) => {
       if (!file || !user?.id) return;
 
       const validationError = validateImage(file);
