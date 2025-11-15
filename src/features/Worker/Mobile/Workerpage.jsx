@@ -143,7 +143,7 @@ const Workerpage = ({ worker }) => {
           mt={2}
         >
           {/* Add Review */}
-          {worker.userId !== user.id && (
+          {!user?.id || worker.userId !== user.id && (
             <Button
               fullWidth
               variant="contained"
