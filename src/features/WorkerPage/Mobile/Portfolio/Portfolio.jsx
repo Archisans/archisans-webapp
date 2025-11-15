@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, Button, Modal } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { motion } from "framer-motion";
 
@@ -7,135 +7,135 @@ import MobHeading from "@/components/Mobile/mobileHeading";
 import PortfolioUpload from "./components/PortfolioUpload";
 import WorkSampleCard from "./components/WorkSampleCard";
 import WorkSampleForm from "./components/WorkSampleForm";
+import EditWorkSample from "./components/EditWorkSample";
 
 import arImage from "@/assets/Images/ar.jpg";
 import sampleVideo from "@/assets/Images/sample.mp4";
 
-const workTypes = ["Plumbing", "Electrical", "Construction", "Painting", "Other"];
-
 const Portfolio = () => {
   const [portfolioFile, setPortfolioFile] = useState(null);
   const [portfolioLink, setPortfolioLink] = useState("");
+
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+
   const [workSamples, setWorkSamples] = useState([
-    { title: "Residential Plumbing Project", type: "Plumbing", location: "New York, NY", photos: [arImage, arImage, arImage], videos: [sampleVideo], videoLinks: ["https://youtu.be/example1"], clientNumber: "+1 555 123 4567", edit: false },
-    { title: "Office Electrical Installation", type: "Electrical", location: "San Francisco, CA", photos: [arImage], videos: [sampleVideo], videoLinks: ["https://youtu.be/example2"], clientNumber: "+1 555 987 6543", edit: false },
-    { title: "Luxury Apartment Painting", type: "Painting", location: "Los Angeles, CA", photos: [arImage], videos: [sampleVideo], videoLinks: [], clientNumber: "+1 555 654 3210", edit: false },
+    {
+      title: "Residential Plumbing Project",
+      type: "Plumbing",
+      location: "New York, NY",
+      photos: [arImage, arImage, arImage],
+      videos: [sampleVideo],
+      videoLinks: ["https://youtu.be/example1"],
+      clientNumber: "+1 555 123 4567",
+      driveLink: "",
+    },
+    {
+      title: "Office Electrical Installation",
+      type: "Electrical",
+      location: "San Francisco, CA",
+      photos: [arImage],
+      videos: [sampleVideo],
+      videoLinks: ["https://youtu.be/example2"],
+      clientNumber: "+1 555 987 6543",
+      driveLink: "",
+    },
   ]);
 
-  const editRefs = useRef([]);
+  // ➤ Open Add Modal
+  const handleAddWorkSample = () => setOpenAddModal(true);
 
-  const handleWorkChange = (index, field, value) => {
-    const updated = [...workSamples];
-    updated[index][field] = value;
-    setWorkSamples(updated);
+  // ➤ Open Edit Modal
+  const handleEditWorkSample = (index) => {
+    setEditIndex(index);
+    setOpenEditModal(true);
   };
 
-  const handleFileUpload = (e, index, field) => {
-    const files = Array.from(e.target.files);
-    const updated = [...workSamples];
-    updated[index][field] = [...updated[index][field], ...files];
-    setWorkSamples(updated);
+  // ➤ Save new sample
+  const handleSaveNew = (sample) => {
+    setWorkSamples([...workSamples, sample]);
+    setOpenAddModal(false);
   };
 
-  const handleRemoveFile = (index, field, fileIndex) => {
-    const updated = [...workSamples];
-    updated[index][field] = updated[index][field].filter((_, i) => i !== fileIndex);
-    setWorkSamples(updated);
+  // ➤ Save edited sample
+  const handleUpdateSample = (updatedSample) => {
+    const temp = [...workSamples];
+    temp[editIndex] = updatedSample;
+    setWorkSamples(temp);
+    setOpenEditModal(false);
   };
 
-  const handleAddWorkSample = () => {
-    setWorkSamples([...workSamples, { title: "", type: "", location: "", photos: [], videos: [], videoLinks: [""], clientNumber: "", edit: true }]);
-    setTimeout(() => {
-      const lastIndex = workSamples.length;
-      editRefs.current[lastIndex]?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
-  };
-
+  // ➤ Remove a work sample
   const handleRemoveWorkSample = (index) => {
-    const updated = [...workSamples];
-    updated.splice(index, 1);
-    setWorkSamples(updated);
+    setWorkSamples(workSamples.filter((_, i) => i !== index));
   };
 
-  const toggleEditMode = (index, mode) => {
-    const updated = [...workSamples];
-    updated[index].edit = mode;
-    setWorkSamples(updated);
-    if (mode) setTimeout(() => editRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  const modalStyle = {
+    width: "90%",
+    maxHeight: "90vh",
+    overflowY: "auto",
+    background: "white",
+    borderRadius: 2,
+    p: 2,
+    boxShadow: 4,
+    margin: "auto",
+    mt: 4,
   };
 
   return (
     <Box sx={{ p: 2, maxWidth: 1300, mx: "auto" }}>
       <MobHeading Heading="My Portfolio" />
 
-      <PortfolioUpload portfolioFile={portfolioFile} setPortfolioFile={setPortfolioFile} portfolioLink={portfolioLink} setPortfolioLink={setPortfolioLink} />
+      <PortfolioUpload
+        portfolioFile={portfolioFile}
+        setPortfolioFile={setPortfolioFile}
+        portfolioLink={portfolioLink}
+        setPortfolioLink={setPortfolioLink}
+      />
 
-      <Box
-  sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    mb: 2, // optional margin-bottom for spacing
-  }}
->
-  <Typography  sx={{fontSize:20, fontWeight: 500 }}>
-    My Projects
-  </Typography>
+      {/* HEADER */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+        <Typography sx={{ fontSize: 20, fontWeight: 500 }}>My Projects</Typography>
+        <Button
+          variant="contained"
+          size="small"
+          startIcon={<Add />}
+          onClick={handleAddWorkSample}
+          sx={{ fontSize: 13, px: 1.5, py: 0.8 }}
+        >
+          Add Project
+        </Button>
+      </Box>
 
-  <Button
-  variant="contained"
-  size="small"
-  startIcon={<Add />}
-  onClick={handleAddWorkSample}
-  sx={{
-    fontSize: 13,
-    textTransform: "none",
-    px: 1.5,
-    py: 0.8,
-  }}
->
-  Add Project
-</Button>
-</Box>
-      {/* Edit/Add Forms */}
-      <Box sx={{ mt: 3, display: "flex", flexDirection: "column", gap: 3 }}>
-        {workSamples.map((sample, index) => sample.edit && (
-          <WorkSampleForm key={index} sample={sample} index={index} editRefs={editRefs} handleWorkChange={handleWorkChange} handleFileUpload={handleFileUpload} handleRemoveFile={handleRemoveFile} toggleEditMode={toggleEditMode} workTypes={workTypes} />
+      {/* WORK SAMPLE CARDS */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 3, py: 2 }}>
+        {workSamples.map((sample, index) => (
+          <motion.div key={index} style={{ width: "100%" }}>
+            <WorkSampleCard
+              sample={sample}
+              index={index}
+              handleRemoveWorkSample={handleRemoveWorkSample}
+              toggleEditMode={() => handleEditWorkSample(index)}
+            />
+          </motion.div>
         ))}
       </Box>
 
-{/* Vertical List */}
-<Box
-  sx={{
-    display: "flex",
-    flexDirection: "column",
-    gap: 3,
-    py: 2,
-  }}
->
-  {workSamples.map(
-    (sample, index) =>
-      !sample.edit && (
-        <motion.div
-          key={index}
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <WorkSampleCard
-            sample={sample}
-            index={index}
-            toggleEditMode={toggleEditMode}
-            handleRemoveFile={handleRemoveFile}
-            handleRemoveWorkSample={handleRemoveWorkSample}
-          />
-        </motion.div>
-      )
-  )}
-</Box>
+      {/* ADD MODAL */}
+      <Modal open={openAddModal} onClose={() => setOpenAddModal(false)}>
+        <Box sx={modalStyle}>
+          <WorkSampleForm onSave={handleSaveNew} onCancel={() => setOpenAddModal(false)} />
+        </Box>
+      </Modal>
 
+      {/* EDIT MODAL */}
+      <EditWorkSample
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+        data={editIndex !== null ? workSamples[editIndex] : null}
+        onSave={handleUpdateSample}
+      />
     </Box>
   );
 };
