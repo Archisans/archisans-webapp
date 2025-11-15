@@ -8,7 +8,7 @@ const EditWorkSample = ({ open, onClose, data, onSave }) => (
     onClose={onClose}
     sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
   >
-    <Box sx={{ width: "95%", maxHeight: "90vh", overflowY: "auto", background: "white", borderRadius: 2, p:1.5 }}>
+    <Box sx={{ width: "90%", maxHeight: "90vh", overflowY: "auto", background: "white", borderRadius: 1, p:1.5 }}>
       <WorkSampleForm existingData={data} onSave={onSave} onCancel={onClose} />
     </Box>
   </Modal>

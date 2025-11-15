@@ -29,7 +29,7 @@ const Portfolio = () => {
       videos: [sampleVideo],
       videoLinks: ["https://youtu.be/example1"],
       clientNumber: "+1 555 123 4567",
-      driveLink: "",
+      driveLink: "https://drive.google.com/yourfile",
     },
     {
       title: "Office Electrical Installation",
@@ -39,7 +39,7 @@ const Portfolio = () => {
       videos: [sampleVideo],
       videoLinks: ["https://youtu.be/example2"],
       clientNumber: "+1 555 987 6543",
-      driveLink: "",
+      driveLink: "https://drive.google.com/yourfile",
     },
   ]);
 

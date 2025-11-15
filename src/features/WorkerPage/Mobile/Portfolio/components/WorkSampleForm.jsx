@@ -53,7 +53,7 @@ const WorkSampleForm = ({ onSave, onCancel, existingData }) => {
   };
 
   return (
-    <Box sx={{ p: 1 }}> 
+    <Box sx={{ p: 1 ,maxHeight: "90vh",}}> 
       {/* Title */}
       <Typography variant="h6" fontWeight={700} mb={2}>
         {existingData ? "Edit Work Sample" : "Add Work Sample"}
@@ -192,7 +192,7 @@ const WorkSampleForm = ({ onSave, onCancel, existingData }) => {
       </Button>
 
       {/* Buttons */}
-      <Stack direction="row" spacing={2} mt={3} justifyContent="flex-end">
+      <Stack direction="row" spacing={2} mt={3} pb={2} justifyContent="flex-end">
         <Button variant="outlined" onClick={onCancel}>
           Cancel
         </Button>
