@@ -35,6 +35,7 @@ export default function AccountInfo({ message }) {
   const handleSave = async () => {
     const ok = await handleSaveProfile(draftProfile);
     if (ok) {
+      if (message) navigate(-1);
       setEdit(true);
     }
   };
