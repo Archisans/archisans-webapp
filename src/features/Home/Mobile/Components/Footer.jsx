@@ -18,27 +18,25 @@ export default function Footer() {
       sx={{
         bgcolor: "#e0e0eca9",
         color: "black",
-        mt: 3,
-        pt: 4,
-        pb: 3,
-        px: 2,
+        mt: 2,
+        pt: 2,
+        pb: 1.5,
+        px: 1.5,
       }}
     >
-      <Grid container spacing={5}>
+      <Grid container spacing={1.5}>
         {/* Company Section */}
         <Grid xs={12} sm={6} md={3}>
           <Typography
-            fontSize={16}
-            sx={{ mb: 2, fontWeight: 500, color: "black" }}
+            fontSize={15}
+            sx={{ mb: 1, fontWeight: 600, color: "black" }}
           >
             Company
           </Typography>
-          <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 2 }}>
-            <Link
-              href={RouteProvider.USER_TERMS}
-              color="black"
-              underline="hover"
-            >
+          <Box
+            sx={{ display: "flex", px: 0.5, flexDirection: "column", gap: 0.5 }}
+          >
+            <Link href={RouteProvider.USER_TERMS} color="black" underline="hover">
               Terms & Conditions
             </Link>
             <Link
@@ -48,69 +46,72 @@ export default function Footer() {
             >
               Privacy Policy
             </Link>
-            <Link
-              href={RouteProvider.USER_ABOUT}
-              color="black"
-              underline="hover"
-            >
+            <Link href={RouteProvider.USER_ABOUT} color="black" underline="hover">
               About Us
             </Link>
           </Box>
         </Grid>
 
         {/* Contact Section */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Typography
-            fontSize={16}
-            sx={{ mb: 2, fontWeight: 500, color: "black" }}
+            fontSize={15}
+            sx={{ mb: 1, fontWeight: 600, color: "black" }}
           >
             Contact Us
           </Typography>
-          <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 2 }}>
+          <Box
+            sx={{ display: "flex", px: 0.5, flexDirection: "column", gap: 0.5 }}
+          >
             <Link
               href="tel:+919876543210"
               color="black"
               underline="none"
-              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              sx={{ display: "flex", alignItems: "center", gap: 0.7 }}
             >
-              <Phone size={18} /> +91 9876543210
+              <Phone size={16} /> +91 9876543210
             </Link>
             <Link
               href="mailto:archisans2025@gmail.com"
               color="black"
               underline="none"
-              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              sx={{ display: "flex", alignItems: "center", gap: 0.7 }}
             >
-              <Mail size={18} /> archisans2025@gmail.com
+              <Mail size={16} /> archisans2025@gmail.com
             </Link>
             <Link
               href="https://wa.me/8129509544"
               color="black"
               underline="none"
-              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              sx={{ display: "flex", alignItems: "center", gap: 0.7 }}
             >
-              <MessageCircle size={18} /> WhatsApp
+              <MessageCircle size={16} /> WhatsApp
             </Link>
           </Box>
         </Grid>
 
-        {/* Register / Call to Action */}
+        {/* Register Section */}
         {!isWorker && (
           <Grid xs={12} sm={6} md={3}>
             <Typography
-              fontSize={16}
-              sx={{ mb: 2, fontWeight: 500, color: "black" }}
+              fontSize={15}
+              sx={{ mb: 1, fontWeight: 600, color: "black" }}
             >
               Become a Professional
             </Typography>
-            <Typography sx={{ fontSize: 14, mb: 3, color: "black" }}>
-              Join our platform and expand your business. Register as a
-              professional today.
+            <Typography sx={{ fontSize: 13, mb: 1.5, color: "black" }}>
+              Join our platform and expand your business.
             </Typography>
             <Button
               variant="outlined"
               onClick={() => navigate(RouteProvider.WORKER_REGISTER)}
-              sx={{ color: "black", borderColor: "black" }}
+              sx={{
+                color: "black",
+                borderColor: "black",
+                fontSize: 13,
+                py: 0.3,
+                px: 1.5,
+              }}
             >
               Register Now
             </Button>
@@ -119,15 +120,22 @@ export default function Footer() {
       </Grid>
 
       {/* Social Media */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 4 }}>
-        <IconButton href="#" sx={{ color: "black" }}>
-          <FacebookIcon />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 0.5,
+          mt: 2,
+        }}
+      >
+        <IconButton href="#" sx={{ color: "black", p: 0.8 }}>
+          <FacebookIcon fontSize="small" />
         </IconButton>
-        <IconButton href="#" sx={{ color: "black" }}>
-          <TwitterIcon />
+        <IconButton href="#" sx={{ color: "black", p: 0.8 }}>
+          <TwitterIcon fontSize="small" />
         </IconButton>
-        <IconButton href="#" sx={{ color: "black" }}>
-          <InstagramIcon />
+        <IconButton href="#" sx={{ color: "black", p: 0.8 }}>
+          <InstagramIcon fontSize="small" />
         </IconButton>
       </Box>
 
@@ -135,8 +143,8 @@ export default function Footer() {
       <Box
         sx={{
           textAlign: "center",
-          mt: 3,
-          fontSize: 12,
+          mt: 1.5,
+          fontSize: 11.5,
           color: "black",
           opacity: 0.8,
         }}
