@@ -65,6 +65,7 @@ import {
   EXPERIENCE_YEARS,
   RATE_BASIS_OPTIONS,
 } from "./utils/constants";
+import PortfolioDesktop from "../WorkerPage/Portfolio/Portfolio";
 
 const WorkerForm = ({
   formData,
@@ -1878,9 +1879,7 @@ const WorkerForm = ({
                 );
               })
             )}
-          </Paper>
-
-            <PortfolioDesktop/>          
+          </Paper>       
 
           {/* Submit Button */}
           <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 4 }}>

@@ -8,6 +8,9 @@ import WorkerJoin from "./components/WorkerJoin";
 import WorkerOverview from "@/features/Worker/components/WorkerOverview";
 import WorkerBusiness from "@/features/Worker/components/WorkerBusiness";
 import WorkerEdit from "./components/WorkerEdit";
+import WorkerAvailability from "./components/WorkerAvailability";
+import MoreWorkers from "./components/MoreWorkers";
+import WorkerAds from "./components/WorkerAds";
 
 const Workerpage = ({ worker }) => {
   const { isWorker } = useUser();
@@ -69,13 +72,14 @@ const Workerpage = ({ worker }) => {
   >
     {!isWorker ? <WorkerJoin /> : <WorkerEdit />}
     {<WorkerBusiness company={worker.company} location={worker.location} />}
+    <WorkerAds/>
+    <MoreWorkers/>
   </Box>
 </Box>
 
-
       </Container>
 
-      <Zoom in={showScroll}>
+      {/* <Zoom in={showScroll}>
         <Fab
           size="small"
           onClick={scrollToTop}
@@ -91,7 +95,7 @@ const Workerpage = ({ worker }) => {
         >
           <KeyboardArrowUp />
         </Fab>
-      </Zoom>
+      </Zoom> */}
     </Box>
   );
 };
