@@ -22,6 +22,7 @@ export const WorkerProvider = ({ children }) => {
     handleSaveProfile,
     handleImageUpload: handleProfileImageUpload,
     isWorker,
+    setIsWorker,
   } = useUser();
   const [worker, setWorker] = useState({
     personal: {},
@@ -200,6 +201,7 @@ export const WorkerProvider = ({ children }) => {
           .eq("id", user.id);
 
         if (profileUpdateError) throw profileUpdateError;
+        setIsWorker(true);
       }
 
       return data;
@@ -397,7 +399,6 @@ export const WorkerProvider = ({ children }) => {
         await handleSaveProfile({ firstName, lastName });
       }
 
-      console.log(personal);
       if (personal.imageUrl != profile.imageUrl) {
         await handleProfileImageUpload(personal.file);
       }

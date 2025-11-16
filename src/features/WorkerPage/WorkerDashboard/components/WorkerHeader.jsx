@@ -3,7 +3,6 @@ import { Edit as EditIcon, Verified } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
 
 const WorkerHeader = ({ navigate, worker }) => {
-  console.log(worker)
   return (
     <Box sx={{ mb: 4, position: "relative" }}>
       <Box sx={{ position: "relative", overflow: "hidden", borderRadius: 3 }}>

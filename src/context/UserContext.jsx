@@ -33,9 +33,15 @@ export const UserProvider = ({ children }) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [isWorker, setIsWorker] = useState(profile?.isWorker || false);
 
   const isSignedIn = !!user;
-  const isWorker = profile?.isWorker || false;
+
+  useEffect(() => {
+    if (profile) {
+      setIsWorker(profile.isWorker);
+    }
+  }, [profile]);
 
   useEffect(() => {
     const initSession = async () => {
@@ -204,6 +210,7 @@ export const UserProvider = ({ children }) => {
         success,
         isSignedIn,
         isWorker,
+        setIsWorker,
         handleSaveProfile,
         handleImageUpload,
         fetchProfile,
