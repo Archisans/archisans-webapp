@@ -13,13 +13,20 @@ import {
   Box,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { WhatsappLogoIcon, FacebookLogoIcon,  TelegramLogoIcon,  LinkSimpleBreakIcon } from "@phosphor-icons/react";
+import {
+  WhatsappLogoIcon,
+  FacebookLogoIcon,
+  TelegramLogoIcon,
+  LinkSimpleBreakIcon,
+} from "@phosphor-icons/react";
 
 const ShareModal = ({ open, onClose, url }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleShareClick = (platform) => {
+  const handleShareClick = (e, platform) => {
+    e.stopPropagation(); // Prevent card click
+
     let shareURL = "";
 
     switch (platform) {
@@ -33,7 +40,8 @@ const ShareModal = ({ open, onClose, url }) => {
         shareURL = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
         break;
       case "copy":
-        navigator.clipboard.writeText(url)
+        navigator.clipboard
+          .writeText(url)
           .then(() => alert("URL copied!"))
           .catch(() => alert("Failed to copy URL"));
         return;
@@ -81,7 +89,7 @@ const ShareModal = ({ open, onClose, url }) => {
       {shareOptions.map((option) => (
         <Stack key={option.key} direction="column" alignItems="center" spacing={0.5}>
           <IconButton
-            onClick={() => handleShareClick(option.key)}
+            onClick={(e) => handleShareClick(e, option.key)}
             sx={{
               bgcolor: option.color,
               "&:hover": { bgcolor: option.color },
@@ -95,14 +103,14 @@ const ShareModal = ({ open, onClose, url }) => {
       ))}
     </Stack>
   );
-  
 
+  // Mobile Drawer
   if (isMobile) {
     return (
       <Drawer
         anchor="bottom"
         open={open}
-        onClose={onClose}
+        onClose={(e) => { e.stopPropagation(); onClose(); }}
         ModalProps={{ keepMounted: true }}
         PaperProps={{
           sx: {
@@ -115,7 +123,10 @@ const ShareModal = ({ open, onClose, url }) => {
       >
         {/* Close Button */}
         <IconButton
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
           sx={{
             position: "absolute",
             top: 8,
@@ -146,13 +157,19 @@ const ShareModal = ({ open, onClose, url }) => {
     );
   }
 
-  // Desktop modal
+  // Desktop Dialog
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      open={open}
+      onClose={(e) => { e.stopPropagation(); onClose(); }}
+    >
       <DialogTitle>
         Share via
         <IconButton
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
           sx={{ position: "absolute", top: 8, right: 8 }}
         >
           <CloseIcon />
