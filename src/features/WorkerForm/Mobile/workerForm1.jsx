@@ -57,8 +57,6 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
     updateFormData("personal", { ...personal, [field]: value });
   };
 
-  console.log(errors, touched);
-
   return (
     <Box
       sx={{

@@ -5,6 +5,25 @@ import { useState, useCallback, useMemo } from "react";
 // ============================================
 
 export const validators = {
+  fullName: (value) => {
+    if (!value?.trim()) return "Full name is required";
+    if (value.trim().length < 3)
+      return "Full name must be at least 3 characters";
+    if (!/^[A-Za-z\s]+$/.test(value))
+      return "Full name can only contain letters and spaces";
+    return "";
+  },
+
+  imageUrl: (value) => {
+    if (!value) return "Profile image is required";
+    try {
+      new URL(value);
+      return "";
+    } catch {
+      return "Invalid image URL";
+    }
+  },
+
   aadhaar: (value) => {
     if (!value) return "Aadhaar is required";
     if (!/^\d{12}$/.test(value)) return "Aadhaar must be 12 digits";
@@ -167,7 +186,7 @@ export const usePersonalInfoForm = () => {
   const isPersonalInfoValid = useCallback((data) => {
     return !!(
       data.fullName?.trim() &&
-      data.fullName.trim().length >= 2 &&
+      data.fullName.trim().length >= 3 &&
       data.imageUrl &&
       data.aadhaar?.match(/^\d{12}$/) &&
       data.dob &&

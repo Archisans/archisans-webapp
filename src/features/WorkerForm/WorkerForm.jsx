@@ -743,7 +743,7 @@ const WorkerForm = ({
                 />
               </Box>
 
-              {touched.imageUrl && errors.imageUrl && (
+              {touched.imageUrl && !!personalForm.errors.imageUrl && (
                 <FormHelperText error sx={{ mt: 1, textAlign: "center" }}>
                   {errors.imageUrl}
                 </FormHelperText>
