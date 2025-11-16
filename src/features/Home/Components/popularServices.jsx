@@ -84,7 +84,7 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
               viewport={{ once: true }}
             >
               <Card
-                onClick={() => navigate(service.link)}
+                // onClick={() => navigate(service.link)}
                 sx={{
                   height: 210, // reduced from 280
                   borderRadius: 1,

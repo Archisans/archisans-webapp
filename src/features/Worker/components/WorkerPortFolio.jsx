@@ -1,14 +1,15 @@
-import React from "react";
-import { Box, Typography, Paper, Chip } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, Paper, Chip, Button } from "@mui/material";
 import { MapPin } from "lucide-react";
 import { Phone } from "@mui/icons-material";
 
 import { portfolioProjects } from "../constants";
 
 const WorkerPortFolio = () => {
+  const [expanded, setExpanded] = useState(false);
 
-const filteredProjects = portfolioProjects;
-
+  // Show only 2 projects when collapsed
+  const visibleProjects = expanded ? portfolioProjects : portfolioProjects.slice(0, 2);
 
   return (
     <Paper
@@ -24,7 +25,7 @@ const filteredProjects = portfolioProjects;
       </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {filteredProjects.map((project, idx) => (
+        {visibleProjects.map((project, idx) => (
           <Box
             key={idx}
             sx={{
@@ -85,40 +86,50 @@ const filteredProjects = portfolioProjects;
             )}
 
             <Box mt={2}>
-  {project.video ? (
-    <Typography
-      variant="body2"
-      color="#1976d2"
-      sx={{ cursor: "pointer", fontWeight: 500 }}
-      onClick={() => window.open(project.video, "_blank")}
-    >
-      Watch Video
-    </Typography>
-  ) : (
-    <Typography variant="body2" color="#999">
-      Video not available
-    </Typography>
-  )}
+              {project.video ? (
+                <Typography
+                  variant="body2"
+                  color="#1976d2"
+                  sx={{ cursor: "pointer", fontWeight: 500 }}
+                  onClick={() => window.open(project.video, "_blank")}
+                >
+                  Watch Video
+                </Typography>
+              ) : (
+                <Typography variant="body2" color="#999">
+                  Video not available
+                </Typography>
+              )}
 
-  {project.googleDrive ? (
-    <Typography
-      variant="body2"
-      color="#388e3c"
-      sx={{ mt: 1, cursor: "pointer", fontWeight: 500 }}
-      onClick={() => window.open(project.googleDrive, "_blank")}
-    >
-      Navigate to Google Drive
-    </Typography>
-  ) : (
-    <Typography variant="body2" color="#999" sx={{ mt: 1 }}>
-      Drive link not available
-    </Typography>
-  )}
-</Box>
-
+              {project.googleDrive ? (
+                <Typography
+                  variant="body2"
+                  color="#388e3c"
+                  sx={{ mt: 1, cursor: "pointer", fontWeight: 500 }}
+                  onClick={() => window.open(project.googleDrive, "_blank")}
+                >
+                  Navigate to Google Drive
+                </Typography>
+              ) : (
+                <Typography variant="body2" color="#999" sx={{ mt: 1 }}>
+                  Drive link not available
+                </Typography>
+              )}
+            </Box>
           </Box>
         ))}
       </Box>
+
+      {/* Toggle Button */}
+      {portfolioProjects.length > 2 && (
+        <Button
+          variant="text"
+          sx={{ mt: 2, alignSelf: "center" }}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "Show Less" : `Show More (${portfolioProjects.length - 2})`}
+        </Button>
+      )}
     </Paper>
   );
 };
