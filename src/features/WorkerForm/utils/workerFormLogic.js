@@ -54,8 +54,14 @@ export const validators = {
   },
 
   altPhone: (value) => {
-    if (value && !/^(\+91)?\d{10}$/.test(value))
-      return "Alternate Phone must be 10 digits";
+    if (!value) return "";
+
+    // +91 optional, number must start with 6-9 and have 10 digits
+    const regex = /^(?:\+91)?[6-9]\d{9}$/;
+
+    if (!regex.test(value)) {
+      return "Alternate Phone must be 10 digits and start with 6-9";
+    }
     return "";
   },
 
