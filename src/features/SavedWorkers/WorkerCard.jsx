@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { MapPinIcon, StarIcon } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
-import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
+import FavouriteAndShareButton from "@/components/FavouriteAndShareButton/FavouriteAndShareButton";
 
 
 const WorkerCard = ({ worker, navigate, setOpen }) => {

@@ -19,7 +19,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import WorkerTopTab from "@/features/Worker/Mobile/components/WorkerTopTab";
 import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
-import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
+import FavouriteAndShareButton from "@/components/FavouriteAndShareButton/FavouriteAndShareButton";
 import { useWorkerReview } from "@/hooks/useWorkerReview";
 import { useUser } from "@/context/UserContext";
 
