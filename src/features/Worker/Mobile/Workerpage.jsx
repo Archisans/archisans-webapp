@@ -60,9 +60,16 @@ const Workerpage = ({ worker }) => {
               color: "white",
               "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
               zIndex: 2,
+              width: 38,
+              height: 38,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              padding: 0,
             }}
           >
-            <ArrowBackIosIcon sx={{ fontSize: 20 }} />
+            <ArrowBackIosIcon sx={{ fontSize: 20, ml: 0.7 }} />
           </IconButton>
 
           {/* Action Buttons */}

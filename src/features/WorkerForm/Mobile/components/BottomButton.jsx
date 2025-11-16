@@ -10,7 +10,6 @@ const BottomButton = ({ handleNext, label = "Next", disabled = false }) => {
         left: 0,
         right: 0,
         p: 0,
-        zIndex: 10,
         boxSizing: "border-box",
         backgroundColor: "#fff",
       }}
