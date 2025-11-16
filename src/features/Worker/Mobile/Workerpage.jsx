@@ -49,9 +49,14 @@ const Workerpage = ({ worker }) => {
             }}
           />
 
-          {/* Back Button */}
           <IconButton
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1); 
+              } else {
+                navigate("/"); 
+              }
+            }}
             sx={{
               position: "absolute",
               top: 10,
@@ -71,6 +76,7 @@ const Workerpage = ({ worker }) => {
           >
             <ArrowBackIosIcon sx={{ fontSize: 20, ml: 0.7 }} />
           </IconButton>
+
 
           {/* Action Buttons */}
           <Stack
