@@ -25,7 +25,7 @@ const WorkerCard = ({ worker, navigate }) => {
         display: "flex",
         flexDirection: "column",
         height: 400,
-        borderRadius: 3,
+        borderRadius: 1,
         boxShadow: "0 6px 24px rgba(0,0,0,0.08)",
         cursor: "pointer",
         overflow: "hidden",
@@ -34,7 +34,7 @@ const WorkerCard = ({ worker, navigate }) => {
           transform: "translateY(-6px)",
           boxShadow: "0 12px 30px rgba(0,0,0,0.18)",
         },
-        maxWidth: 320, // good for 3–4 cards per row on desktop
+        width: 400,
         mx: "auto",
       }}
       onClick={() =>
