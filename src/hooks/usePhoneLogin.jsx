@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useUser } from "@/context/UserContext";
 
@@ -157,7 +157,7 @@ export const usePhoneLogin = (onLogin) => {
     }
   };
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setStep(1);
     setPhoneNumber("");
     setFirstName("");
@@ -166,7 +166,7 @@ export const usePhoneLogin = (onLogin) => {
     setError("");
     setSuccess(false);
     setLoading(false);
-  };
+  }, []);
 
   return {
     step,

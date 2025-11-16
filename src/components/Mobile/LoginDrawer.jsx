@@ -7,15 +7,15 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { usePhoneLogin } from "@/hooks/usePhoneLogin";
 import { ArrowForward } from "@mui/icons-material";
 
 export default function LoginDrawer({ open, setOpen, height, onLogin }) {
-  const [focus, setFocus] = useState(false);
-  const [keyboardOpen, setKeyboardOpen] = useState(false);
-  const [initialHeight, setInitialHeight] = useState(window.innerHeight);
   const [drawerHeight, setDrawerHeight] = useState(height);
+  const keyboardOpenRef = useRef(false);
+  const initialHeightRef = useRef(window.innerHeight);
+  const resizeTimeoutRef = useRef(null);
 
   const {
     step,
@@ -36,125 +36,97 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
     reset,
   } = usePhoneLogin(onLogin || (() => setOpen(false)));
 
-  useEffect(() => {
-    const calculateDrawerHeight = () => {
-      const contentElement = document.getElementById("login-drawer-content");
-      if (!contentElement) return;
+  const calculateHeight = useCallback(() => {
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    const heightDiff = initialHeightRef.current - viewportHeight;
+    const isKeyboardOpen = heightDiff > 150;
+    
+    keyboardOpenRef.current = isKeyboardOpen;
 
-      const contentHeight = contentElement.scrollHeight;
-      const padding = 48;
-      const minHeight = 300;
-      const maxHeight = window.innerHeight * 0.9;
-
-      let calculatedHeight = contentHeight + padding;
-      calculatedHeight = Math.max(
-        minHeight,
-        Math.min(calculatedHeight, maxHeight)
-      );
-
-      setDrawerHeight(`${calculatedHeight}px`);
-    };
-
-    if (open) {
-      const timer = setTimeout(calculateDrawerHeight, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [open, step, error]);
-
-  useEffect(() => {
-    setInitialHeight(window.innerHeight);
-
-    const updateViewport = () => {
-      const viewportHeight = window.visualViewport
-        ? window.visualViewport.height
-        : window.innerHeight;
-
-      const heightDiff = initialHeight - viewportHeight;
-      const kbOpen = heightDiff > 150;
-      setKeyboardOpen(kbOpen);
-
-      if (focus && kbOpen) {
-        const visibleHeight = viewportHeight;
-        const targetHeight = Math.max(300, visibleHeight - 24);
-        setDrawerHeight(`${targetHeight}px`);
-
-        const active = document.activeElement;
-        if (active && typeof active.scrollIntoView === "function") {
-          setTimeout(() => {
-            try {
-              active.scrollIntoView({ behavior: "smooth", block: "center" });
-            } catch {
-              void 0;
-            }
-          }, 50);
-        }
-      } else {
-        const contentElement = document.getElementById("login-drawer-content");
-        if (contentElement) {
-          const contentHeight = contentElement.scrollHeight;
-          const padding = 48;
-          const minHeight = 300;
-          const maxHeight = window.innerHeight * 0.9;
-
-          let calculatedHeight = contentHeight + padding;
-          calculatedHeight = Math.max(
-            minHeight,
-            Math.min(calculatedHeight, maxHeight)
-          );
-          setDrawerHeight(`${calculatedHeight}px`);
-        }
-      }
-    };
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", updateViewport);
-      window.visualViewport.addEventListener("scroll", updateViewport);
+    if (isKeyboardOpen) {
+      return `${Math.min(viewportHeight * 0.95, viewportHeight - 20)}px`;
     } else {
-      window.addEventListener("resize", updateViewport);
-    }
-    updateViewport();
-
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", updateViewport);
-        window.visualViewport.removeEventListener("scroll", updateViewport);
-      } else {
-        window.removeEventListener("resize", updateViewport);
+      const contentElement = document.getElementById("login-drawer-content");
+      if (contentElement) {
+        const contentHeight = contentElement.scrollHeight;
+        const padding = 48;
+        const minHeight = 300;
+        const maxHeight = window.innerHeight * 0.9;
+        const calculatedHeight = Math.max(minHeight, Math.min(contentHeight + padding, maxHeight));
+        return `${calculatedHeight}px`;
       }
-    };
-  }, [initialHeight, focus, step]);
-
-  useEffect(() => {
-    if (!open) {
-      reset();
     }
-  }, [open]);
+    return height;
+  }, [height]);
+
+  const handleResize = useCallback(() => {
+    if (resizeTimeoutRef.current) {
+      clearTimeout(resizeTimeoutRef.current);
+    }
+    
+    resizeTimeoutRef.current = setTimeout(() => {
+      const newHeight = calculateHeight();
+      setDrawerHeight(newHeight);
+    }, 50);
+  }, [calculateHeight]);
 
   useEffect(() => {
     if (!open) return;
 
-    if (step === 1) {
-      const timer = setTimeout(() => {
-        const phoneInput = document.getElementById("phone-input-drawer");
-        phoneInput?.focus();
-      }, 300);
-      return () => clearTimeout(timer);
+    initialHeightRef.current = window.innerHeight;
+    
+    const viewport = window.visualViewport;
+    if (viewport) {
+      viewport.addEventListener("resize", handleResize);
+    } else {
+      window.addEventListener("resize", handleResize);
     }
 
-    if (step === 2) {
+    handleResize();
+
+    return () => {
+      if (viewport) {
+        viewport.removeEventListener("resize", handleResize);
+      } else {
+        window.removeEventListener("resize", handleResize);
+      }
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, [open, handleResize]);
+
+  useEffect(() => {
+    if (open && !keyboardOpenRef.current) {
       const timer = setTimeout(() => {
-        const firstNameInput = document.getElementById("first-name-drawer");
-        firstNameInput?.focus();
-      }, 300);
+        const newHeight = calculateHeight();
+        setDrawerHeight(newHeight);
+      }, 100);
       return () => clearTimeout(timer);
     }
+  }, [open, step, error, calculateHeight]);
 
-    if (step === 3) {
-      const timer = setTimeout(() => {
+  useEffect(() => {
+    if (!open) {
+      reset();
+      setDrawerHeight(height);
+    }
+  }, [open, height]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const timer = setTimeout(() => {
+      if (step === 1) {
+        document.getElementById("phone-input-drawer")?.focus();
+      } else if (step === 2) {
+        document.getElementById("first-name-drawer")?.focus();
+      } else if (step === 3) {
         otpRefs.current[0]?.focus();
-      }, 300);
-      return () => clearTimeout(timer);
-    }
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [open, step, otpRefs]);
 
   const getTitle = () => {
@@ -179,7 +151,14 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
       headerBar={false}
       closeIcon={true}
     >
-      <Box id="login-drawer-content" sx={{ width: "100%" }}>
+      <Box 
+        id="login-drawer-content" 
+        sx={{ 
+          width: "100%",
+          minHeight: "250px",
+          willChange: "auto"
+        }}
+      >
         <Box sx={{ width: "90%", mx: "auto", textAlign: "center", mb: 0.5 }}>
           <Typography
             sx={{
@@ -211,12 +190,11 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
               fullWidth
               placeholder="Enter 10-digit number"
               type="tel"
+              inputMode="numeric"
               value={phoneNumber}
               onChange={(e) =>
                 setPhoneNumber(e.target.value.replace(/\D/g, "").slice(0, 10))
               }
-              onFocus={() => setFocus(true)}
-              onBlur={() => setFocus(false)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -231,6 +209,7 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "12px",
                   backgroundColor: "#f9fafb",
+                  transition: "background-color 0.2s ease",
                   "&:hover": {
                     backgroundColor: "#fff",
                   },
@@ -297,8 +276,6 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              onFocus={() => setFocus(true)}
-              onBlur={() => setFocus(false)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && firstName.trim().length > 0) {
                   e.preventDefault();
@@ -310,6 +287,7 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "12px",
                   backgroundColor: "#f9fafb",
+                  transition: "background-color 0.2s ease",
                   "&:hover": {
                     backgroundColor: "#fff",
                   },
@@ -327,13 +305,12 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              onFocus={() => setFocus(true)}
-              onBlur={() => setFocus(false)}
               sx={{
                 mt: 2,
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "12px",
                   backgroundColor: "#f9fafb",
+                  transition: "background-color 0.2s ease",
                   "&:hover": {
                     backgroundColor: "#fff",
                   },
@@ -406,6 +383,7 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
                   value={digit}
                   maxLength={1}
                   type="tel"
+                  inputMode="numeric"
                   onChange={(e) => {
                     const val = e.target.value.replace(/\D/g, "").slice(0, 1);
                     handleOtpChange(val, index);
@@ -416,12 +394,11 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
                       if (otp[index] !== "") {
                         handleOtpChange("", index);
                       } else if (index > 0) {
+                        handleOtpChange("", index - 1);
                         otpRefs.current[index - 1]?.focus();
                       }
                     }
                   }}
-                  onFocus={() => setFocus(true)}
-                  onBlur={() => setFocus(false)}
                   style={{
                     width: "15%",
                     height: "50px",
@@ -433,7 +410,7 @@ export default function LoginDrawer({ open, setOpen, height, onLogin }) {
                     color: "#111827",
                     fontWeight: 600,
                     outline: "none",
-                    transition: "all 0.2s",
+                    transition: "border-color 0.2s ease",
                   }}
                 />
               ))}
