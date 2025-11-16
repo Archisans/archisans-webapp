@@ -693,24 +693,35 @@ const WorkerForm = ({
               </Typography>
             </Box>
 
-            <Box display="flex" justifyContent="center" mb={5}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              mb={4}
+            >
               <Box sx={{ position: "relative", display: "inline-block" }}>
                 <Avatar
-                  src={formData?.personal?.imageUrl}
+                  src={formData?.personal.imageUrl}
                   alt="Profile"
                   sx={{
                     width: 110,
                     height: 110,
-                    border: "3px solid #fff",
+                    border:
+                      touched.imageUrl && errors.imageUrl
+                        ? "3px solid #f44336"
+                        : "3px solid #fff",
                   }}
+                  onBlur={() =>
+                    handleBlur("imageUrl", formData?.personal.imageUrl)
+                  }
                 />
 
                 <IconButton
                   onClick={() => profileImageInputRef.current?.click()}
                   sx={{
                     position: "absolute",
-                    bottom: 0,
-                    right: 0,
+                    bottom: 4,
+                    right: 4,
                     backgroundColor: "white",
                     width: 34,
                     height: 34,
@@ -723,7 +734,6 @@ const WorkerForm = ({
                   <Camera size={18} strokeWidth={2} />
                 </IconButton>
 
-                {/* Hidden file input */}
                 <input
                   ref={profileImageInputRef}
                   type="file"
@@ -732,6 +742,12 @@ const WorkerForm = ({
                   onChange={handleProfileImageChange}
                 />
               </Box>
+
+              {touched.imageUrl && errors.imageUrl && (
+                <FormHelperText error sx={{ mt: 1, textAlign: "center" }}>
+                  {errors.imageUrl}
+                </FormHelperText>
+              )}
             </Box>
 
             <Grid container spacing={3}>

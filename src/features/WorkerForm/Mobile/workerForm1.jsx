@@ -57,6 +57,8 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
     updateFormData("personal", { ...personal, [field]: value });
   };
 
+  console.log(errors, touched);
+
   return (
     <Box
       sx={{
@@ -80,7 +82,7 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
         />
 
         {/* Avatar + camera icon */}
-        <Box display="flex" justifyContent="center" mb={5}>
+        <Box display="flex" flexDirection="column" alignItems="center" mb={4}>
           <Box sx={{ position: "relative", display: "inline-block" }}>
             <Avatar
               src={personal.imageUrl}
@@ -88,16 +90,20 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
               sx={{
                 width: 110,
                 height: 110,
-                border: "3px solid #fff",
+                border:
+                  touched.imageUrl && errors.imageUrl
+                    ? "3px solid #f44336"
+                    : "3px solid #fff",
               }}
+              onBlur={() => handleBlur("imageUrl", personal.imageUrl)}
             />
 
             <IconButton
               onClick={openFilePicker}
               sx={{
                 position: "absolute",
-                bottom: 0,
-                right: 0,
+                bottom: 4,
+                right: 4,
                 backgroundColor: "white",
                 width: 34,
                 height: 34,
@@ -110,7 +116,6 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
               <Camera size={18} strokeWidth={2} />
             </IconButton>
 
-            {/* Hidden file input */}
             <input
               ref={fileInputRef}
               type="file"
@@ -119,6 +124,12 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
               onChange={handleProfileImageChange}
             />
           </Box>
+
+          {touched.imageUrl && errors.imageUrl && (
+            <FormHelperText error sx={{ mt: 1, textAlign: "center" }}>
+              {errors.imageUrl}
+            </FormHelperText>
+          )}
         </Box>
 
         {/* Full Name */}
