@@ -79,7 +79,7 @@ const Workerpage = ({ worker }) => {
               />
             )}
             <WorkerAds />
-            <MoreWorkers />
+            {/* <MoreWorkers /> */}
           </Box>
         </Box>
       </Container>
