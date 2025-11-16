@@ -26,16 +26,16 @@ export const MENU_ITEMS = [
     icon: <AccountCircleIcon />,
     action: "accountInfo",
   },
-  {
-    label: "Saved Workers",
-    icon: <BookmarkIcon />,
-    to: RouteProvider.USER_SAVED_WORKERS,
-  },
-  {
-    label: "Saved Address",
-    icon: <LocationOnIcon />,
-    to: RouteProvider.USER_ADDRESS_SAVED,
-  },
+  // {
+  //   label: "Saved Workers",
+  //   icon: <BookmarkIcon />,
+  //   to: RouteProvider.USER_SAVED_WORKERS,
+  // },
+  // {
+  //   label: "Saved Address",
+  //   icon: <LocationOnIcon />,
+  //   to: RouteProvider.USER_ADDRESS_SAVED,
+  // },
   { divider: true },
   {
     label: "Join as Worker",
