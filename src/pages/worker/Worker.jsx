@@ -7,6 +7,7 @@ import { PageLoader } from "@/components/PageLoader";
 import MobWorkerDashboard from "@/features/WorkerPage/Mobile/WorkerDashboard/WorkerDashboard";
 import DesktopWorkerDashboard from "@/features/WorkerPage/WorkerDashboard/WorkerDashboard";
 import { RouteProvider } from "@/config/RouteProvider";
+import { useEffect } from "react";
 
 export default function Worker() {
   const { isWorker } = useUser();
@@ -14,9 +15,11 @@ export default function Worker() {
   const navigate = useNavigate();
   const isMobile = useMediaQuery(BREAKPOINTS.mobile);
 
-  if (!isWorker) {
-    navigate(RouteProvider.WORKER_REGISTER)
-  }
+  useEffect(() => {
+    if (!isWorker) {
+      navigate(RouteProvider.WORKER_REGISTER)
+    }
+  }, [isWorker]);
 
   if (loading) {
     return <PageLoader />;
