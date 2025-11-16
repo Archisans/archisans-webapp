@@ -42,9 +42,9 @@ export default function PopularServices({ name }) {
           {filteredServices.map((service) => (
             <Box
               key={service.name}
-              // onClick={() =>
-              //   navigate(service.link || RouteProvider.USER_WORKER_SEARCH)
-              // }
+              onClick={() =>
+                navigate(service.link || RouteProvider.USER_WORKER_SEARCH)
+              }
               sx={{
                 flex: "0 0 auto",
                 width: 150,

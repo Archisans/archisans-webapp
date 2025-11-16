@@ -69,7 +69,7 @@ const WorkerDashboard = ({ worker }) => {
           </Box>
 
           <Stack direction="row" spacing={1.5} alignItems="center">
-            <IconButton
+            {/* <IconButton
               onClick={() => navigate(RouteProvider.USER_SETTINGS_NOTIFICATION)}
               sx={{
                 border: "1px solid #E5E7EB",
@@ -78,7 +78,7 @@ const WorkerDashboard = ({ worker }) => {
               }}
             >
               <BellIcon size={20} color="#374151" />
-            </IconButton>
+            </IconButton> */}
             <Avatar
               onClick={() => navigate(RouteProvider.USER_PROFILE)}
               sx={{

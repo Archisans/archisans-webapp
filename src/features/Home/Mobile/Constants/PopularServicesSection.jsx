@@ -33,40 +33,40 @@ import WaterProofing_Img from "@/assets/Images/WaterProofing_Img.png";
 export const PopularServicesSection = {
   
   contract: [
-    { name: "Civil Contractors", icon: Civil_Contractor_Img, link: "/workers/building-contractors" },
+    { name: "Civil Contractors", icon: Civil_Contractor_Img, link: "/workers/civil-contractors" },
     { name: "Interior Contractors", icon: InteriorDesignerImg, link: "/workers/electrical-contractors" },
-    { name: "Rooofing Contractors", icon: Roofing_Contractor_Img, link: "/workers/plumbing-contractors" },
+    { name: "Rooofing Contractors", icon: Roofing_Contractor_Img, link: "/workers/roofing-contractors" },
     { name: "Painting Contractors", icon: Painters_Img, link: "/workers/plumbing-contractors" },
-    { name: "Excavation Contractors", icon: Excavation_Contractor_Img, link: "/workers/plumbing-contractors" },
+    { name: "Excavation Contractors", icon: Excavation_Contractor_Img, link: "/workers/excavation-contractors" },
   ],
 
   architect: [
     { name: "Architectural Designers", icon: ArchitecturalDesigner, link: "/workers/architectural-designers" },
     { name: "Landscape Architects", icon: LandScapeArchitect, link: "/workers/landscape-architects" },
     { name: "Pool Designers", icon: PoolDesigning, link: "/workers/pool-designers" },
-    { name: "Civil Engineers", icon: CivilEngineer, link: "/workers/pool-designers" },
+    { name: "Civil Engineers", icon: CivilEngineer, link: "/workers/civil-engineers" },
   ],
 
   fabrication: [
-    { name: "Stainless Steel Fabricators", icon: Stainless_Steel_Fabricator_Img, link: "/workers/steel-fabricators" },
-    { name: "Glass Fabricators", icon: Glass_Fabricators_Img, link: "/workers/metal-welders" },
-    { name: "Roofing Specialists", icon: Roofing_Specialist_Img, link: "/workers/metal-welders" },
+    { name: "Stainless Steel Fabricators", icon: Stainless_Steel_Fabricator_Img, link: "/workers/stainless-steel-fabricators" },
+    { name: "Glass Fabricators", icon: Glass_Fabricators_Img, link: "/workers/glass-fabricators" },
+    { name: "Roofing Specialists", icon: Roofing_Specialist_Img, link: "/workers/roofing-specialists" },
   ],
 
   engineering: [
-    { name: "Electrical Engineers", icon: Electrical_Engineer_Img, link: "/workers/civil-engineers" },
-    { name: "Civil Engineers", icon: CivilEngineer, link: "/workers/structural-engineers" },
-    { name: "Geologists", icon: Geologist_Engineer_Img, link: "/workers/structural-engineers" },
+    { name: "Electrical Engineers", icon: Electrical_Engineer_Img, link: "/workers/electrical-engineers" },
+    { name: "Civil Engineers", icon: CivilEngineer, link: "/workers/civil-engineers" },
+    { name: "Geologists", icon: Geologist_Engineer_Img, link: "/workers/geologists" },
     { name: "Structural Engineers", icon: Structural_Engineering_Img, link: "/workers/structural-engineers" },
   ],
 
   artisans: [
-    { name: "Masons", icon: Masons_Img, link: "/workers/interior-designers" },
-    { name: "Carpenters", icon: Carpenters_Img, link: "/workers/sculptors" },
-    { name: "Plumbers", icon: Plumbers_Img, link: "/workers/painters" },
+    { name: "Masons", icon: Masons_Img, link: "/workers/masons" },
+    { name: "Carpenters", icon: Carpenters_Img, link: "/workers/carpenters" },
+    { name: "Plumbers", icon: Plumbers_Img, link: "/workers/plumbers" },
     { name: "Painters", icon: Painters_Img, link: "/workers/painters" },
-    { name: "Electricians", icon: Electrician_Img, link: "/workers/painters" },
-    { name: "WaterProofing Specialists", icon: WaterProofing_Img, link: "/workers/painters" },
+    { name: "Electricians", icon: Electrician_Img, link: "/workers/electricians" },
+    { name: "WaterProofing Specialists", icon: WaterProofing_Img, link: "/workers/waterproofing-specialists" },
   ],
 };
 

@@ -65,7 +65,6 @@ const WorkerForm7 = ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        pb: 10,
         position: "relative",
       }}
     >
@@ -158,12 +157,14 @@ const WorkerForm7 = ({
             </FormHelperText>
           )}
         </Box>
+        <Box sx={{ mb: 8 }}>
+          <BottomButton
+            handleNext={handleNext}
+            disabled={submissionStatus.loading || isSubmitting}
+            label="Submit"
+          />
+        </Box>
 
-        <BottomButton
-          handleNext={handleNext}
-          disabled={submissionStatus.loading || isSubmitting}
-          label="Submit"
-        />
       </Box>
     </Box>
   );

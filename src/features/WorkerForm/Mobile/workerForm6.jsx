@@ -100,13 +100,13 @@ const WorkerForm6 = ({
       return exists
         ? prev.filter((s) => s.id !== service.id)
         : [
-            ...prev,
-            {
-              id: service.id,
-              categoryId: service.categoryId,
-              title: service.title,
-            },
-          ];
+          ...prev,
+          {
+            id: service.id,
+            categoryId: service.categoryId,
+            title: service.title,
+          },
+        ];
     });
   };
 
@@ -236,7 +236,9 @@ const WorkerForm6 = ({
           </DialogActions>
         </Dialog>
 
-        <BottomButton handleNext={handleNext} />
+        <Box sx={{ mb: 8 }}>
+          <BottomButton handleNext={handleNext} />
+        </Box>
       </Box>
     </Box>
   );
