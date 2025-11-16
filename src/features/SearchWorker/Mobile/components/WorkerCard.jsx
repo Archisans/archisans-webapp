@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { MapPinIcon, StarIcon } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
-import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
+import FavouriteAndShareButton from "@/components/FavouriteAndShareButton/FavouriteAndShareButton";
 import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
 const WorkerCard = ({ worker, navigate }) => {
   const theme = useTheme();

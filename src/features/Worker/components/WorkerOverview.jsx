@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Typography, Paper, Avatar, Button, Chip } from "@mui/material";
-import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
+import FavouriteAndShareButton from "@/components/FavouriteAndShareButton/FavouriteAndShareButton";
 import {
   Facebook,
   LinkedIn,

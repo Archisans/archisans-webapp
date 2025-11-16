@@ -29,7 +29,7 @@ import { useNavigate } from "react-router-dom";
 import UserSpecificBooking from "@/features/Bookings/UserSpecificBooking";
 import { RouteProvider } from "@/config/RouteProvider";
 import { WORKERS } from "@/features/SavedWorkers/constants";
-import FavouriteAndShareButton from "@/components/Desktop/FavouriteAndShareButton";
+import FavouriteAndShareButton from "@/components/FavouriteAndShareButton/FavouriteAndShareButton";
 
 
 
