@@ -31,6 +31,7 @@
     "react-calendar": "^5.1.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
+    "react-easy-crop": "^5.5.3",
     "react-router-dom": "^7.6.0",
     "swiper": "^11.2.8"
   },
