@@ -1,13 +1,11 @@
 // PopularServicesStatic.jsx
 import { Box, Typography, Card, CardContent, Chip } from "@mui/material";
 import { motion } from "framer-motion";
-import { Star, TrendingUp } from "@mui/icons-material";
+import { TrendingUp } from "@mui/icons-material";
 import { popularServices } from "@/features/Home/Components/constants/popularServices";
 import { useNavigate } from "react-router-dom";
 
-
 export default function PopularServicesStatic({ onGetStartedClick }) {
-
   const navigate = useNavigate();
 
   return (
@@ -16,9 +14,19 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
         py: { xs: 4, md: 6 },
         background: "linear-gradient(180deg, #f3f4f8ff 10%, #F5F7FB 100%)",
         position: "relative",
+        display: "flex",
+        justifyContent: "center",
       }}
     >
-      <Box sx={{ width: "100%", mx: "auto", px: { xs: 3, md: 6 }, position: "relative", zIndex: 1 }}>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: 1400,
+          px: { xs: 3, md: 6 },
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -66,13 +74,12 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: {
-              xs: "repeat(2, 1fr)",
-              sm: "repeat(3, 1fr)",
-              md: "repeat(4, 1fr)",
-              lg: "repeat(6, 1fr)",
-            },
-            gap: 3,
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", // responsive grid
+            gap: 2,
+            justifyContent: "center",
+            mx: "auto",
+            width: "100%",
+            maxWidth: 1200,
           }}
         >
           {popularServices.map((service, index) => (
@@ -86,7 +93,7 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
               <Card
                 onClick={() => navigate(service.link)}
                 sx={{
-                  height: 210, // reduced from 280
+                  height: 210,
                   borderRadius: 1,
                   overflow: "hidden",
                   cursor: "pointer",
@@ -102,32 +109,25 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                 }}
               >
                 {/* Image Section */}
-              {/* Image Section */}
-<Box
-  sx={{
-    height: 130,
-    position: "relative",
-    overflow: "hidden",
-  }}
->
-  <Box
-    component="img"
-    src={service.icon}
-    alt={service.name}
-    sx={{
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      transition: "transform 0.4s ease",
-    }}
-  />
-
-  
-
- 
-</Box>
-
-
+                <Box
+                  sx={{
+                    height: 130,
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={service.icon}
+                    alt={service.name}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "transform 0.4s ease",
+                    }}
+                  />
+                </Box>
 
                 {/* Content Section */}
                 <CardContent sx={{ p: 2, height: 100 }}>
@@ -142,11 +142,11 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",
                       overflow: "hidden",
+                      textAlign: "center", // center text
                     }}
                   >
                     {service.name}
                   </Typography>
-                  
                 </CardContent>
               </Card>
             </motion.div>
@@ -181,7 +181,7 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                 },
               }}
             >
-              <Typography  sx={{ fontWeight: 700, color: "#1a1a1a", fontSize: "1.1rem" }}>
+              <Typography sx={{ fontWeight: 700, color: "#1a1a1a", fontSize: "1.1rem" }}>
                 Browse All Categories →
               </Typography>
             </Box>
