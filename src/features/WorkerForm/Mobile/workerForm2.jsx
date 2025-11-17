@@ -57,7 +57,7 @@ const WorkerForm2 = ({ formData, updateFormData, next, back }) => {
         />
 
         <TextField
-          label="Alternate Phone Number"
+          label="Alternate Phone Number (Optional)"
           placeholder="Enter your alternate phone number (10-digit)"
           fullWidth
           value={

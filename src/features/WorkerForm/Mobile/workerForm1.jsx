@@ -147,8 +147,8 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
 
         {/* Aadhaar */}
         <TextField
-          label="Aadhaar Number"
-          placeholder="Enter your Aadhaar number"
+          label="Aadhaar Number (Optional)"
+          placeholder="Enter your Aadhaar number (12-digit)"
           fullWidth
           value={personal.aadhaar || ""}
           onChange={(e) =>

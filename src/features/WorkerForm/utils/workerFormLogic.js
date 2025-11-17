@@ -25,7 +25,7 @@ export const validators = {
   },
 
   aadhaar: (value) => {
-    if (!value) return "Aadhaar is required";
+    if (!value) return "";
     if (!/^\d{12}$/.test(value)) return "Aadhaar must be 12 digits";
     return "";
   },
@@ -194,7 +194,7 @@ export const usePersonalInfoForm = () => {
       data.fullName?.trim() &&
       data.fullName.trim().length >= 3 &&
       data.imageUrl &&
-      data.aadhaar?.match(/^\d{12}$/) &&
+      (!data.aadhaar || data.aadhaar?.match(/^\d{12}$/)) &&
       data.dob &&
       data.gender &&
       validators.dob(data.dob) === ""

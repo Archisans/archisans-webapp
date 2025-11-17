@@ -48,6 +48,7 @@ import {
   Edit,
   Delete,
   Description,
+  Badge as AadhaarIcon
 } from "@mui/icons-material";
 import {
   useFormValidation,
@@ -771,7 +772,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Badge sx={{ color: "#94a3b8" }} />
+                        <Person sx={{ color: "#94a3b8" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -785,8 +786,8 @@ const WorkerForm = ({
               <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Aadhaar Number"
-                  placeholder="Enter 12-digit Aadhaar"
+                  label="Aadhaar Number (12-digit)"
+                  placeholder="Optional"
                   value={formData.personal?.aadhaar || ""}
                   onChange={(e) =>
                     handlePersonalChange(
@@ -798,6 +799,13 @@ const WorkerForm = ({
                   inputProps={{ maxLength: 12, inputMode: "numeric" }}
                   error={touched.aadhaar && !!personalForm.errors.aadhaar}
                   helperText={touched.aadhaar && personalForm.errors.aadhaar}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AadhaarIcon sx={{ color: "#94a3b8" }} />
+                      </InputAdornment>
+                    ),
+                  }}
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       borderRadius: 1,
