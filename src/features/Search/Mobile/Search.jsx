@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   Box,
   Typography,
@@ -6,13 +7,7 @@ import {
   IconButton,
   Grid,
 } from "@mui/material";
-import {
-  ArrowBackIos,
-  Search as SearchIcon,
-  Close,
-  ArrowOutward,
-  LocationOnOutlined,
-} from "@mui/icons-material";
+import { Search as SearchIcon, Close, ArrowOutward } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "@/hooks/useSearch";
 import MobServiceCategoryList from "@/components/Mobile/mobServiceCategoryList";
@@ -31,6 +26,16 @@ const Search = ({ bootstrapConfiguration }) => {
     clearSearch,
   } = useSearch(bootstrapConfiguration);
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      inputRef.current?.focus();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleClickService = (slug) => {
     if (slug) {
       navigate("/workers/" + slug);
@@ -43,7 +48,7 @@ const Search = ({ bootstrapConfiguration }) => {
   return (
     <Box pb={2}>
       {/* Header */}
-      <MobMainHeader/>
+      <MobMainHeader />
 
       {/* Search Bar */}
       <Box
@@ -62,6 +67,7 @@ const Search = ({ bootstrapConfiguration }) => {
           onClick={() => executeSearch(query)}
         />
         <InputBase
+          inputRef={inputRef}
           sx={{ fontSize: "14px" }}
           placeholder="Search Services"
           fullWidth
