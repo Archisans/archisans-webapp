@@ -112,6 +112,8 @@ const WorkerForm = ({
     ]
   );
 
+  console.log(contactForm);
+
   const sections = useMemo(
     () => [
       {
@@ -180,7 +182,7 @@ const WorkerForm = ({
   const handlePersonalChange = useCallback(
     (field, value) => {
       updateFormData("personal", { ...formData.personal, [field]: value });
-      if (touched[field]) personalForm.validateField(field, value);
+      personalForm.validateField(field, value);
     },
     [formData.personal, touched, updateFormData, personalForm]
   );
@@ -203,7 +205,7 @@ const WorkerForm = ({
   const handleContactChange = useCallback(
     (field, value) => {
       updateFormData("contact", { ...formData.contact, [field]: value });
-      if (touched[field]) contactForm.validateField(field, value);
+      contactForm.validateField(field, value);
     },
     [formData.contact, touched, updateFormData, contactForm]
   );
