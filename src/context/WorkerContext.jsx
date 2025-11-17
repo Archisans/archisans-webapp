@@ -404,7 +404,7 @@ export const WorkerProvider = ({ children }) => {
       }
 
       const workerPayload = {
-        aadhaar: personal.aadhaar,
+        aadhaar: personal.aadhaar || null,
         dob: personal.dob,
         gender: personal.gender,
         alt_phone_number: formatAltPhone(contact.altPhone),
