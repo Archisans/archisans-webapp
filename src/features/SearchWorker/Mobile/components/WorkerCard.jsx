@@ -77,23 +77,18 @@ const WorkerCard = ({ worker, navigate }) => {
         </Box>
 
         {/* Action Buttons */}
-        <Stack
-          direction="row"
-          spacing={1.5}
-          sx={{ position: "absolute", top: 8, right: 8 }}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            display: "flex",
+            gap: 1,
+          }}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: 7,
-              right: 1,
-              display: "flex",
-              gap: 1,
-            }}
-          >
-            <FavouriteAndShareButton />
-          </Box>
-        </Stack>
+          <FavouriteAndShareButton showShare={false} />
+        </Box>
+
       </Box>
 
       {/* Info Section */}

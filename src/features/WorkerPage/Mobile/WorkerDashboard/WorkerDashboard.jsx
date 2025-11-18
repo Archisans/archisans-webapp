@@ -188,7 +188,7 @@ const WorkerDashboard = ({ worker }) => {
         <Box>
           <Typography
             sx={{
-              px:2,
+              px: 2,
               fontSize: 13,
               fontWeight: 600,
               color: "#6B7280",
@@ -220,7 +220,7 @@ const WorkerDashboard = ({ worker }) => {
                 letterSpacing: "0.05em",
               }}
             >
-              Services ({services.length})
+              My Services ({services.length})
             </Typography>
           </Stack>
 
