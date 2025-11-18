@@ -86,7 +86,9 @@ const WorkerServices = ({ services = [] }) => {
                   minHeight: "3.2em", // ✅ maintain equal height
                 }}
               >
-                {service.title || "No title available"}
+                {(service.title?.endsWith("s")
+                  ? service.title.slice(0, -1)
+                  : service.title) || "No title available"}
               </Typography>
 
               {/* Experience */}
