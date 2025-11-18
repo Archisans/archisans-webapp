@@ -650,13 +650,13 @@ const WorkerForm = ({
               }}
             >
               {registerMode
-                ? "Register as a Worker"
+                ? "Register as a Professional"
                 : "Update Your Work Profile"}
             </Typography>
             <Typography variant="body1" sx={{ color: "#64748b" }}>
               {registerMode
-                ? "Fill in your details below to create your worker profile and start offering your services."
-                : "Update your profile information below to keep your worker details and services up to date."}
+                ? "Fill in your details below to create your professional profile and start offering your services."
+                : "Update your profile information below to keep your professional details and services up to date."}
             </Typography>
           </Box>
 
