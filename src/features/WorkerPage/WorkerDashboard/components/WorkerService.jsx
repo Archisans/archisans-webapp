@@ -87,7 +87,7 @@ const WorkerServices = ({ professions = [] }) => {
                   gutterBottom
                   noWrap
                 >
-                  {s.title}
+                  {s.title?.endsWith("s") ? s.title.slice(0, -1) : s.title}
                 </Typography>
                 {s.experience && (
                   <Typography

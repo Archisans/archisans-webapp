@@ -302,7 +302,7 @@ const WorkerDashboard = ({ worker }) => {
                       mb: 1,
                     }}
                   >
-                    {service.title}
+                    {service.title?.endsWith("s") ? service.title.slice(0, -1) : service.title}
                   </Typography>
                   <Divider sx={{ my: 1.5 }} />
                   <Typography
