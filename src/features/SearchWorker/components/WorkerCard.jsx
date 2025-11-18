@@ -73,7 +73,7 @@ const WorkerCard = ({ worker, navigate }) => {
             zIndex: 2,
           }}
         >
-          <FavouriteAndShareButton />
+          <FavouriteAndShareButton showShare={false} />
         </Box>
 
         {/* Rating Badge */}

@@ -24,10 +24,19 @@ const SearchWorker = ({ workers }) => {
   return (
     <Box sx={{ pb: 8 }}>
       {/* Header */}
-      <Box sx={{mb:4}}>
-      <MobMainHeader backArrow onBack={() => navigate(-1)}/>
+      <Box sx={{ mb: 4 }}>
+        <MobMainHeader
+          backArrow
+          onBack={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
+        />
       </Box>
-     
+
 
       {/* Search Bar */}
       {/* <Box
