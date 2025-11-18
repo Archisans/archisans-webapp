@@ -651,7 +651,7 @@ const WorkerForm = ({
             >
               {registerMode
                 ? "Register as a Worker"
-                : "Update Your Worker Profile"}
+                : "Update Your Work Profile"}
             </Typography>
             <Typography variant="body1" sx={{ color: "#64748b" }}>
               {registerMode

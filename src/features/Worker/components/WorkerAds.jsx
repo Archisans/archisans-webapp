@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper } from "@mui/material";
+import { Paper, Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
 const ads = [
@@ -24,11 +24,31 @@ const WorkerAds = () => {
         borderRadius: 2,
         overflow: "hidden",
         boxShadow: "0 3px 8px rgba(0,0,0,0.08)",
-        height: 200,
+        height: 220,
         position: "relative",
         p: 0,
       }}
     >
+      {/* 🔹 Sponsored Heading */}
+      <Typography
+        variant="caption"
+        sx={{
+          position: "absolute",
+          top: 8,
+          left: 12,
+          bgcolor: "rgba(0,0,0,0.5)",
+          color: "white",
+          px: 1.2,
+          py: 0.2,
+          borderRadius: 1,
+          fontSize: "11px",
+          zIndex: 3,
+        }}
+      >
+        Sponsored
+      </Typography>
+
+      {/* 🔹 Ads */}
       {ads.map((src, index) => (
         <motion.img
           key={index}
@@ -46,6 +66,32 @@ const WorkerAds = () => {
           }}
         />
       ))}
+
+      {/* 🔹 Indicator Dots */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 10,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          gap: 1,
+          zIndex: 5,
+        }}
+      >
+        {ads.map((_, index) => (
+          <Box
+            key={index}
+            sx={{
+              width: 8,
+              height: 8,
+              bgcolor: index === current ? "white" : "rgba(255,255,255,0.5)",
+              borderRadius: "50%",
+              transition: "0.3s",
+            }}
+          />
+        ))}
+      </Box>
     </Paper>
   );
 };
