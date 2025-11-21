@@ -6,17 +6,11 @@ import GavelIcon from "@mui/icons-material/Gavel";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import HelpIcon from "@mui/icons-material/Help";
 import EngineeringIcon from "@mui/icons-material/Engineering";
+import WorkIcon from "@mui/icons-material/Work";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {RouteProvider} from "@/config/RouteProvider";
 
 export const DRAWER_WIDTH = 300;
-
-export const MOCK_USER = {
-  name: "John Babu",
-  email: "daisonbabu@gmail.com",
-  phone: "+91 9736458763",
-  avatar: "https://randomuser.me/api/portraits/men/83.jpg",
-};
 
 export const MENU_TEXT_STYLE = { fontSize: 15, fontWeight: 500 };
 
@@ -43,6 +37,15 @@ export const MENU_ITEMS = [
     to: RouteProvider.WORKER_REGISTER,
     isWorker: false,
   },
+
+  {
+    label: "Work Account Info",
+    icon: <WorkIcon />,
+    to: RouteProvider.WORKER_PROFILE,
+    isWorker: true,
+  },
+
+  { divider: true },
   {
     label: "Help & Support",
     icon: <HelpIcon />,

@@ -17,9 +17,15 @@ import {
 import { useNavigate } from "react-router-dom";
 import AdvertisementCarousel from "@/features/Advertisment/AdvertismentCarousel/AdvertisementCarousal";
 import { RouteProvider } from "@/config/RouteProvider";
+import ProfileDrawer from "@/features/Home/Mobile/Components/ProfileDrawer";
+import LoginDrawer from "@/components/Mobile/LoginDrawer";
+import { useState } from "react";
 
 const WorkerDashboard = ({ worker }) => {
   const navigate = useNavigate();
+
+const [drawerOpen, setDrawerOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   const services = worker.professions.flatMap((category) =>
     category.services.map((service) => ({
@@ -80,7 +86,7 @@ const WorkerDashboard = ({ worker }) => {
               <BellIcon size={20} color="#374151" />
             </IconButton> */}
             <Avatar
-              onClick={() => navigate(RouteProvider.USER_PROFILE)}
+               onClick={() => setDrawerOpen(true)}
               sx={{
                 width: 36,
                 height: 36,
@@ -319,6 +325,9 @@ const WorkerDashboard = ({ worker }) => {
           </Box>
         </Box>
       </Box>
+
+      <ProfileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <LoginDrawer open={loginOpen} setOpen={setLoginOpen} height={"30vh"} />
     </Box>
   );
 };

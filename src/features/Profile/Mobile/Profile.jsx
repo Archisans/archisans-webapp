@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import WorkIcon from "@mui/icons-material/Work";
 import GavelIcon from "@mui/icons-material/Gavel";
 import InfoIcon from "@mui/icons-material/Info";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
@@ -106,6 +107,31 @@ const Profile = () => {
               </ListItemButton>
             </ListItem>
 
+            {/* Work Account Info */}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to={RouteProvider.WORKER_PROFILE}
+                sx={{ px: 2, pb: 1 }}
+              >
+                <WorkIcon
+                  sx={{ mr: 2, color: "#0b134a", fontSize: "23px" }}
+                />
+                <ListItemText
+                  primary="Work Account Info"
+                  slotProps={{
+                    primary: {
+                      sx: {
+                        color: "#0b134a",
+                        fontSize: "15px",
+                        fontWeight: 500,
+                      },
+                    },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+            
             {/* Saved Workers */}
             {/* <ListItem disablePadding>
               <ListItemButton
