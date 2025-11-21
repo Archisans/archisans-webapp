@@ -27,10 +27,7 @@ export default function Footer() {
       <Grid container spacing={3}>
         {/* Company Section */}
         <Grid xs={12} sm={6} md={3}>
-          <Typography
-            fontSize={16}
-            sx={{ mb: 2, fontWeight: 500, color: "black" }}
-          >
+          <Typography fontSize={15} sx={{ mb: 2, fontWeight: 500, color: "black" }} >
             Company
           </Typography>
           <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 1.5}}>
@@ -39,21 +36,31 @@ export default function Footer() {
               color="black"
               underline="hover"
             >
-              Terms & Conditions
+            <Typography fontSize={14} sx={{fontWeight: 450, color: "black" }} >
+                Terms & Conditions
+          </Typography>
+              
             </Link>
             <Link
               href={RouteProvider.USER_PRIVACY_POLICY}
               color="black"
               underline="hover"
             >
-              Privacy Policy
+                          <Typography fontSize={14} sx={{fontWeight: 450, color: "black" }} >
+                          Privacy Policy
+          </Typography>
+              
             </Link>
             <Link
               href={RouteProvider.USER_ABOUT}
               color="black"
               underline="hover"
             >
-              About Us
+                                       <Typography fontSize={14} sx={{fontWeight: 450, color: "black" }} >
+                                       About Us
+          </Typography>
+              
+              
             </Link>
           </Box>
         </Grid>
@@ -61,7 +68,7 @@ export default function Footer() {
         {/* Contact Section */}
         <Grid item xs={12} sm={6} md={3}>
           <Typography
-            fontSize={16}
+            fontSize={15}
             sx={{ mb: 2, fontWeight: 500, color: "black" }}
           >
             Contact Us
@@ -73,7 +80,10 @@ export default function Footer() {
               underline="none"
               sx={{ display: "flex", alignItems: "center", gap: 1 }}
             >
-              <Phone size={18} /> +91 9876543210
+              <Phone size={16} />
+              <Typography fontSize={14} sx={{fontWeight: 450, color: "black" }} >
+                                       +91 9876543210
+          </Typography>
             </Link>
             <Link
               href="mailto:archisans2025@gmail.com"
@@ -81,7 +91,11 @@ export default function Footer() {
               underline="none"
               sx={{ display: "flex", alignItems: "center", gap: 1 }}
             >
-              <Mail size={18} /> archisans2025@gmail.com
+              <Mail size={16} /> 
+              <Typography fontSize={14} sx={{fontWeight: 450, color: "black" }} >
+              archisans2025@gmail.com
+          </Typography>
+              
             </Link>
             <Link
               href="https://wa.me/8129509544"
@@ -89,7 +103,11 @@ export default function Footer() {
               underline="none"
               sx={{ display: "flex", alignItems: "center", gap: 1 }}
             >
-              <MessageCircle size={18} /> WhatsApp
+              <MessageCircle size={16} />
+              <Typography fontSize={14} sx={{fontWeight: 450, color: "black" }} >
+              WhatsApp
+          </Typography>
+               
             </Link>
           </Box>
         </Grid>
@@ -98,12 +116,12 @@ export default function Footer() {
         {!isWorker && (
           <Grid xs={12} sm={6} md={3}>
             <Typography
-              fontSize={16}
+              fontSize={15}
               sx={{ mb: 2, fontWeight: 500, color: "black" }}
             >
               Become a Professional
             </Typography>
-            <Typography sx={{ fontSize: 14, mb: 3, color: "black" }}>
+            <Typography sx={{ fontSize: 13, mb: 3, color: "black" }}>
               Join our platform and expand your business. Register as a
               professional today.
             </Typography>
@@ -121,13 +139,13 @@ export default function Footer() {
       {/* Social Media */}
       <Box sx={{ display: "flex", justifyContent: "center", gap: 1.5, mt: 2}}>
         <IconButton href="#" sx={{ color: "black" }}>
-          <FacebookIcon />
+          <FacebookIcon size={16}/>
         </IconButton>
         <IconButton href="#" sx={{ color: "black" }}>
-          <TwitterIcon />
+          <TwitterIcon size={16}/>
         </IconButton>
         <IconButton href="#" sx={{ color: "black" }}>
-          <InstagramIcon />
+          <InstagramIcon size={16}/>
         </IconButton>
       </Box>
 
@@ -135,7 +153,7 @@ export default function Footer() {
       <Box
         sx={{
           textAlign: "center",
-          mt: 2,
+          mt: 1.5,
           fontSize: 12,
           color: "black",
           opacity: 0.8,
