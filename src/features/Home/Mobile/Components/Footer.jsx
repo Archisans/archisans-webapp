@@ -24,7 +24,7 @@ export default function Footer() {
         px: 2,
       }}
     >
-      <Grid container spacing={5}>
+      <Grid container spacing={3}>
         {/* Company Section */}
         <Grid xs={12} sm={6} md={3}>
           <Typography
@@ -33,7 +33,7 @@ export default function Footer() {
           >
             Company
           </Typography>
-          <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 2 }}>
+          <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 1.5}}>
             <Link
               href={RouteProvider.USER_TERMS}
               color="black"
@@ -66,7 +66,7 @@ export default function Footer() {
           >
             Contact Us
           </Typography>
-          <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 2 }}>
+          <Box sx={{ display: "flex", px: 1, flexDirection: "column", gap: 1.5 }}>
             <Link
               href="tel:+919876543210"
               color="black"
@@ -119,7 +119,7 @@ export default function Footer() {
       </Grid>
 
       {/* Social Media */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 4 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: 1.5, mt: 2}}>
         <IconButton href="#" sx={{ color: "black" }}>
           <FacebookIcon />
         </IconButton>
@@ -135,7 +135,7 @@ export default function Footer() {
       <Box
         sx={{
           textAlign: "center",
-          mt: 3,
+          mt: 2,
           fontSize: 12,
           color: "black",
           opacity: 0.8,

@@ -151,7 +151,7 @@ const BottomTabBar = () => {
                 mt={0.3}
                 color={value === 2 ? activeColor : inactiveColor}
               >
-                Worker
+                Work space
               </Typography>
             </Box>
           }
