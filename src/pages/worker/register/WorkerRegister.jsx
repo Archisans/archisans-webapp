@@ -99,7 +99,7 @@ export default function WorkerRegister() {
               formData={formData}
               updateFormData={updateFormData}
               next={() => setCurrentStep(2)}
-              back={() => setCurrentStep(0)}
+              back={() => setCurrentStep(currentStep - 1)}
             />
           )}
           {currentStep === 2 && (
@@ -107,7 +107,7 @@ export default function WorkerRegister() {
               formData={formData}
               updateFormData={updateFormData}
               next={() => setCurrentStep(3)}
-              back={() => setCurrentStep(1)}
+              back={() => setCurrentStep(currentStep - 1)}
             />
           )}
           {currentStep === 3 && (
@@ -115,7 +115,7 @@ export default function WorkerRegister() {
               formData={formData}
               updateFormData={updateFormData}
               next={() => setCurrentStep(4)}
-              back={() => setCurrentStep(2)}
+              back={() => setCurrentStep(currentStep - 1)}
             />
           )}
           {currentStep === 4 && (
@@ -123,7 +123,7 @@ export default function WorkerRegister() {
               formData={formData}
               updateFormData={updateFormData}
               next={() => setCurrentStep(5)}
-              back={() => setCurrentStep(3)}
+              back={() => setCurrentStep(currentStep - 1)}
             />
           )}
           {currentStep === 5 && (
@@ -131,7 +131,7 @@ export default function WorkerRegister() {
               formData={formData}
               updateFormData={updateFormData}
               next={() => setCurrentStep(6)}
-              back={() => setCurrentStep(4)}
+              back={() => setCurrentStep(currentStep - 1)}
               services={services}
             />
           )}
@@ -140,7 +140,7 @@ export default function WorkerRegister() {
               formData={formData}
               updateFormData={updateFormData}
               onSubmit={handleSubmit}
-              back={() => setCurrentStep(5)}
+              back={() => setCurrentStep(currentStep - 1)}
               services={services}
               submissionStatus={submissionStatus}
             />
