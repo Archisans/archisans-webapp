@@ -27,6 +27,7 @@ export default function WorkerRegister() {
     success: false,
     error: "",
   });
+  const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
     if (!profile.phoneNumber) return;
@@ -57,6 +58,18 @@ export default function WorkerRegister() {
     about: "",
   });
 
+  const forms = [
+    WorkerForm1,
+    WorkerForm2,
+    WorkerForm3,
+    WorkerForm4,
+    WorkerForm5,
+    WorkerForm6,
+    WorkerForm7
+  ];
+  const CurrentForm = forms[currentStep] || WorkerForm1;
+
+
   const handleSubmit = async () => {
     setSubmissionStatus({ loading: true, success: false, error: "" });
 
@@ -73,9 +86,6 @@ export default function WorkerRegister() {
     }
   };
 
-  // Step state for mobile
-  const [currentStep, setCurrentStep] = useState(0);
-
   const updateFormData = (section, data) => {
     setFormData((prev) => ({ ...prev, [section]: data }));
   };
@@ -83,85 +93,39 @@ export default function WorkerRegister() {
   const services = bootstrapConfiguration?.serviceCategories || [];
 
   return (
-    <>
-      {isMobile ? (
-        <>
-          {currentStep === 0 && (
-            <WorkerForm1
-              formData={formData}
-              updateFormData={updateFormData}
-              next={() => setCurrentStep(1)}
-              back={() => navigate("/")}
-            />
-          )}
-          {currentStep === 1 && (
-            <WorkerForm2
-              formData={formData}
-              updateFormData={updateFormData}
-              next={() => setCurrentStep(2)}
-              back={() => setCurrentStep(currentStep - 1)}
-            />
-          )}
-          {currentStep === 2 && (
-            <WorkerForm3
-              formData={formData}
-              updateFormData={updateFormData}
-              next={() => setCurrentStep(3)}
-              back={() => setCurrentStep(currentStep - 1)}
-            />
-          )}
-          {currentStep === 3 && (
-            <WorkerForm4
-              formData={formData}
-              updateFormData={updateFormData}
-              next={() => setCurrentStep(4)}
-              back={() => setCurrentStep(currentStep - 1)}
-            />
-          )}
-          {currentStep === 4 && (
-            <WorkerForm5
-              formData={formData}
-              updateFormData={updateFormData}
-              next={() => setCurrentStep(5)}
-              back={() => setCurrentStep(currentStep - 1)}
-            />
-          )}
-          {currentStep === 5 && (
-            <WorkerForm6
-              formData={formData}
-              updateFormData={updateFormData}
-              next={() => setCurrentStep(6)}
-              back={() => setCurrentStep(currentStep - 1)}
-              services={services}
-            />
-          )}
-          {currentStep === 6 && (
-            <WorkerForm7
-              formData={formData}
-              updateFormData={updateFormData}
-              onSubmit={handleSubmit}
-              back={() => setCurrentStep(currentStep - 1)}
-              services={services}
-              submissionStatus={submissionStatus}
-            />
-          )}
-        </>
-      ) : (
-        <WorkerForm
-          formData={formData}
-          updateFormData={updateFormData}
-          services={services}
-          onSubmit={handleSubmit}
-          submissionStatus={submissionStatus}
-        />
-      )}
-
-      <SubmissionStatusSnackbar
+<>
+    {isMobile ? (
+      <CurrentForm
+        formData={formData}
+        updateFormData={updateFormData}
+        next={() => setCurrentStep(prev => Math.min(prev + 1, forms.length - 1))}
+        back={() => {
+          if (currentStep === 0) {
+            navigate("/"); // leave form page only from first step
+          } else {
+            setCurrentStep(prev => prev - 1); // go to previous step
+          }
+        }}
+        services={services}
+        onSubmit={currentStep === forms.length - 1 ? handleSubmit : undefined}
         submissionStatus={submissionStatus}
-        onClose={() =>
-          setSubmissionStatus({ loading: false, success: false, error: "" })
-        }
       />
-    </>
+    ) : (
+      <WorkerForm
+        formData={formData}
+        updateFormData={updateFormData}
+        services={services}
+        onSubmit={handleSubmit}
+        submissionStatus={submissionStatus}
+      />
+    )}
+
+    <SubmissionStatusSnackbar
+      submissionStatus={submissionStatus}
+      onClose={() =>
+        setSubmissionStatus({ loading: false, success: false, error: "" })
+      }
+    />
+  </>
   );
 }
