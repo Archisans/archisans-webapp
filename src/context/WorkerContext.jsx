@@ -308,8 +308,6 @@ export const WorkerProvider = ({ children }) => {
         workerCompany &&
         workerCompany.companyName &&
         workerCompany.companyName.trim() !== "" &&
-        workerCompany.workPermitNumber &&
-        workerCompany.workPermitNumber.trim() !== "" &&
         workerCompany.gstNumber &&
         workerCompany.gstNumber.trim() !== "";
 
@@ -320,7 +318,7 @@ export const WorkerProvider = ({ children }) => {
       const companyData = {
         worker_id: workerId,
         company_name: workerCompany.companyName.trim(),
-        work_permit_number: workerCompany.workPermitNumber.trim(),
+        work_permit_number: workerCompany.workPermitNumber?.trim(),
         gst_number: workerCompany.gstNumber.trim(),
         working_hours: workerCompany.workingHours
           ? parseInt(workerCompany.workingHours)

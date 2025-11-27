@@ -112,8 +112,6 @@ const WorkerForm = ({
     ]
   );
 
-  console.log(contactForm);
-
   const sections = useMemo(
     () => [
       {
@@ -1406,8 +1404,7 @@ const WorkerForm = ({
 
             <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
               Fill this section only if you represent a company or registered
-              business. If you start filling any field, all fields become
-              required.
+              business.
             </Typography>
 
             <Grid container spacing={3}>

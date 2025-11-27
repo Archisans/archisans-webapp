@@ -286,14 +286,6 @@ export const useCompanyForm = () => {
           }
           break;
 
-        case "workPermitNumber":
-          if (!value || value.trim() === "") {
-            error = "Work permit number is required";
-          } else if (value.trim().length < 3) {
-            error = "Work permit number must be at least 3 characters";
-          }
-          break;
-
         case "gstNumber":
           if (!value || value.trim() === "") {
             error = "GST number is required";
@@ -347,13 +339,6 @@ export const useCompanyForm = () => {
       newErrors.companyName = "Company name is required";
     }
 
-    if (
-      !companyData.workPermitNumber ||
-      companyData.workPermitNumber.trim() === ""
-    ) {
-      newErrors.workPermitNumber = "Work permit number is required";
-    }
-
     if (!companyData.gstNumber || companyData.gstNumber.trim() === "") {
       newErrors.gstNumber = "GST number is required";
     } else if (companyData.gstNumber.trim().length !== 15) {
@@ -393,13 +378,6 @@ export const useCompanyForm = () => {
 
       if (!companyData.companyName || companyData.companyName.trim() === "") {
         newErrors.companyName = "Company name is required";
-      }
-
-      if (
-        !companyData.workPermitNumber ||
-        companyData.workPermitNumber.trim() === ""
-      ) {
-        newErrors.workPermitNumber = "Work permit number is required";
       }
 
       if (!companyData.gstNumber || companyData.gstNumber.trim() === "") {

@@ -54,8 +54,7 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
             sx={{ color: "#64748b", mb: 3, textAlign: "center" }}
           >
             Fill this section only if you represent a company or registered
-            business. If you start filling any field, all fields become
-            required.
+            business.
           </Typography>
 
           <TextField
