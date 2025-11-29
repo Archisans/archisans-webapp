@@ -7,11 +7,13 @@ import {
   Instagram,
   YouTube,
   Phone,
+  Language
 } from "@mui/icons-material";
 import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
 
 const platformIcons = {
+  Website: <Language sx={{ fontSize: 16, color: "#2200ffff" }} />,
   Facebook: <Facebook sx={{ fontSize: 16, color: "#1877F2" }} />,
   LinkedIn: <LinkedIn sx={{ fontSize: 16, color: "#0077B5" }} />,
   Instagram: <Instagram sx={{ fontSize: 16, color: "#E1306C" }} />,

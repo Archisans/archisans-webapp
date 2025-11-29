@@ -6,9 +6,13 @@ import {
   Tooltip,
   Chip,
 } from "@mui/material";
-import { Facebook, LinkedIn, Instagram, YouTube } from "@mui/icons-material";
+import { Facebook, LinkedIn, Instagram, YouTube, Language } from "@mui/icons-material";
 
 const socialPlatforms = {
+  Website:{
+    icon:<Language size={22} />,
+    color: "#3059e1ff",
+  },
   Instagram: {
     icon: <Instagram size={22} />,
     color: "#E1306C",

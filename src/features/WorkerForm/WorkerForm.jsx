@@ -22,6 +22,7 @@ import {
   Chip,
   LinearProgress,
   CircularProgress,
+  InputLabel,
 } from "@mui/material";
 import {
   Person,
@@ -48,7 +49,8 @@ import {
   Edit,
   Delete,
   Description,
-  Badge as AadhaarIcon
+  Badge as AadhaarIcon,
+  Language
 } from "@mui/icons-material";
 import {
   useFormValidation,
@@ -63,6 +65,7 @@ import {
 } from "./utils/workerFormLogic";
 import { GENDER_OPTIONS, EXPERIENCE_YEARS } from "./utils/constants";
 import { Camera } from "lucide-react";
+import TimeDropdowns from "./TimeDropDown";
 
 const WorkerForm = ({
   formData,
@@ -89,6 +92,11 @@ const WorkerForm = ({
   const experienceForm = useExperienceForm();
 
   const profileImageInputRef = useRef(null);
+
+  const [startTime, setStartTime] = useState({ hour: "", minute: "", period: "" });
+  const [endTime, setEndTime] = useState({ hour: "", minute: "", period: "" });
+  const [timeError, setTimeError] = useState("");
+
 
   // Main validation hook for field-level validation
   const { touched, validateField, handleBlur, markAllTouched } =
@@ -1272,6 +1280,28 @@ const WorkerForm = ({
             </Typography>
 
             <Grid container spacing={3}>
+                          
+            <Grid item xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Website"
+                placeholder="https://yourwebsite.com"
+                
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Language sx={{ color: "#555" }} />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 1,
+                  },
+                }}
+              />
+            </Grid>
+
               <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
@@ -1502,38 +1532,16 @@ const WorkerForm = ({
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Working Hours (per day)"
-                  placeholder="e.g., 8"
-                  value={formData.company?.workingHours || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("workingHours", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "workingHours",
-                      formData.company?.workingHours || ""
-                    )
-                  }
-                  error={!!companyForm.errors.workingHours}
-                  helperText={companyForm.errors.workingHours}
-                  inputProps={{ maxLength: 2, inputMode: "numeric" }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Schedule sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
+  
+    <TimeDropdowns
+        startTime={startTime}
+        setStartTime={setStartTime}
+        endTime={endTime}
+        setEndTime={setEndTime}
+        timeError={timeError}
+        setTimeError={setTimeError}
+      />
+
             </Grid>
           </Paper>
 

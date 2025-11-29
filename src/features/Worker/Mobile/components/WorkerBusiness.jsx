@@ -1,8 +1,30 @@
 import { Box, Typography, Divider } from "@mui/material";
 
 const MobWorkerBusiness = ({ company }) => {
+
+    const startTime = "";
+    const endTime ="";
+
   return (
     <Box sx={{ p: 1 }}>
+
+
+
+{/* Working Hours */}
+      <Typography
+        variant="subtitle2"
+        sx={{
+          color: "text.secondary",
+          fontSize: { xs: 12, sm: 13, md: 14 },
+        }}
+      >
+        Working Hours
+      </Typography>
+      <Typography sx={{ fontSize: { xs: 13, sm: 14, md: 15 }, mb: 2 }}>
+        {startTime || "Not Available"} to {endTime || "Not Available"}
+      </Typography>
+      <Divider />
+
       {/* Company Name */}
       <Typography
         variant="subtitle2"

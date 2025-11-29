@@ -3,9 +3,15 @@ import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
 import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
 import { sanitizeInput, useCompanyForm } from "../utils/workerFormLogic";
 import { Business, Assignment, Receipt, Schedule } from "@mui/icons-material";
+import TimeDropdownsMobile from "./TimeDropDown";
+import { useState } from "react";
 
 const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
   const company = formData.company || {};
+
+  const [startTime, setStartTime] = useState({ hour: "", minute: "", period: "" });
+  const [endTime, setEndTime] = useState({ hour: "", minute: "", period: "" });
+  const [timeError, setTimeError] = useState("");
 
   const { errors, handleBlur, validateCompanyInfo } = useCompanyForm(
     formData,
@@ -127,30 +133,15 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
             sx={{ mb: 3 }}
           />
 
-          <TextField
-            label="Working Hours (per day)"
-            placeholder="e.g., 8"
-            fullWidth
-            value={company.workingHours || ""}
-            onChange={(e) =>
-              handleChange(
-                "workingHours",
-                sanitizeInput.numericOnly(e.target.value, 2)
-              )
-            }
-            onBlur={() => handleBlur("workingHours", company.workingHours)}
-            inputProps={{ maxLength: 2, inputMode: "numeric" }}
-            error={!!errors.workingHours}
-            helperText={errors.workingHours}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Schedule sx={{ color: "#94a3b8" }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 3 }}
+            <TimeDropdownsMobile
+            startTime={startTime}
+            setStartTime={setStartTime}
+            endTime={endTime}
+            setEndTime={setEndTime}
+            timeError={timeError}
+            setTimeError={setTimeError}
           />
+          
         </Box>
       </Box>
 
