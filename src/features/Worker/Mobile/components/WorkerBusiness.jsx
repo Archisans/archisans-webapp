@@ -1,16 +1,9 @@
 import { Box, Typography, Divider } from "@mui/material";
 
 const MobWorkerBusiness = ({ company }) => {
-
-    const startTime = "";
-    const endTime ="";
-
   return (
     <Box sx={{ p: 1 }}>
-
-
-
-{/* Working Hours */}
+      {/* Working Hours */}
       <Typography
         variant="subtitle2"
         sx={{
@@ -21,7 +14,7 @@ const MobWorkerBusiness = ({ company }) => {
         Working Hours
       </Typography>
       <Typography sx={{ fontSize: { xs: 13, sm: 14, md: 15 }, mb: 2 }}>
-        {startTime || "Not Available"} to {endTime || "Not Available"}
+        {company.workingHours.startTime || "Not Available"} to {company.workingHours.endTime || "Not Available"}
       </Typography>
       <Divider />
 

@@ -22,7 +22,6 @@ import {
   Chip,
   LinearProgress,
   CircularProgress,
-  InputLabel,
 } from "@mui/material";
 import {
   Person,
@@ -34,7 +33,6 @@ import {
   Email,
   Phone,
   Home,
-  Badge,
   Cake,
   Wc,
   Instagram,
@@ -44,13 +42,12 @@ import {
   Business,
   Assignment,
   Receipt,
-  Schedule,
   AddPhotoAlternate,
   Edit,
   Delete,
   Description,
   Badge as AadhaarIcon,
-  Language
+  Language,
 } from "@mui/icons-material";
 import {
   useFormValidation,
@@ -65,7 +62,7 @@ import {
 } from "./utils/workerFormLogic";
 import { GENDER_OPTIONS, EXPERIENCE_YEARS } from "./utils/constants";
 import { Camera } from "lucide-react";
-import TimeDropdowns from "./TimeDropDown";
+import TimeDropdowns from "./components/TimeDropDown";
 
 const WorkerForm = ({
   formData,
@@ -92,11 +89,6 @@ const WorkerForm = ({
   const experienceForm = useExperienceForm();
 
   const profileImageInputRef = useRef(null);
-
-  const [startTime, setStartTime] = useState({ hour: "", minute: "", period: "" });
-  const [endTime, setEndTime] = useState({ hour: "", minute: "", period: "" });
-  const [timeError, setTimeError] = useState("");
-
 
   // Main validation hook for field-level validation
   const { touched, validateField, handleBlur, markAllTouched } =
@@ -260,6 +252,21 @@ const WorkerForm = ({
     [formData.socialMedia, updateFormData]
   );
 
+  useEffect(() => {
+    if (
+      !formData.company.workingHours &&
+      companyForm.isCompanyInformationStarted
+    ) {
+      updateFormData("company", {
+        ...formData.company,
+        workingHours: {
+          startTime: { hour: "09", minute: "00", period: "AM" },
+          endTime: { hour: "05", minute: "00", period: "PM" },
+        },
+      });
+    }
+  }, [formData.company, updateFormData]);
+
   const handleCompanyChange = useCallback(
     (field, value) => {
       let sanitizedValue = value;
@@ -268,8 +275,6 @@ const WorkerForm = ({
         sanitizedValue = sanitizeInput.alphanumeric(value, 15).toUpperCase();
       } else if (field === "workPermitNumber") {
         sanitizedValue = sanitizeInput.alphanumeric(value);
-      } else if (field === "workingHours") {
-        sanitizedValue = sanitizeInput.numericOnly(value, 2);
       }
 
       updateFormData("company", {
@@ -279,6 +284,26 @@ const WorkerForm = ({
     },
     [formData.company, updateFormData]
   );
+
+  const setCompanyStartTime = (startTime) => {
+    updateFormData("company", {
+      ...formData.company,
+      workingHours: {
+        ...(formData.company.workingHours || {}),
+        startTime,
+      },
+    });
+  };
+
+  const setCompanyEndTime = (endTime) => {
+    updateFormData("company", {
+      ...formData.company,
+      workingHours: {
+        ...(formData.company.workingHours || {}),
+        endTime,
+      },
+    });
+  };
 
   const handleCompanyBlur = useCallback(
     (field, value) => {
@@ -430,11 +455,15 @@ const WorkerForm = ({
       allFields[field] = true;
     });
 
-    ["companyName", "workPermitNumber", "gstNumber", "workingHours"].forEach(
-      (field) => {
-        allFields[field] = true;
-      }
-    );
+    [
+      "companyName",
+      "workPermitNumber",
+      "gstNumber",
+      "workStartTime",
+      "workEndTime",
+    ].forEach((field) => {
+      allFields[field] = true;
+    });
 
     allFields["coverPhoto"] = true;
     allFields["about"] = true;
@@ -1280,27 +1309,25 @@ const WorkerForm = ({
             </Typography>
 
             <Grid container spacing={3}>
-                          
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label="Website"
-                placeholder="https://yourwebsite.com"
-                
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Language sx={{ color: "#555" }} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 1,
-                  },
-                }}
-              />
-            </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Website"
+                  placeholder="https://yourwebsite.com"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Language sx={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
 
               <Grid item xs={12} md={6}>
                 <TextField
@@ -1532,16 +1559,26 @@ const WorkerForm = ({
                   }}
                 />
               </Grid>
-  
-    <TimeDropdowns
-        startTime={startTime}
-        setStartTime={setStartTime}
-        endTime={endTime}
-        setEndTime={setEndTime}
-        timeError={timeError}
-        setTimeError={setTimeError}
-      />
 
+              <TimeDropdowns
+                startTime={
+                  formData.company?.workingHours?.startTime || {
+                    hour: "09",
+                    minute: "00",
+                    period: "AM",
+                  }
+                }
+                setStartTime={setCompanyStartTime}
+                endTime={
+                  formData.company?.workingHours?.endTime || {
+                    hour: "06",
+                    minute: "00",
+                    period: "PM",
+                  }
+                }
+                setEndTime={setCompanyEndTime}
+                timeError={companyForm.errors.workingHours}
+              />
             </Grid>
           </Paper>
 

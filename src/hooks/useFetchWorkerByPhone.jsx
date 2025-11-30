@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { from24Hour } from "@/utils/time";
 
 export const useFetchWorkerByPhoneNumber = (phoneNumber) => {
   const [worker, setWorker] = useState(null);
@@ -72,7 +73,8 @@ export const useFetchWorkerByPhoneNumber = (phoneNumber) => {
               company_name,
               work_permit_number,
               gst_number,
-              working_hours
+              work_start_time,
+              work_end_time
             ),
             worker_social (*)
           `
@@ -124,7 +126,13 @@ export const useFetchWorkerByPhoneNumber = (phoneNumber) => {
                 companyName: companyData.company_name,
                 workPermitNumber: companyData.work_permit_number,
                 gstNumber: companyData.gst_number,
-                workingHours: companyData.working_hours,
+                workingHours:
+                  companyData?.work_start_time && companyData?.work_end_time
+                    ? {
+                        startTime: companyData.work_start_time,
+                        endTime: companyData.work_end_time,
+                      }
+                    : null,
               }
             : null,
           social: data.worker_social || [],

@@ -2,24 +2,54 @@ import { Box, TextField, InputAdornment, Typography } from "@mui/material";
 import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
 import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
 import { sanitizeInput, useCompanyForm } from "../utils/workerFormLogic";
-import { Business, Assignment, Receipt, Schedule } from "@mui/icons-material";
-import TimeDropdownsMobile from "./TimeDropDown";
-import { useState } from "react";
+import { Business, Assignment, Receipt } from "@mui/icons-material";
+import TimeDropDown from "./components/TimeDropDown";
+import { useEffect } from "react";
 
 const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
   const company = formData.company || {};
 
-  const [startTime, setStartTime] = useState({ hour: "", minute: "", period: "" });
-  const [endTime, setEndTime] = useState({ hour: "", minute: "", period: "" });
-  const [timeError, setTimeError] = useState("");
+  const {
+    errors,
+    handleBlur,
+    validateCompanyInfo,
+    isCompanyInformationStarted,
+  } = useCompanyForm(formData, updateFormData);
 
-  const { errors, handleBlur, validateCompanyInfo } = useCompanyForm(
-    formData,
-    updateFormData
-  );
+  useEffect(() => {
+    if (!company.workingHours && isCompanyInformationStarted) {
+      updateFormData("company", {
+        ...company,
+        workingHours: {
+          startTime: { hour: "09", minute: "00", period: "AM" },
+          endTime: { hour: "05", minute: "00", period: "PM" },
+        },
+      });
+    }
+  }, [company, updateFormData]);
 
   const handleChange = (field, value) => {
     updateFormData("company", { ...company, [field]: value });
+  };
+
+  const setStartTime = (startTime) => {
+    updateFormData("company", {
+      ...company,
+      workingHours: {
+        ...(company.workingHours || {}),
+        startTime,
+      },
+    });
+  };
+
+  const setEndTime = (endTime) => {
+    updateFormData("company", {
+      ...company,
+      workingHours: {
+        ...(company.workingHours || {}),
+        endTime,
+      },
+    });
   };
 
   const handleNext = () => {
@@ -133,15 +163,25 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
             sx={{ mb: 3 }}
           />
 
-            <TimeDropdownsMobile
-            startTime={startTime}
+          <TimeDropDown
+            startTime={
+              company.workingHours?.startTime || {
+                hour: "09",
+                minute: "00",
+                period: "AM",
+              }
+            }
             setStartTime={setStartTime}
-            endTime={endTime}
+            endTime={
+              company.workingHours?.endTime || {
+                hour: "06",
+                minute: "00",
+                period: "PM",
+              }
+            }
             setEndTime={setEndTime}
-            timeError={timeError}
-            setTimeError={setTimeError}
+            timeError={errors.workingHours}
           />
-          
         </Box>
       </Box>
 

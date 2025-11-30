@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { validateTimeRange } from "./timeUtils";
 
 // ============================================
 // Validation Logic
@@ -301,13 +302,8 @@ export const useCompanyForm = () => {
           break;
 
         case "workingHours":
-          if (!value || value.trim() === "") {
-            error = "Working hours are required";
-          } else {
-            const hours = parseInt(value);
-            if (isNaN(hours) || hours < 1 || hours > 24) {
-              error = "Working hours must be between 1-24";
-            }
+          if (value?.start && value?.end) {
+            error = validateTimeRange(value.start, value.end);
           }
           break;
 
@@ -348,9 +344,9 @@ export const useCompanyForm = () => {
     if (!companyData.workingHours) {
       newErrors.workingHours = "Working hours are required";
     } else {
-      const hours = parseInt(companyData.workingHours);
-      if (isNaN(hours) || hours < 1 || hours > 24) {
-        newErrors.workingHours = "Working hours must be between 1-24";
+      const value = companyData.workingHours;
+      if (value?.start && value?.end) {
+        newErrors.workingHours = validateTimeRange(value.start, value.end);
       }
     }
 
@@ -363,8 +359,7 @@ export const useCompanyForm = () => {
       (companyData?.companyName && companyData.companyName.trim() !== "") ||
       (companyData?.workPermitNumber &&
         companyData.workPermitNumber.trim() !== "") ||
-      (companyData?.gstNumber && companyData.gstNumber.trim() !== "") ||
-      companyData?.workingHours
+      (companyData?.gstNumber && companyData.gstNumber.trim() !== "")
     );
   }, []);
 
@@ -389,9 +384,9 @@ export const useCompanyForm = () => {
       if (!companyData.workingHours) {
         newErrors.workingHours = "Working hours are required";
       } else {
-        const hours = parseInt(companyData.workingHours);
-        if (isNaN(hours) || hours < 1 || hours > 24) {
-          newErrors.workingHours = "Working hours must be between 1-24";
+        const value = companyData.workingHours;
+        if (value?.start && value?.end) {
+          newErrors.workingHours = validateTimeRange(value.start, value.end);
         }
       }
 
