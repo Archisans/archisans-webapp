@@ -7,7 +7,8 @@ import {
   Instagram,
   YouTube,
   Phone,
-  Language
+  Language,
+  Launch
 } from "@mui/icons-material";
 import DefaultWorkerImg from "@/assets/Images/DefaultWorkerImg.png";
 import ReviewDialog from "@/components/Desktop/ReviewDialog";
@@ -129,12 +130,12 @@ const WorkerOverview = ({ worker, userId, onReviewAdded }) => {
                   </Typography>
                 </Box>
 
-                {/* <Box display="flex" alignItems="center" gap={0.5}>
+                <Box display="flex" alignItems="center" gap={0.5}>
                   <Launch sx={{ fontSize: 16, color: "#666" }} />
                   <Typography variant="body2" color="#666" fontWeight={500}>
                     Portfolio
                   </Typography>
-                </Box> */}
+                </Box>
               </Box>
             </Box>
 

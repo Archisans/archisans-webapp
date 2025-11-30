@@ -185,17 +185,6 @@ const handlePortfolioUpload = (event) => {
 )}
 
   </Box>
-
-  {/* Portfolio link field */}
-  <TextField
-    fullWidth
-    size="small"
-    sx={{ mt: 2 }}
-    label="Portfolio Link (optional)"
-    placeholder="https://example.com"
-    value={portfolioLink}
-    onChange={(e) => setPortfolioLink(e.target.value)}
-  />
 </Box>
 
 

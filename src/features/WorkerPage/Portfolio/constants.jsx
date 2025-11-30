@@ -1,5 +1,4 @@
 import arImage from "@/assets/Images/ar.jpg";
-import sampleVideo from "@/assets/Images/sample.mp4";
 
 const WORK_SAMPLES = [
   {
@@ -31,7 +30,7 @@ const WORK_SAMPLES = [
     type: "Painting",
     location: "Los Angeles, CA",
     photos:[],
-    Links: [],
+    Links: ["https://drive.google.com/file/d/1X796GToYuab/view?usp=drive_link","https://youtu.be/example2"],
     clientNumber: "+1 555 654 3210",
   },
 ];
