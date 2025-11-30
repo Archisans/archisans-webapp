@@ -9,6 +9,7 @@ import WorkerBusiness from "@/features/Worker/components/WorkerBusiness";
 import WorkerEdit from "./components/WorkerEdit";
 import MoreWorkers from "./components/MoreWorkers";
 import WorkerAds from "./components/WorkerAds";
+import WorkerPortFolio from "./components/WorkerPortFolio";
 
 const Workerpage = ({ worker }) => {
   const { user, isWorker } = useUser();
@@ -53,6 +54,7 @@ const Workerpage = ({ worker }) => {
                 onReviewAdded={handleReviewAdded}
               />
               <WorkerServices services={worker.services} />
+               <WorkerPortFolio />
               <WorkerReview workerId={worker.id} key={`review-${Date.now()}`} />
             </Box>
           </Box>

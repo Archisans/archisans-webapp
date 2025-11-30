@@ -1,4 +1,5 @@
 import { Box, Typography, Stack } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import {
   SuitcaseSimpleIcon,
   CalendarCheckIcon,
@@ -14,6 +15,7 @@ const TOPBAR_HEIGHT = 0;
 const mainCategories = [
   { name: "Dashboard", path: RouteProvider.WORKER_HOME, icon: <SuitcaseSimpleIcon size={22} /> },
   { name: "Work Account Info", path: RouteProvider.WORKER_PROFILE, icon: <UserIcon size={22} /> },
+  { name: "Add Work Samples", path: RouteProvider.WORKER_PORTFOLIO, icon: <AddIcon size={22} /> },
 ];
 
 export default function WorkerSideBar() {

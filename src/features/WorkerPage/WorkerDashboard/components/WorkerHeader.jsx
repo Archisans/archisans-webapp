@@ -1,5 +1,6 @@
 import { Box, Typography, Avatar, Button, Chip } from "@mui/material";
 import { Edit as EditIcon, Verified } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
 import { RouteProvider } from "@/config/RouteProvider";
 
 const WorkerHeader = ({ navigate, worker }) => {
@@ -123,33 +124,49 @@ const WorkerHeader = ({ navigate, worker }) => {
             </Box>
           </Box>
 
-          <Button
-            variant="contained"
-            startIcon={<EditIcon />}
-            onClick={() => navigate(RouteProvider.WORKER_PROFILE)}
-            sx={{
-              bgcolor: "#0e1c79",
-              color: "white",
-              textTransform: "none",
-              borderRadius: 2,
-              px: 3,
-              py: 1.25,
-              fontWeight: 600,
-              fontSize: "0.95rem",
-              boxShadow: "0 4px 12px rgba(14, 28, 121, 0.2)",
-              transition: "all 0.2s ease",
-              "&:hover": {
-                bgcolor: "#1e40af",
-                boxShadow: "0 6px 20px rgba(14, 28, 121, 0.3)",
-                transform: "translateY(-1px)",
-              },
-              "&:active": {
-                transform: "translateY(0)",
-              },
-            }}
-          >
-            Edit Profile
-          </Button>
+<Box sx={{ display: "flex", gap: 1.5 }}>
+  <Button
+    variant="contained"
+    startIcon={<EditIcon />}
+    onClick={() => navigate(RouteProvider.WORKER_PROFILE)}
+    sx={{
+      bgcolor: "#0e1c79",
+      color: "white",
+      textTransform: "none",
+      borderRadius: 2,
+      px: 3,
+      py: 1.25,
+      fontWeight: 600,
+      fontSize: "0.95rem",
+    }}
+  >
+    Edit Profile
+  </Button>
+
+  <Button
+    variant="outlined"
+    startIcon={<AddIcon />}
+    onClick={() => navigate(RouteProvider.WORKER_PORTFOLIO)}
+    sx={{
+      textTransform: "none",
+      borderRadius: 2,
+      px: 3,
+      py: 1.25,
+      fontWeight: 600,
+      fontSize: "0.95rem",
+      color: "#0e1c79",
+      borderColor: "#0e1c79",
+      "&:hover": {
+        borderColor: "#1e40af",
+        backgroundColor: "rgba(14, 28, 121, 0.05)",
+      },
+    }}
+  >
+    Add Work Samples
+  </Button>
+</Box>
+
+
         </Box>
       </Box>
     </Box>
