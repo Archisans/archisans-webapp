@@ -273,8 +273,6 @@ const WorkerForm = ({
 
       if (field === "gstNumber") {
         sanitizedValue = sanitizeInput.alphanumeric(value, 15).toUpperCase();
-      } else if (field === "workPermitNumber") {
-        sanitizedValue = sanitizeInput.alphanumeric(value);
       }
 
       updateFormData("company", {
@@ -457,7 +455,6 @@ const WorkerForm = ({
 
     [
       "companyName",
-      "workPermitNumber",
       "gstNumber",
       "workStartTime",
       "workEndTime",
@@ -1486,37 +1483,6 @@ const WorkerForm = ({
                     startAdornment: (
                       <InputAdornment position="start">
                         <Business sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Work Permit Number"
-                  placeholder="Enter work permit number"
-                  value={formData.company?.workPermitNumber || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("workPermitNumber", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "workPermitNumber",
-                      formData.company?.workPermitNumber || ""
-                    )
-                  }
-                  error={!!companyForm.errors.workPermitNumber}
-                  helperText={companyForm.errors.workPermitNumber}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Assignment sx={{ color: "#94a3b8" }} />
                       </InputAdornment>
                     ),
                   }}

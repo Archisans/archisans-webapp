@@ -48,15 +48,6 @@ const WorkerBusiness = ({ company, location }) => {
 
           <Box>
             <Typography variant="body2" color="#666" mb={0.5}>
-              Work Permit
-            </Typography>
-            <Typography variant="body2" fontWeight={500}>
-              {company.workPermitNumber || "Not Available"}
-            </Typography>
-          </Box>
-
-          <Box>
-            <Typography variant="body2" color="#666" mb={0.5}>
               GST Number
             </Typography>
             <Typography variant="body2" fontWeight={500}>

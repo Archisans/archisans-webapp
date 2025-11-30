@@ -130,7 +130,6 @@ export const WorkerProvider = ({ children }) => {
         company:
           (companyData && {
             companyName: companyData?.company_name,
-            workPermitNumber: companyData?.work_permit_number,
             gstNumber: companyData?.gst_number,
             workingHours:
               companyData?.work_start_time && companyData?.work_end_time
@@ -328,7 +327,6 @@ export const WorkerProvider = ({ children }) => {
       const companyData = {
         worker_id: workerId,
         company_name: workerCompany.companyName.trim(),
-        work_permit_number: workerCompany.workPermitNumber?.trim(),
         gst_number: workerCompany.gstNumber.trim(),
         work_start_time: workerCompany.workingHours?.startTime
           ? to24Hour(workerCompany.workingHours.startTime)

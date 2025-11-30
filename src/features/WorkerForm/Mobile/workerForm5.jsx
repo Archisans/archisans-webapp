@@ -55,7 +55,6 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
   const handleNext = () => {
     const isValid = validateCompanyInfo({
       companyName: company.companyName,
-      workPermitNumber: company.workPermitNumber,
       gstNumber: company.gstNumber,
       workingHours: company.workingHours,
     });
@@ -106,32 +105,6 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
               startAdornment: (
                 <InputAdornment position="start">
                   <Business sx={{ color: "#94a3b8" }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 3 }}
-          />
-
-          <TextField
-            label="Work Permit Number"
-            placeholder="Enter work permit number"
-            fullWidth
-            value={company.workPermitNumber || ""}
-            onChange={(e) =>
-              handleChange(
-                "workPermitNumber",
-                sanitizeInput.alphanumeric(e.target.value)
-              )
-            }
-            onBlur={() =>
-              handleBlur("workPermitNumber", company.workPermitNumber)
-            }
-            error={!!errors.workPermitNumber}
-            helperText={errors.workPermitNumber}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Assignment sx={{ color: "#94a3b8" }} />
                 </InputAdornment>
               ),
             }}

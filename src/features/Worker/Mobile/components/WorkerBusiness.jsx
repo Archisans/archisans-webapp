@@ -33,22 +33,6 @@ const MobWorkerBusiness = ({ company }) => {
       </Typography>
       <Divider />
 
-      {/* Work Permit */}
-      <Typography
-        variant="subtitle2"
-        sx={{
-          color: "text.secondary",
-          mt: 2,
-          fontSize: { xs: 12, sm: 13, md: 14 },
-        }}
-      >
-        Work Permit Card
-      </Typography>
-      <Typography sx={{ fontSize: { xs: 13, sm: 14, md: 15 }, mb: 2 }}>
-        {company.workPermitNumber}
-      </Typography>
-      <Divider />
-
       {/* GST Number */}
       <Typography
         variant="subtitle2"

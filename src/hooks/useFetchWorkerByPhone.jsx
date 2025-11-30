@@ -124,7 +124,6 @@ export const useFetchWorkerByPhoneNumber = (phoneNumber) => {
           company: companyData
             ? {
                 companyName: companyData.company_name,
-                workPermitNumber: companyData.work_permit_number,
                 gstNumber: companyData.gst_number,
                 workingHours:
                   companyData?.work_start_time && companyData?.work_end_time

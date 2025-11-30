@@ -357,8 +357,6 @@ export const useCompanyForm = () => {
   const isCompanyInformationStarted = useCallback((companyData) => {
     return (
       (companyData?.companyName && companyData.companyName.trim() !== "") ||
-      (companyData?.workPermitNumber &&
-        companyData.workPermitNumber.trim() !== "") ||
       (companyData?.gstNumber && companyData.gstNumber.trim() !== "")
     );
   }, []);
