@@ -49,7 +49,7 @@ export default function Home({ bootstrapConfiguration }) {
         />
       </Box>
 
-      {/* Join as Worker Section */}
+      {/* Join as Professional Section */}
       {!isWorker && <WorkerJoin />}
 
       {/* Central Advertisements */}

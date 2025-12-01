@@ -562,7 +562,7 @@ const WorkerForm = ({
               variant="h5"
               sx={{ fontWeight: 700, color: "#1e293b", mb: 1 }}
             >
-              Worker Registration
+              Work Profile Registration
             </Typography>
             <Typography variant="body2" sx={{ color: "#64748b" }}>
               Complete all sections to register

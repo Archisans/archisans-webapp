@@ -32,7 +32,7 @@ export const MENU_ITEMS = [
   // },
   { divider: true },
   {
-    label: "Join as Worker",
+    label: "Join as Professional",
     icon: <EngineeringIcon />,
     to: RouteProvider.WORKER_REGISTER,
     isWorker: false,
