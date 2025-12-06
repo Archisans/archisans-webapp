@@ -74,12 +74,14 @@ const EditWorkSampleModal = ({ open, onClose, existingData, onUpdate }) => {
       <Box
         sx={{
           width: "90%",
-          maxWidth: 650,
-          bgcolor: "neutral.bg.50",
+          maxWidth: 600,
+          bgcolor: "white",
           p: 3,
           m: "auto",
           mt: 8,
           borderRadius: 2,
+          maxHeight: "90vh",
+          overflowY: "auto"
         }}
       >
         <Typography variant="h6" fontWeight={700} mb={2}>
