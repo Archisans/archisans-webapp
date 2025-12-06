@@ -13,8 +13,6 @@ const MobWorkerTopTab = ({ worker }) => {
   const hasAbout = Boolean(worker?.about && worker.about.trim() !== "");
   const hasSocial = Boolean(worker?.social.length > 0);
 
-  console.log(hasSocial, worker.social);
-
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };

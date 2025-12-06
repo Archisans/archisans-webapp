@@ -2,7 +2,13 @@ import { Box, TextField, InputAdornment } from "@mui/material";
 import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
 import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
 import { sanitizeInput } from "../utils/workerFormLogic";
-import { Instagram, Facebook, YouTube, LinkedIn } from "@mui/icons-material";
+import {
+  Instagram,
+  Facebook,
+  YouTube,
+  LinkedIn,
+  Language,
+} from "@mui/icons-material";
 
 const WorkerForm3 = ({ formData, updateFormData, next, back }) => {
   const socialMedia = formData.socialMedia || {};
@@ -41,6 +47,24 @@ const WorkerForm3 = ({ formData, updateFormData, next, back }) => {
         />
 
         <Box sx={{ mb: 3 }}>
+          <TextField
+            label="Website"
+            placeholder="https://yourwebsite.com"
+            fullWidth
+            alue={socialMedia.Website || ""}
+            onChange={(e) =>
+              handleChange("Website", sanitizeInput.url(e.target.value))
+            }
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Language sx={{ color: "#555" }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ mb: 3 }}
+          />
+
           <TextField
             label="Instagram"
             placeholder="https://instagram.com/yourprofile"

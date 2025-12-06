@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { validateTimeRange } from "./timeUtils";
 
 // ============================================
 // Validation Logic
@@ -286,14 +287,6 @@ export const useCompanyForm = () => {
           }
           break;
 
-        case "workPermitNumber":
-          if (!value || value.trim() === "") {
-            error = "Work permit number is required";
-          } else if (value.trim().length < 3) {
-            error = "Work permit number must be at least 3 characters";
-          }
-          break;
-
         case "gstNumber":
           if (!value || value.trim() === "") {
             error = "GST number is required";
@@ -309,13 +302,8 @@ export const useCompanyForm = () => {
           break;
 
         case "workingHours":
-          if (!value || value.trim() === "") {
-            error = "Working hours are required";
-          } else {
-            const hours = parseInt(value);
-            if (isNaN(hours) || hours < 1 || hours > 24) {
-              error = "Working hours must be between 1-24";
-            }
+          if (value?.start && value?.end) {
+            error = validateTimeRange(value.start, value.end);
           }
           break;
 
@@ -347,13 +335,6 @@ export const useCompanyForm = () => {
       newErrors.companyName = "Company name is required";
     }
 
-    if (
-      !companyData.workPermitNumber ||
-      companyData.workPermitNumber.trim() === ""
-    ) {
-      newErrors.workPermitNumber = "Work permit number is required";
-    }
-
     if (!companyData.gstNumber || companyData.gstNumber.trim() === "") {
       newErrors.gstNumber = "GST number is required";
     } else if (companyData.gstNumber.trim().length !== 15) {
@@ -363,9 +344,9 @@ export const useCompanyForm = () => {
     if (!companyData.workingHours) {
       newErrors.workingHours = "Working hours are required";
     } else {
-      const hours = parseInt(companyData.workingHours);
-      if (isNaN(hours) || hours < 1 || hours > 24) {
-        newErrors.workingHours = "Working hours must be between 1-24";
+      const value = companyData.workingHours;
+      if (value?.start && value?.end) {
+        newErrors.workingHours = validateTimeRange(value.start, value.end);
       }
     }
 
@@ -376,10 +357,7 @@ export const useCompanyForm = () => {
   const isCompanyInformationStarted = useCallback((companyData) => {
     return (
       (companyData?.companyName && companyData.companyName.trim() !== "") ||
-      (companyData?.workPermitNumber &&
-        companyData.workPermitNumber.trim() !== "") ||
-      (companyData?.gstNumber && companyData.gstNumber.trim() !== "") ||
-      companyData?.workingHours
+      (companyData?.gstNumber && companyData.gstNumber.trim() !== "")
     );
   }, []);
 
@@ -395,13 +373,6 @@ export const useCompanyForm = () => {
         newErrors.companyName = "Company name is required";
       }
 
-      if (
-        !companyData.workPermitNumber ||
-        companyData.workPermitNumber.trim() === ""
-      ) {
-        newErrors.workPermitNumber = "Work permit number is required";
-      }
-
       if (!companyData.gstNumber || companyData.gstNumber.trim() === "") {
         newErrors.gstNumber = "GST number is required";
       } else if (companyData.gstNumber.trim().length !== 15) {
@@ -411,9 +382,9 @@ export const useCompanyForm = () => {
       if (!companyData.workingHours) {
         newErrors.workingHours = "Working hours are required";
       } else {
-        const hours = parseInt(companyData.workingHours);
-        if (isNaN(hours) || hours < 1 || hours > 24) {
-          newErrors.workingHours = "Working hours must be between 1-24";
+        const value = companyData.workingHours;
+        if (value?.start && value?.end) {
+          newErrors.workingHours = validateTimeRange(value.start, value.end);
         }
       }
 

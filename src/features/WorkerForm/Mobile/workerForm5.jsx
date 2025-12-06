@@ -2,24 +2,59 @@ import { Box, TextField, InputAdornment, Typography } from "@mui/material";
 import BottomButton from "@/features/WorkerForm/Mobile/components/BottomButton";
 import TopProgressBar from "@/features/WorkerForm/Mobile/components/TopProgressBar";
 import { sanitizeInput, useCompanyForm } from "../utils/workerFormLogic";
-import { Business, Assignment, Receipt, Schedule } from "@mui/icons-material";
+import { Business, Assignment, Receipt } from "@mui/icons-material";
+import TimeDropDown from "./components/TimeDropDown";
+import { useEffect } from "react";
 
 const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
   const company = formData.company || {};
 
-  const { errors, handleBlur, validateCompanyInfo } = useCompanyForm(
-    formData,
-    updateFormData
-  );
+  const {
+    errors,
+    handleBlur,
+    validateCompanyInfo,
+    isCompanyInformationStarted,
+  } = useCompanyForm(formData, updateFormData);
+
+  useEffect(() => {
+    if (!company.workingHours && isCompanyInformationStarted) {
+      updateFormData("company", {
+        ...company,
+        workingHours: {
+          startTime: { hour: "09", minute: "00", period: "AM" },
+          endTime: { hour: "05", minute: "00", period: "PM" },
+        },
+      });
+    }
+  }, [company, updateFormData]);
 
   const handleChange = (field, value) => {
     updateFormData("company", { ...company, [field]: value });
   };
 
+  const setStartTime = (startTime) => {
+    updateFormData("company", {
+      ...company,
+      workingHours: {
+        ...(company.workingHours || {}),
+        startTime,
+      },
+    });
+  };
+
+  const setEndTime = (endTime) => {
+    updateFormData("company", {
+      ...company,
+      workingHours: {
+        ...(company.workingHours || {}),
+        endTime,
+      },
+    });
+  };
+
   const handleNext = () => {
     const isValid = validateCompanyInfo({
       companyName: company.companyName,
-      workPermitNumber: company.workPermitNumber,
       gstNumber: company.gstNumber,
       workingHours: company.workingHours,
     });
@@ -54,8 +89,7 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
             sx={{ color: "#64748b", mb: 3, textAlign: "center" }}
           >
             Fill this section only if you represent a company or registered
-            business. If you start filling any field, all fields become
-            required.
+            business.
           </Typography>
 
           <TextField
@@ -71,32 +105,6 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
               startAdornment: (
                 <InputAdornment position="start">
                   <Business sx={{ color: "#94a3b8" }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 3 }}
-          />
-
-          <TextField
-            label="Work Permit Number"
-            placeholder="Enter work permit number"
-            fullWidth
-            value={company.workPermitNumber || ""}
-            onChange={(e) =>
-              handleChange(
-                "workPermitNumber",
-                sanitizeInput.alphanumeric(e.target.value)
-              )
-            }
-            onBlur={() =>
-              handleBlur("workPermitNumber", company.workPermitNumber)
-            }
-            error={!!errors.workPermitNumber}
-            helperText={errors.workPermitNumber}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Assignment sx={{ color: "#94a3b8" }} />
                 </InputAdornment>
               ),
             }}
@@ -128,29 +136,24 @@ const WorkerForm5 = ({ formData, updateFormData, next, back }) => {
             sx={{ mb: 3 }}
           />
 
-          <TextField
-            label="Working Hours (per day)"
-            placeholder="e.g., 8"
-            fullWidth
-            value={company.workingHours || ""}
-            onChange={(e) =>
-              handleChange(
-                "workingHours",
-                sanitizeInput.numericOnly(e.target.value, 2)
-              )
+          <TimeDropDown
+            startTime={
+              company.workingHours?.startTime || {
+                hour: "09",
+                minute: "00",
+                period: "AM",
+              }
             }
-            onBlur={() => handleBlur("workingHours", company.workingHours)}
-            inputProps={{ maxLength: 2, inputMode: "numeric" }}
-            error={!!errors.workingHours}
-            helperText={errors.workingHours}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Schedule sx={{ color: "#94a3b8" }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 3 }}
+            setStartTime={setStartTime}
+            endTime={
+              company.workingHours?.endTime || {
+                hour: "06",
+                minute: "00",
+                period: "PM",
+              }
+            }
+            setEndTime={setEndTime}
+            timeError={errors.workingHours}
           />
         </Box>
       </Box>

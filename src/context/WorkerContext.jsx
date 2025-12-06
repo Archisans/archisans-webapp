@@ -12,6 +12,7 @@ import {
   deleteCoverPhoto,
   uploadCoverPhoto,
 } from "@/lib/storage/workerStorage";
+import { from24Hour, to24Hour } from "@/utils/time";
 
 const WorkerContext = createContext(null);
 
@@ -129,9 +130,14 @@ export const WorkerProvider = ({ children }) => {
         company:
           (companyData && {
             companyName: companyData?.company_name,
-            workPermitNumber: companyData?.work_permit_number,
             gstNumber: companyData?.gst_number,
-            workingHours: companyData?.working_hours,
+            workingHours:
+              companyData?.work_start_time && companyData?.work_end_time
+                ? {
+                    startTime: from24Hour(companyData.work_start_time),
+                    endTime: from24Hour(companyData.work_end_time),
+                  }
+                : null,
           }) ||
           {},
         coverPhoto: workerData.cover_photo_url,
@@ -308,10 +314,11 @@ export const WorkerProvider = ({ children }) => {
         workerCompany &&
         workerCompany.companyName &&
         workerCompany.companyName.trim() !== "" &&
-        workerCompany.workPermitNumber &&
-        workerCompany.workPermitNumber.trim() !== "" &&
         workerCompany.gstNumber &&
-        workerCompany.gstNumber.trim() !== "";
+        workerCompany.gstNumber.trim() !== "" &&
+        workerCompany.workingHours &&
+        workerCompany.workingHours.startTime &&
+        workerCompany.workingHours.endTime;
 
       if (!hasValidCompanyData) {
         return null;
@@ -320,10 +327,13 @@ export const WorkerProvider = ({ children }) => {
       const companyData = {
         worker_id: workerId,
         company_name: workerCompany.companyName.trim(),
-        work_permit_number: workerCompany.workPermitNumber.trim(),
         gst_number: workerCompany.gstNumber.trim(),
-        working_hours: workerCompany.workingHours
-          ? parseInt(workerCompany.workingHours)
+        work_start_time: workerCompany.workingHours?.startTime
+          ? to24Hour(workerCompany.workingHours.startTime)
+          : null,
+
+        work_end_time: workerCompany.workingHours?.endTime
+          ? to24Hour(workerCompany.workingHours.endTime)
           : null,
       };
 

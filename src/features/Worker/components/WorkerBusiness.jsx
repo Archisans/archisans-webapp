@@ -1,9 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
 
-const WorkerBusiness = ({ company,location }) => {
-  // Safely handle if company is null or undefined
-  const safeCompany = company || {};
-
+const WorkerBusiness = ({ company, location }) => {
   return (
     <Box>
       <Paper
@@ -21,7 +18,16 @@ const WorkerBusiness = ({ company,location }) => {
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          
+          <Box>
+            <Typography variant="body2" color="#666" mb={0.5}>
+              Working Hours
+            </Typography>
+            <Typography variant="body2" fontWeight={500}>
+              {company.workingHours.startTime || "Not Available"} to{" "}
+              {company.workingHours.endTime || "Not Available"}
+            </Typography>
+          </Box>
+
           <Box>
             <Typography variant="body2" color="#666" mb={0.5}>
               Location
@@ -30,22 +36,13 @@ const WorkerBusiness = ({ company,location }) => {
               {location || "Not Available"}
             </Typography>
           </Box>
-          
+
           <Box>
             <Typography variant="body2" color="#666" mb={0.5}>
               Company Name
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {safeCompany.companyName || "Not Available"}
-            </Typography>
-          </Box>
-
-          <Box>
-            <Typography variant="body2" color="#666" mb={0.5}>
-              Work Permit
-            </Typography>
-            <Typography variant="body2" fontWeight={500}>
-              {safeCompany.workPermitNumber || "Not Available"}
+              {company.companyName || "Not Available"}
             </Typography>
           </Box>
 
@@ -54,7 +51,7 @@ const WorkerBusiness = ({ company,location }) => {
               GST Number
             </Typography>
             <Typography variant="body2" fontWeight={500}>
-              {safeCompany.gstNumber || "Not Available"}
+              {company.gstNumber || "Not Available"}
             </Typography>
           </Box>
         </Box>

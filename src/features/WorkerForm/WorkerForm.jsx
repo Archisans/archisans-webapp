@@ -33,7 +33,6 @@ import {
   Email,
   Phone,
   Home,
-  Badge,
   Cake,
   Wc,
   Instagram,
@@ -43,12 +42,12 @@ import {
   Business,
   Assignment,
   Receipt,
-  Schedule,
   AddPhotoAlternate,
   Edit,
   Delete,
   Description,
-  Badge as AadhaarIcon
+  Badge as AadhaarIcon,
+  Language,
 } from "@mui/icons-material";
 import {
   useFormValidation,
@@ -63,6 +62,7 @@ import {
 } from "./utils/workerFormLogic";
 import { GENDER_OPTIONS, EXPERIENCE_YEARS } from "./utils/constants";
 import { Camera } from "lucide-react";
+import TimeDropdowns from "./components/TimeDropDown";
 
 const WorkerForm = ({
   formData,
@@ -111,8 +111,6 @@ const WorkerForm = ({
       experienceForm.error,
     ]
   );
-
-  console.log(contactForm);
 
   const sections = useMemo(
     () => [
@@ -254,16 +252,27 @@ const WorkerForm = ({
     [formData.socialMedia, updateFormData]
   );
 
+  useEffect(() => {
+    if (
+      !formData.company.workingHours &&
+      companyForm.isCompanyInformationStarted
+    ) {
+      updateFormData("company", {
+        ...formData.company,
+        workingHours: {
+          startTime: { hour: "09", minute: "00", period: "AM" },
+          endTime: { hour: "05", minute: "00", period: "PM" },
+        },
+      });
+    }
+  }, [formData.company, updateFormData]);
+
   const handleCompanyChange = useCallback(
     (field, value) => {
       let sanitizedValue = value;
 
       if (field === "gstNumber") {
         sanitizedValue = sanitizeInput.alphanumeric(value, 15).toUpperCase();
-      } else if (field === "workPermitNumber") {
-        sanitizedValue = sanitizeInput.alphanumeric(value);
-      } else if (field === "workingHours") {
-        sanitizedValue = sanitizeInput.numericOnly(value, 2);
       }
 
       updateFormData("company", {
@@ -273,6 +282,26 @@ const WorkerForm = ({
     },
     [formData.company, updateFormData]
   );
+
+  const setCompanyStartTime = (startTime) => {
+    updateFormData("company", {
+      ...formData.company,
+      workingHours: {
+        ...(formData.company.workingHours || {}),
+        startTime,
+      },
+    });
+  };
+
+  const setCompanyEndTime = (endTime) => {
+    updateFormData("company", {
+      ...formData.company,
+      workingHours: {
+        ...(formData.company.workingHours || {}),
+        endTime,
+      },
+    });
+  };
 
   const handleCompanyBlur = useCallback(
     (field, value) => {
@@ -424,11 +453,14 @@ const WorkerForm = ({
       allFields[field] = true;
     });
 
-    ["companyName", "workPermitNumber", "gstNumber", "workingHours"].forEach(
-      (field) => {
-        allFields[field] = true;
-      }
-    );
+    [
+      "companyName",
+      "gstNumber",
+      "workStartTime",
+      "workEndTime",
+    ].forEach((field) => {
+      allFields[field] = true;
+    });
 
     allFields["coverPhoto"] = true;
     allFields["about"] = true;
@@ -530,7 +562,7 @@ const WorkerForm = ({
               variant="h5"
               sx={{ fontWeight: 700, color: "#1e293b", mb: 1 }}
             >
-              Worker Registration
+              Work Profile Registration
             </Typography>
             <Typography variant="body2" sx={{ color: "#64748b" }}>
               Complete all sections to register
@@ -1277,6 +1309,26 @@ const WorkerForm = ({
               <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
+                  label="Website"
+                  placeholder="https://yourwebsite.com"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Language sx={{ color: "#555" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: 1,
+                    },
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
                   label="Instagram"
                   placeholder="https://instagram.com/yourprofile"
                   value={formData.socialMedia?.Instagram || ""}
@@ -1406,8 +1458,7 @@ const WorkerForm = ({
 
             <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
               Fill this section only if you represent a company or registered
-              business. If you start filling any field, all fields become
-              required.
+              business.
             </Typography>
 
             <Grid container spacing={3}>
@@ -1432,37 +1483,6 @@ const WorkerForm = ({
                     startAdornment: (
                       <InputAdornment position="start">
                         <Business sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Work Permit Number"
-                  placeholder="Enter work permit number"
-                  value={formData.company?.workPermitNumber || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("workPermitNumber", e.target.value)
-                  }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "workPermitNumber",
-                      formData.company?.workPermitNumber || ""
-                    )
-                  }
-                  error={!!companyForm.errors.workPermitNumber}
-                  helperText={companyForm.errors.workPermitNumber}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Assignment sx={{ color: "#94a3b8" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1505,38 +1525,26 @@ const WorkerForm = ({
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Working Hours (per day)"
-                  placeholder="e.g., 8"
-                  value={formData.company?.workingHours || ""}
-                  onChange={(e) =>
-                    handleCompanyChange("workingHours", e.target.value)
+
+              <TimeDropdowns
+                startTime={
+                  formData.company?.workingHours?.startTime || {
+                    hour: "09",
+                    minute: "00",
+                    period: "AM",
                   }
-                  onBlur={() =>
-                    handleCompanyBlur(
-                      "workingHours",
-                      formData.company?.workingHours || ""
-                    )
+                }
+                setStartTime={setCompanyStartTime}
+                endTime={
+                  formData.company?.workingHours?.endTime || {
+                    hour: "06",
+                    minute: "00",
+                    period: "PM",
                   }
-                  error={!!companyForm.errors.workingHours}
-                  helperText={companyForm.errors.workingHours}
-                  inputProps={{ maxLength: 2, inputMode: "numeric" }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Schedule sx={{ color: "#94a3b8" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: 1,
-                    },
-                  }}
-                />
-              </Grid>
+                }
+                setEndTime={setCompanyEndTime}
+                timeError={companyForm.errors.workingHours}
+              />
             </Grid>
           </Paper>
 
