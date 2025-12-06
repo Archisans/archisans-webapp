@@ -29,13 +29,13 @@ const WorkSampleCard = ({
         borderRadius: 2,
         border: "1px solid #e5e7eb",
         boxShadow: "0px 2px 5px rgba(0,0,0,0.06)",
-        background: "#ffffff",
+        background: "neutral.bg.50",
       }}
     >
       {/* TITLE */}
       <Typography
         sx={{
-          color: "rgb(8, 13, 112)",
+          color: "primary.bg.default",
           fontSize: 16,
           fontWeight: 700,
           mb: 1.5,
@@ -47,7 +47,7 @@ const WorkSampleCard = ({
       {/* DETAILS */}
       <Stack spacing={1.2} sx={{ mb: 2 }}>
         <Stack direction="row" justifyContent="space-between">
-          <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>
+          <Typography sx={{ fontSize: 13, color: "neutral.content.700", fontWeight: 600 }}>
             Service
           </Typography>
           <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
@@ -56,7 +56,7 @@ const WorkSampleCard = ({
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
-          <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>
+          <Typography sx={{ fontSize: 13, color: "neutral.content.700", fontWeight: 600 }}>
             Location
           </Typography>
           <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
@@ -65,7 +65,7 @@ const WorkSampleCard = ({
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
-          <Typography sx={{ fontSize: 13, color: "#6b7280", fontWeight: 600 }}>
+          <Typography sx={{ fontSize: 13, color: "neutral.content.700", fontWeight: 600 }}>
             Phone
           </Typography>
           <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
@@ -148,7 +148,7 @@ const WorkSampleCard = ({
                   sx={{
                     fontSize: 14,
                     fontWeight: 600,
-                    color: "#2563eb",
+                    color: "info.bgDark",
                     wordBreak: "break-word",
                   }}
                 >

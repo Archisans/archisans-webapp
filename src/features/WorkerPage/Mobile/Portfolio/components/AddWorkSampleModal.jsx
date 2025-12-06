@@ -56,7 +56,7 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{ width: "90%", maxWidth: 600, bgcolor: "white", p: 3, m: "auto", mt: 8, borderRadius: 2 }}>
+      <Box sx={{ width: "90%", maxWidth: 600, bgcolor: "neutral.bg.50", p: 3, m: "auto", mt: 8, borderRadius: 2 }}>
 
         <Typography variant="h6" fontWeight={700} mb={2}>
           Add Work Sample

@@ -75,7 +75,7 @@ const EditWorkSampleModal = ({ open, onClose, existingData, onUpdate }) => {
         sx={{
           width: "90%",
           maxWidth: 650,
-          bgcolor: "white",
+          bgcolor: "neutral.bg.50",
           p: 3,
           m: "auto",
           mt: 8,

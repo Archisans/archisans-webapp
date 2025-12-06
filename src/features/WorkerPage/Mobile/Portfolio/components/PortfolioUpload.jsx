@@ -38,7 +38,7 @@ const PortfolioUpload = ({
           startIcon={<UploadFile />}
           sx={{ whiteSpace: "nowrap", minWidth: 120 }}
         >
-          <Typography sx={{ color: "white", fontSize: 12 }}>Upload</Typography>
+          <Typography sx={{ color: "neutral.bg.50", fontSize: 12 }}>Upload</Typography>
           <input
             type="file"
             hidden
@@ -58,14 +58,14 @@ const PortfolioUpload = ({
 
       {/* Error message */}
       {error && (
-        <Typography sx={{ color: "red", mt: 1, fontSize: 13 }}>
+        <Typography sx={{ color: "error.bg", mt: 1, fontSize: 13 }}>
           {error}
         </Typography>
       )}
 
       {/* Selected file name */}
       {portfolioFile && !error && (
-        <Typography variant="body2" sx={{ mt: 1, color: "text.secondary" }}>
+        <Typography variant="body2" sx={{ mt: 1, color: "neutral.content.700" }}>
           Selected: {portfolioFile.name}
         </Typography>
       )}
