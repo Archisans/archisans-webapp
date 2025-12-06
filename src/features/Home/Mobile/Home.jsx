@@ -3,9 +3,6 @@ import {
   Grid,
   Box,
   Typography,
-  Stack,
-  IconButton,
-  Avatar,
   useTheme,
 } from "@mui/material";
 import { KeyboardArrowDownOutlined } from "@mui/icons-material";
@@ -93,7 +90,7 @@ const HomeMobile = ({ bootstrapConfiguration }) => {
             fontWeight: 600,
             my: 1,
             px: 1.5,
-            color: "#0c136fff",
+            color: "primary.content.dark",
           }}
         >
           Find Right Experts

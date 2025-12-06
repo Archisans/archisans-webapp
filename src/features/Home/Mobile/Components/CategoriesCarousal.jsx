@@ -123,7 +123,7 @@ const CategoriesCarousal = ({ categories, fakeScrollBarWidthPercent = 50 }) => {
 
               {/* Label outside the box */}
               <Typography
-                color="#050a56ff"
+                color="neutral.content.900"
                 fontSize={11.5}
                 fontWeight={500}
                 textAlign="center"
@@ -152,12 +152,12 @@ const CategoriesCarousal = ({ categories, fakeScrollBarWidthPercent = 50 }) => {
             height: "6px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#1527b0ff",
+            backgroundColor: "primary.bg.focus",
             borderRadius: "100px",
             width: "35px",
           },
           "&::-webkit-scrollbar-track": {
-            backgroundColor: "#c4bcf6ff",
+            backgroundColor: "primary.bg.disabled",
             borderRadius: "100px",
           },
         }}

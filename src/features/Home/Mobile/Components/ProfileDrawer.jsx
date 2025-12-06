@@ -19,7 +19,7 @@ export default function ProfileDrawer({ open, onClose }) {
           position: "sticky",
           top: 0,
           right: 0,
-          backgroundColor: "white",
+          backgroundColor: "neutral.bg.50",
           zIndex: 1000,
           display: "flex",
           justifyContent: "flex-end",

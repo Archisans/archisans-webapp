@@ -30,7 +30,7 @@ const MobMainHeader = ({ backArrow = false, onBack }) => {
         {backArrow && (
           <IconButton
             onClick={onBack}
-            sx={{ color: "#0c136f" }}
+            sx={{ color: "neutral.content.900" }}
           >
             <ArrowBackIosNew fontSize="small" />
           </IconButton>
@@ -46,7 +46,7 @@ const MobMainHeader = ({ backArrow = false, onBack }) => {
               sx={{
                 fontWeight: "bold",
                 fontSize: 15,
-                color: "#0c136f",
+                color: "primary.content.default",
               }}
             >
               {location}

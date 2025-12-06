@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useSearch } from "@/hooks/useSearch";
 import MobServiceCategoryList from "@/components/Mobile/mobServiceCategoryList";
 import MobMainHeader from "@/components/Mobile/MainHeader";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
 
 const Search = ({ bootstrapConfiguration }) => {
   const navigate = useNavigate();
@@ -57,19 +58,29 @@ const Search = ({ bootstrapConfiguration }) => {
         display="flex"
         alignItems="center"
         border="1px solid #ccc"
+        boxShadow= "0 0 10px rgba(6, 14, 85, 0.1)"
         borderRadius={1}
-        px={1.5}
-        py={0.8}
-        bgcolor="white"
+        py={1}
+        bgcolor="neutral.bg.50"
       >
-        <SearchIcon
-          sx={{ mr: 1, cursor: "pointer", color: "gray" }}
+        <MagnifyingGlassIcon
+        size={22}
+        color="redneutral.bg.50"
+        style={{ marginLeft: 16, marginRight: 16 }}
           onClick={() => executeSearch(query)}
         />
         <InputBase
           inputRef={inputRef}
-          sx={{ fontSize: "14px" }}
-          placeholder="Search Services"
+          sx={{
+            flex: 1,
+            fontSize: "0.8rem",
+            color: "neutral.content.900",
+            "& input::placeholder": {
+              color: "neutral.content.600",
+              opacity: 1,
+            },
+          }}
+          placeholder="Search for Services"
           fullWidth
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
@@ -94,7 +105,7 @@ const Search = ({ bootstrapConfiguration }) => {
               sx={{ cursor: "pointer", mb: 1 }}
               onClick={() => executeSearch(item)}
             >
-              <SearchIcon sx={{ fontSize: 20, color: "gray" }} />
+              <SearchIcon sx={{ fontSize: 20, color: "neutral.content.400" }} />
               <Typography>{item}</Typography>
             </Box>
           ))}
@@ -107,7 +118,7 @@ const Search = ({ bootstrapConfiguration }) => {
         !suggestions.length &&
         !showNoResults && (
           <Box mt={3} px={1} borderBottom="1px solid rgba(0,0,0,0.1)" pb={1}>
-            <Typography fontWeight={500} mb={1} color="grey">
+            <Typography fontWeight={500} mb={1} color="neutral.content.500">
               Recent searches
             </Typography>
             {recentSearches.map((item, index) => (
@@ -125,7 +136,7 @@ const Search = ({ bootstrapConfiguration }) => {
                   gap={1}
                   onClick={() => executeSearch(item)}
                 >
-                  <SearchIcon sx={{ fontSize: 22, color: "gray" }} />
+                  <SearchIcon sx={{ fontSize: 22, color: "neutral.content.500" }} />
                   <Typography sx={{ fontSize: "90%", fontWeight: 550 }}>
                     {item}
                   </Typography>
@@ -183,7 +194,7 @@ const Search = ({ bootstrapConfiguration }) => {
       {/* Popular Services */}
       {!results.length && !suggestions.length && !showNoResults && (
         <Box mt={3} px={1}>
-          <Typography sx={{ fontSize: "115%", fontWeight: 600, mb: 2 }}>
+          <Typography sx={{ fontSize: "110%", fontWeight: 500, mb: 2 , color:"neutral.content.900"}}>
             Popular services
           </Typography>
           <Box display="flex" flexWrap="wrap" gap={1}>
@@ -198,7 +209,7 @@ const Search = ({ bootstrapConfiguration }) => {
                   onClick={() => executeSearch(service.title)}
                   sx={{
                     borderRadius: 2,
-                    backgroundColor: "white",
+                    backgroundColor: "neutral.bg.50",
                     border: "1px solid #D3D3D3",
                     mb: 1,
                   }}

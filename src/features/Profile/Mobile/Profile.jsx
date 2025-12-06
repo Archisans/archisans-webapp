@@ -39,8 +39,8 @@ const Profile = () => {
   };
 
   return (
-    <Box sx={{ width: "100%", bgcolor: "#ffffffff" }}>
-      <Grid container direction="column" sx={{ color: "#0b134a" }}>
+    <Box sx={{ width: "100%", bgcolor: "neutral.bg.50" }}>
+      <Grid container direction="column" sx={{ color: "primary.bg.focus" }}>
         <Grid container>
           <Box
             sx={{
@@ -64,7 +64,7 @@ const Profile = () => {
                 sx={{
                   fontSize: 20,
                   fontWeight: 600,
-                  color: "#0b134a",
+                  color: "primary.bg.default",
                   mb: 0.5,
                 }}
               >
@@ -72,7 +72,7 @@ const Profile = () => {
               </Typography>
 
               {profile.fullName && (
-                <Typography sx={{ fontSize: 14, color: "#4b4b6b" }}>
+                <Typography sx={{ fontSize: 14, color: "neutral.content.800" }}>
                   {profile.phoneNumber}
                 </Typography>
               )}
@@ -90,14 +90,14 @@ const Profile = () => {
                 sx={{ px: 2, pb: 1 }}
               >
                 <AccountCircleIcon
-                  sx={{ mr: 2, color: "#0b134a", fontSize: "23px" }}
+                  sx={{ mr: 2, color: "primary.bg.default", fontSize: "23px" }}
                 />
                 <ListItemText
                   primary="Account Info"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -115,14 +115,14 @@ const Profile = () => {
                 sx={{ px: 2, pb: 1 }}
               >
                 <WorkIcon
-                  sx={{ mr: 2, color: "#0b134a", fontSize: "23px" }}
+                  sx={{ mr: 2, color: "primary.bg.default", fontSize: "23px" }}
                 />
                 <ListItemText
                   primary="Work Account Info"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -140,14 +140,14 @@ const Profile = () => {
                 sx={{ px: 2, py: 1 }}
               >
                 <BookmarkIcon
-                  sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }}
+                  sx={{ mr: 2, color: "primary.bg.default", fontSize: "22px" }}
                 />
                 <ListItemText
                   primary="Saved Workers"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -165,14 +165,14 @@ const Profile = () => {
                 sx={{ px: 2, pb: 2, pt: 1 }}
               >
                 <LocationOnIcon
-                  sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }}
+                  sx={{ mr: 2, color: "neutral.content,800", fontSize: "22px" }}
                 />
                 <ListItemText
                   primary="Saved Address"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "primary.bg.default",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -191,13 +191,13 @@ const Profile = () => {
                 to={RouteProvider.USER_ABOUT}
                 sx={{ px: 2 }}
               >
-                <InfoIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <InfoIcon sx={{ mr: 2, color: "primary.bg.default", fontSize: "22px" }} />
                 <ListItemText
                   primary="About"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -214,13 +214,13 @@ const Profile = () => {
                 to={RouteProvider.USER_TERMS}
                 sx={{ px: 2, pb: 1 }}
               >
-                <GavelIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <GavelIcon sx={{ mr: 2, color: "primary.bg.default", fontSize: "22px" }} />
                 <ListItemText
                   primary="Terms and Condition"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -236,14 +236,14 @@ const Profile = () => {
                 to={RouteProvider.USER_PRIVACY_POLICY}
               >
                 <PrivacyTipIcon
-                  sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }}
+                  sx={{ mr: 2, color: "primary.bg.default", fontSize: "22px" }}
                 />
                 <ListItemText
                   primary="Privacy Policy"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -262,13 +262,13 @@ const Profile = () => {
                 to={RouteProvider.USER_SUPPORT}
                 sx={{ px: 2, pb: 1, pt: 2 }}
               >
-                <HelpIcon sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }} />
+                <HelpIcon sx={{ mr: 2, color: "primary.bg.default", fontSize: "22px" }} />
                 <ListItemText
                   primary="Help & Support"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },
@@ -282,14 +282,14 @@ const Profile = () => {
             <ListItem disablePadding>
               <ListItemButton sx={{ px: 2, py: 1 }} onClick={handleLogoutClick}>
                 <LogoutIcon
-                  sx={{ mr: 2, color: "#0b134a", fontSize: "22px" }}
+                  sx={{ mr: 2, color: "primary.bg.default", fontSize: "22px" }}
                 />
                 <ListItemText
                   primary="Logout"
                   slotProps={{
                     primary: {
                       sx: {
-                        color: "#0b134a",
+                        color: "neutral.content.800",
                         fontSize: "15px",
                         fontWeight: 500,
                       },

@@ -23,7 +23,7 @@ export default function PopularServices({ name }) {
             mt: 1,
             mb: 2.5,
             px: 1.5,
-            color: "#050a56ff",
+            color: "primary.content.dark",
           }}
         >
           Popular {name} Services
@@ -74,7 +74,7 @@ export default function PopularServices({ name }) {
                   ml: 0.5,
                   fontSize: 13.5,
                   fontWeight: 500,
-                  color: "#000",
+                  color: "neutral.content.900",
                   textAlign: "left",
                   lineHeight: 1.3,
                 }}

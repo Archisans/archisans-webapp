@@ -35,11 +35,11 @@ const [drawerOpen, setDrawerOpen] = useState(false);
   );
 
   return (
-    <Box sx={{ bgcolor: "#FAFAFA", minHeight: "100vh" }}>
+    <Box sx={{ bgcolor:"neutral.bg.50", minHeight: "100vh" }}>
       {/* Minimal Top Bar */}
       <Box
         sx={{
-          bgcolor: "#FFFFFF",
+          bgcolor: "neutral.bg.50",
           borderBottom: "1px solid #E5E7EB",
           px: 3,
           py: 2.5,
@@ -55,18 +55,18 @@ const [drawerOpen, setDrawerOpen] = useState(false);
               sx={{
                 fontSize: 20,
                 fontWeight: 600,
-                color: "#111827",
+                color: "neutral.content.900",
                 letterSpacing: "-0.02em",
               }}
             >
               {worker.personal.fullName}
             </Typography>
             <Stack direction="row" alignItems="center" spacing={0.5} mt={0.5}>
-              <MapPinIcon size={14} color="#6B7280" weight="fill" />
+              <MapPinIcon size={14} color="neutral.content.300" />
               <Typography
                 sx={{
                   fontSize: 13,
-                  color: "#6B7280",
+                  color: "neutral.content.600",
                 }}
               >
                 Thrissur, Kerala
@@ -91,7 +91,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                 width: 36,
                 height: 36,
                 cursor: "pointer",
-                border: "1px solid #E5E7EB",
+                border: "1px solid neutral.bg.50",
               }}
               src={worker.personal.imageUrl}
             />
@@ -100,7 +100,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
       </Box>
 
       {/* Main Content */}
-      <Box sx={{ py: 3, pb: 10 }}>
+      <Box sx={{ py: 3, pb: 1 }}>
 
         {/* Quick Actions */}
         <Box mb={4} px={2}>
@@ -108,7 +108,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
             sx={{
               fontSize: 13,
               fontWeight: 600,
-              color: "#6B7280",
+              color: "neutral.content.600",
               textTransform: "uppercase",
               letterSpacing: "0.05em",
               mb: 2,
@@ -128,7 +128,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
               {
                 text: "Work Profile",
                 description: "Edit your details",
-                icon: <UserIcon size={20} color="#374151" weight="regular" />,
+                icon: <UserIcon size={20} color="neutral.content.800" weight="regular" />,
                 onClick: () => navigate(RouteProvider.WORKER_PROFILE),
               },
             ].map(({ text, description, icon, onClick }, idx) => (
@@ -137,7 +137,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                 onClick={onClick}
                 sx={{
                   width: 160,
-                  bgcolor: "#FFFFFF",
+                  bgcolor: "neutral.bg.50",
                   border: "1px solid #E5E7EB",
                   borderRadius: 2,
                   p: 2.5,
@@ -145,8 +145,8 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                   transition: "all 0.2s ease",
                   boxShadow: "none",
                   "&:hover": {
-                    borderColor: "#D1D5DB",
-                    bgcolor: "#F9FAFB",
+                    borderColor: "neutral.stroke.dark",
+                    bgcolor: "neutral.bg.100",
                   },
                   "&:active": {
                     transform: "scale(0.98)",
@@ -158,7 +158,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                     width: 40,
                     height: 40,
                     borderRadius: 2,
-                    bgcolor: "#F3F4F6",
+                    bgcolor: "neutral.bg.200",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -171,7 +171,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                   sx={{
                     fontSize: 15,
                     fontWeight: 600,
-                    color: "#111827",
+                    color: "neutral.content.800",
                     mb: 0.5,
                   }}
                 >
@@ -180,7 +180,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                 <Typography
                   sx={{
                     fontSize: 12,
-                    color: "#6B7280",
+                    color: "neutral.content.600",
                   }}
                 >
                   {description}
@@ -197,7 +197,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
               px: 2,
               fontSize: 13,
               fontWeight: 600,
-              color: "#6B7280",
+              color: "neutral.content.600",
               textTransform: "uppercase",
               letterSpacing: "0.05em",
               mb: 2,
@@ -221,7 +221,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
               sx={{
                 fontSize: 13,
                 fontWeight: 600,
-                color: "#6B7280",
+                color: "neutral.content.600",
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
               }}
@@ -240,15 +240,12 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                 height: 6,
               },
               "&::-webkit-scrollbar-track": {
-                bgcolor: "#F3F4F6",
+                bgcolor: "neutral.bg.100",
                 borderRadius: 3,
               },
               "&::-webkit-scrollbar-thumb": {
-                bgcolor: "#D1D5DB",
+                bgcolor: "neutral.stroke.dark",
                 borderRadius: 3,
-                "&:hover": {
-                  bgcolor: "#9CA3AF",
-                },
               },
             }}
           >
@@ -258,7 +255,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                 sx={{
                   minWidth: 280,
                   flex: "0 0 auto",
-                  bgcolor: "#FFFFFF",
+                  bgcolor: "neutral.bg.50",
                   border: "1px solid #E5E7EB",
                   borderRadius: 2,
                   overflow: "hidden",
@@ -266,14 +263,13 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                   transition: "all 0.2s ease",
                   boxShadow: "none",
                   "&:hover": {
-                    borderColor: "#D1D5DB",
+                    borderColor: "neutral.stroke.dark",
                   },
                 }}
               >
                 <Box
                   sx={{
                     height: 160,
-                    bgcolor: "#F3F4F6",
                     overflow: "hidden",
                   }}
                 >
@@ -292,7 +288,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                     sx={{
                       fontSize: 11,
                       fontWeight: 500,
-                      color: "#6B7280",
+                      color: "neutral.content.700",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                       mb: 0.5,
@@ -304,7 +300,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                     sx={{
                       fontSize: 15,
                       fontWeight: 600,
-                      color: "#111827",
+                      color: "neutral.content.800",
                       mb: 1,
                     }}
                   >
@@ -314,7 +310,7 @@ const [drawerOpen, setDrawerOpen] = useState(false);
                   <Typography
                     sx={{
                       fontSize: 13,
-                      color: "#6B7280",
+                      color: "neutral.content.600",
                     }}
                   >
                     {service.experience} years experience

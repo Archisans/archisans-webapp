@@ -15,7 +15,7 @@ const SearchBar = ({ placeholder = "Search for Services" }) => {
     <Box
       sx={{
         mt: 2,
-        bgcolor: "rgba(242, 242, 248, 1)",
+        bgcolor: "neutral.bg.50",
         borderRadius: 1,
         height: 45,
         display: "flex",
@@ -30,7 +30,7 @@ const SearchBar = ({ placeholder = "Search for Services" }) => {
     >
       <MagnifyingGlassIcon
         size={22}
-        color="#050a56ff"
+        color="redneutral.bg.50"
         style={{ marginLeft: 16, marginRight: 16 }}
       />
       <InputBase
@@ -38,9 +38,9 @@ const SearchBar = ({ placeholder = "Search for Services" }) => {
         sx={{
           flex: 1,
           fontSize: "0.8rem",
-          color: "#050a56ff",
+          color: "neutral.content.400",
           "& input::placeholder": {
-            color: "#050a56ff",
+            color: "neutral.content.600",
             opacity: 1,
           },
         }}
