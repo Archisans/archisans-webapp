@@ -111,46 +111,6 @@ const WorkSampleCard = ({
         </Box>
       )}
 
-{/* GOOGLE DRIVE FILE */}
-{sample.driveLink && (
-  <Box mb={2}>
-    <Divider sx={{ my: 1 }} />
-
-    <Typography sx={{ fontSize: 14, fontWeight: 600, mb: 1 }}>
-      Google Drive Upload
-    </Typography>
-
-    <Stack direction="row" spacing={1.4} alignItems="center">
-      <Box
-        sx={{
-          width: 30,
-          height: 30,
-          borderRadius: "6px",
-          background: "#e0f2fe",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Folder fontSize="small" color="primary" />
-      </Box>
-
-      <Link
-        href={sample.driveLink}
-        target="_blank"
-        sx={{
-          fontSize: 14,
-          fontWeight: 600,
-          color: "#2563eb",
-          wordBreak: "break-word",
-        }}
-      >
-        Open Drive File
-      </Link>
-    </Stack>
-  </Box>
-)}
-
       {/* VIDEO LINKS */}
       {sample.videoLinks?.length > 0 && (
         <Box mb={2}>

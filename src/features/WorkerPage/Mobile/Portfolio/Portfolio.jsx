@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 import MobHeading from "@/components/Mobile/mobileHeading";
 import PortfolioUpload from "./components/PortfolioUpload";
 import WorkSampleCard from "./components/WorkSampleCard";
-import WorkSampleForm from "./components/WorkSampleForm";
-import EditWorkSample from "./components/EditWorkSample";
 
 import arImage from "@/assets/Images/ar.jpg";
 import sampleVideo from "@/assets/Images/sample.mp4";
+import EditWorkSampleModal from "./components/EditWorkSampleModal";
+import AddWorkSampleModal from "./components/AddWorkSampleModal";
 
 const Portfolio = () => {
   const [portfolioFile, setPortfolioFile] = useState(null);
@@ -43,22 +43,22 @@ const Portfolio = () => {
     },
   ]);
 
-  // ➤ Open Add Modal
+  // Open Add Modal
   const handleAddWorkSample = () => setOpenAddModal(true);
 
-  // ➤ Open Edit Modal
+  // Open Edit Modal
   const handleEditWorkSample = (index) => {
     setEditIndex(index);
     setOpenEditModal(true);
   };
 
-  // ➤ Save new sample
+  // Save new sample
   const handleSaveNew = (sample) => {
     setWorkSamples([...workSamples, sample]);
     setOpenAddModal(false);
   };
 
-  // ➤ Save edited sample
+  // Save edited sample
   const handleUpdateSample = (updatedSample) => {
     const temp = [...workSamples];
     temp[editIndex] = updatedSample;
@@ -66,7 +66,7 @@ const Portfolio = () => {
     setOpenEditModal(false);
   };
 
-  // ➤ Remove a work sample
+  // Remove a work sample
   const handleRemoveWorkSample = (index) => {
     setWorkSamples(workSamples.filter((_, i) => i !== index));
   };
@@ -122,20 +122,18 @@ const Portfolio = () => {
         ))}
       </Box>
 
-      {/* ADD MODAL */}
-      <Modal open={openAddModal} onClose={() => setOpenAddModal(false)}>
-        <Box sx={modalStyle}>
-          <WorkSampleForm onSave={handleSaveNew} onCancel={() => setOpenAddModal(false)} />
-        </Box>
-      </Modal>
+      <AddWorkSampleModal
+  open={openAddModal}
+  onClose={() => setOpenAddModal(false)}
+  onSave={handleSaveNew}
+/>
 
-      {/* EDIT MODAL */}
-      <EditWorkSample
-        open={openEditModal}
-        onClose={() => setOpenEditModal(false)}
-        data={editIndex !== null ? workSamples[editIndex] : null}
-        onSave={handleUpdateSample}
-      />
+<EditWorkSampleModal
+  open={openEditModal}
+  onClose={() => setOpenEditModal(false)}
+  existingData={workSamples[editIndex]} // <-- must match modal prop name
+  onUpdate={handleUpdateSample}          // <-- must match modal callback
+/>
     </Box>
   );
 };
