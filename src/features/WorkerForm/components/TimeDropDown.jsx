@@ -20,10 +20,15 @@ import {
   MINUTES,
   PERIODS,
 } from "../utils/timeUtils";
+import { deepPurple } from "@/config/Theme/config/color";
 
-const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError }) => {
-  const theme = useTheme();
-
+const TimeDropdown = ({
+  startTime,
+  setStartTime,
+  endTime,
+  setEndTime,
+  timeError,
+}) => {
   const handleStartChange = (field, value) => {
     setStartTime({ ...startTime, [field]: value });
   };
@@ -34,7 +39,13 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
 
   const startMinutes = convertToMinutes(startTime);
 
-  const CompositeTimeInput = ({ label, time, onChange, isEnd = false, error }) => {
+  const CompositeTimeInput = ({
+    label,
+    time,
+    onChange,
+    isEnd = false,
+    error,
+  }) => {
     const selectStyles = {
       "& .MuiSelect-select": {
         py: 1.5,
@@ -54,7 +65,7 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
         <Typography
           variant="caption"
           sx={{
-            color: error ? "error.main" : "text.secondary",
+            color: error ? "error.main" : "pirmary.content.default",
             fontWeight: 600,
             mb: 0.5,
             display: "block",
@@ -77,16 +88,16 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
             transition: "all 0.2s",
             boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
             "&:hover": {
-              borderColor: error ? "error.dark" : "primary.main",
+              borderColor: error ? "error.dark" : "primary.bg.default",
               boxShadow: `0 0 0 3px ${
                 error
-                  ? alpha(theme.palette.error.main, 0.1)
-                  : alpha(theme.palette.primary.main, 0.1)
+                  ? alpha(deepPurple[900], 0.1)
+                  : alpha(deepPurple[900], 0.1)
               }`,
             },
             "&:focus-within": {
               borderColor: "primary.main",
-              boxShadow: `0 0 0 3px ${alpha(theme.palette.primary.main, 0.2)}`,
+              boxShadow: `0 0 0 3px ${alpha(deepPurple[900], 0.2)}`,
             },
           }}
         >
@@ -107,7 +118,11 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
             </Select>
           </FormControl>
 
-          <Divider orientation="vertical" flexItem sx={{ height: 24, alignSelf: "center" }} />
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{ height: 24, alignSelf: "center" }}
+          />
 
           {/* Minute */}
           <FormControl fullWidth>
@@ -122,7 +137,9 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
                 <MenuItem
                   key={m}
                   value={m}
-                  disabled={isEnd && isEndMinuteDisabled(endTime, startMinutes, m)}
+                  disabled={
+                    isEnd && isEndMinuteDisabled(endTime, startMinutes, m)
+                  }
                 >
                   {m}
                 </MenuItem>
@@ -130,7 +147,11 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
             </Select>
           </FormControl>
 
-          <Divider orientation="vertical" flexItem sx={{ height: 24, alignSelf: "center" }} />
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{ height: 24, alignSelf: "center" }}
+          />
 
           {/* AM/PM */}
           <FormControl fullWidth>
@@ -142,7 +163,7 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
                 ...selectStyles,
                 "& .MuiSelect-select": {
                   ...selectStyles["& .MuiSelect-select"],
-                  color: "primary.main",
+                  color: "primary.bg.default",
                   fontWeight: 600,
                 },
               }}
@@ -152,7 +173,9 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
                 <MenuItem
                   key={p}
                   value={p}
-                  disabled={isEnd && isEndPeriodDisabled(endTime, startMinutes, p)}
+                  disabled={
+                    isEnd && isEndPeriodDisabled(endTime, startMinutes, p)
+                  }
                 >
                   {p}
                 </MenuItem>
@@ -182,7 +205,7 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
             sx={{
               p: 1,
               borderRadius: "50%",
-              bgcolor: alpha(theme.palette.primary.main, 0.1),
+              bgcolor: alpha(deepPurple[900], 0.1),
               color: "primary.main",
               display: "flex",
             }}
@@ -190,17 +213,24 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
             <Clock size={20} />
           </Box>
           <Box>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: 700, lineHeight: 1.2,color:"primary.content.default" }}
+            >
               Work Schedule
             </Typography>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" color="neutral.content.700">
               Set your start and end working hours
             </Typography>
           </Box>
         </Stack>
 
         {/* Inputs Container */}
-        <Stack direction={{ xs: "column", md: "row" }} spacing={3} alignItems={{ xs: "stretch", md: "flex-start" }}>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={3}
+          alignItems={{ xs: "stretch", md: "flex-start" }}
+        >
           <CompositeTimeInput
             label="Start Time"
             time={startTime}
@@ -209,7 +239,15 @@ const TimeDropdown = ({ startTime, setStartTime, endTime, setEndTime, timeError 
           />
 
           {/* Arrow Connector */}
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", pt: { xs: 0, md: 3.5 }, color: "text.disabled" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pt: { xs: 0, md: 3.5 },
+              color: "neutral.disabled.content",
+            }}
+          >
             <ArrowRight size={24} />
           </Box>
 

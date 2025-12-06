@@ -63,7 +63,7 @@ const WorkerForm1 = ({ formData, updateFormData, next, back }) => {
         p: { xs: 2, sm: 3 },
         maxWidth: 500,
         mx: "auto",
-        backgroundColor: "#f9fafb",
+        backgroundColor: "neutral.bg.50",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",

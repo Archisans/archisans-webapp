@@ -63,6 +63,7 @@ import {
 import { GENDER_OPTIONS, EXPERIENCE_YEARS } from "./utils/constants";
 import { Camera } from "lucide-react";
 import TimeDropdowns from "./components/TimeDropDown";
+import { red } from "@/config/Theme/config/color";
 
 const WorkerForm = ({
   formData,
@@ -453,14 +454,11 @@ const WorkerForm = ({
       allFields[field] = true;
     });
 
-    [
-      "companyName",
-      "gstNumber",
-      "workStartTime",
-      "workEndTime",
-    ].forEach((field) => {
-      allFields[field] = true;
-    });
+    ["companyName", "gstNumber", "workStartTime", "workEndTime"].forEach(
+      (field) => {
+        allFields[field] = true;
+      }
+    );
 
     allFields["coverPhoto"] = true;
     allFields["about"] = true;
@@ -532,7 +530,7 @@ const WorkerForm = ({
       sx={{
         display: "flex",
         minHeight: "100vh",
-        bgcolor: "#f8fafc",
+        bgcolor: "neutral.bg.50",
         position: "relative",
       }}
     >
@@ -541,7 +539,7 @@ const WorkerForm = ({
         <Box
           sx={{
             width: 300,
-            bgcolor: "#ffffff",
+            bgcolor: "neutral.bg.50",
             p: 4,
             display: { xs: "none", md: "block" },
             position: "sticky",
@@ -560,11 +558,11 @@ const WorkerForm = ({
           <Box sx={{ mb: 3 }}>
             <Typography
               variant="h5"
-              sx={{ fontWeight: 700, color: "#1e293b", mb: 1 }}
+              sx={{ fontWeight: 700, color: "primary.content.default", mb: 1 }}
             >
               Work Profile Registration
             </Typography>
-            <Typography variant="body2" sx={{ color: "#64748b" }}>
+            <Typography variant="body2" sx={{ color: "neutral.content.700" }}>
               Complete all sections to register
             </Typography>
           </Box>
@@ -573,7 +571,7 @@ const WorkerForm = ({
             <Typography
               variant="caption"
               sx={{
-                color: "#64748b",
+                color: "primary.content.default",
                 mb: 2,
                 display: "block",
                 fontWeight: 500,
@@ -587,10 +585,10 @@ const WorkerForm = ({
               sx={{
                 height: 6,
                 borderRadius: 3,
-                bgcolor: "#f1f5f9",
+                bgcolor: "primary.bgLight.focus",
                 "& .MuiLinearProgress-bar": {
                   borderRadius: 3,
-                  bgcolor: "#334155",
+                  bgcolor: "primary.bg.default",
                 },
               }}
             />
@@ -611,12 +609,18 @@ const WorkerForm = ({
                   p: 2,
                   borderRadius: 2,
                   transition: "all 0.2s ease",
-                  bgcolor: isActive ? "#f1f5f9" : "transparent",
+                  bgcolor: isActive
+                    ? isCompleted
+                      ? "success.bgLight"
+                      : "primary.bgLight.default"
+                    : "transparent",
                   border: isActive
                     ? "1px solid #e2e8f0"
                     : "1px solid transparent",
                   "&:hover": {
-                    bgcolor: "#f8fafc",
+                    bgcolor: isCompleted
+                      ? "success.bgLight"
+                      : "primary.bg.disabled",
                   },
                 }}
                 onClick={() => scrollToSection(step.key)}
@@ -626,12 +630,12 @@ const WorkerForm = ({
                     width: 32,
                     height: 32,
                     borderRadius: "50%",
-                    bgcolor: isActive
-                      ? "#334155"
-                      : isCompleted
-                      ? "#10b981"
-                      : "#cbd5e1",
-                    color: "#ffffff",
+                    bgcolor: isCompleted
+                      ? "success.main"
+                      : isActive
+                      ? "primary.bg.default"
+                      :"primary.bg.default",
+                    color: "neutral.bg.50",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -648,7 +652,9 @@ const WorkerForm = ({
                     variant="body2"
                     sx={{
                       fontWeight: isActive ? 600 : 500,
-                      color: isActive ? "#1e293b" : "#64748b",
+                      color: isActive
+                        ? "neutral.content.900"
+                        : "neutral.content.900",
                       fontSize: "0.875rem",
                     }}
                   >
@@ -657,7 +663,7 @@ const WorkerForm = ({
                   {isCompleted && (
                     <Typography
                       variant="caption"
-                      sx={{ color: "#10b981", fontWeight: 500 }}
+                      sx={{ color: "success.content", fontWeight: 500 }}
                     >
                       Completed
                     </Typography>
@@ -678,14 +684,14 @@ const WorkerForm = ({
               sx={{
                 fontWeight: 700,
                 mb: 1,
-                color: "#1e293b",
+                color: "primary.content.default",
               }}
             >
               {registerMode
                 ? "Register as a Professional"
                 : "Update Your Work Profile"}
             </Typography>
-            <Typography variant="body1" sx={{ color: "#64748b" }}>
+            <Typography variant="body1" sx={{ color: "neutral.content.600" }}>
               {registerMode
                 ? "Fill in your details below to create your professional profile and start offering your services."
                 : "Update your profile information below to keep your professional details and services up to date."}
@@ -710,7 +716,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -718,11 +724,11 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Person sx={{ color: "#64748b", fontSize: 20 }} />
+                <Person sx={{ color: "primary.bg.default", fontSize: 20 }} />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.content.default" }}
               >
                 Personal Information
               </Typography>
@@ -742,8 +748,8 @@ const WorkerForm = ({
                     width: 110,
                     height: 110,
                     border:
-                      touched.imageUrl && errors.imageUrl
-                        ? "3px solid #f44336"
+                      touched.imageUrl && personalForm.errors.imageUrl
+                        ? `3px solid ${red[800]}`
                         : "3px solid #fff",
                   }}
                   onBlur={() =>
@@ -757,13 +763,13 @@ const WorkerForm = ({
                     position: "absolute",
                     bottom: 4,
                     right: 4,
-                    backgroundColor: "white",
+                    backgroundColor: "neutral.bg.50",
                     width: 34,
                     height: 34,
                     borderRadius: "50%",
                     padding: 0,
                     boxShadow: 2,
-                    "&:hover": { backgroundColor: "#f5f5f5" },
+                    "&:hover": { backgroundColor: "neutral.bg.50" },
                   }}
                 >
                   <Camera size={18} strokeWidth={2} />
@@ -780,7 +786,7 @@ const WorkerForm = ({
 
               {touched.imageUrl && !!personalForm.errors.imageUrl && (
                 <FormHelperText error sx={{ mt: 1, textAlign: "center" }}>
-                  {errors.imageUrl}
+                  {personalForm.errors.imageUrl}
                 </FormHelperText>
               )}
             </Box>
@@ -806,7 +812,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Person sx={{ color: "#94a3b8" }} />
+                        <Person sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -836,7 +842,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <AadhaarIcon sx={{ color: "#94a3b8" }} />
+                        <AadhaarIcon sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -859,7 +865,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Cake sx={{ color: "#94a3b8" }} />
+                        <Cake sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -886,7 +892,7 @@ const WorkerForm = ({
                     onBlur={() => handleBlur("gender", getFieldValue("gender"))}
                     startAdornment={
                       <InputAdornment position="start">
-                        <Wc sx={{ color: "#94a3b8" }} />
+                        <Wc sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     }
                     sx={{
@@ -930,7 +936,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -938,11 +944,13 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <ContactPhone sx={{ color: "#64748b", fontSize: 20 }} />
+                <ContactPhone
+                  sx={{ color: "primary.bg.default", fontSize: 20 }}
+                />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.content.default" }}
               >
                 Contact Information
               </Typography>
@@ -958,14 +966,14 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Phone sx={{ color: "#94a3b8" }} />
+                        <Phone sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       borderRadius: 1,
-                      bgcolor: "#f8fafc",
+                      bgcolor: "neutral.bg.50",
                     },
                   }}
                 />
@@ -997,7 +1005,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Phone sx={{ color: "#94a3b8" }} />
+                        <Phone sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1026,7 +1034,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Email sx={{ color: "#94a3b8" }} />
+                        <Email sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1057,7 +1065,7 @@ const WorkerForm = ({
                         position="start"
                         sx={{ alignSelf: "flex-start", mt: 1 }}
                       >
-                        <Home sx={{ color: "#94a3b8" }} />
+                        <Home sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1088,7 +1096,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -1096,11 +1104,13 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Description sx={{ color: "#64748b", fontSize: 20 }} />
+                <Description
+                  sx={{ color: "primary.bg.default", fontSize: 20 }}
+                />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.content.default" }}
               >
                 About & Cover Photo (Optional)
               </Typography>
@@ -1110,7 +1120,11 @@ const WorkerForm = ({
             <Box sx={{ mb: 4 }}>
               <Typography
                 variant="body1"
-                sx={{ color: "#334155", mb: 2, fontWeight: 500 }}
+                sx={{
+                  color: "primary.content.default",
+                  mb: 2,
+                  fontWeight: 500,
+                }}
               >
                 About Yourself
               </Typography>
@@ -1127,9 +1141,13 @@ const WorkerForm = ({
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     borderRadius: 1,
-                    "& fieldset": { borderColor: "#cbd5e1" },
-                    "&:hover fieldset": { borderColor: "#334155" },
-                    "&.Mui-focused fieldset": { borderColor: "#0f172a" },
+                    "& fieldset": { borderColor: "neutral.content.400" },
+                    "&:hover fieldset": {
+                      borderColor: "primary.content.default",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "primary.content.default",
+                    },
                   },
                 }}
               />
@@ -1139,11 +1157,18 @@ const WorkerForm = ({
             <Box sx={{ mb: 2 }}>
               <Typography
                 variant="body1"
-                sx={{ color: "#334155", mb: 2, fontWeight: 500 }}
+                sx={{
+                  color: "primary.content.default",
+                  mb: 2,
+                  fontWeight: 500,
+                }}
               >
                 Cover Photo
               </Typography>
-              <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "neutral.content.400", mb: 3 }}
+              >
                 Add a cover photo to make your profile stand out. Recommended
                 size: 1200x300 pixels. Max file size: 5MB.
               </Typography>
@@ -1192,8 +1217,8 @@ const WorkerForm = ({
                         <IconButton
                           component="span"
                           sx={{
-                            bgcolor: "white",
-                            "&:hover": { bgcolor: "grey.100" },
+                            bgcolor: "neutral.bg.50",
+                            "&:hover": { bgcolor: "neutral.content.500" },
                           }}
                         >
                           <Edit />
@@ -1202,8 +1227,8 @@ const WorkerForm = ({
                       <IconButton
                         onClick={handleRemoveCoverPhoto}
                         sx={{
-                          bgcolor: "white",
-                          "&:hover": { bgcolor: "grey.100" },
+                          bgcolor: "neutral.bg.50",
+                          "&:hover": { bgcolor: "neutral.content.500" },
                         }}
                       >
                         <Delete />
@@ -1224,8 +1249,8 @@ const WorkerForm = ({
                       cursor: "pointer",
                       transition: "all 0.2s ease",
                       "&:hover": {
-                        borderColor: "#334155",
-                        bgcolor: "#f8fafc",
+                        borderColor: "primary.bg.default",
+                        bgcolor: "neutral.bg.50",
                       },
                     }}
                   >
@@ -1246,15 +1271,22 @@ const WorkerForm = ({
                         }}
                       >
                         <AddPhotoAlternate
-                          sx={{ fontSize: 48, color: "#94a3b8", mb: 1 }}
+                          sx={{
+                            fontSize: 48,
+                            color: "primary.bg.default",
+                            mb: 1,
+                          }}
                         />
                         <Typography
                           variant="body1"
-                          sx={{ color: "#64748b", mb: 0.5 }}
+                          sx={{ color: "neutral.content.500", mb: 0.5 }}
                         >
                           Click to upload cover photo
                         </Typography>
-                        <Typography variant="caption" sx={{ color: "#94a3b8" }}>
+                        <Typography
+                          variant="caption"
+                          sx={{ color: "neutral.content.500" }}
+                        >
                           PNG, JPG, JPEG up to 5MB
                         </Typography>
                       </Box>
@@ -1282,7 +1314,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -1290,17 +1322,20 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Instagram sx={{ color: "#64748b", fontSize: 20 }} />
+                <Instagram sx={{ color: "primary.bg.default", fontSize: 20 }} />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.content.default" }}
               >
                 Social Media Profiles (Optional)
               </Typography>
             </Box>
 
-            <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "neutral.content.500", mb: 3 }}
+            >
               Add your social media profiles to help clients learn more about
               your work
             </Typography>
@@ -1314,7 +1349,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Language sx={{ color: "#555" }} />
+                        <Language sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1338,7 +1373,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Instagram sx={{ color: "#E1306C" }} />
+                        <Instagram sx={{ color: "secondary.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1361,7 +1396,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Facebook sx={{ color: "#1877F2" }} />
+                        <Facebook sx={{ color: "info.bgDark" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1384,7 +1419,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <YouTube sx={{ color: "#FF0000" }} />
+                        <YouTube sx={{ color: "error.content" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1407,7 +1442,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LinkedIn sx={{ color: "#0A66C2" }} />
+                        <LinkedIn sx={{ color: "info.stroke" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1438,7 +1473,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -1446,17 +1481,20 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Business sx={{ color: "#64748b", fontSize: 20 }} />
+                <Business sx={{ color: "primary.bg.default", fontSize: 20 }} />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.bg.default" }}
               >
                 Company Information (Optional)
               </Typography>
             </Box>
 
-            <Typography variant="body2" sx={{ color: "#64748b", mb: 3 }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "neutral.content.700", mb: 3 }}
+            >
               Fill this section only if you represent a company or registered
               business.
             </Typography>
@@ -1482,7 +1520,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Business sx={{ color: "#94a3b8" }} />
+                        <Business sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1514,7 +1552,7 @@ const WorkerForm = ({
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Receipt sx={{ color: "#94a3b8" }} />
+                        <Receipt sx={{ color: "primary.bg.default" }} />
                       </InputAdornment>
                     ),
                   }}
@@ -1566,7 +1604,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -1574,11 +1612,11 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Work sx={{ color: "#64748b", fontSize: 20 }} />
+                <Work sx={{ color: "primary.bg.default", fontSize: 20 }} />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.bg.default" }}
               >
                 Select Your Profession
               </Typography>
@@ -1605,8 +1643,8 @@ const WorkerForm = ({
                         {selectedCount > 0 && (
                           <Box
                             sx={{
-                              bgcolor: "#334155",
-                              color: "#ffffff",
+                              bgcolor: "primary.bg.default",
+                              color: "nuetral.bg.50",
                               borderRadius: "50%",
                               width: 20,
                               height: 20,
@@ -1633,16 +1671,22 @@ const WorkerForm = ({
                       fontSize: "0.875rem",
                       fontWeight: 500,
                       borderRadius: 1,
-                      bgcolor: isSelected ? "#334155" : "#ffffff",
-                      color: isSelected ? "#ffffff" : "#334155",
+                      bgcolor: isSelected
+                        ? "primary.bg.default"
+                        : "neutral.bg.50",
+                      color: isSelected
+                        ? "neutral.bg.50"
+                        : "primary.bg.default",
                       border: isSelected
-                        ? "1px solid #334155"
+                        ? "1px solid primary.bg.default"
                         : "1px solid #cbd5e1",
                       "& .MuiChip-icon": {
-                        color: isSelected ? "#ffffff" : "transparent",
+                        color: isSelected ? "neutral.bg.50" : "transparent",
                       },
                       "&:hover": {
-                        bgcolor: isSelected ? "#475569" : "#f8fafc",
+                        bgcolor: isSelected
+                          ? "primary.bg.default"
+                          : "neutral.bg.50",
                       },
                     }}
                   />
@@ -1660,10 +1704,12 @@ const WorkerForm = ({
             )}
 
             {formData.professions?.length > 0 && (
-              <Box sx={{ mt: 3, p: 3, bgcolor: "#f8fafc", borderRadius: 1 }}>
+              <Box
+                sx={{ mt: 3, p: 3, bgcolor: "neutral.bg.50", borderRadius: 1 }}
+              >
                 <Typography
                   variant="subtitle2"
-                  sx={{ mb: 2, color: "#475569", fontWeight: 600 }}
+                  sx={{ mb: 2, color: "primary.bg.default", fontWeight: 600 }}
                 >
                   SELECTED SERVICES:
                 </Typography>
@@ -1675,8 +1721,8 @@ const WorkerForm = ({
                         label={`${service.title} (${prof.categoryTitle})`}
                         size="small"
                         sx={{
-                          bgcolor: "#ffffff",
-                          color: "#334155",
+                          bgcolor: "neutral.bg.50",
+                          color: "primary.bg.default",
                           fontWeight: 500,
                           border: "1px solid #e2e8f0",
                         }}
@@ -1706,7 +1752,7 @@ const WorkerForm = ({
                   width: 40,
                   height: 40,
                   borderRadius: "50%",
-                  bgcolor: "#f1f5f9",
+                  bgcolor: "neutral.bg.50",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -1714,11 +1760,11 @@ const WorkerForm = ({
                   border: "1px solid #e2e8f0",
                 }}
               >
-                <Star sx={{ color: "#64748b", fontSize: 20 }} />
+                <Star sx={{ color: "primary.bg.default", fontSize: 20 }} />
               </Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 600, color: "#1e293b" }}
+                sx={{ fontWeight: 600, color: "primary.bg.default" }}
               >
                 Experience Details
               </Typography>
@@ -1730,13 +1776,18 @@ const WorkerForm = ({
                   textAlign: "center",
                   py: 5,
                   px: 3,
-                  bgcolor: "#f8fafc",
+                  bgcolor: "neutral.bg.50",
                   borderRadius: 1,
                   border: "1px dashed #cbd5e1",
                 }}
               >
-                <Work sx={{ fontSize: 32, color: "#94a3b8", mb: 2 }} />
-                <Typography color="#64748b" sx={{ fontSize: "0.875rem" }}>
+                <Work
+                  sx={{ fontSize: 32, color: "primary.bg.default", mb: 2 }}
+                />
+                <Typography
+                  color="neutral.content.700"
+                  sx={{ fontSize: "0.875rem" }}
+                >
                   Please select at least one profession to add experience
                   details.
                 </Typography>
@@ -1761,17 +1812,20 @@ const WorkerForm = ({
                         p: 2,
                         borderBottom: "1px solid #e2e8f0",
                         "&:last-of-type": { borderBottom: "none" },
-                        "&:hover": { bgcolor: "#f9fafb" },
+                        "&:hover": { bgcolor: "primary.bgLight.default" },
                       }}
                     >
                       <Box>
                         <Typography
                           variant="subtitle1"
-                          sx={{ fontWeight: 600, color: "#1e293b" }}
+                          sx={{ fontWeight: 600, color: "primary.bg.default" }}
                         >
                           {service.title}
                         </Typography>
-                        <Typography variant="caption" sx={{ color: "#64748b" }}>
+                        <Typography
+                          variant="caption"
+                          sx={{ color: "neutral.content.800" }}
+                        >
                           {prof.categoryTitle}
                         </Typography>
                       </Box>
@@ -1831,14 +1885,14 @@ const WorkerForm = ({
                 fontSize: "1rem",
                 fontWeight: 600,
                 borderRadius: 1,
-                bgcolor: "#334155",
+                bgcolor: "primary.bg.default",
                 textTransform: "none",
                 "&:hover": {
-                  bgcolor: "#475569",
+                  bgcolor: "primary.bg.default",
                 },
                 "&:disabled": {
-                  bgcolor: "#cbd5e1",
-                  color: "#94a3b8",
+                  bgcolor: "primary.bgLight.default",
+                  color: "primary.bg.disabled",
                 },
               }}
             >
@@ -1901,18 +1955,18 @@ const WorkerForm = ({
                         borderColor: selectedSubServices.some(
                           (s) => s.id === service.id
                         )
-                          ? "#334155"
-                          : "#e2e8f0",
+                          ? "primary.bg.default"
+                          : "neutral.content.700",
                         bgcolor: selectedSubServices.some(
                           (s) => s.id === service.id
                         )
-                          ? "#f8fafc"
-                          : "#ffffff",
+                          ? "primary.bgLight.default"
+                          : "neutral.bg.50",
                         transition: "all 0.2s ease",
                         cursor: "pointer",
                         "&:hover": {
-                          borderColor: "#334155",
-                          bgcolor: "#f8fafc",
+                          borderColor: "primary.bg.default",
+                          bgcolor: "primary.bgLight.default",
                         },
                       }}
                       onClick={() => handleToggleSubService(service)}
@@ -1924,9 +1978,9 @@ const WorkerForm = ({
                               (s) => s.id === service.id
                             )}
                             sx={{
-                              color: "#94a3b8",
+                              color: "primary.bgLight.default",
                               "&.Mui-checked": {
-                                color: "#334155",
+                                color: "primary.bg.default",
                               },
                             }}
                           />
@@ -1951,7 +2005,7 @@ const WorkerForm = ({
                 borderRadius: 1,
                 textTransform: "none",
                 fontWeight: 500,
-                color: "#64748b",
+                color: "primary.bg.default",
               }}
             >
               Cancel
@@ -1963,10 +2017,7 @@ const WorkerForm = ({
                 borderRadius: 1,
                 textTransform: "none",
                 fontWeight: 500,
-                bgcolor: "#334155",
-                "&:hover": {
-                  bgcolor: "#475569",
-                },
+                bgcolor: "primary.bg.default",
               }}
             >
               Save Selection ({selectedSubServices.length})
