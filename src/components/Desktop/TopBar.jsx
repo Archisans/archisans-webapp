@@ -151,7 +151,7 @@ const TopBar = ({ handleLocationClick }) => {
   const isHomePage = location.pathname === "/";
   const isTransparent = isHomePage && !scrolled;
   const open = Boolean(anchorEl);
-
+  console.log("isTransparent",isTransparent)
   useEffect(() => {
     if (!isHomePage) return;
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -234,7 +234,7 @@ const TopBar = ({ handleLocationClick }) => {
               sx={{
                 fontWeight: 900,
                 letterSpacing: 0.2,
-                color: isTransparent ? "white" : "#0A0A0A",
+                color: isTransparent ? "neutral.bg.50" : "neutral.content.900",
                 cursor: "pointer",
                 flexShrink: 0,
               }}
@@ -246,7 +246,7 @@ const TopBar = ({ handleLocationClick }) => {
               flexItem
               orientation="vertical"
               sx={{
-                borderColor: isTransparent ? "rgba(255,255,255,0.3)" : "#eee",
+                borderColor: isTransparent ? "rgba(255,255,255,0.3)" : "neutral.bg.50",
                 flexShrink: 0,
               }}
             />
@@ -258,7 +258,7 @@ const TopBar = ({ handleLocationClick }) => {
               sx={{
                 textTransform: "none",
                 fontWeight: 700,
-                color: isTransparent ? "white" : "#0A0A0A",
+                color: isTransparent ? "neutral.bg.50" : "neutral.content.900",
                 flexShrink: 0,
                 minWidth: "fit-content",
               }}
@@ -285,7 +285,7 @@ const TopBar = ({ handleLocationClick }) => {
                   backgroundColor: isTransparent
                     ? "rgba(255,255,255,0.1)"
                     : "white",
-                  color: isTransparent ? "white" : "#0A0A0A",
+                  color:isTransparent ? "neutral.bg.50" : "neutral.content.900",
                   "& fieldset": {
                     borderColor: isTransparent
                       ? "rgba(255,255,255,0.3)"
@@ -296,7 +296,7 @@ const TopBar = ({ handleLocationClick }) => {
                       ? "rgba(255,255,255,0.5)"
                       : "#999",
                   },
-                  "&.Mui-focused fieldset": { borderColor: "#4EBCFF" },
+                  "&.Mui-focused fieldset": { borderColor: "primary.bg.focus" },
                 },
                 "& input::placeholder": {
                   color: isTransparent ? "rgba(255,255,255,0.7)" : "#999",

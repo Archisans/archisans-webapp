@@ -90,7 +90,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
             sx={{
               fontSize: { xs: "2.5rem", md: "4rem", lg: "4.5rem" },
               fontWeight: 600,
-              color: "white",
+              color: "neutral.bg.50",
               lineHeight: 1.1,
               mb: 3,
             }}
@@ -101,7 +101,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
           <Typography
             sx={{
               fontSize: { xs: "1.1rem", md: "1.3rem" },
-              color: "#7d8590",
+              color: "neutral.content.400",
               lineHeight: 1.6,
               mb: 4,
               maxWidth: 600,
@@ -124,7 +124,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
               size="large"
               endIcon={<ArrowForward />}
               sx={{
-                bgcolor: "#3467c7c0",
+                bgcolor: "primary.bg.hover",
                 color: "white",
                 fontWeight: 600,
                 px: 4,
@@ -132,7 +132,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
                 borderRadius: 2,
                 textTransform: "none",
                 fontSize: "1rem",
-                "&:hover": { bgcolor: "#2a4a85c0" },
+                "&:hover": { bgcolor: "primary.content.focus" },
               }}
             >
               Find Professionals
@@ -144,8 +144,8 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
                 size="large"
                 startIcon={<Build />}
                 sx={{
-                  borderColor: "#30363d",
-                  color: "#f0f6fc",
+                  borderColor: "neutral.content.400",
+                  color: "primary.content.focus",
                   fontWeight: 600,
                   px: 4,
                   py: 2,
@@ -153,7 +153,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
                   textTransform: "none",
                   fontSize: "1rem",
                   "&:hover": {
-                    borderColor: "#8b949e",
+                    borderColor: "neutral.content.400",
                     bgcolor: "rgba(240, 246, 252, 0.1)",
                   },
                 }}
@@ -169,7 +169,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
               alignItems: "center",
               justifyContent: "center",
               gap: 3,
-              color: "#7d8590",
+              color: "neutral.content.400",
               flexWrap: "wrap",
             }}
           >

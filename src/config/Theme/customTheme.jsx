@@ -35,6 +35,7 @@ const getBottomRadiusValue = (size) => {
   return bottomRadiiScale?.[size] ?? bottomRadiiScale.md;
 };
 
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -59,6 +60,7 @@ const theme = createTheme({
     background: {
       default: "#F1E6DD",
       paper: "#FFFFFF",
+      landingGradient: "radial-gradient(ellipse at center, #1a1a2e 0%, #0d1117 100%)",
     },
   },
   typography: {

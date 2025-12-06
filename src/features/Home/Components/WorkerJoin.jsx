@@ -11,25 +11,27 @@ import {
 } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
 import workerJoinPDF from "@/assets/pdf/workerjoin.pdf"
+import { deepPurple } from "@mui/material/colors";
+import { amber, blue, green } from "@/config/Theme/config/color";
 
 const benefits = [
   {
     icon: <TrendingUp />,
     title: "Grow Your Business",
     desc: "Access to premium clients",
-    color: "#4ECDC4",
+    color: green[500],
   },
   {
     icon: <Verified />,
     title: "Get Verified",
     desc: "Build trust with badges",
-    color: "#45B7D1",
+    color: blue[500],
   },
   {
     icon: <WorkOutline />, // new icon
     title: "Flexible Opportunities",
     desc: "Choose projects that fit your schedule",
-    color: "#FFA500",
+    color: amber[600],
   },
 ];
 
@@ -108,7 +110,7 @@ const WorkerJoin = () => {
                 sx={{ fontSize: 22, animation: "pulse 2s ease-in-out infinite" }}
               />
               <Typography
-                sx={{ color: "#333", fontWeight: 700, fontSize: "1rem" }}
+                sx={{ color: "neutral.content.600", fontWeight: 700, fontSize: "1rem" }}
               >
                 Professional Opportunities
               </Typography>
@@ -127,7 +129,7 @@ const WorkerJoin = () => {
               sx={{
                 fontSize: { xs: "2.2rem", md: "3rem" },
                 fontWeight: 900,
-                color: "#222",
+                color: "neutral.content.400",
                 mb: 3,
                 lineHeight: 1.2,
               }}
@@ -168,7 +170,7 @@ const WorkerJoin = () => {
             <Typography
               sx={{
                 fontSize: { xs: "1.1rem", md: "1.25rem" },
-                color: "#555",
+                color: "neutral.content.600",
                 mb: 6,
                 lineHeight: 1.7,
                 maxWidth: 600,
@@ -248,14 +250,14 @@ const WorkerJoin = () => {
                   <Typography
                     sx={{
                       fontWeight: 700,
-                      color: "#222",
+                      color: "neutral.content.600",
                       fontSize: "1rem",
                       mb: 0.5,
                     }}
                   >
                     {benefit.title}
                   </Typography>
-                  <Typography sx={{ color: "#555", fontSize: "0.9rem" }}>
+                  <Typography sx={{ color:"neutral.content.600", fontSize: "0.9rem" }}>
                     {benefit.desc}
                   </Typography>
                 </Paper>

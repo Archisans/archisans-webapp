@@ -43,6 +43,8 @@ import ServiceDetails from "./pages/worker/service/details/ServiceDetails";
 import NotFound from "@/error/404/NotFound";
 import ServerError from "@/error/500/ServerError";
 import AccessDenied from "@/error/403/AccessDenied";
+import Test from "./Test";
+import DocReference from "./Documentation/index"
 
 function App() {
   const { isLoading: configLoading, hasError } = useBootstrapConfiguration();
@@ -58,8 +60,10 @@ function App() {
 
   return (
     <>
+
       <ScrollToTop />
       <Routes>
+        <Route path={RouteProvider.DOCS_REFRENCE} element={<DocReference/>} />
         <Route element={<AppLayout />}>
           {/* Public Routes */}
           <Route path={RouteProvider.USER_HOME} element={<Home />} />

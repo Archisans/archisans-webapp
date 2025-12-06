@@ -1,4 +1,5 @@
 export const RouteProvider = {
+  DOCS_REFRENCE:"/documentation/theme",
   USER_HOME: "/",
   USER_SEARCH: "/search",
   USER_SERVICES: "/services/*",

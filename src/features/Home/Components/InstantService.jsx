@@ -11,6 +11,7 @@ import {
 } from "@mui/icons-material";
 import InstantServiceImg from "@/assets/Images/InstantService.png";
 import { features } from "./constants/features";
+import { deepPurple } from "@/config/Theme/config/color";
 
 const InstantService = () => {
   return (
@@ -97,13 +98,13 @@ const InstantService = () => {
                     <Schedule
                       sx={{
                         fontSize: 22,
-                        color: "#0c136fff",
+                        color: deepPurple[500],
                         animation: "pulse 2s ease-in-out infinite",
                       }}
                     />
                     <Typography
                       sx={{
-                        color: "#434966",
+                        color: "neutral.content.600",
                         fontWeight: 700,
                         fontSize: "1rem",
                       }}
@@ -125,7 +126,7 @@ const InstantService = () => {
                     sx={{
                       fontSize: { xs: "2.2rem", md: "3.2rem" },
                       fontWeight: 900,
-                      color: "#434966",
+                      color: "neutral.content.600",
                       mb: 3,
                       lineHeight: 1.2,
                     }}
@@ -135,7 +136,7 @@ const InstantService = () => {
                       component="span"
                       sx={{
                         background:
-                          "linear-gradient(135deg, #0c136fff, #060a42ff)",
+                          `linear-gradient(135deg, ${deepPurple[500]}, ${deepPurple[300]})`,
                         backgroundClip: "text",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
@@ -174,7 +175,7 @@ const InstantService = () => {
                   <Typography
                     sx={{
                       fontSize: { xs: "1.1rem", md: "1.25rem" },
-                      color: "#82889C",
+                      color: "neutral.content.600",
                       mb: 5,
                       lineHeight: 1.7,
                       maxWidth: 520,
@@ -237,7 +238,7 @@ const InstantService = () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            color: "white",
+                            color: "neutral.bg.50",
                             flexShrink: 0,
                             boxShadow: `0 8px 20px ${benefit.color}40`,
                           }}
@@ -248,7 +249,7 @@ const InstantService = () => {
                           <Typography
                             sx={{
                               fontWeight: 700,
-                              color: "#434966",
+                              color: "neutral.content.800",
                               fontSize: "1rem",
                               mb: 0.5,
                             }}
@@ -256,7 +257,7 @@ const InstantService = () => {
                             {benefit.title}
                           </Typography>
                           <Typography
-                            sx={{ color: "#82889C", fontSize: "0.9rem" }}
+                            sx={{ color: "neutral.content.600", fontSize: "0.9rem" }}
                           >
                             {benefit.desc}
                           </Typography>

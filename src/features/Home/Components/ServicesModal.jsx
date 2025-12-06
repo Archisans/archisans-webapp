@@ -97,12 +97,12 @@ const ServicesModal = ({ open, onClose, category }) => {
                     sx={{
                       fontSize: { xs: "1.5rem", md: "2rem" },
                       fontWeight: 800,
-                      color: "#2A2F45",
+                      color: "neutral.bg.800",
                     }}
                   >
                     {category?.title}
                   </Typography>
-                  <IconButton onClick={onClose} sx={{ color: "#6B6F82" }}>
+                  <IconButton onClick={onClose} sx={{ color: "neutral.content.600" }}>
                     <Close />
                   </IconButton>
                 </Box>
@@ -164,7 +164,7 @@ const ServicesModal = ({ open, onClose, category }) => {
             <Typography
               variant="caption"
               sx={{
-                color: "#fff",
+                color: "neutral.bg.50",
                 fontSize: "13px",
                 lineHeight: 1.2,
                 textAlign: "center",

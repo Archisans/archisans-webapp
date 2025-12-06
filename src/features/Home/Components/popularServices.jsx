@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { TrendingUp } from "@mui/icons-material";
 import { popularServices } from "@/features/Home/Components/constants/popularServices";
 import { useNavigate } from "react-router-dom";
+import { grey } from "@/config/Theme/config/color";
 
 export default function PopularServicesStatic({ onGetStartedClick }) {
   const navigate = useNavigate();
@@ -36,11 +37,11 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
         >
           <Box sx={{ textAlign: "center", mb: 6 }}>
             <Chip
-              icon={<TrendingUp />}
+              icon={<TrendingUp color="neutral.bg.900" />}
               label="Most Requested"
               sx={{
-                backgroundColor: "#FFD700",
-                color: "#1a1a1a",
+                backgroundColor: "warning.stroke",
+                color: "neutral.bg.900",
                 fontWeight: 600,
                 mb: 3,
                 px: 2,
@@ -51,7 +52,7 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
               sx={{
                 fontSize: { xs: "2.5rem", md: "3.5rem" },
                 fontWeight: 900,
-                color: "#1a1a1a",
+                color: "primary.content.default",
                 mb: 2,
               }}
             >
@@ -65,7 +66,8 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                 mx: "auto",
               }}
             >
-              Discover our most sought-after professional services with top ratings and proven results.
+              Discover our most sought-after professional services with top
+              ratings and proven results.
             </Typography>
           </Box>
         </motion.div>
@@ -100,7 +102,7 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                   position: "relative",
                   background: "white",
                   boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                  border: "1px solid #e5e7eb",
+                  border: `1px solid ${grey[50]}`,
                   transition: "all 0.4s ease",
                   "&:hover": {
                     transform: "translateY(-12px) scale(1.02)",
@@ -135,7 +137,7 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                     sx={{
                       fontWeight: 700,
                       fontSize: "0.9rem",
-                      color: "#1a1a1a",
+                      color: "neutral.content.800",
                       mb: 0.1,
                       lineHeight: 1.3,
                       display: "-webkit-box",
@@ -161,7 +163,9 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
           viewport={{ once: true }}
         >
           <Box sx={{ textAlign: "center", mt: 8 }}>
-            <Typography sx={{ fontSize: "1.1rem", color: "text.secondary", mb: 3 }}>
+            <Typography
+              sx={{ fontSize: "1.1rem", color: "neutral.content.800", mb: 3 }}
+            >
               Can't find what you're looking for?
             </Typography>
             <Box
@@ -181,7 +185,13 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
                 },
               }}
             >
-              <Typography sx={{ fontWeight: 700, color: "#1a1a1a", fontSize: "1.1rem" }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  color: "primary.content.default",
+                  fontSize: "1.1rem",
+                }}
+              >
                 Browse All Categories →
               </Typography>
             </Box>

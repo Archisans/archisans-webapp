@@ -147,13 +147,12 @@ function InfiniteScrollRow({ cities, direction = "right", speed = 0.5 }) {
 }
 
 export default function PopularCities() {
-  const [selectedLocation, setSelectedLocation] = useState("");
 
   return (
     <Box
       sx={{
         py: { xs: 4, md: 6 },
-        background: "#FAFAFA", // pale white background
+        background: "neutral.bg.50", // pale white background
         position: "relative",
         overflow: "hidden",
       }}
@@ -207,8 +206,8 @@ export default function PopularCities() {
                 mb: 4,
               }}
             >
-              <Verified sx={{ fontSize: 18, color: "#0c136f" }} />
-              <Typography sx={{ color: "#333", fontWeight: 600 }}>
+              <Verified sx={{ fontSize: 18, color: "primary.bg.default" }} />
+              <Typography sx={{ color: "neutral.content.800", fontWeight: 600 }}>
                 Service Locations
               </Typography>
             </Box>
@@ -217,19 +216,19 @@ export default function PopularCities() {
               sx={{
                 fontSize: { xs: "2.5rem", md: "3.5rem" },
                 fontWeight: 900,
-                color: "#0c136f",
+                color: "primary.content.default",
                 mb: 3,
               }}
             >
               Available in
-              <Box component="span" sx={{ color: "#319795", display: "block" }}>
+              <Box component="span" sx={{ color: "neutral.content.500", display: "block" }}>
                 These Cities
               </Box>
             </Typography>
             <Typography
               sx={{
                 fontSize: { xs: "1.1rem", md: "1.3rem" },
-                color: "#555",
+                color: "neutral.content.800",
                 maxWidth: 600,
                 mx: "auto",
               }}
@@ -279,14 +278,14 @@ export default function PopularCities() {
             <Typography
               sx={{
                 fontWeight: 700,
-                color: "#0c136f",
+                color: "primary.content.default",
                 fontSize: "1.2rem",
                 mb: 2,
               }}
             >
               Expanding Across Kerala
             </Typography>
-            <Typography sx={{ color: "#555", fontSize: "0.95rem" }}>
+            <Typography sx={{ color: "neutral.content.700", fontSize: "0.95rem" }}>
               We're continuously expanding our network to serve more cities. Don't see your city? We'll be there soon!
             </Typography>
           </Box>

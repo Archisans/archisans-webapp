@@ -28,15 +28,15 @@ const Footer = () => {
   const ContactItem = ({ icon, text }) => (
     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
       {icon}
-      <Typography sx={{ fontSize: "0.9rem", color: "#555" }}>{text}</Typography>
+      <Typography sx={{ fontSize: "0.9rem", color: "neutral.content.800" }}>{text}</Typography>
     </Box>
   );
 
   const SocialButton = ({ icon, color }) => (
     <IconButton
       sx={{
-        backgroundColor: "rgba(78,188,255,0.1)",
-        color: "#1a1a1a",
+        backgroundColor: "primary.bgLight.default",
+        color: "neutral.content.900",
         "&:hover": { backgroundColor: color, transform: "translateY(-2px)" },
         transition: "all 0.3s ease",
       }}
@@ -58,16 +58,16 @@ const Footer = () => {
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: icon ? 0.5 : 0, mb: 0.5 }}>
-        <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#4EBCFF" }}>{value}</Typography>
+        <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "primary.content.default" }}>{value}</Typography>
         {icon}
       </Box>
-      <Typography sx={{ fontSize: "0.85rem", color: "#555" }}>{label}</Typography>
+      <Typography sx={{ fontSize: "0.85rem", color: "neutral.content.800" }}>{label}</Typography>
     </Paper>
   );
 
   return (
     <>
-      <Box sx={{ background: "#fff", color: "#1a1a1a", position: "relative", overflow: "hidden", pt: 5, pb: 2 }}>
+      <Box sx={{ backgroundColor: "neutral.bg.50", color: "neutral.content.900", position: "relative", overflow: "hidden", pt: 5, pb: 2 }}>
         {/* Background Elements */}
         <Box
           sx={{
@@ -106,7 +106,7 @@ const Footer = () => {
                     fontWeight: 900,
                     mb: 1.5,
                     fontSize: { xs: "1.5rem", md: "2rem" },
-                    background: "linear-gradient(135deg, #4EBCFF, #87CEFA)",
+                    backgroundColor: "primary.content.default",
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -114,7 +114,7 @@ const Footer = () => {
                 >
                   Archisans
                 </Typography>
-                <Typography sx={{ fontSize: "0.95rem", color: "#555", mb: 2, lineHeight: 1.4 }}>
+                <Typography sx={{ fontSize: "0.95rem", color: "neutral.content.800", mb: 2, lineHeight: 1.4 }}>
                   Kerala's premier platform connecting homeowners with verified professionals for quality construction and home services.
                 </Typography>
 
@@ -131,7 +131,7 @@ const Footer = () => {
 
               {/* Quick Links */}
               <Box>
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5, color: "#4EBCFF", fontSize: "0.95rem" }}>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5, color: "primary.content.default", fontSize: "0.95rem" }}>
                   Quick Links
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
@@ -141,7 +141,7 @@ const Footer = () => {
                       onClick={() => handleLinkClick(link.path)}
                       sx={{
                         justifyContent: "flex-start",
-                        color: "#555",
+                        color: "neutral.content.800",
                         textTransform: "none",
                         fontSize: "0.85rem",
                         px: 0,
@@ -156,7 +156,7 @@ const Footer = () => {
                           height: "2px",
                           bottom: 0,
                           left: 0,
-                          backgroundColor: "#4EBCFF",
+                          backgroundColor: "primary.content.default",
                           transition: "width 0.3s ease",
                         },
                         "&:hover:after": {
@@ -164,7 +164,7 @@ const Footer = () => {
                         },
                         "&:hover": {
                           background: "transparent",
-                          color: "#4EBCFF",
+                          color: "primary.content.default",
                         },
                       }}
                     >

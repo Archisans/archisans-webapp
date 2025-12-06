@@ -1,6 +1,7 @@
 
 import { Facebook, Instagram, Twitter, LinkedIn, Email, Phone, LocationOn, Star,WhatsApp } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
+import { amber } from "@/config/Theme/config/color";
 
 export const TERMS_CONTENT = {
   lastUpdated: "2025-09-29",
@@ -30,10 +31,10 @@ export const TERMS_CONTENT = {
 
 
 export const socialLinks = [
-  { icon: <Facebook />, color: "#1877F2" },
-  { icon: <Instagram />, color: "#E4405F" },
-  { icon: <Twitter />, color: "#1DA1F2" },
-  { icon: <LinkedIn />, color: "#0A66C2" },
+  { icon: <Facebook />, color: "primary.bg.disabled" },
+  { icon: <Instagram />, color: "primary.bg.disabled" },
+  { icon: <Twitter />, color: "primary.bg.disabled" },
+  { icon: <LinkedIn />, color: "primary.bg.disabled" },
 ];
 
 export const quickLinks = [
@@ -44,14 +45,14 @@ export const quickLinks = [
 ];
 
 export const contactInfo = [
-  { icon: <Email sx={{ fontSize: 16, color: "#4EBCFF" }} />, text: "archisans2025@gmail.com" },
-  { icon: <Phone sx={{ fontSize: 16, color: "#4EBCFF" }} />, text: "+91 8129509544" },
-  { icon: <LocationOn sx={{ fontSize: 16, color: "#4EBCFF" }} />, text: "Thrissur, Kerala, India" },
+  { icon: <Email sx={{ fontSize: 16, color: "primary.bg.disabled" , }} />, text: "archisans2025@gmail.com" },
+  { icon: <Phone sx={{ fontSize: 16, color: "primary.bg.disabled" }} />, text: "+91 8129509544" },
+  { icon: <LocationOn sx={{ fontSize: 16, color: "primary.bg.disabled" }} />, text: "Thrissur, Kerala, India" },
 ];
 
 export const stats = [
   { value: "50K+", label: "Verified Professionals" },
-  { value: "4.9", label: "Average Rating", icon: <Star sx={{ fontSize: 18, color: "#FFD700" }} /> },
+  { value: "4.9", label: "Average Rating", icon: <Star sx={{ fontSize: 18, color: amber[700]}} /> },
 ];
 
 

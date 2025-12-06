@@ -3,6 +3,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward, Category } from "@mui/icons-material";
 import ServicesModal from "./ServicesModal";
+import { deepPurple } from "@mui/material/colors";
 
 const CategoriesGrid = ({ categories }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -128,8 +129,8 @@ const CategoriesGrid = ({ categories }) => {
                     boxShadow: "0 4px 15px rgba(12, 19, 111, 0.08)",
                   }}
                 >
-                  <Category sx={{ fontSize: 18, color: "#0c136f" }} />
-                  <Typography sx={{ color: "#434966", fontWeight: 600 }}>
+                  <Category sx={{ fontSize: 18, color: "primary.bg.default" }} />
+                  <Typography sx={{ color: "primary.bg.disabled", fontWeight: 600 }}>
                     Service Categories
                   </Typography>
                 </Box>
@@ -140,7 +141,7 @@ const CategoriesGrid = ({ categories }) => {
                 sx={{
                   fontSize: { xs: "2.2rem", md: "3rem" },
                   fontWeight: 800,
-                  color: "#434966",
+                  color: "primary.bgLight.hover",
                   mb: 2,
                   lineHeight: 1.2,
                 }}
@@ -152,9 +153,8 @@ const CategoriesGrid = ({ categories }) => {
                   transition={{ duration: 0.8, delay: 0.4 }}
                   viewport={{ once: true }}
                   style={{
-                    color: "#0c136f",
                     display: "block",
-                    background: "linear-gradient(135deg, #0c136f, #1d237d)",
+                    background: `linear-gradient(135deg,${deepPurple[400]},${deepPurple[600]})`,
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -167,7 +167,7 @@ const CategoriesGrid = ({ categories }) => {
               <Typography
                 sx={{
                   fontSize: { xs: "1rem", md: "1.2rem" },
-                  color: "#6B6F82",
+                  color: "neutral.bg.800",
                   maxWidth: 600,
                   mx: "auto",
                 }}
