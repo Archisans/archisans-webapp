@@ -65,7 +65,7 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
           m: "auto",
           mt: 8,
           borderRadius: 2,
-          maxHeight: "90vh",     
+          maxHeight: "85vh",     
           overflowY: "auto"      
         }}
       >
