@@ -20,7 +20,7 @@ import {
   MINUTES,
   PERIODS,
 } from "../utils/timeUtils";
-import { deepPurple } from "@/config/Theme/config/color";
+import { deepPurple, red } from "@/config/Theme/config/color";
 
 const TimeDropdown = ({
   startTime,
@@ -270,9 +270,9 @@ const TimeDropdown = ({
               alignItems: "center",
               p: 1.5,
               borderRadius: 2,
-              bgcolor: alpha(theme.palette.error.main, 0.05),
+              bgcolor: alpha(red[900], 0.05),
               color: "error.main",
-              border: `1px solid ${alpha(theme.palette.error.main, 0.1)}`,
+              border: `1px solid ${alpha(red[900], 0.1)}`,
             }}
           >
             <AlertCircle size={18} />
