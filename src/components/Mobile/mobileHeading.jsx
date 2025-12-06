@@ -18,7 +18,7 @@ const MobHeading = ({ Heading, backArrow = true }) => {
           right: 0,
           zIndex: 1000,
           height: "60px",
-          bgcolor: "#FFF",
+          bgcolor: "neutral.bg.50",
           paddingTop: "env(safe-area-inset-top)",
         }}
       >
@@ -40,7 +40,7 @@ const MobHeading = ({ Heading, backArrow = true }) => {
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             marginLeft: "15px",
-            color: '#050a56ff'
+            color: 'primary.bg.default'
           }}
         >
           {Heading}

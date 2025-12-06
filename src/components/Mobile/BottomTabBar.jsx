@@ -62,12 +62,14 @@ const BottomTabBar = () => {
         onChange={handleChange}
         aria-label="mobile bottom navigation"
         variant="fullWidth"
-        TabIndicatorProps={{
-          sx: {
-            bottom: -1.4,
-            height: 3,
-            borderRadius: 1.5,
-            bgcolor: activeColor,
+        slotProps={{
+          indicator: {
+            sx: {
+              bottom: -1.4,
+              height: 3,
+              borderRadius: 1.5,
+              bgcolor: activeColor,
+            },
           },
         }}
         sx={{
