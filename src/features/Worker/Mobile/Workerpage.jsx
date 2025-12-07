@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
-  MapPin as MapPinIcon,
   Share2 as ShareNetworkIcon,
   Heart as HeartIcon,
 } from "lucide-react";
@@ -136,10 +135,8 @@ const Workerpage = ({ worker }) => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            gap={0.6}
             mt={0.5}
           >
-            <MapPinIcon size={15} color="#555" />
             <Typography fontSize={13.5} color="neutral.content.600">
               {worker.location}
             </Typography>
