@@ -136,6 +136,7 @@ const Workerpage = ({ worker }) => {
             justifyContent="center"
             alignItems="center"
             mt={0.5}
+            px={1.5}
           >
             <Typography fontSize={13.5} color="neutral.content.600">
               {worker.location}
