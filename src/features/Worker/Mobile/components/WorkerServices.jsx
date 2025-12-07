@@ -23,7 +23,7 @@ const WorkerServices = ({ services }) => {
               overflow: "hidden",
               "&:hover": {
                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                borderColor: "#0073b1",
+                borderColor: "neutral.content.700",
               },
             }}
           >
@@ -63,8 +63,8 @@ const WorkerServices = ({ services }) => {
                 label={`${service.experience} yrs`}
                 size="small"
                 sx={{
-                  bgcolor: "#f3f2ef",
-                  color: "#666",
+                  bgcolor: "neutral.bg.200",
+                  color: "neutral.content.800",
                   fontSize: "0.688rem",
                   height: 22,
                   width: "fit-content",

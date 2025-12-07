@@ -14,7 +14,7 @@ const WorkerAbout = ({ about }) => {
       <Typography
         sx={{
           fontSize: 15.5,
-          color: "#555",
+          color: "neutral.content.800",
           lineHeight: 1.8,
           whiteSpace: "pre-line",
           wordBreak: "break-word",

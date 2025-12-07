@@ -56,7 +56,7 @@ const WorkerReview = ({ workerId }) => {
               readOnly
             />
           </Stack>
-          <Typography sx={{ fontSize: "14px", color: "text.secondary" }}>
+          <Typography sx={{ fontSize: "14px", color: "neutral.content.800" }}>
             {stats.count} reviews
           </Typography>
         </Stack>

@@ -7,7 +7,7 @@ const MobWorkerBusiness = ({ company }) => {
       <Typography
         variant="subtitle2"
         sx={{
-          color: "text.secondary",
+          color: "neutral.content.800",
           fontSize: { xs: 12, sm: 13, md: 14 },
         }}
       >
@@ -22,7 +22,7 @@ const MobWorkerBusiness = ({ company }) => {
       <Typography
         variant="subtitle2"
         sx={{
-          color: "text.secondary",
+          color: "neutral.content.800",
           fontSize: { xs: 12, sm: 13, md: 14 },
         }}
       >
@@ -37,7 +37,7 @@ const MobWorkerBusiness = ({ company }) => {
       <Typography
         variant="subtitle2"
         sx={{
-          color: "text.secondary",
+          color: "neutral.content.800",
           mt: 2,
           fontSize: { xs: 12, sm: 13, md: 14 },
         }}

@@ -14,7 +14,7 @@ const FavouriteAndShareButton = ({ showShare = true }) => {
     <>
       <Stack direction="row" spacing={1}>
         {/* Favourite Button */}
-        <IconButton
+        {/* <IconButton
           size="small"
           onClick={(e) => {
             e.stopPropagation();
@@ -27,7 +27,7 @@ const FavouriteAndShareButton = ({ showShare = true }) => {
             weight={saved ? "fill" : "regular"}
             color={saved ? "#ff0000" : "#000000"}
           />
-        </IconButton>
+        </IconButton> */}
 
         {/* Share Button - optional */}
         {showShare && (

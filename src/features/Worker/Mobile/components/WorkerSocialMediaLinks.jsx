@@ -93,7 +93,7 @@ const WorkerSocialMediaLinks = ({ social = [] }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    bgcolor: "white",
+                    bgcolor: "neutral.bg.50",
                     borderRadius: "16px",
                     p: 2,
                     ml: 2,
@@ -124,7 +124,7 @@ const WorkerSocialMediaLinks = ({ social = [] }) => {
                     ml: 1,
                     transform: "translateX(-50%)",
                     bgcolor: item.color,
-                    color: "white",
+                    color: "neutral.bg.50",
                     fontSize: "0.65rem",
                     height: 20,
                     minWidth: 80,

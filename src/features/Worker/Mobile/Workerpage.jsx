@@ -35,9 +35,9 @@ const Workerpage = ({ worker }) => {
   };
 
   return (
-    <Grid container sx={{ bgcolor: "#f9f9f9", }}>
+    <Grid container sx={{ bgcolor: "neutral.bg.50", }}>
       {/* Banner Section */}
-      <Box sx={{ width: "100%", bgcolor: "#fff" }}>
+      <Box sx={{ width: "100%", bgcolor: "neutral.bg.50" }}>
         <Box sx={{ position: "relative", width: "100%" }}>
           <img
             src={worker.image ? worker.image : DefaultWorkerImg}
@@ -61,9 +61,9 @@ const Workerpage = ({ worker }) => {
               position: "absolute",
               top: 10,
               left: 10,
-              bgcolor: "rgba(0,0,0,0.5)",
-              color: "white",
-              "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+              bgcolor: "neutral.content.700",
+              color: "neutral.bg.50",
+              "&:hover": { bgcolor: "neutral.content.400" },
               zIndex: 2,
               width: 38,
               height: 38,
@@ -123,13 +123,13 @@ const Workerpage = ({ worker }) => {
               sx={{
                 fontSize: 22,
                 fontWeight: 600,
-                color: "#111",
+                color: "neutral.content.800",
                 lineHeight: 1.2,
               }}
             >
               {worker.name}
             </Typography>
-            <VerifiedIcon sx={{ color: "#1C9C3C", fontSize: 21 }} />
+            <VerifiedIcon sx={{ color: "success.bg", fontSize: 21 }} />
           </Box>
 
           <Box
@@ -140,7 +140,7 @@ const Workerpage = ({ worker }) => {
             mt={0.5}
           >
             <MapPinIcon size={15} color="#555" />
-            <Typography fontSize={13.5} color="#666">
+            <Typography fontSize={13.5} color="neutral.content.600">
               {worker.location}
             </Typography>
           </Box>
@@ -162,8 +162,8 @@ const Workerpage = ({ worker }) => {
               variant="contained"
               onClick={() => setOpenReview(true)}
               sx={{
-                bgcolor: "#ffffff",
-                color: "#0b134a",
+                bgcolor: "neutral.bg.50",
+                color: "neutral.content.800",
                 fontWeight: 600,
                 py: 1.2,
                 fontSize: 14,
@@ -171,7 +171,7 @@ const Workerpage = ({ worker }) => {
                 textTransform: "none",
                 border: "1px solid #0b134a",
                 boxShadow: "0px 3px 6px rgba(0,0,0,0.1)",
-                "&:hover": { bgcolor: "#f5f7ff" },
+                "&:hover": { bgcolor: "neutral.content.400" },
                 "&:active": { transform: "scale(0.98)" },
               }}
             >
@@ -185,15 +185,15 @@ const Workerpage = ({ worker }) => {
             variant="contained"
             onClick={() => window.open(`tel:${worker.phone}`, "_self")}
             sx={{
-              bgcolor: "#0b134a",
-              color: "#fff",
+              bgcolor: "primary.bg.default",
+              color: "neutral.bg.50",
               fontWeight: 600,
               py: 1.2,
               fontSize: 14,
               borderRadius: 2,
               textTransform: "none",
               boxShadow: "0px 3px 6px rgba(0,0,0,0.15)",
-              "&:hover": { bgcolor: "#16227d" },
+              "&:hover": { bgcolor: "primary.content.focus" },
               "&:active": { transform: "scale(0.98)" },
             }}
           >

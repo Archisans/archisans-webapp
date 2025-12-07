@@ -60,7 +60,7 @@ const WorkerReviewCard = ({ reviewer, rating, message, created_at }) => {
               <Typography
                 sx={{
                   fontSize: 13,
-                  color: "text.secondary",
+                  color: "neutral.content.800",
                   fontWeight: 500,
                 }}
               >
@@ -72,7 +72,7 @@ const WorkerReviewCard = ({ reviewer, rating, message, created_at }) => {
 
         <Typography
           sx={{
-            color: "text.secondary",
+            color: "neutral.content.800",
             fontSize: { xs: 12, sm: 13 },
             fontWeight: 500,
             mt: { xs: 1, sm: 0 },
@@ -89,7 +89,7 @@ const WorkerReviewCard = ({ reviewer, rating, message, created_at }) => {
             sx={{
               fontSize: { xs: 14, sm: 15 },
               lineHeight: 1.6,
-              color: "text.primary",
+              color: "neutral.content.800",
               textAlign: "justify",
             }}
           >

@@ -65,7 +65,7 @@ const MobWorkerTopTab = ({ worker }) => {
           position: "sticky",
           top: 0,
           zIndex: 10,
-          backgroundColor: "#fff",
+          backgroundColor: "neutral.bg.50",
           justifyContent: "center",
         }}
       >

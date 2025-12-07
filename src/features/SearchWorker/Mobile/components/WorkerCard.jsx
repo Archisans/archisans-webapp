@@ -10,7 +10,8 @@ import {
 import { MapPinIcon, StarIcon } from "@phosphor-icons/react";
 import { RouteProvider } from "@/config/RouteProvider";
 import FavouriteAndShareButton from "@/components/FavouriteAndShareButton/FavouriteAndShareButton";
-import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png'
+import DefaultWorkerImg from '@/assets/Images/DefaultWorkerImg.png';
+
 const WorkerCard = ({ worker, navigate }) => {
   const theme = useTheme();
 
@@ -28,26 +29,26 @@ const WorkerCard = ({ worker, navigate }) => {
         mx: 2,
         mb: 2,
         borderRadius: 0.5,
-        bgcolor: "#fff",
+        bgcolor: "neutral.bg.50",
         overflow: "hidden",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
       }}
     >
-      {/* Image with Rating */}
+      {/* Image */}
       <Box sx={{ position: "relative", height: 150 }}>
         <img
-          src={worker.image ? worker.image : DefaultWorkerImg}
-          alt="background"
+          src={worker.image || DefaultWorkerImg}
+          alt="Worker"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
 
-        {/* Rating Box */}
+        {/* Rating */}
         <Box
           sx={{
             position: "absolute",
             bottom: 8,
             right: 8,
-            bgcolor: "rgba(255, 255, 255, 0.8)",
+            bgcolor: "neutral.bg.100",
             borderRadius: 2,
             px: 1,
             py: 0.1,
@@ -60,78 +61,61 @@ const WorkerCard = ({ worker, navigate }) => {
             fontSize={12}
             weight="fill"
             color={theme.palette.primary.main}
-            mb={1}
           />
-          <Typography
-            fontSize={11}
-            fontWeight={600}
-            color="black"
-            ml={0.3}
-            mt={0.2}
-          >
+
+          <Typography fontSize={11} fontWeight={600} ml={0.3}>
             {worker.rating}
           </Typography>
-          <Typography fontSize={9} fontWeight={600} color="black" mt={0.4}>
+
+          <Typography fontSize={9} fontWeight={600} ml={0.4}>
             ({worker.reviews} reviews)
           </Typography>
         </Box>
 
-        {/* Action Buttons */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            display: "flex",
-            gap: 1,
-          }}
-        >
+        {/* Action Button */}
+        {/* <Box sx={{ position: "absolute", top: 8, right: 8 }}>
           <FavouriteAndShareButton showShare={false} />
-        </Box>
-
+        </Box> */}
       </Box>
 
       {/* Info Section */}
       <Box sx={{ px: 1, py: 2 }}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            sx={{ maxWidth: "65%", overflow: "hidden" }}
-          >
-            <Avatar
-              src={worker.avatar}
-              sx={{ height: 53, width: 53, flexShrink: 0 }}
-            />
-            <Box sx={{ overflow: "hidden" }}>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Avatar
+            src={worker.avatar}
+            sx={{ height: 53, width: 53, flexShrink: 0 }}
+          />
+
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            {/* Name */}
+            <Typography
+              fontSize={18}
+              fontWeight={580}
+              color="neutral.content.900"
+              noWrap
+              sx={{ textOverflow: "ellipsis" }}
+            >
+              {worker.name}
+            </Typography>
+
+            {/* Location */}
+            <Stack direction="row" alignItems="center" spacing={0.5}>
+              <MapPinIcon size={14} />
+
               <Typography
-                mb={0.4}
-                fontSize={18}
-                fontWeight={580}
-                color="black"
+                color="neutral.content.700"
+                fontSize={14}
                 noWrap
-                sx={{ textOverflow: "ellipsis" }}
+                sx={{
+                  maxWidth: 150,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
               >
-                {worker.name}
+                {worker.location}
               </Typography>
-              <Stack direction="row" alignItems="center" spacing={0.5}>
-                <MapPinIcon size={18} />
-                <Typography
-                  color="#6c6868ff"
-                  fontSize={14}
-                  noWrap
-                  sx={{ textOverflow: "ellipsis" }}
-                >
-                  {worker.location}
-                </Typography>
-              </Stack>
-            </Box>
-          </Stack>
+            </Stack>
+          </Box>
         </Stack>
 
         {/* Roles */}
@@ -143,10 +127,8 @@ const WorkerCard = ({ worker, navigate }) => {
               size="small"
               sx={{
                 bgcolor: theme.palette.primary.main,
-                color: "white",
-                fontWeight: 400,
+                color: "neutral.bg.50",
                 fontSize: 10,
-                px: 1,
               }}
             />
           ))}
@@ -157,20 +139,17 @@ const WorkerCard = ({ worker, navigate }) => {
               size="small"
               sx={{
                 bgcolor: theme.palette.primary.main,
-                color: "white",
-                fontWeight: 400,
+                color: "neutral.bg.50",
                 fontSize: 10,
-                px: 1,
               }}
             />
           )}
         </Stack>
 
-        {/* Description */}
+        {/* About */}
         <Typography
           fontSize={13}
           mb={1.7}
-          ml={0.8}
           sx={{
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -186,13 +165,8 @@ const WorkerCard = ({ worker, navigate }) => {
         <Button
           fullWidth
           variant="contained"
-          sx={{
-            textTransform: "none",
-            fontSize: 15,
-            py: 0.4,
-            fontWeight: 400,
-          }}
-          onClick={() => window.open(`tel:${worker.worker.phone}`, "_self")}
+          sx={{ textTransform: "none", fontSize: 15, py: 0.4 }}
+          onClick={() => window.open(`tel:${worker.phone}`, "_self")}
         >
           Call Now
         </Button>
