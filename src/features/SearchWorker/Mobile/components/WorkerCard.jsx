@@ -107,7 +107,7 @@ const WorkerCard = ({ worker, navigate }) => {
                 fontSize={14}
                 noWrap
                 sx={{
-                  maxWidth: 190,
+                  maxWidth: 200,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                 }}
