@@ -28,12 +28,17 @@ const ReviewDialog = ({
   const [comment, setComment] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ratingError, setRatingError] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleSubmit = async () => {
-    if (!rating) return;
+    if (!rating) {
+      setRatingError(true);
+      return;
+    }
+    setRatingError(false);
     setLoading(true);
     try {
       await onSubmit({ rating, comment });
@@ -70,7 +75,7 @@ const ReviewDialog = ({
           sx: {
             borderRadius: 3,
             mx: isMobile ? 2 : 0,
-            p: isMobile ? 2 : 3,
+            p: isMobile ? 1 : 3,
           },
         }}
       >
@@ -82,8 +87,8 @@ const ReviewDialog = ({
             disabled={loading}
             sx={{
               position: "absolute",
-              right: 10,
-              top: 10,
+              right: 0,
+              top: 0,
               color: "#aaa",
             }}
           >
@@ -92,6 +97,7 @@ const ReviewDialog = ({
 
           <DialogTitle
             sx={{
+              mt: 1,
               textAlign: "center",
               fontWeight: "bold",
               fontSize: isMobile ? "1.25rem" : "1.5rem",
@@ -118,6 +124,11 @@ const ReviewDialog = ({
               size="large"
               sx={{ fontSize: isMobile ? "2.2rem" : "3rem" }}
             />
+            {ratingError && (
+              <Typography sx={{ color: "red", mt: 1, fontSize: "0.85rem" }}>
+                Please give a rating before submitting.
+              </Typography>
+            )}
 
             <TextField
               fullWidth
@@ -150,6 +161,7 @@ const ReviewDialog = ({
                 borderRadius: "50px",
                 px: isMobile ? 4 : 6,
                 py: isMobile ? 0.8 : 1,
+                mb: 1.5,
                 color: "white",
                 fontWeight: "bold",
                 fontSize: isMobile ? "0.9rem" : "1rem",
