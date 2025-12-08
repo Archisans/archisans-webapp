@@ -17,7 +17,7 @@ import { Video as VideoIcon, FolderOpen, FileText } from "lucide-react";
 const MobWorkerPortFolio = () => {
   const theme = useTheme();
 
-  // 🔥 NEW — Portfolio PDF + Portfolio URL
+
   const portfolioData = {
     pdf: "https://drive.google.com/file/d/12pdfexample/view?usp=drive_link",
     link: "https://worker-portfolio-site.com/profile",
@@ -46,7 +46,7 @@ const MobWorkerPortFolio = () => {
   return (
     <Box sx={{ p: 1 }}>
 
-      {/* ⭐ TOP PORTFOLIO SECTION (PDF + LINK)                */}
+      {/*  TOP PORTFOLIO SECTION (PDF + LINK)  */}
       <Box
         sx={{
           mb: 2,

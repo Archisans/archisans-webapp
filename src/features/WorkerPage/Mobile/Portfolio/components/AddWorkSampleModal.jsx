@@ -6,7 +6,9 @@ import {
   TextField,
   Button,
   IconButton,
-  Stack
+  Stack,
+  Select,
+  MenuItem
 } from "@mui/material";
 import { PhotoCamera, Delete } from "@mui/icons-material";
 
@@ -17,7 +19,7 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
     location: "",
     clientNumber: "",
     photos: [],
-    videoLinks: [""],   // <-- MULTIPLE VIDEO LINKS
+    Links: [""],   // <-- MULTIPLE VIDEO LINKS
     driveLink: "",
   });
 
@@ -37,20 +39,20 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
     }));
   };
 
-  const updateVideoLink = (index, value) => {
-    const list = [...form.videoLinks];
+  const updateLink = (index, value) => {
+    const list = [...form.Links];
     list[index] = value;
-    setForm((prev) => ({ ...prev, videoLinks: list }));
+    setForm((prev) => ({ ...prev, Links: list }));
   };
 
-  const addVideoLink = () => {
-    setForm((prev) => ({ ...prev, videoLinks: [...prev.videoLinks, ""] }));
+  const addLink = () => {
+    setForm((prev) => ({ ...prev, Links: [...prev.Links, ""] }));
   };
 
-  const removeVideoLink = (index) => {
+  const removeLink = (index) => {
     setForm((prev) => ({
       ...prev,
-      videoLinks: prev.videoLinks.filter((_, i) => i !== index),
+      Links: prev.Links.filter((_, i) => i !== index),
     }));
   };
 
@@ -65,8 +67,8 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
           m: "auto",
           mt: 8,
           borderRadius: 2,
-          maxHeight: "85vh",     
-          overflowY: "auto"      
+          maxHeight: "85vh",
+          overflowY: "auto"
         }}
       >
 
@@ -83,13 +85,25 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
           onChange={(e) => handleChange("title", e.target.value)}
         />
 
-        <TextField
+        <Select
           fullWidth
-          label="Work Type"
-          sx={{ mb: 2 }}
           value={form.type}
           onChange={(e) => handleChange("type", e.target.value)}
-        />
+          sx={{ mb: 2 }}
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            Select Work Type
+          </MenuItem>
+
+          <MenuItem value="Plumbing">Plumbing</MenuItem>
+          <MenuItem value="Electrical">Electrical</MenuItem>
+          <MenuItem value="Carpentry">Carpentry</MenuItem>
+          <MenuItem value="Painting">Painting</MenuItem>
+          <MenuItem value="Cleaning">Cleaning</MenuItem>
+          <MenuItem value="Installation">Installation</MenuItem>
+          <MenuItem value="Repair">Repair</MenuItem>
+        </Select>
 
         <TextField
           fullWidth
@@ -152,30 +166,30 @@ const AddWorkSampleModal = ({ open, onClose, onSave }) => {
           })}
         </Stack>
 
-        {/* MULTIPLE VIDEO LINKS */}
-        <Typography fontWeight={600} mt={2} mb={1}>
-          Video Links
+        {/* MULTIPLE  LINKS */}
+        <Typography fontSize={13} mt={2} mb={1} color="neutral.content.700">
+          Add External Links (YouTube, Google Drive, etc.)
         </Typography>
 
-        {form.videoLinks.map((link, index) => (
+        {form.Links.map((link, index) => (
           <Stack direction="row" spacing={1} mb={1} key={index}>
             <TextField
               fullWidth
-              label={`Video Link ${index + 1}`}
+              label={`Link ${index + 1}`}
               value={link}
-              onChange={(e) => updateVideoLink(index, e.target.value)}
+              onChange={(e) => updateLink(index, e.target.value)}
             />
 
-            {form.videoLinks.length > 1 && (
-              <IconButton onClick={() => removeVideoLink(index)}>
+            {form.Links.length > 1 && (
+              <IconButton onClick={() => removeLink(index)}>
                 <Delete />
               </IconButton>
             )}
           </Stack>
         ))}
 
-        <Button variant="text" onClick={addVideoLink}>
-          + Add Video Link
+        <Button variant="text" onClick={addLink}>
+          + Add  Link
         </Button>
 
         {/* ACTION BUTTONS */}
