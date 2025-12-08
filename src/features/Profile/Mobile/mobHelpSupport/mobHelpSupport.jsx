@@ -18,7 +18,7 @@ const MobHelpSupportCard = ({ icon, title, subtitle, href }) => {
     gap: 3,
     p: 3,
     borderRadius: 3,
-    backgroundColor: "#fefefe",
+    backgroundColor: "neutral.bg.50",
     cursor: "pointer",
     boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
     width: 330,          
@@ -31,22 +31,22 @@ const MobHelpSupportCard = ({ icon, title, subtitle, href }) => {
             width: 55,
             height: 55,
             borderRadius: "50%",
-            backgroundColor: "#001f5b",
+            backgroundColor: "primary.content.dark",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#fff",
+            color: "neutral.bg.50",
             flexShrink: 0,
           }}
         >
           {icon}
         </Box>
         <Box>
-          <Typography sx={{ fontWeight: 700, fontSize: "1rem", color: "#001f5b" }}>
+          <Typography sx={{ fontWeight: 700, fontSize: "1rem", color: "primary.bg.default" }}>
             {title}
           </Typography>
           {subtitle && (
-            <Typography sx={{ fontSize: "0.85rem", color: "#555", mt: 0.5 }}>
+            <Typography sx={{ fontSize: "0.85rem", color: "neutral.content.700", mt: 0.5 }}>
               {subtitle}
             </Typography>
           )}
@@ -66,7 +66,7 @@ const MobHelpSupport = () => {
       sx={{
         minHeight: "100vh",
         p: 2,
-        backgroundColor: "#f4f5f8",
+        backgroundColor: "neutral.bg.50",
       }}
     >
 
@@ -78,7 +78,7 @@ const MobHelpSupport = () => {
           sx={{
             fontSize: { xs: 22, sm: 26 },
             fontWeight: 700,
-            color: "#001f5b",
+            color: "neutral.content.800",
           }}
         >
           How can we help?
@@ -101,11 +101,11 @@ const MobHelpSupport = () => {
 
       {/* Support Hours */}
       <Box sx={{ mb: 4 }}>
-        <Typography sx={{ fontWeight: 700, color: "#001f5b", mb: 1 }}>
+        <Typography sx={{ fontWeight: 700, color: "neutral.content.800", mb: 1 }}>
           {supportData.hours.title}
         </Typography>
         {supportData.hours.timing.map((time, idx) => (
-          <Typography key={idx} sx={{ color: "#555", fontSize: "0.85rem", mb: 0.5 }}>
+          <Typography key={idx} sx={{ color: "neutral.content.700", fontSize: "0.85rem", mb: 0.5 }}>
             {time}
           </Typography>
         ))}
@@ -115,7 +115,7 @@ const MobHelpSupport = () => {
       <Typography
         sx={{
           fontSize: "0.75rem",
-          color: "#999",
+          color: "neutral.content.700",
           textAlign: "center",
           mt: "auto",
           mb: 2,

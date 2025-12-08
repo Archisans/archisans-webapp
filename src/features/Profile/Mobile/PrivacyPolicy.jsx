@@ -8,17 +8,17 @@ const PrivacyPolicyMobile = () => {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{ minHeight: "100vh", bgcolor: "#f7f8fa" }}>
+        <Box sx={{ minHeight: "100vh", bgcolor: "neutral.bg.50" }}>
             {/* Header */}
             <MobHeading Heading="Privacy Policy" />
 
             {/* Last Updated */}
-            <Typography sx={{ mt: 2, px: 2, fontSize: "0.85rem", color: "#555" }}>
+            <Typography sx={{ mt: 2, px: 2, fontSize: "0.85rem", color: "neutral.content.700" }}>
                 <strong>Last updated:</strong> {privacyData.lastUpdated}
             </Typography>
 
             {/* Intro */}
-            <Typography sx={{ mt: 1, px: 2, fontSize: "0.9rem", color: "#555", lineHeight: 1.6 }}>
+            <Typography sx={{ mt: 1, px: 2, fontSize: "0.9rem", color: "neutral.content.700", lineHeight: 1.6 }}>
                 {privacyData.intro}
             </Typography>
 
@@ -27,12 +27,12 @@ const PrivacyPolicyMobile = () => {
                 {privacyData.sections.map((section, idx) => (
                     <Box key={idx} sx={{ mb: 3 }}>
                         <Typography
-                            sx={{ fontWeight: 700, color: "#001f5b", fontSize: "1rem", mb: 1 }}
+                            sx={{ fontWeight: 700, color: "primary.bg.default", fontSize: "1rem", mb: 1 }}
                         >
                             {section.heading}
                         </Typography>
-                        <Divider sx={{ mb: 1, borderColor: "#e0e0e0" }} />
-                        <Typography sx={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.6 }}>
+                        <Divider sx={{ mb: 1, borderColor: "neutral.content.400" }} />
+                        <Typography sx={{ fontSize: "0.9rem", color: "neutral.content.700", lineHeight: 1.6 }}>
                             {section.content}
                         </Typography>
                     </Box>

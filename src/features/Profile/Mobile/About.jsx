@@ -4,7 +4,7 @@ import MobHeading from "@/components/Mobile/mobileHeading";
 
 const AboutMobile = () => {
     return (
-        <Box sx={{ p: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
+        <Box sx={{ p: 2, bgcolor: "neutral.bg.50", minHeight: "100vh" }}>
 
             <MobHeading Heading="About Archisans" />
             <Stack spacing={3}>
