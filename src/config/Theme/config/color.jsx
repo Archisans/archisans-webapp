@@ -37,17 +37,30 @@ export const purple = {
   900: "#4A148C",
 };
 
-export const deepPurple = {
-  50: "#ede7f6",
-  100: "#d1c4e9",
-  200: "#b39ddb",
-  300: "#9575cd",
-  400: "#7e57c2",
-  500: "#673ab7",
-  600: "#5e35b1",
-  700: "#512da8",
-  800: "#4527a0",
-  900: "#311b92",
+// export const deepPurple = {
+//   50: "#ede7f6",
+//   100: "#d1c4e9",
+//   200: "#b39ddb",
+//   300: "#9575cd",
+//   400: "#7e57c2",
+//   500: "#673ab7",
+//   600: "#5e35b1",
+//   700: "#512da8",
+//   800: "#4527a0",
+//   900: "#311b92",
+// };
+
+export const deepBlue = {
+  50:  "#e5e9f0",
+  100: "#bcc7db",
+  200: "#90a2c3",
+  300: "#647eaa",
+  400: "#415f96",
+  500: "#234182",
+  600: "#1f3a76",
+  700: "#1a3166",
+  800: "#152857",
+  900: "#0b1636",
 };
 
 export const amber = {
@@ -104,7 +117,7 @@ export const blue = {
 
 // Optional: Export all
 export const colors = {
-  deepPurple,
+  deepBlue,
   green,
   red,
   purple,

@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import InstantServiceImg from "@/assets/Images/InstantService.png";
 import { features } from "./constants/features";
-import { deepPurple } from "@/config/Theme/config/color";
+import { deepBlue } from "@/config/Theme/config/color";
 
 const InstantService = () => {
   return (
@@ -98,7 +98,7 @@ const InstantService = () => {
                     <Schedule
                       sx={{
                         fontSize: 22,
-                        color: deepPurple[500],
+                        color: deepBlue[500],
                         animation: "pulse 2s ease-in-out infinite",
                       }}
                     />
@@ -136,7 +136,7 @@ const InstantService = () => {
                       component="span"
                       sx={{
                         background:
-                          `linear-gradient(135deg, ${deepPurple[500]}, ${deepPurple[300]})`,
+                          `linear-gradient(135deg, ${deepBlue[500]}, ${deepBlue[300]})`,
                         backgroundClip: "text",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",

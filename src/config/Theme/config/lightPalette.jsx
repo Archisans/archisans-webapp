@@ -1,4 +1,4 @@
-import { deepPurple, purple, grey as gray, red, green, amber, blue } from "./color.jsx";
+import {deepBlue, purple, grey as gray, red, green, amber, blue } from "./color.jsx";
 
 /**
  * Brand Light Palette
@@ -49,37 +49,71 @@ export const brandLightPalette = {
   },
 
   /** Primary brand color — deep purple (main branding, CTAs, highlights) */
+  // primary: {
+  //   bg: {
+  //     default: deepPurple[600], // Primary button background
+  //     hover: deepPurple[700], // Primary button hover
+  //     focus: deepPurple[600], // Primary button focus
+  //     disabled: deepPurple[300], // Disabled primary background
+  //   },
+
+  //   bgLight: {
+  //     default: deepPurple[100], // Chip, subtle tag background
+  //     hover: deepPurple[200], // Hover for subtle surfaces
+  //     focus: deepPurple[100],
+  //     disabled: gray[300],
+  //   },
+  //   content: {
+  //     default: deepPurple[700], // Text/icons on light surfaces
+  //     hover: deepPurple[800], // Hover text
+  //     focus: deepPurple[700],
+  //     disabled: deepPurple[300],
+  //     inverse: gray.white, // Text on primary surfaces
+  //     dark: deepPurple[900], // Stronger emphasis text
+  //   },
+
+  //   stroke: {
+  //     default: deepPurple[400], // Primary borders
+  //     hover: deepPurple[500], // Hovered border
+  //     focus: deepPurple[600], // Focus border ring
+  //     disabled: deepPurple[200],
+  //   },
+
+  //   main: deepPurple[600], // Used for theme.palette.primary.main
+  // },
+
   primary: {
     bg: {
-      default: deepPurple[600], // Primary button background
-      hover: deepPurple[700], // Primary button hover
-      focus: deepPurple[600], // Primary button focus
-      disabled: deepPurple[300], // Disabled primary background
+      default: deepBlue[600], // Primary button background
+      hover: deepBlue[700],   // Primary button hover
+      focus: deepBlue[600],   // Primary button focus
+      disabled: deepBlue[300], // Disabled primary background
     },
-
+  
     bgLight: {
-      default: deepPurple[100], // Chip, subtle tag background
-      hover: deepPurple[200], // Hover for subtle surfaces
-      focus: deepPurple[100],
+      default: deepBlue[100], // Chip, subtle tag background
+      hover: deepBlue[200],   // Hover for subtle surfaces
+      focus: deepBlue[100],
       disabled: gray[300],
     },
+  
     content: {
-      default: deepPurple[700], // Text/icons on light surfaces
-      hover: deepPurple[800], // Hover text
-      focus: deepPurple[700],
-      disabled: deepPurple[300],
-      inverse: gray.white, // Text on primary surfaces
-      dark: deepPurple[900], // Stronger emphasis text
+      default: deepBlue[700], // Text/icons on light surfaces
+      hover: deepBlue[800],   // Hover text
+      focus: deepBlue[700],
+      disabled: deepBlue[300],
+      inverse: gray.white,    // Text on primary surfaces
+      dark: deepBlue[900],    // Stronger emphasis text
     },
-
+  
     stroke: {
-      default: deepPurple[400], // Primary borders
-      hover: deepPurple[500], // Hovered border
-      focus: deepPurple[600], // Focus border ring
-      disabled: deepPurple[200],
+      default: deepBlue[400], // Primary borders
+      hover: deepBlue[500],   // Hovered border
+      focus: deepBlue[600],   // Focus border ring
+      disabled: deepBlue[200],
     },
-
-    main: deepPurple[600], // Used for theme.palette.primary.main
+  
+    main: deepBlue[600], // Used for theme.palette.primary.main
   },
 
   /** Secondary brand color — purple (accents, secondary CTAs, UI highlights) */

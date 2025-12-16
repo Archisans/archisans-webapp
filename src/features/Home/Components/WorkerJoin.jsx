@@ -11,7 +11,6 @@ import {
 } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
 import workerJoinPDF from "@/assets/pdf/workerjoin.pdf"
-import { deepPurple } from "@mui/material/colors";
 import { amber, blue, green } from "@/config/Theme/config/color";
 
 const benefits = [

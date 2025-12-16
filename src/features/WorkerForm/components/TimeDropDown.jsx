@@ -20,7 +20,7 @@ import {
   MINUTES,
   PERIODS,
 } from "../utils/timeUtils";
-import { deepPurple, red } from "@/config/Theme/config/color";
+import { deepBlue, red } from "@/config/Theme/config/color";
 
 const TimeDropdown = ({
   startTime,
@@ -91,13 +91,13 @@ const TimeDropdown = ({
               borderColor: error ? "error.dark" : "primary.bg.default",
               boxShadow: `0 0 0 3px ${
                 error
-                  ? alpha(deepPurple[900], 0.1)
-                  : alpha(deepPurple[900], 0.1)
+                  ? alpha(deepBlue[900], 0.1)
+                  : alpha(deepBlue[900], 0.1)
               }`,
             },
             "&:focus-within": {
               borderColor: "primary.main",
-              boxShadow: `0 0 0 3px ${alpha(deepPurple[900], 0.2)}`,
+              boxShadow: `0 0 0 3px ${alpha(deepBlue[900], 0.2)}`,
             },
           }}
         >
@@ -205,7 +205,7 @@ const TimeDropdown = ({
             sx={{
               p: 1,
               borderRadius: "50%",
-              bgcolor: alpha(deepPurple[900], 0.1),
+              bgcolor: alpha(deepBlue[900], 0.1),
               color: "primary.main",
               display: "flex",
             }}

@@ -3,7 +3,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward, Category } from "@mui/icons-material";
 import ServicesModal from "./ServicesModal";
-import { deepPurple } from "@mui/material/colors";
+import { deepBlue } from "@/config/Theme/config/color";
 
 const CategoriesGrid = ({ categories }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -141,7 +141,7 @@ const CategoriesGrid = ({ categories }) => {
                 sx={{
                   fontSize: { xs: "2.2rem", md: "3rem" },
                   fontWeight: 800,
-                  color: "primary.bgLight.hover",
+                  color: deepBlue[500],
                   mb: 2,
                   lineHeight: 1.2,
                 }}
@@ -154,7 +154,7 @@ const CategoriesGrid = ({ categories }) => {
                   viewport={{ once: true }}
                   style={{
                     display: "block",
-                    background: `linear-gradient(135deg,${deepPurple[400]},${deepPurple[600]})`,
+                    background: `linear-gradient(135deg,${deepBlue[400]},${deepBlue[800]})`,
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",

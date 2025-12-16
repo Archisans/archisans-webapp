@@ -173,7 +173,7 @@ export default function Advertisements({ advertisements }) {
                 fontWeight: 900,
                 color: "#2d3748",
                 mb: 2,
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                background: "linear-gradient(135deg,rgb(147, 163, 234) 0%,rgb(17, 17, 88) 100%)",
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
