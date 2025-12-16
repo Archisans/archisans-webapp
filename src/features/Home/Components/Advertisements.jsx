@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { Box, Typography, Chip } from "@mui/material";
 import { motion } from "framer-motion";
 import { Campaign, Verified } from "@mui/icons-material";
+import { deepBlue } from "@/config/Theme/config/color";
 import { SCROLL_DIRECTION, SCROLL_SPEED } from "@/features/Home/Components/constants/ads";
 
 function InfiniteScrollRow({ advertisements, direction = "left", speed = 0.6 }) {
@@ -169,20 +170,29 @@ export default function Advertisements({ advertisements }) {
             <Typography
               variant="h2"
               sx={{
-                fontSize: { xs: "2.25rem", md: "3rem" },
-                fontWeight: 900,
-                color: "#2d3748",
+                fontSize: { xs: "2.2rem", md: "3rem" },
+                fontWeight: 800,
+                color: deepBlue[500],
                 mb: 2,
-                background: "linear-gradient(135deg,rgb(147, 163, 234) 0%,rgb(17, 17, 88) 100%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                lineHeight: 1.2,
               }}
             >
               Trusted
-              <Box component="span" sx={{ color: "#FFD700", display: "block" }}>
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                viewport={{ once: true }}
+                style={{
+                  display: "block",
+                  background: `linear-gradient(135deg,${deepBlue[400]},${deepBlue[800]})`,
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 Brand Partners
-              </Box>
+              </motion.span>
             </Typography>
             <Typography
               sx={{
@@ -218,8 +228,8 @@ export default function Advertisements({ advertisements }) {
           <Box
             sx={{
               textAlign: "center",
-              width:"90%",
-              mx:"auto",
+              width: "90%",
+              mx: "auto",
               mt: 5,
               p: 3.5,
               background: "rgba(255,255,255,0.9)",
@@ -242,5 +252,5 @@ export default function Advertisements({ advertisements }) {
         </motion.div>
       </Box>
     </Box>
-  ); 
+  );
 }
