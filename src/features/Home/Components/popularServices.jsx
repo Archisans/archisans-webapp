@@ -35,18 +35,29 @@ export default function PopularServicesStatic({ onGetStartedClick }) {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
+
           <Box sx={{ textAlign: "center", mb: 6 }}>
-            <Chip
-              icon={<TrendingUp color="neutral.bg.900" />}
-              label="Most Requested"
+            <Box
               sx={{
-                backgroundColor: "warning.stroke",
-                color: "neutral.bg.900",
-                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 1,
+                backgroundColor: "rgba(102,126,234,0.1)",
+                borderRadius: 3,
+                px: 3,
+                py: 1,
                 mb: 3,
-                px: 2,
               }}
-            />
+            >
+              <TrendingUp
+                sx={{ fontSize: 22, animation: "pulse 2s ease-in-out infinite" }}
+              />
+              <Typography
+                sx={{ color: "neutral.content.600", fontWeight: 700, fontSize: "1rem" }}
+              >
+                Most Requested
+              </Typography>
+            </Box>
             <Typography
               variant="h2"
               sx={{

@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import { RouteProvider } from "@/config/RouteProvider";
 import workerJoinPDF from "@/assets/pdf/workerjoin.pdf"
-import { amber, blue, green } from "@/config/Theme/config/color";
+import { deepBlue, amber, blue, green } from "@/config/Theme/config/color";
 
 const benefits = [
   {
@@ -39,13 +39,13 @@ const WorkerJoin = () => {
   const navigate = useNavigate();
 
   const downloadPDF = () => {
-  const link = document.createElement("a");
-  link.href = workerJoinPDF;
-  link.download = "Professionals_Guide.pdf";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+    const link = document.createElement("a");
+    link.href = workerJoinPDF;
+    link.download = "Professionals_Guide.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <>
@@ -95,14 +95,11 @@ const WorkerJoin = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 1,
-                background: "rgba(255,255,255,0.9)",
-                backdropFilter: "blur(20px)",
-                borderRadius: 4,
-                px: 4,
-                py: 1.5,
-                mb: 4,
-                boxShadow: "0 8px 32px rgba(255,215,0,0.2)",
-                border: "1px solid rgba(255,215,0,0.1)",
+                backgroundColor: "rgba(102,126,234,0.1)",
+                borderRadius: 3,
+                px: 3,
+                py: 1,
+                mb: 3,
               }}
             >
               <WorkOutline
@@ -128,7 +125,7 @@ const WorkerJoin = () => {
               sx={{
                 fontSize: { xs: "2.2rem", md: "3rem" },
                 fontWeight: 900,
-                color: "neutral.content.400",
+                color: "primary.bg.default",
                 mb: 3,
                 lineHeight: 1.2,
               }}
@@ -137,8 +134,7 @@ const WorkerJoin = () => {
               <Box
                 component="span"
                 sx={{
-                  background:
-                    "linear-gradient(135deg, #FFD700, #FFC107)",
+                  background: `linear-gradient(135deg,${deepBlue[600]},${deepBlue[800]})`,
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -208,26 +204,26 @@ const WorkerJoin = () => {
                 }}
               >
                 <Paper
-  elevation={0}
-  sx={{
-    p: 3,
-    borderRadius: 4,
-    background: "rgba(255,255,255,0.9)",
-    backdropFilter: "blur(15px)",
-    textAlign: "center",
-    border: "1px solid rgba(255,255,255,0.3)",
-    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-    minHeight: "220px", // ✅ equal height
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    "&:hover": {
-      boxShadow: `0 20px 40px ${benefit.color}20`,
-      borderColor: benefit.color,
-      transform: "translateY(-2px)",
-    },
-  }}
->
+                  elevation={0}
+                  sx={{
+                    p: 3,
+                    borderRadius: 4,
+                    background: "rgba(255,255,255,0.9)",
+                    backdropFilter: "blur(15px)",
+                    textAlign: "center",
+                    border: "1px solid rgba(255,255,255,0.3)",
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    minHeight: "220px", // ✅ equal height
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    "&:hover": {
+                      boxShadow: `0 20px 40px ${benefit.color}20`,
+                      borderColor: benefit.color,
+                      transform: "translateY(-2px)",
+                    },
+                  }}
+                >
 
                   <Box
                     sx={{
@@ -256,7 +252,7 @@ const WorkerJoin = () => {
                   >
                     {benefit.title}
                   </Typography>
-                  <Typography sx={{ color:"neutral.content.600", fontSize: "0.9rem" }}>
+                  <Typography sx={{ color: "neutral.content.600", fontSize: "0.9rem" }}>
                     {benefit.desc}
                   </Typography>
                 </Paper>

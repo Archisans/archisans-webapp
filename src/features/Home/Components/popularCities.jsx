@@ -96,49 +96,49 @@ function InfiniteScrollRow({ cities, direction = "right", speed = 0.5 }) {
                 background: "linear-gradient(transparent, rgba(0,0,0,0.7))",
               }}
             />
-            
+
           </Box>
 
           {/* Content */}
-<Box
-  sx={{
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    p: 1.5,                  // reduced padding
-    background: "rgba(255,255,255,0.5)", // slightly transparent
-    backdropFilter: "blur(6px)",        // lighter blur
-    borderTopLeftRadius: 0,            // optional: rounded corners
-    borderTopRightRadius: 0,
-    height: 50,                         // fixed lower height
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  }}
->
-  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-    <LocationOn sx={{ fontSize: 16, color: city.color }} />
-    <Typography
-      sx={{
-        fontWeight: 700,
-        fontSize: "1rem",   // slightly smaller text
-        color: "#fff",
-      }}
-    >
-      {city.name}
-    </Typography>
-  </Box>
-  <Typography
-    sx={{
-      fontSize: "0.75rem",
-      color: "#fff",
-      ml:"1.60rem",
-    }}
-  >
-    Kerala, India
-  </Typography>
-</Box>
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              p: 1.5,                  // reduced padding
+              background: "rgba(255,255,255,0.5)", // slightly transparent
+              backdropFilter: "blur(6px)",        // lighter blur
+              borderTopLeftRadius: 0,            // optional: rounded corners
+              borderTopRightRadius: 0,
+              height: 50,                         // fixed lower height
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <LocationOn sx={{ fontSize: 16, color: city.color }} />
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: "1rem",   // slightly smaller text
+                  color: "#fff",
+                }}
+              >
+                {city.name}
+              </Typography>
+            </Box>
+            <Typography
+              sx={{
+                fontSize: "0.75rem",
+                color: "#fff",
+                ml: "1.60rem",
+              }}
+            >
+              Kerala, India
+            </Typography>
+          </Box>
 
         </Box>
       ))}
@@ -198,16 +198,17 @@ export default function PopularCities() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 1,
-                backgroundColor: "rgba(0,0,0,0.05)",
-                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(102,126,234,0.1)",
                 borderRadius: 3,
                 px: 3,
                 py: 1,
-                mb: 4,
+                mb: 3,
               }}
             >
               <Verified sx={{ fontSize: 18, color: "primary.bg.default" }} />
-              <Typography sx={{ color: "neutral.content.800", fontWeight: 600 }}>
+              <Typography
+                sx={{ color: "neutral.content.600", fontWeight: 700, fontSize: "1rem" }}
+              >
                 Service Locations
               </Typography>
             </Box>
