@@ -17,6 +17,7 @@ export const RouteProvider = {
   USER_TERMS: "/terms",
   USER_ABOUT:"/about",
   USER_PRIVACY_POLICY: "/privacy",
+  USER_MIGRANT_WORKER_FORM : "/migrantworkersform",
 
   USER_SAVED_WORKERS:"/saved-workers",
 

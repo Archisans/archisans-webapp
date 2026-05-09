@@ -9,6 +9,7 @@ import { KeyboardArrowDownOutlined } from "@mui/icons-material";
 import ScrollToTopButton from "./Components/scrollToTopButton";
 import SearchBar from "./Components/SearchBar";
 import ArchisansWorker from "@/assets/Images/ArchisansWorker.png";
+import MigrantWorkers from "@/assets/Images/MigrantWorkers.png"
 import Top_Home_Img from "@/assets/Images/Top_Home_Img.png";
 import InstantService from "@/assets/Images/InstantService.png";
 import AddressDrawer from "@/features/Address/Components/AddressSelectBottomDrawer/AddressDrawer";
@@ -116,6 +117,28 @@ const HomeMobile = ({ bootstrapConfiguration }) => {
           />
         </Grid>
       </Grid>
+
+      {/* Book migrant Workers */}
+      {!isWorker && (
+        <Grid container justifyContent="center">
+          <Grid sx={{ mt: 3, px: 1, pb: 1.5 }}>
+            <Box
+              component="img"
+              src={MigrantWorkers}
+              alt="Sample"
+              onClick={() => navigate(RouteProvider.USER_MIGRANT_WORKER_FORM)}
+              sx={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+                borderRadius: 2,
+                cursor: "pointer",
+                boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
+              }}
+            />
+          </Grid>
+        </Grid>
+      )}
 
       {/* Join as Worker */}
       {!isWorker && (

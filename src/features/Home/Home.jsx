@@ -10,6 +10,7 @@ import Landing from "@/features/Home/Components/Landing";
 import WorkerBanner from "@/features/Home/Components/WorkerBanner";
 import CategoriesGrid from "./Components/CategoriesGrid";
 import Advertisements from "./Components/Advertisements";
+import MigrantWorkersSection from "./Components/MigrantWorkersSection";
 
 export default function Home({ bootstrapConfiguration }) {
   const categoriesRef = useRef(null);
@@ -48,6 +49,9 @@ export default function Home({ bootstrapConfiguration }) {
           categories={bootstrapConfiguration?.serviceCategories}
         />
       </Box>
+
+      {/*Migrant Workers Section */}
+      <MigrantWorkersSection />
 
       {/* Join as Professional Section */}
       {!isWorker && <WorkerJoin />}

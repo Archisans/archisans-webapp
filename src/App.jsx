@@ -28,6 +28,7 @@ import Terms from "./pages/terms/Terms";
 import PrivacyPolicy from "./pages/privacypolicy/PrivacyPolicy";
 import About from "./pages/about/About";
 import SavedWorker from "./pages/savedworkers/SavedWorker";
+import MigrantWorkers from "./pages/migrantwokers/MigrantWorkers";
 
 // Pages - Worker
 import Worker from "./pages/worker/Worker";
@@ -82,8 +83,9 @@ function App() {
           <Route path={RouteProvider.USER_WORKER_INFO} element={<WorkerInfo />} />
           <Route
             path={RouteProvider.USER_WORKER_SEARCH}
-            element={<Workers />}
-          />
+            element={<Workers />} />
+
+          <Route path={RouteProvider.USER_MIGRANT_WORKER_FORM} element={<MigrantWorkers />} />
 
           {/* Protected Routes */}
           <Route
