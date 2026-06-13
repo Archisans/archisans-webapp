@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Box, Typography, Button, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import {
@@ -7,8 +6,8 @@ import {
   WorkOutline,
   ArrowForward,
 } from "@mui/icons-material";
-
-import MigrantWorkersFormModal from "@/features/MigrantWorkers/MigrantWorkersModal";
+import { useNavigate } from "react-router-dom";
+import { RouteProvider } from "@/config/RouteProvider";
 
 const benefits = [
   {
@@ -32,7 +31,7 @@ const benefits = [
 ];
 
 export default function MigrantWorkersSection() {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -56,8 +55,7 @@ export default function MigrantWorkersSection() {
           pt: { xs: 6, md: 8 },
           pb: { xs: 8, md: 10 },
           px: { xs: 3, md: 6 },
-          background:
-            "linear-gradient(135deg,#FAFAFA 0%,#F5F8FF 100%)",
+          background: "linear-gradient(135deg,#FAFAFA 0%,#F5F8FF 100%)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -95,8 +93,7 @@ export default function MigrantWorkersSection() {
                 sx={{
                   fontSize: 22,
                   color: "#FF9800",
-                  animation:
-                    "pulse 2s ease-in-out infinite",
+                  animation: "pulse 2s ease-in-out infinite",
                 }}
               />
 
@@ -139,20 +136,16 @@ export default function MigrantWorkersSection() {
               <Box
                 component="span"
                 sx={{
-                  background:
-                    "linear-gradient(135deg,#0D47A1,#1565C0)",
+                  background: "linear-gradient(135deg,#0D47A1,#1565C0)",
                   backgroundClip: "text",
-                  WebkitBackgroundClip:
-                    "text",
-                  WebkitTextFillColor:
-                    "transparent",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                   position: "relative",
                   "&:after": {
                     content: '""',
                     position: "absolute",
                     inset: 0,
-                    animation:
-                      "shimmer 3s linear infinite",
+                    animation: "shimmer 3s linear infinite",
                   },
                 }}
               >
@@ -184,11 +177,9 @@ export default function MigrantWorkersSection() {
                 mx: "auto",
               }}
             >
-              Builders, contractors and
-              companies can hire skilled migrant
-              workers through Archisans for fast,
-              secure and hassle-free workforce
-              deployment.
+              Builders, contractors and companies can hire skilled migrant
+              workers through Archisans for fast, secure and hassle-free
+              workforce deployment.
             </Typography>
           </motion.div>
 
@@ -220,8 +211,7 @@ export default function MigrantWorkersSection() {
                 }}
                 transition={{
                   duration: 0.6,
-                  delay:
-                    0.4 + index * 0.1,
+                  delay: 0.4 + index * 0.1,
                 }}
                 viewport={{ once: true }}
                 whileHover={{
@@ -234,22 +224,16 @@ export default function MigrantWorkersSection() {
                   sx={{
                     p: 3,
                     borderRadius: 4,
-                    background:
-                      "rgba(255,255,255,0.9)",
-                    backdropFilter:
-                      "blur(15px)",
-                    border:
-                      "1px solid rgba(255,255,255,0.4)",
+                    background: "rgba(255,255,255,0.9)",
+                    backdropFilter: "blur(15px)",
+                    border: "1px solid rgba(255,255,255,0.4)",
                     minHeight: 220,
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent:
-                      "center",
-                    transition:
-                      "all 0.3s ease",
+                    justifyContent: "center",
+                    transition: "all 0.3s ease",
                     "&:hover": {
-                      borderColor:
-                        item.color,
+                      borderColor: item.color,
                       boxShadow: `0 20px 40px ${item.color}20`,
                     },
                   }}
@@ -262,10 +246,8 @@ export default function MigrantWorkersSection() {
                       background: `linear-gradient(135deg,${item.color},${item.color}dd)`,
                       color: "white",
                       display: "flex",
-                      justifyContent:
-                        "center",
-                      alignItems:
-                        "center",
+                      justifyContent: "center",
+                      alignItems: "center",
                       mx: "auto",
                       mb: 2,
                       boxShadow: `0 8px 20px ${item.color}40`,
@@ -321,28 +303,20 @@ export default function MigrantWorkersSection() {
               }}
             >
               <Button
-                onClick={() =>
-                  setOpen(true)
-                }
-                endIcon={
-                  <ArrowForward />
-                }
+                onClick={() => navigate(RouteProvider.WORKER_REGISTER)}
+                endIcon={<ArrowForward />}
                 sx={{
                   px: 6,
                   py: 2.5,
                   borderRadius: 4,
-                  textTransform:
-                    "none",
+                  textTransform: "none",
                   fontWeight: 700,
                   fontSize: "1.05rem",
-                  background:
-                    "linear-gradient(135deg,#FFD700,#FFC107)",
+                  background: "linear-gradient(135deg,#FFD700,#FFC107)",
                   color: "#111",
-                  boxShadow:
-                    "0 8px 25px rgba(255,215,0,0.35)",
+                  boxShadow: "0 8px 25px rgba(255,215,0,0.35)",
                   "&:hover": {
-                    boxShadow:
-                      "0 12px 35px rgba(255,215,0,0.45)",
+                    boxShadow: "0 12px 35px rgba(255,215,0,0.45)",
                   },
                 }}
               >
@@ -352,12 +326,6 @@ export default function MigrantWorkersSection() {
           </motion.div>
         </Box>
       </Box>
-
-      {/* MODAL */}
-      <MigrantWorkersFormModal
-        open={open}
-        onClose={() => setOpen(false)}
-      />
     </>
   );
 }

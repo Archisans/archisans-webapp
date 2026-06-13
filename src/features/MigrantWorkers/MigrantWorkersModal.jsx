@@ -6,6 +6,7 @@ import {
   IconButton,
   Grid,
   TextField,
+  Divider,
   Button,
   Checkbox,
   FormControlLabel,
@@ -28,6 +29,7 @@ import {
 import { deepBlue, grey, red, amber, green } from "@/config/Theme/config/color";
 import { useFormSubmission } from "@/hooks/useFormSubmission";
 
+// ─── Design Tokens ───────────────────────────────────────────────────────────
 const CLR = {
   bg: grey[100],
   surface: "#FFFFFF",
@@ -42,6 +44,61 @@ const CLR = {
   success: green?.[500] ?? "#2E7D32",
   submitGradient: `linear-gradient(135deg, ${deepBlue[500]} 0%, ${deepBlue[700]} 100%)`,
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DEV-ONLY TEST DATA — remove this whole block (and the "Fill test data" button
+// in the JSX below) before shipping to production.
+// ─────────────────────────────────────────────────────────────────────────────
+const DEV_TEST_DATA = {
+  companyName: "Test Builders Pvt Ltd",
+  businessTypes: ["Builder", "Contractor"],
+  directorName: "Ramesh Kumar",
+  officeAddress: "123 Test Street, Industrial Area",
+  district: "Palakkad",
+  state: "Kerala",
+  pinCode: "678001",
+  contactPersonName: "Suresh Nair",
+  designation: "Site Manager",
+  mobileNumber: "9876543210",
+  currentProjectName: "Green Valley Apartments",
+  projectLocation: "Ottapalam",
+  projectTypes: ["Residential", "Apartment"],
+  estimatedDuration: "18 months",
+  workersRequired: "25",
+  workerQuantities: {
+    Mason: "5",
+    Carpenter: "3",
+    Electrician: "2",
+    Plumber: "1",
+    "Steel Fixer": "",
+    Painter: "",
+    "Tile Worker": "",
+    "Gypsum Worker": "",
+    "Aluminium Fabricator": "",
+    Welder: "",
+    "Helper / General Worker": "4",
+    "Interior Finishing Worker": "",
+    Other: "",
+  },
+  accommodation: true,
+  foodFacility: true,
+  transportation: false,
+  safetyEquipment: ["Helmet", "Shoes", "Gloves"],
+  weeklyOff: "Sunday",
+  workingHours: "8 AM - 6 PM",
+  salaryStructures: ["Daily Wage", "Monthly Salary"],
+  wageRange: "₹600 - ₹900/day",
+  overtimePolicy: "1.5x after 8 hours",
+  paymentMethods: ["Bank Transfer", "UPI"],
+  labourCompliance: true,
+  workerInsurance: true,
+  pfEsiOptions: ["PF", "ESI"],
+  declarationAgreed: true,
+};
+const SHOW_DEV_TOOLS = true; // flip to false (or delete block) to hide
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ─── Sub-components ──────────────────────────────────────────────────────────
 
 function SectionHeader({ number, title }) {
   return (
@@ -185,6 +242,8 @@ function inputSx(error) {
   };
 }
 
+// ─── Success Screen (replaces form body entirely) ────────────────────────────
+
 function SuccessScreen({ onClose }) {
   return (
     <Box
@@ -240,9 +299,7 @@ function SuccessScreen({ onClose }) {
         />
       </Box>
 
-      <Typography
-        sx={{ fontWeight: 800, fontSize: 22, color: CLR.text, mb: 1 }}
-      >
+      <Typography sx={{ fontWeight: 800, fontSize: 22, color: CLR.text, mb: 1 }}>
         Registration submitted
       </Typography>
       <Typography
@@ -280,6 +337,8 @@ function SuccessScreen({ onClose }) {
   );
 }
 
+// ─── Main Component ──────────────────────────────────────────────────────────
+
 export default function MigrantWorkersFormModal({ open, onClose }) {
   const [touched, setTouched] = useState({});
 
@@ -297,7 +356,9 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
     formType: "migrant_worker",
     initialFormData: initialFormState,
     validateForm,
-    onSuccess: () => {},
+    onSuccess: () => {
+      // Form is reset automatically by the hook; success screen shows via isSubmitted.
+    },
   });
 
   const set = (field) => (e) => {
@@ -338,10 +399,18 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
   const errTxt = (field) => getHelperText(errors, touched, field);
   const isErr = (field) => hasError(errors, touched, field);
 
+  // Closes both the success flow and the modal itself, resetting state
   const handleSuccessClose = () => {
     resetForm();
     setTouched({});
-    onClose();
+    onClose?.();
+  };
+
+  // DEV ONLY — remove with the DEV_TEST_DATA block above
+  const fillTestData = () => {
+    setForm((prev) => ({ ...prev, ...DEV_TEST_DATA }));
+    setTouched({});
+    setErrors({});
   };
 
   return (
@@ -361,7 +430,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
           position: "relative",
         }}
       >
-        {/* Header */}
+        {/* ── Header ── */}
         <Box
           sx={{
             background: CLR.surface,
@@ -399,6 +468,22 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
                   height: 22,
                 }}
               />
+              {SHOW_DEV_TOOLS && !isSubmitted && (
+                <Chip
+                  label="DEV: fill test data"
+                  size="small"
+                  onClick={fillTestData}
+                  sx={{
+                    background: amber[50],
+                    color: amber[800],
+                    fontWeight: 600,
+                    fontSize: 11,
+                    height: 22,
+                    cursor: "pointer",
+                    "&:hover": { background: amber[100] },
+                  }}
+                />
+              )}
             </Box>
             <Typography
               sx={{ fontSize: 13.5, color: CLR.muted, maxWidth: 560 }}
@@ -421,12 +506,12 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
           </IconButton>
         </Box>
 
-        {/* Body: success screen OR form */}
+        {/* ── Body: success screen OR form ── */}
         {isSubmitted ? (
           <SuccessScreen onClose={handleSuccessClose} />
         ) : (
           <Box sx={{ px: 4, pb: 4 }}>
-            {/* Section 1 */}
+            {/* ── Section 1 ── */}
             <SectionHeader number="1" title="Company / Builder Details" />
 
             <Grid container spacing={2.5}>
@@ -537,7 +622,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Grid>
             </Grid>
 
-            {/* Section 2 */}
+            {/* ── Section 2 ── */}
             <SectionHeader number="2" title="Contact Details" />
 
             <Grid container spacing={2.5}>
@@ -583,7 +668,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Grid>
             </Grid>
 
-            {/* Section 3 */}
+            {/* ── Section 3 ── */}
             <SectionHeader number="3" title="Project Details" />
 
             <Grid container spacing={2.5}>
@@ -671,7 +756,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Grid>
             </Grid>
 
-            {/* Section 4 */}
+            {/* ── Section 4 ── */}
             <SectionHeader number="4" title="Worker Requirements" />
 
             <Typography sx={{ fontSize: 13, color: CLR.muted, mb: 2 }}>
@@ -701,7 +786,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
                 </FormHelperText>
               )}
 
-            {/* Section 5 */}
+            {/* ── Section 5 ── */}
             <SectionHeader number="5" title="Facilities Provided to Workers" />
 
             <Grid container spacing={3}>
@@ -721,10 +806,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
                     }}
                   >
                     <FieldLabel required>{label}</FieldLabel>
-                    <YesNoGroup
-                      value={form[field]}
-                      onChange={setYesNo(field)}
-                    />
+                    <YesNoGroup value={form[field]} onChange={setYesNo(field)} />
                     {isErr(field) && (
                       <FormHelperText error>{errTxt(field)}</FormHelperText>
                     )}
@@ -781,7 +863,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Grid>
             </Grid>
 
-            {/* Section 6 */}
+            {/* ── Section 6 ── */}
             <SectionHeader number="6" title="Salary & Payment Details" />
 
             <Grid container spacing={2.5}>
@@ -848,7 +930,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Grid>
             </Grid>
 
-            {/* Section 7 */}
+            {/* ── Section 7 ── */}
             <SectionHeader number="7" title="Legal & Compliance" />
 
             <Grid container spacing={3}>
@@ -874,10 +956,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
                     }}
                   >
                     <FieldLabel required>{label}</FieldLabel>
-                    <YesNoGroup
-                      value={form[field]}
-                      onChange={setYesNo(field)}
-                    />
+                    <YesNoGroup value={form[field]} onChange={setYesNo(field)} />
                     {isErr(field) && (
                       <FormHelperText error>{errTxt(field)}</FormHelperText>
                     )}
@@ -901,7 +980,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Grid>
             </Grid>
 
-            {/* Section 8: Declaration */}
+            {/* ── Section 8: Declaration ── */}
             <SectionHeader number="8" title="Declaration" />
 
             <Paper
@@ -916,11 +995,11 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               <Typography
                 sx={{ fontSize: 13.5, color: CLR.text, lineHeight: 1.7, mb: 2 }}
               >
-                I / We hereby confirm that the information provided in this form
-                is true and correct to the best of our knowledge. We agree to
-                recruit migrant workers through the Archisans platform under
-                lawful and ethical employment practices, in compliance with all
-                applicable labour laws and regulations.
+                I / We hereby confirm that the information provided in this
+                form is true and correct to the best of our knowledge. We
+                agree to recruit migrant workers through the Archisans
+                platform under lawful and ethical employment practices, in
+                compliance with all applicable labour laws and regulations.
               </Typography>
               <FormControlLabel
                 control={
@@ -960,7 +1039,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               )}
             </Paper>
 
-            {/* Submission error */}
+            {/* ── Submission error ── */}
             {errorMessage && (
               <Alert
                 severity="error"
@@ -974,7 +1053,7 @@ export default function MigrantWorkersFormModal({ open, onClose }) {
               </Alert>
             )}
 
-            {/* Submit */}
+            {/* ── Submit ── */}
             <Button
               fullWidth
               onClick={handleSubmit}

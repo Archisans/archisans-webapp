@@ -44,8 +44,7 @@ import ServiceDetails from "./pages/worker/service/details/ServiceDetails";
 import NotFound from "@/error/404/NotFound";
 import ServerError from "@/error/500/ServerError";
 import AccessDenied from "@/error/403/AccessDenied";
-import Test from "./Test";
-import DocReference from "./Documentation/index"
+import DocReference from "./Documentation/index";
 
 function App() {
   const { isLoading: configLoading, hasError } = useBootstrapConfiguration();
@@ -61,16 +60,18 @@ function App() {
 
   return (
     <>
-
       <ScrollToTop />
       <Routes>
-        <Route path={RouteProvider.DOCS_REFRENCE} element={<DocReference/>} />
+        <Route path={RouteProvider.DOCS_REFRENCE} element={<DocReference />} />
         <Route element={<AppLayout />}>
           {/* Public Routes */}
           <Route path={RouteProvider.USER_HOME} element={<Home />} />
           <Route path={RouteProvider.USER_SEARCH} element={<Search />} />
           <Route path={RouteProvider.USER_SERVICES} element={<Services />} />
-          <Route path={RouteProvider.USER_SERVICES_ALL} element={<Services />} />
+          <Route
+            path={RouteProvider.USER_SERVICES_ALL}
+            element={<Services />}
+          />
           <Route path={RouteProvider.USER_SETTINGS} element={<Settings />} />
           <Route path={RouteProvider.USER_PREMIUM} element={<Premium />} />
           <Route path={RouteProvider.USER_SUPPORT} element={<Support />} />
@@ -80,12 +81,23 @@ function App() {
             element={<PrivacyPolicy />}
           />
           <Route path={RouteProvider.USER_ABOUT} element={<About />} />
-          <Route path={RouteProvider.USER_WORKER_INFO} element={<WorkerInfo />} />
+          <Route
+            path={RouteProvider.USER_WORKER_INFO}
+            element={<WorkerInfo />}
+          />
           <Route
             path={RouteProvider.USER_WORKER_SEARCH}
-            element={<Workers />} />
+            element={<Workers />}
+          />
 
-          <Route path={RouteProvider.USER_MIGRANT_WORKER_FORM} element={<MigrantWorkers />} />
+          <Route
+            path={RouteProvider.USER_MIGRANT_WORKER_FORM}
+            element={
+              <ProtectedRoute>
+                <MigrantWorkers />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Protected Routes */}
           <Route
