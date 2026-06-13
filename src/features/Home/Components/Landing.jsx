@@ -145,7 +145,7 @@ const Landing = ({ onGetStartedClick, isWorker }) => {
                 startIcon={<Build />}
                 sx={{
                   borderColor: "neutral.content.400",
-                  color: "primary.content.focus",
+                  color: "white",
                   fontWeight: 600,
                   px: 4,
                   py: 2,

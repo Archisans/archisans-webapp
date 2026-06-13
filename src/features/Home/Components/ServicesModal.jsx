@@ -5,19 +5,22 @@ import {
   Modal,
   IconButton,
   Grid,
-  TextField,
-  Button,
-  Divider,
   useTheme,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Close } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-const MigrantWorkersModal = ({ open, onClose }) => {
+const ServicesModal = ({ open, onClose, category }) => {
+  const navigate = useNavigate();
+
   const theme = useTheme();
 
-  const handleSubmit = () => {
-    onClose();
+  const handleClick = (slug) => {
+    if (slug) {
+      navigate("/workers/" + slug);
+      onClose();
+    }
   };
 
   return (
@@ -28,37 +31,53 @@ const MigrantWorkersModal = ({ open, onClose }) => {
           onClose={onClose}
           sx={{
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            px: 2,
+            justifyContent: "center",
           }}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 40 }}
+            initial={{ opacity: 0, scale: 0.8, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 40 }}
-            transition={{ duration: 0.35 }}
+            exit={{ opacity: 0, scale: 0.8, y: 50 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <Box
               sx={{
-                width: "100%",
-                maxWidth: 850,
-                maxHeight: "90vh",
-                overflow: "hidden",
-                background: "rgba(255,255,255,0.96)",
+                background: "rgba(255,255,255,0.95)",
                 backdropFilter: "blur(20px)",
-                borderRadius: "24px",
-                p: 3,
-                boxShadow: "0 25px 60px rgba(0,0,0,0.18)",
+                ...theme.mixins.borderRadius("xxs"),
+                p: 2,
+                maxWidth: Math.min(800, category?.services?.length * 180),
+                width: "auto",
+                maxHeight: category?.services?.length <= 2 ? 250 : "80vh",
+                overflow: "hidden", // was 'auto' – outer stays non-scrollable
+                boxSizing: "border-box",
+                border: "1px solid rgba(255,255,255,0.3)",
+                boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
               }}
             >
-              {/* Scrollable Area */}
               <Box
                 sx={{
-                  maxHeight: "82vh",
-                  overflowY: "auto",
-                  pr: 1,
+                  // Inner scroll area
+                  maxHeight: `calc(80vh - ${theme.spacing(8)})`, // subtract outer padding (p:4 on both sides)
+                  overflow: "auto",
+
+                  scrollbarGutter: "stable",
+
+                  // Firefox
                   scrollbarWidth: "thin",
+                  scrollbarColor: "rgba(0,0,0,0.3) transparent",
+
+                  // WebKit
+                  "&::-webkit-scrollbar": { width: 8 },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgba(0,0,0,0.3)",
+                    borderRadius: 9999,
+                  },
+                  "&::-webkit-scrollbar-thumb:hover": {
+                    backgroundColor: "rgba(0,0,0,0.45)",
+                  },
+                  "&::-webkit-scrollbar-track": { background: "transparent" },
                 }}
               >
                 {/* Header */}
@@ -67,170 +86,100 @@ const MigrantWorkersModal = ({ open, onClose }) => {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    mb: 2,
+                    mb: 4,
                   }}
                 >
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      fontWeight={800}
-                    >
-                      ARCHISANS
-                    </Typography>
-
-                    <Typography
-                      color="text.secondary"
-                      fontSize="14px"
-                    >
-                      Book Migrant Workers
-                    </Typography>
-                  </Box>
-
-                  <IconButton onClick={onClose}>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontSize: { xs: "1.5rem", md: "2rem" },
+                      fontWeight: 800,
+                      color: "neutral.bg.800",
+                    }}
+                  >
+                    {category?.title}
+                  </Typography>
+                  <IconButton
+                    onClick={onClose}
+                    sx={{ color: "neutral.content.600" }}
+                  >
                     <Close />
                   </IconButton>
                 </Box>
 
-                <Divider sx={{ mb: 3 }} />
+                {/* Services Grid */}
+                <Grid container spacing={2} justifyContent="center">
+                  {category?.services?.map((service, idx) => (
+                    <Grid item xs={6} sm={4} md={3} key={service?.id}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: idx * 0.05 }}
+                        whileHover={{ scale: 1.05, y: -5 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => handleClick(service?.slug)}
+                      >
+                        {/* MobServiceCategoryList Card */}
+                        <Box
+                          sx={{
+                            width: 170,
+                            height: 137,
+                            borderRadius: 1,
+                            overflow: "hidden",
+                            cursor: "pointer",
+                            position: "relative",
+                            border: "0.5px solid #858383ff",
+                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+                            mb: 1.4,
+                          }}
+                        >
+                          {/* Full-size Image */}
+                          <Box
+                            component="img"
+                            src={service?.imageUrl}
+                            alt={service?.title}
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
 
-                {/* Form */}
-                <Grid container spacing={2}>
-                  {/* Company */}
-                  <Grid item xs={12}>
-                    <Typography fontWeight={700}>
-                      Company / Builder Details
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Company Name"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Contact Person"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Mobile Number"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Email Address"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      label="Office Address"
-                    />
-                  </Grid>
-
-                  {/* Project */}
-                  <Grid item xs={12} mt={1}>
-                    <Typography fontWeight={700}>
-                      Project Details
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Project Name"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Project Location"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Project Duration"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Workers Required"
-                    />
-                  </Grid>
-
-                  {/* Worker Requirement */}
-                  <Grid item xs={12} mt={1}>
-                    <Typography fontWeight={700}>
-                      Worker Categories Needed
-                    </Typography>
-                  </Grid>
-
-                  {[
-                    "Mason",
-                    "Carpenter",
-                    "Electrician",
-                    "Plumber",
-                    "Painter",
-                    "Welder",
-                    "Helper",
-                    "Tile Worker",
-                  ].map((item) => (
-                    <Grid item xs={12} md={6} key={item}>
-                      <TextField
-                        fullWidth
-                        label={`${item} Quantity`}
-                      />
+                          {/* Gradient Overlay + Title */}
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              width: "100%",
+                              height: "100%",
+                              background:
+                                "linear-gradient(to bottom, rgba(204, 201, 201, 0.03), rgba(88, 87, 87, 0.42), rgba(0, 0, 0, 0.71), rgba(0, 0, 0, 1))",
+                              display: "flex",
+                              alignItems: "flex-end",
+                              justifyContent: "center",
+                              pb: 1.2,
+                            }}
+                          >
+                            <Typography
+                              variant="caption"
+                              sx={{
+                                color: "neutral.bg.50",
+                                fontSize: "13px",
+                                lineHeight: 1.2,
+                                textAlign: "center",
+                                wordWrap: "break-word",
+                                mb: 1.2,
+                                px: 1,
+                              }}
+                            >
+                              {service?.title}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </motion.div>
                     </Grid>
                   ))}
-
-                  {/* Notes */}
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      multiline
-                      rows={4}
-                      label="Additional Instructions"
-                    />
-                  </Grid>
-
-                  {/* Submit */}
-                  <Grid item xs={12}>
-                    <Button
-                      fullWidth
-                      onClick={handleSubmit}
-                      sx={{
-                        mt: 2,
-                        height: "52px",
-                        borderRadius: "14px",
-                        fontWeight: 700,
-                        fontSize: "16px",
-                        textTransform: "none",
-                        background:
-                          "linear-gradient(135deg,#FFD700,#FFC107)",
-                        color: "#111",
-                        "&:hover": {
-                          background:
-                            "linear-gradient(135deg,#FFC107,#FFB300)",
-                        },
-                      }}
-                    >
-                      Submit Request
-                    </Button>
-                  </Grid>
                 </Grid>
               </Box>
             </Box>
@@ -241,4 +190,4 @@ const MigrantWorkersModal = ({ open, onClose }) => {
   );
 };
 
-export default MigrantWorkersModal;
+export default ServicesModal;

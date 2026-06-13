@@ -2,7 +2,7 @@ import React from "react";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { BREAKPOINTS } from "@/config/breakPoints";
-import MobMigrantWorkersForm from "@/features/MigrantWorkers/Mobile/mobMigrantWorkers";
+import MobMigrantWorkersForm from "@/features/MigrantWorkers/Mobile/MigrantWorkersFormMobile";
 import MigrantWorkersForm from "@/features/Home/Components/MigrantWorkersSection";
 
 export default function MigrantWorkers() {
@@ -14,7 +14,7 @@ export default function MigrantWorkers() {
   };
 
   if (isMobile) {
-    return <MobMigrantWorkersForm />;
+    return <MobMigrantWorkersForm onClose={handleClose} />;
   }
 
   return (
